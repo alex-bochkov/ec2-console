@@ -4,6 +4,8 @@ Fully based on the official AWS .NET SDK.
 
 **I just started working on it, there are not enough features yet to make it usable and useful. Check back a bit later.**
 
+<img alt="alt_text" src="main-form.png" />
+
 ## Key Features 
 1. <..tbd..>
 
