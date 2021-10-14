@@ -27,7 +27,6 @@ Partial Class Form1
         Me.MenuStripMain = New System.Windows.Forms.MenuStrip()
         Me.AccountsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LabelNextToken = New System.Windows.Forms.Label()
         Me.TabControl = New System.Windows.Forms.TabControl()
         Me.TabPageEC2 = New System.Windows.Forms.TabPage()
         Me.MenuStripInstances = New System.Windows.Forms.MenuStrip()
@@ -85,16 +84,6 @@ Partial Class Form1
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
         Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(52, 20)
         Me.AboutToolStripMenuItem.Text = "About"
-        '
-        'LabelNextToken
-        '
-        Me.LabelNextToken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.LabelNextToken.AutoSize = True
-        Me.LabelNextToken.Location = New System.Drawing.Point(176, 627)
-        Me.LabelNextToken.Name = "LabelNextToken"
-        Me.LabelNextToken.Size = New System.Drawing.Size(69, 15)
-        Me.LabelNextToken.TabIndex = 3
-        Me.LabelNextToken.Text = "Next Token:"
         '
         'TabControl
         '
@@ -230,7 +219,6 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1415, 646)
         Me.Controls.Add(Me.TabControl)
-        Me.Controls.Add(Me.LabelNextToken)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.MenuStripMain)
         Me.MainMenuStrip = Me.MenuStripMain
@@ -262,7 +250,6 @@ Partial Class Form1
     Friend WithEvents AccountsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripStatusLabelNextToken As ToolStripStatusLabel
-    Friend WithEvents LabelNextToken As Label
     Friend WithEvents TabControl As TabControl
     Friend WithEvents TabPageEC2 As TabPage
     Friend WithEvents TabPage2 As TabPage

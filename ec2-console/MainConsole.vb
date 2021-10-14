@@ -311,7 +311,7 @@ Public Class Form1
             '    InstanceStatusTable.Add(Status.InstanceId, Status)
             'Next
 
-            LabelNextToken.Text = "Next Token: " + NextToken
+            'LabelNextToken.Text = "Next Token: " + NextToken
 
             Dim i = 0
 
