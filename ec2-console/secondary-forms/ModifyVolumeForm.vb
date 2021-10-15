@@ -1,8 +1,11 @@
-﻿Public Class ModifyVolumeForm
+﻿Imports NLog
+
+Public Class ModifyVolumeForm
 
     Public CurrentAccount As AwsAccount
     Public VolumeId As String
     Public Volume As Amazon.EC2.Model.Volume
+    Public Log As Logger = LogManager.GetCurrentClassLogger()
 
     Private Sub EditVolume_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -67,6 +70,14 @@
         End If
 
         Ec2Instances.ModifyVolume(CurrentAccount, VolumeId, VolumeSize, VolumeType, VolumeIops, VolumeThroughput)
+
+        Dim Msg = String.Format("The {0} volume has been modified: type {1}, size {2}, iops {3}, throughput {4}",
+                         VolumeId, VolumeType, VolumeSize, VolumeIops, VolumeThroughput)
+
+        Dim eventInfo = New NLog.LogEventInfo(NLog.LogLevel.Info, Log.Name, Msg)
+        eventInfo.Properties.Add("Category", "ModifyVolume")
+
+        Log.Info(eventInfo)
 
         Close()
 

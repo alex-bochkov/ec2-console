@@ -1,547 +1,572 @@
 ﻿Imports Amazon.EC2.Model
 Imports Amazon.SecurityToken.Model
-Module Ec2Instances
 
-    Private Function GetClient(AwsAccount As AwsAccount) As Amazon.EC2.AmazonEC2Client
+Namespace Ec2Instances
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
+    Module Main
 
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+        Private Function GetClient(AwsAccount As AwsAccount) As Amazon.EC2.AmazonEC2Client
 
-        Return client
+            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
 
-    End Function
+            Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
 
-    Public Function ListInstanceTypes(AwsAccount As AwsAccount) As List(Of InstanceTypeInfo)
+            Return client
 
-        Dim List As List(Of InstanceTypeInfo) = New List(Of InstanceTypeInfo)
+        End Function
 
-        Dim client = GetClient(AwsAccount)
+        Public Function ListInstanceTypes(AwsAccount As AwsAccount) As List(Of InstanceTypeInfo)
 
-        Dim request = New DescribeInstanceTypesRequest
+            Dim List As List(Of InstanceTypeInfo) = New List(Of InstanceTypeInfo)
 
-        Dim Filter = New List(Of String)
-        Filter.Add("true")
+            Dim client = GetClient(AwsAccount)
 
-        request.Filters.Add(New Filter With {.Name = "current-generation", .Values = Filter})
-        'request.MaxResults = 500
+            Dim request = New DescribeInstanceTypesRequest
 
-        Dim NextToken As String = "first-request"
+            Dim Filter = New List(Of String)
+            Filter.Add("true")
 
-        While NextToken <> ""
+            request.Filters.Add(New Filter With {.Name = "current-generation", .Values = Filter})
+            'request.MaxResults = 500
 
-            If NextToken <> "first-request" Then
-                request.NextToken = NextToken
-            End If
+            Dim NextToken As String = "first-request"
 
-            Dim requestResult = client.DescribeInstanceTypesAsync(request).GetAwaiter()
+            While NextToken <> ""
+
+                If NextToken <> "first-request" Then
+                    request.NextToken = NextToken
+                End If
+
+                Dim requestResult = client.DescribeInstanceTypesAsync(request).GetAwaiter()
+                While Not requestResult.IsCompleted
+                    Application.DoEvents()
+                End While
+
+                Dim result = requestResult.GetResult()
+
+                For Each resultRow In result.InstanceTypes
+                    List.Add(resultRow)
+                Next
+
+                NextToken = result.NextToken
+
+            End While
+
+            Return List
+
+        End Function
+
+        Public Function GetWindowsPassword(AwsAccount As AwsAccount, InstanceId As String, KeyPair As AwsAccount.KeyPairClass) As String
+
+            Dim client = GetClient(AwsAccount)
+
+            Dim request = New GetPasswordDataRequest
+            request.InstanceId = InstanceId
+
+            Dim requestResult = client.GetPasswordDataAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+            Dim password = result.GetDecryptedPassword(KeyPair.PublicKey)
+
+            Return password
+
+        End Function
+
+        Public Function ListAvailabilityZones(AwsAccount As AwsAccount) As List(Of AvailabilityZone)
+
+            Dim List As List(Of AvailabilityZone) = New List(Of AvailabilityZone)
+
+            Dim client = GetClient(AwsAccount)
+
+            Dim request = New DescribeAvailabilityZonesRequest
+
+            Dim region = New List(Of String)
+            region.Add(AwsAccount.Region)
+
+            request.Filters.Add(New Filter With {.Name = "region-name", .Values = region})
+            'request.MaxResults = 50
+
+            Dim requestResult = client.DescribeAvailabilityZonesAsync(request).GetAwaiter()
             While Not requestResult.IsCompleted
                 Application.DoEvents()
             End While
 
             Dim result = requestResult.GetResult()
 
-            For Each resultRow In result.InstanceTypes
+            For Each resultRow In result.AvailabilityZones
                 List.Add(resultRow)
+            Next
+
+            Return List
+
+        End Function
+
+        Public Function ListTags(AwsAccount As AwsAccount) As SortedDictionary(Of String, List(Of String))
+
+            Dim AllTags As SortedDictionary(Of String, List(Of String)) = New SortedDictionary(Of String, List(Of String))
+
+            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
+
+            Dim client = New Amazon.ResourceGroupsTaggingAPI.AmazonResourceGroupsTaggingAPIClient(cred, Amazon.RegionEndpoint.USWest1)
+
+            Dim request = New Amazon.ResourceGroupsTaggingAPI.Model.GetTagKeysRequest
+
+            Dim requestResult = client.GetTagKeysAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            For Each resultRow In result.TagKeys
+                AllTags.Add(resultRow, New List(Of String))
+            Next
+
+
+            'Dim requestValues = New Amazon.ResourceGroupsTaggingAPI.Model.GetTagValuesRequest
+
+            'Dim requestValuesResult = client.GetTagValuesAsync(requestValues).GetAwaiter()
+            'While Not requestValuesResult.IsCompleted
+            '    Application.DoEvents()
+            'End While
+
+            'Dim resultValues = requestValuesResult.GetResult()
+
+            'For Each resultRow In resultValues.
+
+
+            '    AllTags.Item()
+
+            '    Add(resultRow, New List(Of String))
+            'Next
+
+
+            Return AllTags
+
+        End Function
+
+        Public Function ListEc2Instances(AwsAccount As AwsAccount, UserFilter As Dictionary(Of String, List(Of String)), ByRef NextToken As String) As List(Of Instance)
+
+            Dim List As List(Of Instance) = New List(Of Instance)
+
+            Dim client = GetClient(AwsAccount)
+
+            Dim request = New DescribeInstancesRequest
+
+            If Not NextToken Is Nothing Then
+                request.NextToken = NextToken
+            End If
+
+            Dim tags = New List(Of String)
+            tags.Add("DBA")
+
+            request.Filters.Add(New Filter With {.Name = "tag:Owner", .Values = tags})
+
+            For Each Filter In UserFilter
+                request.Filters.Add(New Filter With {.Name = Filter.Key, .Values = Filter.Value})
+            Next
+
+            request.MaxResults = 50
+
+            Dim requestResult = client.DescribeInstancesAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            For Each resultRow In result.Reservations
+
+                Dim instance = resultRow.Instances.Item(0)
+
+                List.Add(instance)
+
             Next
 
             NextToken = result.NextToken
 
-        End While
+            Return List
 
-        Return List
+        End Function
 
-    End Function
+        Public Function ListEc2InstanceStatuses(AwsAccount As AwsAccount, InstanceList As List(Of Instance)) As List(Of InstanceStatus)
 
-    Public Function GetWindowsPassword(AwsAccount As AwsAccount, InstanceId As String, KeyPair As AwsAccount.KeyPairClass) As String
+            Dim List As List(Of InstanceStatus) = New List(Of InstanceStatus)
 
-        Dim client = GetClient(AwsAccount)
+            Dim client = GetClient(AwsAccount)
 
-        Dim request = New GetPasswordDataRequest
-        request.InstanceId = InstanceId
+            Dim request = New DescribeInstanceStatusRequest
 
-        Dim requestResult = client.GetPasswordDataAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            'Dim InstanceIDs = New List(Of String)
+            ' 100 is the max
+            For Each instance In InstanceList
+                request.InstanceIds.Add(instance.InstanceId)
+            Next
 
-        Dim result = requestResult.GetResult()
-        Dim password = result.GetDecryptedPassword(KeyPair.PublicKey)
+            'request.Filters.Add(New Filter With {.Name = "instance-id", .Values = InstanceIDs})
+            'request.MaxResults = 50
 
-        Return password
+            Dim requestResult = client.DescribeInstanceStatusAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-    End Function
+            Dim result = requestResult.GetResult()
 
-    Public Function ListAvailabilityZones(AwsAccount As AwsAccount) As List(Of AvailabilityZone)
+            For Each resultRow In result.InstanceStatuses
 
-        Dim List As List(Of AvailabilityZone) = New List(Of AvailabilityZone)
+                List.Add(resultRow)
 
-        Dim client = GetClient(AwsAccount)
+            Next
 
-        Dim request = New DescribeAvailabilityZonesRequest
+            Return List
 
-        Dim region = New List(Of String)
-        region.Add(AwsAccount.Region)
+        End Function
 
-        request.Filters.Add(New Filter With {.Name = "region-name", .Values = region})
-        'request.MaxResults = 50
+        Public Function ListVolumes(AwsAccount As AwsAccount, UserFilter As Dictionary(Of String, List(Of String))) As List(Of Volume)
 
-        Dim requestResult = client.DescribeAvailabilityZonesAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Dim List As List(Of Volume) = New List(Of Volume)
 
-        Dim result = requestResult.GetResult()
+            Dim client = GetClient(AwsAccount)
 
-        For Each resultRow In result.AvailabilityZones
-            List.Add(resultRow)
-        Next
+            Dim request = New DescribeVolumesRequest
 
-        Return List
+            For Each Filter In UserFilter
+                request.Filters.Add(New Filter With {.Name = Filter.Key, .Values = Filter.Value})
+            Next
 
-    End Function
+            'Dim InstanceIDs = New List(Of String)
+            ' 100 is the max
 
-    Public Function ListTags(AwsAccount As AwsAccount) As SortedDictionary(Of String, List(Of String))
+            'request.Filters.Add(New Filter With {.Name = "instance-id", .Values = InstanceIDs})
+            'request.MaxResults = 50
 
-        Dim AllTags As SortedDictionary(Of String, List(Of String)) = New SortedDictionary(Of String, List(Of String))
+            Dim requestResult = client.DescribeVolumesAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
+            Dim result = requestResult.GetResult()
 
-        Dim client = New Amazon.ResourceGroupsTaggingAPI.AmazonResourceGroupsTaggingAPIClient(cred, Amazon.RegionEndpoint.USWest1)
+            For Each resultRow In result.Volumes
 
-        Dim request = New Amazon.ResourceGroupsTaggingAPI.Model.GetTagKeysRequest
+                List.Add(resultRow)
 
-        Dim requestResult = client.GetTagKeysAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Next
 
-        Dim result = requestResult.GetResult()
+            Return List
 
-        For Each resultRow In result.TagKeys
-            AllTags.Add(resultRow, New List(Of String))
-        Next
+        End Function
 
-
-        'Dim requestValues = New Amazon.ResourceGroupsTaggingAPI.Model.GetTagValuesRequest
-
-        'Dim requestValuesResult = client.GetTagValuesAsync(requestValues).GetAwaiter()
-        'While Not requestValuesResult.IsCompleted
-        '    Application.DoEvents()
-        'End While
-
-        'Dim resultValues = requestValuesResult.GetResult()
-
-        'For Each resultRow In resultValues.
-
-
-        '    AllTags.Item()
-
-        '    Add(resultRow, New List(Of String))
-        'Next
-
-
-        Return AllTags
-
-    End Function
-
-    Public Function ListEc2Instances(AwsAccount As AwsAccount, UserFilter As Dictionary(Of String, List(Of String)), ByRef NextToken As String) As List(Of Instance)
-
-        Dim List As List(Of Instance) = New List(Of Instance)
-
-        Dim client = GetClient(AwsAccount)
-
-        Dim request = New DescribeInstancesRequest
-
-        If Not NextToken Is Nothing Then
-            request.NextToken = NextToken
-        End If
-
-        Dim tags = New List(Of String)
-        tags.Add("DBA")
-
-        request.Filters.Add(New Filter With {.Name = "tag:Owner", .Values = tags})
-
-        For Each Filter In UserFilter
-            request.Filters.Add(New Filter With {.Name = Filter.Key, .Values = Filter.Value})
-        Next
-
-        request.MaxResults = 50
-
-        Dim requestResult = client.DescribeInstancesAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
-
-        Dim result = requestResult.GetResult()
-
-        For Each resultRow In result.Reservations
-
-            Dim instance = resultRow.Instances.Item(0)
-
-            List.Add(instance)
-
-        Next
-
-        NextToken = result.NextToken
-
-        Return List
-
-    End Function
-
-    Public Function ListEc2InstanceStatuses(AwsAccount As AwsAccount, InstanceList As List(Of Instance)) As List(Of InstanceStatus)
-
-        Dim List As List(Of InstanceStatus) = New List(Of InstanceStatus)
-
-        Dim client = GetClient(AwsAccount)
-
-        Dim request = New DescribeInstanceStatusRequest
-
-        'Dim InstanceIDs = New List(Of String)
-        ' 100 is the max
-        For Each instance In InstanceList
-            request.InstanceIds.Add(instance.InstanceId)
-        Next
-
-        'request.Filters.Add(New Filter With {.Name = "instance-id", .Values = InstanceIDs})
-        'request.MaxResults = 50
-
-        Dim requestResult = client.DescribeInstanceStatusAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
-
-        Dim result = requestResult.GetResult()
-
-        For Each resultRow In result.InstanceStatuses
-
-            List.Add(resultRow)
-
-        Next
-
-        Return List
-
-    End Function
-
-    Public Function ListVolumes(AwsAccount As AwsAccount, UserFilter As Dictionary(Of String, List(Of String))) As List(Of Volume)
-
-        Dim List As List(Of Volume) = New List(Of Volume)
-
-        Dim client = GetClient(AwsAccount)
-
-        Dim request = New DescribeVolumesRequest
-
-        For Each Filter In UserFilter
-            request.Filters.Add(New Filter With {.Name = Filter.Key, .Values = Filter.Value})
-        Next
-
-        'Dim InstanceIDs = New List(Of String)
-        ' 100 is the max
-
-        'request.Filters.Add(New Filter With {.Name = "instance-id", .Values = InstanceIDs})
-        'request.MaxResults = 50
-
-        Dim requestResult = client.DescribeVolumesAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
-
-        Dim result = requestResult.GetResult()
-
-        For Each resultRow In result.Volumes
-
-            List.Add(resultRow)
-
-        Next
-
-        Return List
-
-    End Function
-
-    Public Function ModifyVolume(AwsAccount As AwsAccount, VolumeId As String,
+        Public Function ModifyVolume(AwsAccount As AwsAccount, VolumeId As String,
                                  VolumeSize As Integer,
                                  Optional VolumeType As String = Nothing,
                                  Optional VolumeIops As Integer = Nothing,
                                  Optional VolumeThroughput As Integer = Nothing) As VolumeModification
 
-        Dim List As List(Of Volume) = New List(Of Volume)
+            Dim List As List(Of Volume) = New List(Of Volume)
 
-        Dim client = GetClient(AwsAccount)
+            Dim client = GetClient(AwsAccount)
 
-        Dim request = New ModifyVolumeRequest
-        request.VolumeId = VolumeId
-        request.Size = VolumeSize
+            Dim request = New ModifyVolumeRequest
+            request.VolumeId = VolumeId
+            request.Size = VolumeSize
 
-        If Not VolumeIops = Nothing Then
-            request.Iops = VolumeIops
-        End If
+            If Not VolumeIops = Nothing Then
+                request.Iops = VolumeIops
+            End If
 
-        If Not VolumeThroughput = Nothing Then
-            request.Throughput = VolumeThroughput
-        End If
+            If Not VolumeThroughput = Nothing Then
+                request.Throughput = VolumeThroughput
+            End If
 
-        If Not VolumeType = Nothing Then
-            request.VolumeType = Amazon.EC2.VolumeType.FindValue(VolumeType)
-        End If
+            If Not VolumeType = Nothing Then
+                request.VolumeType = Amazon.EC2.VolumeType.FindValue(VolumeType)
+            End If
 
-        Dim requestResult = client.ModifyVolumeAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Dim requestResult = client.ModifyVolumeAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim result = requestResult.GetResult()
+            Dim result = requestResult.GetResult()
 
-        Return result.VolumeModification
+            Return result.VolumeModification
 
-    End Function
+        End Function
 
-    Public Function ListSecurityGroups(AwsAccount As AwsAccount, Instance As Instance) As List(Of SecurityGroup)
+        Public Function ListSecurityGroups(AwsAccount As AwsAccount, Instance As Instance) As List(Of SecurityGroup)
 
-        Dim List As List(Of SecurityGroup) = New List(Of SecurityGroup)
+            Dim List As List(Of SecurityGroup) = New List(Of SecurityGroup)
 
-        Dim client = GetClient(AwsAccount)
+            Dim client = GetClient(AwsAccount)
 
-        Dim request = New DescribeSecurityGroupsRequest
+            Dim request = New DescribeSecurityGroupsRequest
 
-        Dim VpcID = New List(Of String)
-        VpcID.Add(Instance.VpcId)
-        ' 100 is the max
+            Dim VpcID = New List(Of String)
+            VpcID.Add(Instance.VpcId)
+            ' 100 is the max
 
-        request.Filters.Add(New Filter With {.Name = "vpc-id", .Values = VpcID})
-        'request.MaxResults = 50
+            request.Filters.Add(New Filter With {.Name = "vpc-id", .Values = VpcID})
+            'request.MaxResults = 50
 
-        Dim requestResult = client.DescribeSecurityGroupsAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Dim requestResult = client.DescribeSecurityGroupsAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim result = requestResult.GetResult()
+            Dim result = requestResult.GetResult()
 
-        For Each resultRow In result.SecurityGroups
+            For Each resultRow In result.SecurityGroups
 
 
-            List.Add(resultRow)
+                List.Add(resultRow)
 
-        Next
+            Next
 
-        Return List
+            Return List
 
-    End Function
+        End Function
 
-    Public Function StopInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
+        Public Function StopInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-        Dim client = GetClient(AwsAccount)
+            Dim client = GetClient(AwsAccount)
 
-        Dim request = New StopInstancesRequest
-        request.InstanceIds.Add(InstanceId)
+            Dim request = New StopInstancesRequest
+            request.InstanceIds.Add(InstanceId)
 
-        Dim requestResult = client.StopInstancesAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Dim requestResult = client.StopInstancesAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim result = requestResult.GetResult()
+            Dim result = requestResult.GetResult()
 
-        Return True
+            Return True
 
-    End Function
+        End Function
 
-    Public Function StartInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
+        Public Function StartInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-        Dim client = GetClient(AwsAccount)
+            Dim client = GetClient(AwsAccount)
 
-        Dim request = New StartInstancesRequest
+            Dim request = New StartInstancesRequest
 
-        request.InstanceIds.Add(InstanceId)
+            request.InstanceIds.Add(InstanceId)
 
-        Dim requestResult = client.StartInstancesAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Dim requestResult = client.StartInstancesAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim result = requestResult.GetResult()
+            Dim result = requestResult.GetResult()
 
-        Return True
+            Return True
 
-    End Function
+        End Function
 
-    Public Function RebootInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
+        Public Function RebootInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-        Dim client = GetClient(AwsAccount)
+            Dim client = GetClient(AwsAccount)
 
-        Dim request = New RebootInstancesRequest
+            Dim request = New RebootInstancesRequest
 
-        request.InstanceIds.Add(InstanceId)
+            request.InstanceIds.Add(InstanceId)
 
-        Dim requestResult = client.RebootInstancesAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Dim requestResult = client.RebootInstancesAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim result = requestResult.GetResult()
+            Dim result = requestResult.GetResult()
 
-        Return True
+            Return True
 
-    End Function
+        End Function
 
-    Public Function GetConsoleScreenshot(AwsAccount As AwsAccount, InstanceId As String) As GetConsoleScreenshotResponse
+        Public Function GetConsoleScreenshot(AwsAccount As AwsAccount, InstanceId As String) As GetConsoleScreenshotResponse
 
-        Dim client = GetClient(AwsAccount)
+            Dim client = GetClient(AwsAccount)
 
-        Dim request = New GetConsoleScreenshotRequest
-        request.InstanceId = InstanceId
+            Dim request = New GetConsoleScreenshotRequest
+            request.InstanceId = InstanceId
 
-        Dim requestResult = client.GetConsoleScreenshotAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Dim requestResult = client.GetConsoleScreenshotAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim result = requestResult.GetResult()
+            Dim result = requestResult.GetResult()
 
-        Return result
+            Return result
 
-    End Function
+        End Function
 
-    Public Function GetTerminationProtection(AwsAccount As AwsAccount, InstanceId As String) As Boolean
+        Public Function GetTerminationProtection(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-        Dim client = GetClient(AwsAccount)
+            Dim client = GetClient(AwsAccount)
 
-        Dim request = New Amazon.EC2.Model.DescribeInstanceAttributeRequest
-        request.InstanceId = InstanceId
-        request.Attribute = "disableApiTermination"
+            Dim request = New Amazon.EC2.Model.DescribeInstanceAttributeRequest
+            request.InstanceId = InstanceId
+            request.Attribute = "disableApiTermination"
 
-        Dim requestResult = client.DescribeInstanceAttributeAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Dim requestResult = client.DescribeInstanceAttributeAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim result = requestResult.GetResult()
+            Dim result = requestResult.GetResult()
 
-        Return result.InstanceAttribute.DisableApiTermination
+            Return result.InstanceAttribute.DisableApiTermination
 
-    End Function
+        End Function
 
-    Public Function UpdateTerminationProtection(AwsAccount As AwsAccount, InstanceId As String, DisableApiTermination As Boolean)
+        Public Function ModifyInstanceType(AwsAccount As AwsAccount, InstanceId As String, InstanceType As String)
 
-        Dim client = GetClient(AwsAccount)
+            Dim client = GetClient(AwsAccount)
 
-        Dim request = New Amazon.EC2.Model.ModifyInstanceAttributeRequest
-        request.InstanceId = InstanceId
-        request.DisableApiTermination = DisableApiTermination
+            Dim request = New Amazon.EC2.Model.ModifyInstanceAttributeRequest
+            request.InstanceId = InstanceId
+            request.InstanceType = InstanceType
 
-        Dim requestResult = client.ModifyInstanceAttributeAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Dim requestResult = client.ModifyInstanceAttributeAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim result = requestResult.GetResult()
+            Dim result = requestResult.GetResult()
 
-        Return result
+            Return result
 
-    End Function
+        End Function
 
-    Public Function GetAccountAttributes(AwsAccount As AwsAccount) As GetCallerIdentityResponse
+        Public Function UpdateTerminationProtection(AwsAccount As AwsAccount, InstanceId As String, DisableApiTermination As Boolean)
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
+            Dim client = GetClient(AwsAccount)
 
-        Dim client = New Amazon.SecurityToken.AmazonSecurityTokenServiceClient(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+            Dim request = New Amazon.EC2.Model.ModifyInstanceAttributeRequest
+            request.InstanceId = InstanceId
+            request.DisableApiTermination = DisableApiTermination
 
-        Dim request = New Amazon.SecurityToken.Model.GetCallerIdentityRequest
+            Dim requestResult = client.ModifyInstanceAttributeAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim requestResult = client.GetCallerIdentityAsync(request).GetAwaiter()
+            Dim result = requestResult.GetResult()
 
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Return result
 
-        Dim result = requestResult.GetResult()
+        End Function
 
-        Return result
+        Public Function GetAccountAttributes(AwsAccount As AwsAccount) As GetCallerIdentityResponse
 
-    End Function
+            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
 
-    Public Function ListInstanceProfiles(AwsAccount As AwsAccount) As List(Of Amazon.IdentityManagement.Model.InstanceProfile)
+            Dim client = New Amazon.SecurityToken.AmazonSecurityTokenServiceClient(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
+            Dim request = New Amazon.SecurityToken.Model.GetCallerIdentityRequest
 
-        Dim client = New Amazon.IdentityManagement.AmazonIdentityManagementServiceClient(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+            Dim requestResult = client.GetCallerIdentityAsync(request).GetAwaiter()
 
-        Dim request = New Amazon.IdentityManagement.Model.ListInstanceProfilesRequest
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim requestResult = client.ListInstanceProfilesAsync(request).GetAwaiter()
+            Dim result = requestResult.GetResult()
 
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Return result
 
-        Dim result = requestResult.GetResult()
+        End Function
 
-        Return result.InstanceProfiles
+        Public Function ListInstanceProfiles(AwsAccount As AwsAccount) As List(Of Amazon.IdentityManagement.Model.InstanceProfile)
 
-    End Function
+            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
 
+            Dim client = New Amazon.IdentityManagement.AmazonIdentityManagementServiceClient(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
 
+            Dim request = New Amazon.IdentityManagement.Model.ListInstanceProfilesRequest
 
-    Public Function AddInstanceProfileAssociation(AwsAccount As AwsAccount, InstanceId As String,
+            Dim requestResult = client.ListInstanceProfilesAsync(request).GetAwaiter()
+
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.InstanceProfiles
+
+        End Function
+
+
+
+        Public Function AddInstanceProfileAssociation(AwsAccount As AwsAccount, InstanceId As String,
                                            IamInstanceProfileSpecification As IamInstanceProfileSpecification) As IamInstanceProfileAssociation
 
-        Dim client = GetClient(AwsAccount)
+            Dim client = GetClient(AwsAccount)
 
-        Dim request = New Amazon.EC2.Model.AssociateIamInstanceProfileRequest
-        request.InstanceId = InstanceId
-        request.IamInstanceProfile = IamInstanceProfileSpecification
+            Dim request = New Amazon.EC2.Model.AssociateIamInstanceProfileRequest
+            request.InstanceId = InstanceId
+            request.IamInstanceProfile = IamInstanceProfileSpecification
 
-        Dim requestResult = client.AssociateIamInstanceProfileAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Dim requestResult = client.AssociateIamInstanceProfileAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim result = requestResult.GetResult()
+            Dim result = requestResult.GetResult()
 
-        Return result.IamInstanceProfileAssociation
+            Return result.IamInstanceProfileAssociation
 
-    End Function
+        End Function
 
-    Public Function GetInstanceProfileAssociation(AwsAccount As AwsAccount, InstanceId As String) As List(Of IamInstanceProfileAssociation)
+        Public Function GetInstanceProfileAssociation(AwsAccount As AwsAccount, InstanceId As String) As List(Of IamInstanceProfileAssociation)
 
-        Dim client = GetClient(AwsAccount)
+            Dim client = GetClient(AwsAccount)
 
-        Dim InstanceIds = New List(Of String)
-        InstanceIds.Add(InstanceId)
+            Dim InstanceIds = New List(Of String)
+            InstanceIds.Add(InstanceId)
 
-        Dim request = New Amazon.EC2.Model.DescribeIamInstanceProfileAssociationsRequest
-        request.Filters.Add(New Filter With {.Name = "instance-id", .Values = InstanceIds})
+            Dim request = New Amazon.EC2.Model.DescribeIamInstanceProfileAssociationsRequest
+            request.Filters.Add(New Filter With {.Name = "instance-id", .Values = InstanceIds})
 
-        'request.IamInstanceProfile = IamInstanceProfileSpecification
+            'request.IamInstanceProfile = IamInstanceProfileSpecification
 
-        Dim requestResult = client.DescribeIamInstanceProfileAssociationsAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Dim requestResult = client.DescribeIamInstanceProfileAssociationsAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim result = requestResult.GetResult()
+            Dim result = requestResult.GetResult()
 
-        Return result.IamInstanceProfileAssociations
+            Return result.IamInstanceProfileAssociations
 
-    End Function
+        End Function
 
-    Public Function RemoveInstanceProfileAssociation(AwsAccount As AwsAccount, AssociationId As String) As IamInstanceProfileAssociation
+        Public Function RemoveInstanceProfileAssociation(AwsAccount As AwsAccount, AssociationId As String) As IamInstanceProfileAssociation
 
-        Dim client = GetClient(AwsAccount)
+            Dim client = GetClient(AwsAccount)
 
-        Dim request = New Amazon.EC2.Model.DisassociateIamInstanceProfileRequest
-        request.AssociationId = AssociationId
+            Dim request = New Amazon.EC2.Model.DisassociateIamInstanceProfileRequest
+            request.AssociationId = AssociationId
 
-        Dim requestResult = client.DisassociateIamInstanceProfileAsync(request).GetAwaiter()
-        While Not requestResult.IsCompleted
-            Application.DoEvents()
-        End While
+            Dim requestResult = client.DisassociateIamInstanceProfileAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-        Dim result = requestResult.GetResult()
+            Dim result = requestResult.GetResult()
 
-        Return result.IamInstanceProfileAssociation
+            Return result.IamInstanceProfileAssociation
 
-    End Function
+        End Function
 
 
-End Module
+    End Module
+
+
+End Namespace

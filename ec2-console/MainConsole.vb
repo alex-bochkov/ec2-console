@@ -12,6 +12,8 @@ Public Class Form1
     Private InstanceStatusTable As Hashtable = New Hashtable
     Private InstanceVolumesTable As Hashtable = New Hashtable
 
+    Private InstanceTypesList As List(Of InstanceTypeInfo)
+
     Private InstanceTypesTable As SortedDictionary(Of String, SortedDictionary(Of String, SortedDictionary(Of String, InstanceTypeInfo))) = New SortedDictionary(Of String, SortedDictionary(Of String, SortedDictionary(Of String, InstanceTypeInfo)))
 
     Private UserFilterForInstances As Dictionary(Of String, List(Of String)) = New Dictionary(Of String, List(Of String))
@@ -24,12 +26,15 @@ Public Class Form1
 
         ' Targets where to log to File And Console
         Dim logFile = New NLog.Targets.FileTarget("logfile") With {.FileName = "${basedir}/log.txt"}
+        logFile.Layout = "${longdate}|${level:uppercase=true}|${event-properties:item=Category}|${message}"
 
         Config.AddRuleForAllLevels(logFile)
 
         NLog.LogManager.Configuration = Config
 
-        Log.Info("The application has started")
+        Dim eventInfo = New LogEventInfo(LogLevel.Info, Log.Name, "The application has started")
+        eventInfo.Properties.Add("Category", "Common")
+        Log.Info(eventInfo)
 
     End Sub
 
@@ -76,7 +81,7 @@ Public Class Form1
 
     Sub ShowAccountAttributes()
 
-        Dim Rez = GetAccountAttributes(CurrentAccount)
+        Dim Rez = Ec2Instances.GetAccountAttributes(CurrentAccount)
 
         Text = "AWS EC2 Console / Current User = " + Rez.Arn
 
@@ -226,9 +231,11 @@ Public Class Form1
         '-----------------------------------------------------------------
         Dim instanceTypes As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-instance-type")
 
+        InstanceTypesList = Ec2Instances.ListInstanceTypes(CurrentAccount)
+
         InstanceTypesTable.Clear()
 
-        'For Each instanceTypeDescription In Ec2Instances.ListInstanceTypes(CurrentAccount)
+        'For Each instanceTypeDescription In InstanceTypesList
 
         '    Dim InstanceFirstLetter = instanceTypeDescription.InstanceType.Value.Substring(0, 1)
         '    Dim InstanceFamily = instanceTypeDescription.InstanceType.Value.Substring(0, instanceTypeDescription.InstanceType.Value.IndexOf("."))
@@ -428,6 +435,7 @@ Public Class Form1
                 m.Items.Add(New ToolStripMenuItem("Get Console Screenshot", Nothing, AddressOf GetConsoleScreenshot))
                 m.Items.Add(New ToolStripMenuItem("Change Termination Protection", Nothing, AddressOf ChangeTerminationProtection))
                 m.Items.Add(New ToolStripMenuItem("Change IAM Role", Nothing, AddressOf ChangeIamRole))
+                m.Items.Add(New ToolStripMenuItem("Change Instance Type", Nothing, AddressOf ChangeInstanceType))
                 ' m.Items.Add(New ToolStripMenuItem("Paste"))
 
                 'm.Items.Add(New ToolStripMenuItem(String.Format("Do something to row {0}", hti.RowIndex.ToString())))
@@ -515,6 +523,21 @@ Public Class Form1
         Dim FormWP = New ChangeIamRole
         FormWP.CurrentAccount = CurrentAccount
         FormWP.InstanceId = InstanceID
+        FormWP.StartPosition = FormStartPosition.CenterParent
+        FormWP.ShowDialog()
+
+    End Sub
+
+    Sub ChangeInstanceType()
+
+        Dim InstanceID = GetSelectedInstanceId()
+
+        Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
+
+        Dim FormWP = New ChangeInstanceType
+        FormWP.CurrentAccount = CurrentAccount
+        FormWP.Instance = Instance
+        FormWP.InstanceTypeList = InstanceTypesList
         FormWP.StartPosition = FormStartPosition.CenterParent
         FormWP.ShowDialog()
 
