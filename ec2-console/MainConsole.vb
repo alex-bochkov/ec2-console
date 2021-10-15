@@ -431,6 +431,7 @@ Public Class Form1
                 m.Items.Add(New ToolStripMenuItem("Stop", My.Resources.StopRed.ToBitmap, AddressOf StopInstance))
                 m.Items.Add(New ToolStripMenuItem("Reboot", My.Resources.Reboot.ToBitmap, AddressOf RebootInstance))
                 m.Items.Add(New ToolStripMenuItem("Edit Security Groups", Nothing, AddressOf EditSecurityGroups))
+                m.Items.Add(New ToolStripMenuItem("Edit Tags", Nothing, AddressOf EditTags))
                 m.Items.Add(New ToolStripMenuItem("Get Windows Password", Nothing, AddressOf GetWindowsPasswordForm))
                 m.Items.Add(New ToolStripMenuItem("Get Console Screenshot", Nothing, AddressOf GetConsoleScreenshot))
                 m.Items.Add(New ToolStripMenuItem("Change Termination Protection", Nothing, AddressOf ChangeTerminationProtection))
@@ -580,6 +581,18 @@ Public Class Form1
         Dim FormSG = New ChangeSecurityGroupsForm
         FormSG.CurrentAccount = CurrentAccount
         FormSG.Instance = Instance
+        FormSG.StartPosition = FormStartPosition.CenterParent
+        FormSG.ShowDialog()
+
+    End Sub
+
+    Sub EditTags()
+
+        Dim InstanceID = GetSelectedInstanceId()
+
+        Dim FormSG = New EditTagsForm
+        FormSG.CurrentAccount = CurrentAccount
+        FormSG.InstanceId = InstanceID
         FormSG.StartPosition = FormStartPosition.CenterParent
         FormSG.ShowDialog()
 

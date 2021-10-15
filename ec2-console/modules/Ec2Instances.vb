@@ -565,6 +565,47 @@ Namespace Ec2Instances
 
         End Function
 
+        Public Function CreateTags(AwsAccount As AwsAccount, ResourceId As String, Tags As List(Of Amazon.EC2.Model.Tag)) As Integer
+
+            Dim client = GetClient(AwsAccount)
+
+            Dim request = New Amazon.EC2.Model.CreateTagsRequest
+            request.Resources = New List(Of String)
+            request.Resources.Add(ResourceId)
+
+            request.Tags = Tags
+
+            Dim requestResult = client.CreateTagsAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.HttpStatusCode
+
+        End Function
+
+        Public Function DeleteTags(AwsAccount As AwsAccount, ResourceId As String, Tags As List(Of Amazon.EC2.Model.Tag)) As Integer
+
+            Dim client = GetClient(AwsAccount)
+
+            Dim request = New Amazon.EC2.Model.DeleteTagsRequest
+            request.Resources = New List(Of String)
+            request.Resources.Add(ResourceId)
+
+            request.Tags = Tags
+
+            Dim requestResult = client.DeleteTagsAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.HttpStatusCode
+
+        End Function
 
     End Module
 

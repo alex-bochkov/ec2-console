@@ -73,6 +73,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
+        Friend ReadOnly Property AppIcon() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("AppIcon", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
         Friend ReadOnly Property DeleteObject() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("DeleteObject", resourceCulture)

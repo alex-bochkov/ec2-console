@@ -12,6 +12,10 @@
     <Authors>Alex Bochkov</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Company />
+    <ApplicationIcon>Resources\app-icon.ico</ApplicationIcon>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+    <OptionCompare>Text</OptionCompare>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
