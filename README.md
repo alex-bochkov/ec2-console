@@ -1,6 +1,6 @@
 ## Windows Desktop version of AWS EC2 Console
 Windows Forms based desktop application that duplicates the most common functions of AWS EC2 Console.
-Fully based on the official AWS .NET SDK.
+Fully based on the official AWS .NET SDK using .NET 5.
 
 **I just started working on it, there are not enough features yet to make it usable and useful. Check back a bit later.**
 
