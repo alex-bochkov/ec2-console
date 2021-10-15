@@ -76,9 +76,7 @@ Module Ec2Instances
 
         Dim List As List(Of AvailabilityZone) = New List(Of AvailabilityZone)
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New DescribeAvailabilityZonesRequest
 
@@ -147,15 +145,11 @@ Module Ec2Instances
 
     End Function
 
-
     Public Function ListEc2Instances(AwsAccount As AwsAccount, UserFilter As Dictionary(Of String, List(Of String)), ByRef NextToken As String) As List(Of Instance)
-
 
         Dim List As List(Of Instance) = New List(Of Instance)
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New DescribeInstancesRequest
 
@@ -199,9 +193,7 @@ Module Ec2Instances
 
         Dim List As List(Of InstanceStatus) = New List(Of InstanceStatus)
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New DescribeInstanceStatusRequest
 
@@ -231,22 +223,16 @@ Module Ec2Instances
 
     End Function
 
-    Public Function ListVolumes(AwsAccount As AwsAccount, InstanceList As List(Of Instance)) As List(Of Volume)
+    Public Function ListVolumes(AwsAccount As AwsAccount, UserFilter As Dictionary(Of String, List(Of String))) As List(Of Volume)
 
         Dim List As List(Of Volume) = New List(Of Volume)
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New DescribeVolumesRequest
 
-        ' 100 is the max
-        For Each Instance In InstanceList
-            For Each BlockDeviceMappings In Instance.BlockDeviceMappings
-                Dim Volume = BlockDeviceMappings.Ebs.VolumeId
-                request.VolumeIds.Add(Volume)
-            Next
+        For Each Filter In UserFilter
+            request.Filters.Add(New Filter With {.Name = Filter.Key, .Values = Filter.Value})
         Next
 
         'Dim InstanceIDs = New List(Of String)
@@ -272,16 +258,50 @@ Module Ec2Instances
 
     End Function
 
+    Public Function ModifyVolume(AwsAccount As AwsAccount, VolumeId As String,
+                                 VolumeSize As Integer,
+                                 Optional VolumeType As String = Nothing,
+                                 Optional VolumeIops As Integer = Nothing,
+                                 Optional VolumeThroughput As Integer = Nothing) As VolumeModification
+
+        Dim List As List(Of Volume) = New List(Of Volume)
+
+        Dim client = GetClient(AwsAccount)
+
+        Dim request = New ModifyVolumeRequest
+        request.VolumeId = VolumeId
+        request.Size = VolumeSize
+
+        If Not VolumeIops = Nothing Then
+            request.Iops = VolumeIops
+        End If
+
+        If Not VolumeThroughput = Nothing Then
+            request.Throughput = VolumeThroughput
+        End If
+
+        If Not VolumeType = Nothing Then
+            request.VolumeType = Amazon.EC2.VolumeType.FindValue(VolumeType)
+        End If
+
+        Dim requestResult = client.ModifyVolumeAsync(request).GetAwaiter()
+        While Not requestResult.IsCompleted
+            Application.DoEvents()
+        End While
+
+        Dim result = requestResult.GetResult()
+
+        Return result.VolumeModification
+
+    End Function
+
     Public Function ListSecurityGroups(AwsAccount As AwsAccount, Instance As Instance) As List(Of SecurityGroup)
 
         Dim List As List(Of SecurityGroup) = New List(Of SecurityGroup)
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New DescribeSecurityGroupsRequest
-
 
         Dim VpcID = New List(Of String)
         VpcID.Add(Instance.VpcId)
@@ -308,12 +328,9 @@ Module Ec2Instances
 
     End Function
 
-
     Public Function StopInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New StopInstancesRequest
         request.InstanceIds.Add(InstanceId)
@@ -331,9 +348,7 @@ Module Ec2Instances
 
     Public Function StartInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New StartInstancesRequest
 
@@ -352,9 +367,7 @@ Module Ec2Instances
 
     Public Function RebootInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New RebootInstancesRequest
 
@@ -373,9 +386,7 @@ Module Ec2Instances
 
     Public Function GetConsoleScreenshot(AwsAccount As AwsAccount, InstanceId As String) As GetConsoleScreenshotResponse
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New GetConsoleScreenshotRequest
         request.InstanceId = InstanceId
@@ -393,9 +404,7 @@ Module Ec2Instances
 
     Public Function GetTerminationProtection(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New Amazon.EC2.Model.DescribeInstanceAttributeRequest
         request.InstanceId = InstanceId
@@ -414,9 +423,7 @@ Module Ec2Instances
 
     Public Function UpdateTerminationProtection(AwsAccount As AwsAccount, InstanceId As String, DisableApiTermination As Boolean)
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New Amazon.EC2.Model.ModifyInstanceAttributeRequest
         request.InstanceId = InstanceId
@@ -437,7 +444,7 @@ Module Ec2Instances
 
         Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
 
-        Dim client = New Amazon.SecurityToken.AmazonSecurityTokenServiceClient(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = New Amazon.SecurityToken.AmazonSecurityTokenServiceClient(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
 
         Dim request = New Amazon.SecurityToken.Model.GetCallerIdentityRequest
 
@@ -457,7 +464,7 @@ Module Ec2Instances
 
         Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
 
-        Dim client = New Amazon.IdentityManagement.AmazonIdentityManagementServiceClient(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = New Amazon.IdentityManagement.AmazonIdentityManagementServiceClient(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
 
         Dim request = New Amazon.IdentityManagement.Model.ListInstanceProfilesRequest
 
@@ -478,9 +485,7 @@ Module Ec2Instances
     Public Function AddInstanceProfileAssociation(AwsAccount As AwsAccount, InstanceId As String,
                                            IamInstanceProfileSpecification As IamInstanceProfileSpecification) As IamInstanceProfileAssociation
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New Amazon.EC2.Model.AssociateIamInstanceProfileRequest
         request.InstanceId = InstanceId
@@ -499,9 +504,7 @@ Module Ec2Instances
 
     Public Function GetInstanceProfileAssociation(AwsAccount As AwsAccount, InstanceId As String) As List(Of IamInstanceProfileAssociation)
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim InstanceIds = New List(Of String)
         InstanceIds.Add(InstanceId)
@@ -524,9 +527,7 @@ Module Ec2Instances
 
     Public Function RemoveInstanceProfileAssociation(AwsAccount As AwsAccount, AssociationId As String) As IamInstanceProfileAssociation
 
-        Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-        Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.USWest1)
+        Dim client = GetClient(AwsAccount)
 
         Dim request = New Amazon.EC2.Model.DisassociateIamInstanceProfileRequest
         request.AssociationId = AssociationId

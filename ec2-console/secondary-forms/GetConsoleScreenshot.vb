@@ -16,4 +16,7 @@
 
     End Sub
 
+    Private Sub PictureBox_Click(sender As Object, e As EventArgs) Handles PictureBox.Click
+
+    End Sub
 End Class

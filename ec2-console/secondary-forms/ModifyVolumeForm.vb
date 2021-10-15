@@ -1,0 +1,75 @@
+﻿Public Class ModifyVolumeForm
+
+    Public CurrentAccount As AwsAccount
+    Public VolumeId As String
+    Public Volume As Amazon.EC2.Model.Volume
+
+    Private Sub EditVolume_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        TextBoxVolumeId.Text = VolumeId
+
+        Dim UserFilter = New Dictionary(Of String, List(Of String))
+        UserFilter.Add("volume-id", New List(Of String))
+        UserFilter.Item("volume-id").Add(VolumeId)
+
+        Dim ListVolumes = Ec2Instances.ListVolumes(CurrentAccount, UserFilter)
+
+        If ListVolumes.Count = 1 Then
+
+            Volume = ListVolumes.Item(0)
+
+            NumericUpDownVolumeSize.Value = Volume.Size
+            NumericUpDownVolumeSize.Minimum = Volume.Size
+
+            NumericUpDownVolumeIops.Value = Volume.Iops
+            NumericUpDownVolumeThroughput.Value = Volume.Throughput
+
+            ComboBoxVolumeType.SelectedItem = Volume.VolumeType.Value
+
+        End If
+
+    End Sub
+    Private Sub ComboBoxVolumeType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxVolumeType.SelectedIndexChanged
+
+        Dim IopsVisible As Boolean = False
+        Dim ThroughputVisible As Boolean = False
+
+        Dim CurrentType As String = ComboBoxVolumeType.SelectedItem
+
+        If CurrentType = "gp3" Then
+            IopsVisible = True
+            ThroughputVisible = True
+        ElseIf CurrentType = "io1" Then
+            IopsVisible = True
+        ElseIf CurrentType = "io2" Then
+            IopsVisible = True
+        End If
+
+        NumericUpDownVolumeIops.Visible = IopsVisible
+        NumericUpDownVolumeThroughput.Visible = ThroughputVisible
+
+    End Sub
+
+    Private Sub ButtonSave_Click(sender As Object, e As EventArgs) Handles ButtonSave.Click
+
+        Dim VolumeType = ComboBoxVolumeType.SelectedItem
+        Dim VolumeSize = NumericUpDownVolumeSize.Value
+        Dim VolumeIops = Nothing
+        Dim VolumeThroughput = Nothing
+
+        If VolumeType = "gp3" Then
+            VolumeIops = NumericUpDownVolumeIops.Value
+            VolumeThroughput = NumericUpDownVolumeThroughput.Value
+        ElseIf VolumeType = "io1" Then
+            VolumeIops = NumericUpDownVolumeIops.Value
+        ElseIf VolumeType = "io2" Then
+            VolumeIops = NumericUpDownVolumeIops.Value
+        End If
+
+        Ec2Instances.ModifyVolume(CurrentAccount, VolumeId, VolumeSize, VolumeType, VolumeIops, VolumeThroughput)
+
+        Close()
+
+    End Sub
+
+End Class

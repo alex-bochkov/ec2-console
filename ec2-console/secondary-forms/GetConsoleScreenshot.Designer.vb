@@ -36,13 +36,13 @@ Partial Class GetConsoleScreenshot
         Me.PictureBox.TabIndex = 0
         Me.PictureBox.TabStop = False
         '
-        'ConsoleScreenshot
+        'GetConsoleScreenshot
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(808, 575)
         Me.Controls.Add(Me.PictureBox)
-        Me.Name = "ConsoleScreenshot"
+        Me.Name = "GetConsoleScreenshot"
         Me.Text = "ConsoleScreenshot"
         CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

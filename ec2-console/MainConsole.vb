@@ -301,7 +301,17 @@ Public Class Form1
                 InstanceVolumesTable.Add(instance.InstanceId, New List(Of Volume))
             Next
 
-            Dim ListVolumes = Ec2Instances.ListVolumes(CurrentAccount, InstanceList)
+            Dim UserFilter = New Dictionary(Of String, List(Of String))
+            UserFilter.Add("volume-id", New List(Of String))
+            For Each Instance In InstanceList
+                For Each BlockDeviceMappings In Instance.BlockDeviceMappings
+                    Dim Volume = BlockDeviceMappings.Ebs.VolumeId
+                    UserFilter.Item("volume-id").Add(Volume)
+                Next
+            Next
+
+            Dim ListVolumes = Ec2Instances.ListVolumes(CurrentAccount, UserFilter)
+
             For Each Volume In ListVolumes
                 InstanceVolumesTable.Item(Volume.Attachments.Item(0).InstanceId).Add(Volume)
             Next
@@ -552,6 +562,20 @@ Public Class Form1
 
     End Sub
 
+    Sub EditVolume(sender As Object, e As EventArgs)
+
+        Dim InstanceID = GetSelectedInstanceId()
+
+        Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
+
+        Dim FormSG = New ModifyVolumeForm
+        FormSG.CurrentAccount = CurrentAccount
+        FormSG.VolumeId = sender.tag
+        FormSG.StartPosition = FormStartPosition.CenterParent
+        FormSG.ShowDialog()
+
+    End Sub
+
 
     Private Sub DataListViewEC2_SelectionChanged(sender As Object, e As EventArgs) Handles DataListViewEC2.SelectionChanged
 
@@ -587,6 +611,12 @@ Public Class Form1
                     ElseIf hti.Node.Parent.Name = "tags" Then
                         m.Items.Add(New ToolStripMenuItem("Edit Tags"))
                         m.Items.Add(New ToolStripMenuItem("Remove this tag", My.Resources.DeleteObject.ToBitmap))
+                    ElseIf hti.Node.Parent.Name = "volumes" Then
+
+                        Dim mVolume As ToolStripItem = New ToolStripMenuItem("Modify Volume", Nothing, AddressOf EditVolume)
+                        mVolume.Tag = hti.Node.Name
+                        m.Items.Add(mVolume)
+
                     End If
 
                 End If
