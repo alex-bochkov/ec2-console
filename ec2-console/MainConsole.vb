@@ -24,7 +24,6 @@ Public Class Form1
 
         Dim Config = New NLog.Config.LoggingConfiguration()
 
-        ' Targets where to log to File And Console
         Dim logFile = New NLog.Targets.FileTarget("logfile") With {.FileName = "${basedir}/log.txt"}
         logFile.Layout = "${longdate}|${level:uppercase=true}|${event-properties:item=Category}|${message}"
 
@@ -44,6 +43,7 @@ Public Class Form1
         ConfigureLogging()
 
         SetFirstCurrentAccount()
+
 
     End Sub
 
@@ -142,13 +142,17 @@ Public Class Form1
 
         For Each UserFilterObject In UserFilterForInstances
 
-            Dim AllKeys As String = UserFilterObject.Value.Aggregate(Function(First, nextString) First + ", " + nextString)
+            If UserFilterObject.Value.Count > 0 Then
 
-            Dim FilterText = UserFilterObject.Key + " = " + AllKeys
+                Dim AllKeys As String = UserFilterObject.Value.Aggregate(Function(First, nextString) First + ", " + nextString)
 
-            Dim NewElement = MenuStripFilterPresentation.Items.Add(FilterText, Nothing, AddressOf onClickClearFilter)
+                Dim FilterText = UserFilterObject.Key + " = " + AllKeys
 
-            NewElement.Tag = UserFilterObject.Key
+                Dim NewElement = MenuStripFilterPresentation.Items.Add(FilterText, Nothing, AddressOf onClickClearFilter)
+
+                NewElement.Tag = UserFilterObject.Key
+
+            End If
 
         Next
 
@@ -174,13 +178,27 @@ Public Class Form1
 
     End Sub
 
+    Private Sub AddFilterByInstanceType(InstanceTypeSubstring As String)
+
+        If Not UserFilterForInstances.ContainsKey("instance-type") Then
+            UserFilterForInstances.Item("instance-type") = New List(Of String)
+        End If
+
+        For Each InstanceType In InstanceTypesList
+
+            If InstanceType.InstanceType.Value.StartsWith(InstanceTypeSubstring) Then
+                UserFilterForInstances.Item("instance-type").Add(InstanceType.InstanceType.Value)
+            End If
+
+        Next
+
+    End Sub
+
     Private Sub onClickClearFilter(sender As Object, e As EventArgs)
 
         If UserFilterForInstances.ContainsKey(sender.tag) Then
             UserFilterForInstances.Remove(sender.tag)
         End If
-
-        'UserFilterForInstances.Clear()
 
         RefreshFilterRepresentation()
 
@@ -197,6 +215,11 @@ Public Class Form1
         ElseIf TypeOf sender.tag Is InstanceState Then
 
             AddFilterByInstanceState(sender.tag)
+
+        ElseIf TypeOf sender.tag Is String _
+                        And sender.tag = "filter-instance-type" Then
+
+            AddFilterByInstanceType(sender.text)
 
         Else
 
@@ -235,36 +258,40 @@ Public Class Form1
 
         InstanceTypesTable.Clear()
 
-        'For Each instanceTypeDescription In InstanceTypesList
+        For Each instanceTypeDescription In InstanceTypesList
 
-        '    Dim InstanceFirstLetter = instanceTypeDescription.InstanceType.Value.Substring(0, 1)
-        '    Dim InstanceFamily = instanceTypeDescription.InstanceType.Value.Substring(0, instanceTypeDescription.InstanceType.Value.IndexOf("."))
+            Dim InstanceFirstLetter = instanceTypeDescription.InstanceType.Value.Substring(0, 1)
+            Dim InstanceFamily = instanceTypeDescription.InstanceType.Value.Substring(0, instanceTypeDescription.InstanceType.Value.IndexOf("."))
 
-        '    If Not InstanceTypesTable.ContainsKey(InstanceFirstLetter) Then
-        '        InstanceTypesTable.Add(InstanceFirstLetter, New SortedDictionary(Of String, SortedDictionary(Of String, InstanceTypeInfo)))
-        '    End If
+            If Not InstanceTypesTable.ContainsKey(InstanceFirstLetter) Then
+                InstanceTypesTable.Add(InstanceFirstLetter, New SortedDictionary(Of String, SortedDictionary(Of String, InstanceTypeInfo)))
+            End If
 
-        '    If Not InstanceTypesTable.Item(InstanceFirstLetter).ContainsKey(InstanceFamily) Then
-        '        InstanceTypesTable.Item(InstanceFirstLetter).Add(InstanceFamily, New SortedDictionary(Of String, InstanceTypeInfo))
-        '    End If
+            If Not InstanceTypesTable.Item(InstanceFirstLetter).ContainsKey(InstanceFamily) Then
+                InstanceTypesTable.Item(InstanceFirstLetter).Add(InstanceFamily, New SortedDictionary(Of String, InstanceTypeInfo))
+            End If
 
-        '    InstanceTypesTable.Item(InstanceFirstLetter).Item(InstanceFamily).Add(instanceTypeDescription.InstanceType.Value, instanceTypeDescription)
+            InstanceTypesTable.Item(InstanceFirstLetter).Item(InstanceFamily).TryAdd(instanceTypeDescription.InstanceType.Value, instanceTypeDescription)
 
-        'Next
+        Next
 
         For Each instanceFamilyDescription In InstanceTypesTable.Keys
 
             Dim a As ToolStripDropDownItem = instanceTypes.DropDownItems.Add(instanceFamilyDescription.ToString, Nothing, AddressOf onClickFilter)
+            a.Tag = "filter-instance-type"
 
             For Each instanceTypeDescription In InstanceTypesTable.Item(instanceFamilyDescription).Keys
 
                 Dim b As ToolStripDropDownItem = a.DropDownItems.Add(instanceTypeDescription.ToString, Nothing, AddressOf onClickFilter)
+                b.Tag = "filter-instance-type"
 
                 For Each instanceTypeDescription2 In InstanceTypesTable.Item(instanceFamilyDescription).Item(instanceTypeDescription)
-                    b.DropDownItems.Add(instanceTypeDescription2.Key, Nothing, AddressOf onClickFilter)
+                    Dim c As ToolStripDropDownItem = b.DropDownItems.Add(instanceTypeDescription2.Key, Nothing, AddressOf onClickFilter)
+                    c.Tag = "filter-instance-type"
                 Next
 
             Next
+
         Next
         '-----------------------------------------------------------------
 
@@ -305,6 +332,10 @@ Public Class Form1
         If InstanceList.Count > 0 Then
 
             For Each instance In InstanceList
+                'not sure what it failing on duplicates here
+                If InstanceVolumesTable.ContainsKey(instance.InstanceId) Then
+                    InstanceVolumesTable.Remove(instance.InstanceId)
+                End If
                 InstanceVolumesTable.Add(instance.InstanceId, New List(Of Volume))
             Next
 
@@ -327,8 +358,6 @@ Public Class Form1
             'For Each Status In ListStatuses
             '    InstanceStatusTable.Add(Status.InstanceId, Status)
             'Next
-
-            'LabelNextToken.Text = "Next Token: " + NextToken
 
             Dim i = 0
 
@@ -361,6 +390,10 @@ Public Class Form1
 
                 table.Rows.Add(RowRepresentation)
 
+                'not sure what it failing on duplicates here
+                If InstanceTable.ContainsKey(instance.InstanceId) Then
+                    InstanceTable.Remove(instance.InstanceId)
+                End If
                 InstanceTable.Add(instance.InstanceId, instance)
 
             Next
@@ -389,12 +422,10 @@ Public Class Form1
         TreeViewInstanceProperties.Nodes.Add("_3", "AMI      : " + Instance.ImageId)
 
         Dim Tags = TreeViewInstanceProperties.Nodes.Add("tags", "Instance Tags")
-        'Tags.NodeFont = New Font("Courier New", 9)
-        'ListBoxTags.Items.Clear()
+
         For Each InstanceTag In Instance.Tags
 
             Tags.Nodes.Add(InstanceTag.Key, InstanceTag.Key + ": " + InstanceTag.Value)
-            'ListBoxTags.Items.Add(InstanceTag.Key & ": " & InstanceTag.Value)
 
         Next
 
@@ -411,8 +442,6 @@ Public Class Form1
 
         TreeViewInstanceProperties.ExpandAll()
 
-        'PropertyGridInstance.SelectedObject = Instance
-
     End Sub
 
     Private Sub DataListViewEC2_MouseDown(sender As Object, e As MouseEventArgs) Handles DataListViewEC2.MouseDown
@@ -422,9 +451,6 @@ Public Class Form1
             Dim hti = DataListViewEC2.HitTest(e.X, e.Y)
 
             If Not hti.Item Is Nothing Then
-
-                'DataGridEc2.ClearSelection()
-                'DataGridEc2.Rows(hti.RowIndex).Selected = True
 
                 Dim m As ContextMenuStrip = New ContextMenuStrip()
                 m.Items.Add(New ToolStripMenuItem("Start", My.Resources.Play.ToBitmap, AddressOf StartInstance))
@@ -437,7 +463,6 @@ Public Class Form1
                 m.Items.Add(New ToolStripMenuItem("Change Termination Protection", Nothing, AddressOf ChangeTerminationProtection))
                 m.Items.Add(New ToolStripMenuItem("Change IAM Role", Nothing, AddressOf ChangeIamRole))
                 m.Items.Add(New ToolStripMenuItem("Change Instance Type", Nothing, AddressOf ChangeInstanceType))
-                ' m.Items.Add(New ToolStripMenuItem("Paste"))
 
                 'm.Items.Add(New ToolStripMenuItem(String.Format("Do something to row {0}", hti.RowIndex.ToString())))
 
@@ -632,21 +657,21 @@ Public Class Form1
             If Not hti.Node Is Nothing Then
 
                 TreeViewInstanceProperties.SelectedNode = hti.Node
-                'TreeViewInstanceProperties.Rows(hti.RowIndex).Selected = True
-
-                'Dim IconAdd = AmbientProperties.
-                'My.Resources.AddObject.ToBitmap()
 
                 Dim m As ContextMenuStrip = New ContextMenuStrip()
 
                 If Not hti.Node.Parent Is Nothing Then
 
                     If hti.Node.Parent.Name = "security-groups" Then
+
                         m.Items.Add(New ToolStripMenuItem("Edit Security Groups...", My.Resources.AddObject.ToBitmap, AddressOf EditSecurityGroups))
                         m.Items.Add(New ToolStripMenuItem("Remove this SG", My.Resources.DeleteObject.ToBitmap))
+
                     ElseIf hti.Node.Parent.Name = "tags" Then
+
                         m.Items.Add(New ToolStripMenuItem("Edit Tags"))
                         m.Items.Add(New ToolStripMenuItem("Remove this tag", My.Resources.DeleteObject.ToBitmap))
+
                     ElseIf hti.Node.Parent.Name = "volumes" Then
 
                         Dim mVolume As ToolStripItem = New ToolStripMenuItem("Modify Volume", Nothing, AddressOf EditVolume)
