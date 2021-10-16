@@ -151,6 +151,8 @@ Public Class Form1
                 Dim NewElement = MenuStripFilterPresentation.Items.Add(FilterText, Nothing, AddressOf onClickClearFilter)
 
                 NewElement.Tag = UserFilterObject.Key
+                NewElement.AutoSize = False
+                NewElement.Width = 200
 
             End If
 
