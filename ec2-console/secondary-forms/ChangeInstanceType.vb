@@ -1,10 +1,12 @@
-﻿Public Class ChangeInstanceType
+﻿Imports System.Windows.Forms
 
+Public Class ChangeInstanceType
+
+    Public InstanceTypeList As List(Of Amazon.EC2.Model.InstanceTypeInfo)
     Public CurrentAccount As AwsAccount
     Public Instance As Amazon.EC2.Model.Instance
     Public Log As NLog.Logger = NLog.LogManager.GetCurrentClassLogger()
 
-    Public InstanceTypeList As List(Of Amazon.EC2.Model.InstanceTypeInfo)
     Private Sub ChangeInstanceType_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         'sort it properly - by the instance family first, by the size next
@@ -40,7 +42,7 @@
 
     End Sub
 
-    Private Sub ButtonSave_Click(sender As Object, e As EventArgs) Handles ButtonSave.Click
+    Private Sub ModifyInstanceType()
 
         Dim InstanceType = ComboBoxInstanceType.SelectedItem
         Dim InstanceId = Instance.InstanceId
@@ -58,6 +60,19 @@
 
         Close()
 
+    End Sub
+    Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
+
+        ModifyInstanceType()
+
+        Me.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.Close()
+
+    End Sub
+
+    Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel_Button.Click
+        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.Close()
     End Sub
 
 End Class
