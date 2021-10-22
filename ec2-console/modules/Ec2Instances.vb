@@ -626,6 +626,40 @@ Namespace Ec2Instances
 
         End Function
 
+        Public Function DescribeSubnets(AwsAccount As AwsAccount) As List(Of Amazon.EC2.Model.Subnet)
+
+            Dim client = GetClient(AwsAccount)
+
+            Dim request = New Amazon.EC2.Model.DescribeSubnetsRequest
+
+            Dim requestResult = client.DescribeSubnetsAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.Subnets
+
+        End Function
+
+        Public Function DescribeVpcs(AwsAccount As AwsAccount) As List(Of Amazon.EC2.Model.Vpc)
+
+            Dim client = GetClient(AwsAccount)
+
+            Dim request = New Amazon.EC2.Model.DescribeVpcsRequest
+
+            Dim requestResult = client.DescribeVpcsAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.Vpcs
+
+        End Function
+
     End Module
 
 

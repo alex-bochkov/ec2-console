@@ -145,14 +145,24 @@ Public Class Form1
             If UserFilterObject.Value.Count > 0 Then
 
                 Dim AllKeys As String = UserFilterObject.Value.Aggregate(Function(First, nextString) First + ", " + nextString)
+                If AllKeys.Length > 50 Then
+                    AllKeys = AllKeys.Substring(0, 10) + "..."
+                End If
 
                 Dim FilterText = UserFilterObject.Key + " = " + AllKeys
 
-                Dim NewElement = MenuStripFilterPresentation.Items.Add(FilterText, Nothing, AddressOf onClickClearFilter)
-
+                Dim NewElement As ToolStripDropDownItem = MenuStripFilterPresentation.Items.Add(FilterText) ', Nothing, AddressOf onClickClearFilter)
                 NewElement.Tag = UserFilterObject.Key
-                NewElement.AutoSize = False
-                NewElement.Width = 200
+
+                For Each FilterValue In UserFilterObject.Value
+                    NewElement.DropDownItems.Add(FilterValue)
+                Next
+
+                NewElement.DropDownItems.Add(New ToolStripSeparator)
+
+                Dim ClearFilterElement = New ToolStripMenuItem("Clear filter", Nothing, AddressOf onClickClearFilter)
+                ClearFilterElement.Tag = UserFilterObject.Key
+                NewElement.DropDownItems.Add(ClearFilterElement)
 
             End If
 
@@ -196,6 +206,25 @@ Public Class Form1
 
     End Sub
 
+    Private Sub AddFilterByVpc(vpc As Amazon.EC2.Model.Vpc)
+
+        If Not UserFilterForInstances.ContainsKey("vpc-id") Then
+            UserFilterForInstances.Item("vpc-id") = New List(Of String)
+        End If
+
+        UserFilterForInstances.Item("vpc-id").Add(vpc.VpcId)
+
+    End Sub
+
+    Private Sub AddFilterBySubnet(subnet As Amazon.EC2.Model.Subnet)
+
+        If Not UserFilterForInstances.ContainsKey("subnet-id") Then
+            UserFilterForInstances.Item("subnet-id") = New List(Of String)
+        End If
+
+        UserFilterForInstances.Item("subnet-id").Add(subnet.SubnetId)
+
+    End Sub
     Private Sub onClickClearFilter(sender As Object, e As EventArgs)
 
         If UserFilterForInstances.ContainsKey(sender.tag) Then
@@ -210,13 +239,21 @@ Public Class Form1
 
     Private Sub onClickFilter(sender As Object, e As EventArgs)
 
-        If TypeOf sender.tag Is AvailabilityZone Then
+        If TypeOf sender.tag Is Amazon.EC2.Model.AvailabilityZone Then
 
             AddFilterByAZ(sender.tag)
 
-        ElseIf TypeOf sender.tag Is InstanceState Then
+        ElseIf TypeOf sender.tag Is Amazon.EC2.Model.InstanceState Then
 
             AddFilterByInstanceState(sender.tag)
+
+        ElseIf TypeOf sender.tag Is Amazon.EC2.Model.Vpc Then
+
+            AddFilterByVPC(sender.tag)
+
+        ElseIf TypeOf sender.tag Is Amazon.EC2.Model.Subnet Then
+
+            AddFilterBySubnet(sender.tag)
 
         ElseIf TypeOf sender.tag Is String _
                         And sender.tag = "filter-instance-type" Then
@@ -299,7 +336,6 @@ Public Class Form1
 
         'Dim a = New Amazon.EC2.Model.InstanceState()
 
-
         Dim instanceState As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-instance-state-name")
         instanceState.DropDownItems.Add("pending", Nothing, AddressOf onClickFilter).Tag = New Amazon.EC2.Model.InstanceState With {.Name = "pending"}
         instanceState.DropDownItems.Add("running", Nothing, AddressOf onClickFilter).Tag = New Amazon.EC2.Model.InstanceState With {.Name = "running"}
@@ -308,7 +344,40 @@ Public Class Form1
         instanceState.DropDownItems.Add("stopping", Nothing, AddressOf onClickFilter).Tag = New Amazon.EC2.Model.InstanceState With {.Name = "stopping"}
         instanceState.DropDownItems.Add("stopped", Nothing, AddressOf onClickFilter).Tag = New Amazon.EC2.Model.InstanceState With {.Name = "stopped"}
 
-        Dim vpc = FilterByToolStripMenuItem.DropDownItems.Add("filter-vpc")
+        '-----------------------------------------------------------------
+        Dim vpcFilter As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-vpc")
+        Dim allVpcs = Ec2Instances.DescribeVpcs(CurrentAccount)
+        For Each vpcDescription In allVpcs
+
+            Dim MenuText = vpcDescription.VpcId
+
+            For Each vpcTag In vpcDescription.Tags
+                If vpcTag.Key = "Name" Then
+                    MenuText += " / " + vpcTag.Value
+                End If
+            Next
+
+            Dim a As ToolStripDropDownItem = vpcFilter.DropDownItems.Add(MenuText, Nothing, AddressOf onClickFilter)
+            a.Tag = vpcDescription
+
+        Next
+        '-----------------------------------------------------------------
+        Dim subnetFilter As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-subnet")
+        Dim allSubnets = Ec2Instances.DescribeSubnets(CurrentAccount)
+        For Each subnetDescription In allSubnets
+
+            Dim MenuText = subnetDescription.SubnetId
+
+            For Each subnetTag In subnetDescription.Tags
+                If subnetTag.Key = "Name" Then
+                    MenuText += " / " + subnetTag.Value
+                End If
+            Next
+
+            Dim a As ToolStripDropDownItem = subnetFilter.DropDownItems.Add(MenuText, Nothing, AddressOf onClickFilter)
+            a.Tag = subnetDescription
+
+        Next
 
     End Sub
 
