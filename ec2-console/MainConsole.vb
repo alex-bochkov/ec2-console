@@ -44,7 +44,6 @@ Public Class Form1
 
         SetFirstCurrentAccount()
 
-
     End Sub
 
     Sub SetFirstCurrentAccount()
@@ -121,6 +120,7 @@ Public Class Form1
 
         End If
 
+        AccountsToolStripMenuItem.DropDownItems.Add(New ToolStripSeparator)
         Dim NewAccountManageMenuItem = AccountsToolStripMenuItem.DropDownItems.Add(" * Manage Accounts * ", Nothing, AddressOf OpenAccountManagementForm)
 
     End Sub
@@ -455,16 +455,34 @@ Public Class Form1
             If Not hti.Item Is Nothing Then
 
                 Dim m As ContextMenuStrip = New ContextMenuStrip()
-                m.Items.Add(New ToolStripMenuItem("Start", My.Resources.Play.ToBitmap, AddressOf StartInstance))
-                m.Items.Add(New ToolStripMenuItem("Stop", My.Resources.StopRed.ToBitmap, AddressOf StopInstance))
-                m.Items.Add(New ToolStripMenuItem("Reboot", My.Resources.Reboot.ToBitmap, AddressOf RebootInstance))
-                m.Items.Add(New ToolStripMenuItem("Edit Security Groups", Nothing, AddressOf EditSecurityGroups))
-                m.Items.Add(New ToolStripMenuItem("Edit Tags", Nothing, AddressOf EditTags))
-                m.Items.Add(New ToolStripMenuItem("Get Windows Password", Nothing, AddressOf GetWindowsPasswordForm))
-                m.Items.Add(New ToolStripMenuItem("Get Console Screenshot", Nothing, AddressOf GetConsoleScreenshot))
-                m.Items.Add(New ToolStripMenuItem("Change Termination Protection", Nothing, AddressOf ChangeTerminationProtection))
-                m.Items.Add(New ToolStripMenuItem("Change IAM Role", Nothing, AddressOf ChangeIamRole))
-                m.Items.Add(New ToolStripMenuItem("Change Instance Type", Nothing, AddressOf ChangeInstanceType))
+                m.Items.Add(New ToolStripMenuItem("Stop instance", My.Resources.StopRed.ToBitmap, AddressOf StopInstance))
+                m.Items.Add(New ToolStripMenuItem("Start instance", My.Resources.Play.ToBitmap, AddressOf StartInstance))
+                m.Items.Add(New ToolStripMenuItem("Reboot instance", My.Resources.Reboot.ToBitmap, AddressOf RebootInstance))
+                m.Items.Add(New ToolStripMenuItem("Terminate instance", Nothing, AddressOf TerminateInstance))
+
+
+                Dim m1 = New ToolStripMenuItem("Instance settings")
+                m1.DropDownItems.Add(New ToolStripMenuItem("Change instance type", Nothing, AddressOf ChangeInstanceType))
+                m1.DropDownItems.Add(New ToolStripMenuItem("Change termination protection", Nothing, AddressOf ChangeTerminationProtection))
+                m1.DropDownItems.Add(New ToolStripMenuItem("Manage tags", Nothing, AddressOf EditTags))
+                m.Items.Add(m1)
+
+                Dim m2 = New ToolStripMenuItem("Networking")
+                m.Items.Add(m2)
+
+                Dim m3 = New ToolStripMenuItem("Security")
+                m3.DropDownItems.Add(New ToolStripMenuItem("Change security groups", Nothing, AddressOf EditSecurityGroups))
+                m3.DropDownItems.Add(New ToolStripMenuItem("Get Windows password", Nothing, AddressOf GetWindowsPasswordForm))
+                m3.DropDownItems.Add(New ToolStripMenuItem("Modify IAM Role", Nothing, AddressOf ChangeIamRole))
+                m.Items.Add(m3)
+
+                Dim m4 = New ToolStripMenuItem("Image and templates")
+
+                m.Items.Add(m4)
+
+                Dim m5 = New ToolStripMenuItem("Monitor and troubleshoot")
+                m5.DropDownItems.Add(New ToolStripMenuItem("Get instance screenshot", Nothing, AddressOf GetConsoleScreenshot))
+                m.Items.Add(m5)
 
                 'm.Items.Add(New ToolStripMenuItem(String.Format("Do something to row {0}", hti.RowIndex.ToString())))
 
@@ -484,6 +502,20 @@ Public Class Form1
         Return InstanceId
 
     End Function
+
+    Sub TerminateInstance()
+
+        Dim InstanceID = GetSelectedInstanceId()
+
+        Dim Rez = MsgBox("Do you want to terminate " + InstanceID + "?", MsgBoxStyle.YesNo, "TERMINATE instance")
+
+        If Rez = MsgBoxResult.Yes Then
+
+            Ec2Instances.TerminateInstance(CurrentAccount, InstanceID)
+
+        End If
+
+    End Sub
 
     Sub StartInstance()
 

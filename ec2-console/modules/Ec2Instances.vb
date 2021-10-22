@@ -368,6 +368,25 @@ Namespace Ec2Instances
 
         End Function
 
+        Public Function TerminateInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
+
+            Dim client = GetClient(AwsAccount)
+
+            Dim request = New TerminateInstancesRequest
+
+            request.InstanceIds.Add(InstanceId)
+
+            Dim requestResult = client.TerminateInstancesAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return True
+
+        End Function
+
         Public Function RebootInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
             Dim client = GetClient(AwsAccount)

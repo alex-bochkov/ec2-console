@@ -115,7 +115,7 @@ Partial Class Form1
         Me.MenuStripInstances.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItemRefreshInstanceList})
         Me.MenuStripInstances.Location = New System.Drawing.Point(5, 3)
         Me.MenuStripInstances.Name = "MenuStripInstances"
-        Me.MenuStripInstances.Size = New System.Drawing.Size(134, 24)
+        Me.MenuStripInstances.Size = New System.Drawing.Size(254, 24)
         Me.MenuStripInstances.TabIndex = 12
         Me.MenuStripInstances.Text = "MenuStrip2"
         '

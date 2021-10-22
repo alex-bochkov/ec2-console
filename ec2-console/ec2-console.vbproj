@@ -25,10 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.EC2" Version="3.7.32" />
-    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.60" />
-    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.79" />
-    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.69" />
+    <PackageReference Include="AWSSDK.EC2" Version="3.7.34.3" />
+    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.64" />
+    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.84" />
+    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.74" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="4.7.11" />
     <PackageReference Include="NLog.Config" Version="4.7.11" />
