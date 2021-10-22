@@ -555,6 +555,7 @@ Public Class Form1
 
                 'm.Items.Add(New ToolStripMenuItem(String.Format("Do something to row {0}", hti.RowIndex.ToString())))
 
+                m.Items.Add(New ToolStripMenuItem("Instance config history", My.Resources.Timeline.ToBitmap, AddressOf GetInstanceConfigHistory))
                 m.Show(Cursor.Position)
 
             End If
@@ -571,6 +572,42 @@ Public Class Form1
         Return InstanceId
 
     End Function
+
+    Sub GetInstanceConfigHistory()
+
+        Dim InstanceID = GetSelectedInstanceId()
+
+        Dim a = Ec2Instances.GetResourceConfigHistory(CurrentAccount, InstanceID)
+
+        MsgBox("TBD - " + a.Count.ToString + " records")
+
+        'Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
+        '
+        'Dim FormWP = New ChangeTermintationProtection
+        'FormWP.CurrentAccount = CurrentAccount
+        'FormWP.InstanceId = InstanceID
+        'FormWP.StartPosition = FormStartPosition.CenterParent
+        'FormWP.ShowDialog()
+
+    End Sub
+
+    Sub GetVolumeConfigHistory(sender As Object, e As EventArgs)
+
+        Dim VolumeId = sender.tag
+
+        Dim a = Ec2Instances.GetResourceConfigHistory(CurrentAccount, VolumeId)
+
+        MsgBox("TBD - " + a.Count.ToString + " records")
+
+        'Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
+        '
+        'Dim FormWP = New ChangeTermintationProtection
+        'FormWP.CurrentAccount = CurrentAccount
+        'FormWP.InstanceId = InstanceID
+        'FormWP.StartPosition = FormStartPosition.CenterParent
+        'FormWP.ShowDialog()
+
+    End Sub
 
     Sub TerminateInstance()
 
@@ -777,9 +814,13 @@ Public Class Form1
 
                     ElseIf hti.Node.Parent.Name = "volumes" Then
 
-                        Dim mVolume As ToolStripItem = New ToolStripMenuItem("Modify Volume", Nothing, AddressOf EditVolume)
-                        mVolume.Tag = hti.Node.Name
-                        m.Items.Add(mVolume)
+                        Dim mVolume1 As ToolStripItem = New ToolStripMenuItem("Modify Volume", Nothing, AddressOf EditVolume)
+                        mVolume1.Tag = hti.Node.Name
+                        m.Items.Add(mVolume1)
+
+                        Dim mVolume2 As ToolStripItem = New ToolStripMenuItem("Volume Config History", My.Resources.Timeline.ToBitmap, AddressOf GetVolumeConfigHistory)
+                        mVolume2.Tag = hti.Node.Name
+                        m.Items.Add(mVolume2)
 
                     End If
 

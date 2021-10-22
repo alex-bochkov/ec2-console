@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.5.3" />
     <PackageReference Include="AWSSDK.EC2" Version="3.7.34.3" />
     <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.64" />
     <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.84" />

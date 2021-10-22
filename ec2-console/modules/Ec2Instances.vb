@@ -3,9 +3,9 @@ Imports Amazon.SecurityToken.Model
 
 Namespace Ec2Instances
 
-    Module Main
+    Module EC2
 
-        Private Function GetClient(AwsAccount As AwsAccount) As Amazon.EC2.AmazonEC2Client
+        Private Function NewAmazonEC2Client(AwsAccount As AwsAccount) As Amazon.EC2.AmazonEC2Client
 
             Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
 
@@ -19,7 +19,7 @@ Namespace Ec2Instances
 
             Dim List As List(Of InstanceTypeInfo) = New List(Of InstanceTypeInfo)
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New DescribeInstanceTypesRequest
 
@@ -58,7 +58,7 @@ Namespace Ec2Instances
 
         Public Function GetWindowsPassword(AwsAccount As AwsAccount, InstanceId As String, KeyPair As AwsAccount.KeyPairClass) As String
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New GetPasswordDataRequest
             request.InstanceId = InstanceId
@@ -79,7 +79,7 @@ Namespace Ec2Instances
 
             Dim List As List(Of AvailabilityZone) = New List(Of AvailabilityZone)
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New DescribeAvailabilityZonesRequest
 
@@ -152,7 +152,7 @@ Namespace Ec2Instances
 
             Dim List As List(Of Instance) = New List(Of Instance)
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New DescribeInstancesRequest
 
@@ -196,7 +196,7 @@ Namespace Ec2Instances
 
             Dim List As List(Of InstanceStatus) = New List(Of InstanceStatus)
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New DescribeInstanceStatusRequest
 
@@ -230,7 +230,7 @@ Namespace Ec2Instances
 
             Dim List As List(Of Volume) = New List(Of Volume)
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New DescribeVolumesRequest
 
@@ -269,7 +269,7 @@ Namespace Ec2Instances
 
             Dim List As List(Of Volume) = New List(Of Volume)
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New ModifyVolumeRequest
             request.VolumeId = VolumeId
@@ -302,7 +302,7 @@ Namespace Ec2Instances
 
             Dim List As List(Of SecurityGroup) = New List(Of SecurityGroup)
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New DescribeSecurityGroupsRequest
 
@@ -333,7 +333,7 @@ Namespace Ec2Instances
 
         Public Function StopInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New StopInstancesRequest
             request.InstanceIds.Add(InstanceId)
@@ -351,7 +351,7 @@ Namespace Ec2Instances
 
         Public Function StartInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New StartInstancesRequest
 
@@ -370,7 +370,7 @@ Namespace Ec2Instances
 
         Public Function TerminateInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New TerminateInstancesRequest
 
@@ -389,7 +389,7 @@ Namespace Ec2Instances
 
         Public Function RebootInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New RebootInstancesRequest
 
@@ -408,7 +408,7 @@ Namespace Ec2Instances
 
         Public Function GetConsoleScreenshot(AwsAccount As AwsAccount, InstanceId As String) As GetConsoleScreenshotResponse
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New GetConsoleScreenshotRequest
             request.InstanceId = InstanceId
@@ -426,7 +426,7 @@ Namespace Ec2Instances
 
         Public Function GetTerminationProtection(AwsAccount As AwsAccount, InstanceId As String) As Boolean
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.DescribeInstanceAttributeRequest
             request.InstanceId = InstanceId
@@ -445,7 +445,7 @@ Namespace Ec2Instances
 
         Public Function ModifyInstanceType(AwsAccount As AwsAccount, InstanceId As String, InstanceType As String)
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.ModifyInstanceAttributeRequest
             request.InstanceId = InstanceId
@@ -464,7 +464,7 @@ Namespace Ec2Instances
 
         Public Function UpdateTerminationProtection(AwsAccount As AwsAccount, InstanceId As String, DisableApiTermination As Boolean)
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.ModifyInstanceAttributeRequest
             request.InstanceId = InstanceId
@@ -526,7 +526,7 @@ Namespace Ec2Instances
         Public Function AddInstanceProfileAssociation(AwsAccount As AwsAccount, InstanceId As String,
                                            IamInstanceProfileSpecification As IamInstanceProfileSpecification) As IamInstanceProfileAssociation
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.AssociateIamInstanceProfileRequest
             request.InstanceId = InstanceId
@@ -545,7 +545,7 @@ Namespace Ec2Instances
 
         Public Function GetInstanceProfileAssociation(AwsAccount As AwsAccount, InstanceId As String) As List(Of IamInstanceProfileAssociation)
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim InstanceIds = New List(Of String)
             InstanceIds.Add(InstanceId)
@@ -568,7 +568,7 @@ Namespace Ec2Instances
 
         Public Function RemoveInstanceProfileAssociation(AwsAccount As AwsAccount, AssociationId As String) As IamInstanceProfileAssociation
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.DisassociateIamInstanceProfileRequest
             request.AssociationId = AssociationId
@@ -586,7 +586,7 @@ Namespace Ec2Instances
 
         Public Function CreateTags(AwsAccount As AwsAccount, ResourceId As String, Tags As List(Of Amazon.EC2.Model.Tag)) As Integer
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.CreateTagsRequest
             request.Resources = New List(Of String)
@@ -607,7 +607,7 @@ Namespace Ec2Instances
 
         Public Function DeleteTags(AwsAccount As AwsAccount, ResourceId As String, Tags As List(Of Amazon.EC2.Model.Tag)) As Integer
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.DeleteTagsRequest
             request.Resources = New List(Of String)
@@ -628,7 +628,7 @@ Namespace Ec2Instances
 
         Public Function DescribeSubnets(AwsAccount As AwsAccount) As List(Of Amazon.EC2.Model.Subnet)
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.DescribeSubnetsRequest
 
@@ -645,7 +645,7 @@ Namespace Ec2Instances
 
         Public Function DescribeVpcs(AwsAccount As AwsAccount) As List(Of Amazon.EC2.Model.Vpc)
 
-            Dim client = GetClient(AwsAccount)
+            Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.DescribeVpcsRequest
 
@@ -662,5 +662,52 @@ Namespace Ec2Instances
 
     End Module
 
+    Module ConfigService
+        Private Function NewAmazonConfigServiceClient(AwsAccount As AwsAccount) As Amazon.ConfigService.AmazonConfigServiceClient
+
+            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
+
+            Dim client = New Amazon.ConfigService.AmazonConfigServiceClient(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+
+            Return client
+
+        End Function
+
+        Public Function GetResourceConfigHistory(AwsAccount As AwsAccount,
+                                                 ResourceId As String) _
+                As List(Of Amazon.ConfigService.Model.ConfigurationItem)
+
+            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
+
+            Dim client = NewAmazonConfigServiceClient(AwsAccount)
+
+            Dim ResourceType As Amazon.ConfigService.ResourceType = Nothing
+            If ResourceId.StartsWith("i-") Then
+                ResourceType = Amazon.ConfigService.ResourceType.AWSEC2Instance
+            ElseIf ResourceId.StartsWith("vol-") Then
+                ResourceType = Amazon.ConfigService.ResourceType.AWSEC2Volume
+            ElseIf ResourceId.StartsWith("sg-") Then
+                ResourceType = Amazon.ConfigService.ResourceType.AWSEC2SecurityGroup
+            End If
+
+            Dim request = New Amazon.ConfigService.Model.GetResourceConfigHistoryRequest
+            request.ResourceId = ResourceId
+            request.ResourceType = ResourceType
+
+            Dim requestResult = client.GetResourceConfigHistoryAsync(request).GetAwaiter()
+
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.ConfigurationItems
+
+        End Function
+
+
+
+    End Module
 
 End Namespace
