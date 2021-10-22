@@ -1,6 +1,4 @@
-﻿
-Imports Amazon.EC2.Model
-Imports NLog
+﻿Imports NLog
 
 Public Class Form1
 
@@ -12,9 +10,10 @@ Public Class Form1
     Private InstanceStatusTable As Hashtable = New Hashtable
     Private InstanceVolumesTable As Hashtable = New Hashtable
 
-    Private InstanceTypesList As List(Of InstanceTypeInfo)
+    Private InstanceTypesList As List(Of Amazon.EC2.Model.InstanceTypeInfo)
 
-    Private InstanceTypesTable As SortedDictionary(Of String, SortedDictionary(Of String, SortedDictionary(Of String, InstanceTypeInfo))) = New SortedDictionary(Of String, SortedDictionary(Of String, SortedDictionary(Of String, InstanceTypeInfo)))
+    Private InstanceTypesTable As SortedDictionary(Of String, SortedDictionary(Of String, SortedDictionary(Of String, Amazon.EC2.Model.InstanceTypeInfo))) =
+        New SortedDictionary(Of String, SortedDictionary(Of String, SortedDictionary(Of String, Amazon.EC2.Model.InstanceTypeInfo)))
 
     Private UserFilterForInstances As Dictionary(Of String, List(Of String)) = New Dictionary(Of String, List(Of String))
 
@@ -80,7 +79,7 @@ Public Class Form1
 
     Sub ShowAccountAttributes()
 
-        Dim Rez = Ec2Instances.GetAccountAttributes(CurrentAccount)
+        Dim Rez = AmazonApi.GetAccountAttributes(CurrentAccount)
 
         Text = "AWS EC2 Console / Current User = " + Rez.Arn
 
@@ -170,7 +169,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub AddFilterByAZ(AZ As AvailabilityZone)
+    Private Sub AddFilterByAZ(AZ As Amazon.EC2.Model.AvailabilityZone)
 
         If Not UserFilterForInstances.ContainsKey("availability-zone") Then
             UserFilterForInstances.Item("availability-zone") = New List(Of String)
@@ -180,7 +179,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub AddFilterByInstanceState(InstanceState As InstanceState)
+    Private Sub AddFilterByInstanceState(InstanceState As Amazon.EC2.Model.InstanceState)
 
         If Not UserFilterForInstances.ContainsKey("instance-state-name") Then
             UserFilterForInstances.Item("instance-state-name") = New List(Of String)
@@ -277,13 +276,13 @@ Public Class Form1
         FilterByToolStripMenuItem.DropDownItems.Clear()
 
         Dim azMenu As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-availability-zone")
-        For Each AZ In Ec2Instances.ListAvailabilityZones(CurrentAccount)
+        For Each AZ In AmazonApi.ListAvailabilityZones(CurrentAccount)
             Dim a = azMenu.DropDownItems.Add(AZ.ZoneName, Nothing, AddressOf onClickFilter)
             a.Tag = AZ
         Next
 
         Dim tag As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-tag")
-        Dim tags = Ec2Instances.ListTags(CurrentAccount)
+        Dim tags = AmazonApi.ListTags(CurrentAccount)
         For Each instanceTagDescription In tags
 
             Dim a As ToolStripDropDownItem = tag.DropDownItems.Add(instanceTagDescription.Key, Nothing, AddressOf onClickFilter)
@@ -293,7 +292,7 @@ Public Class Form1
         '-----------------------------------------------------------------
         Dim instanceTypes As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-instance-type")
 
-        InstanceTypesList = Ec2Instances.ListInstanceTypes(CurrentAccount)
+        InstanceTypesList = AmazonApi.ListInstanceTypes(CurrentAccount)
 
         InstanceTypesTable.Clear()
 
@@ -303,11 +302,11 @@ Public Class Form1
             Dim InstanceFamily = instanceTypeDescription.InstanceType.Value.Substring(0, instanceTypeDescription.InstanceType.Value.IndexOf("."))
 
             If Not InstanceTypesTable.ContainsKey(InstanceFirstLetter) Then
-                InstanceTypesTable.Add(InstanceFirstLetter, New SortedDictionary(Of String, SortedDictionary(Of String, InstanceTypeInfo)))
+                InstanceTypesTable.Add(InstanceFirstLetter, New SortedDictionary(Of String, SortedDictionary(Of String, Amazon.EC2.Model.InstanceTypeInfo)))
             End If
 
             If Not InstanceTypesTable.Item(InstanceFirstLetter).ContainsKey(InstanceFamily) Then
-                InstanceTypesTable.Item(InstanceFirstLetter).Add(InstanceFamily, New SortedDictionary(Of String, InstanceTypeInfo))
+                InstanceTypesTable.Item(InstanceFirstLetter).Add(InstanceFamily, New SortedDictionary(Of String, Amazon.EC2.Model.InstanceTypeInfo))
             End If
 
             InstanceTypesTable.Item(InstanceFirstLetter).Item(InstanceFamily).TryAdd(instanceTypeDescription.InstanceType.Value, instanceTypeDescription)
@@ -346,7 +345,7 @@ Public Class Form1
 
         '-----------------------------------------------------------------
         Dim vpcFilter As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-vpc")
-        Dim allVpcs = Ec2Instances.DescribeVpcs(CurrentAccount)
+        Dim allVpcs = AmazonApi.DescribeVpcs(CurrentAccount)
         For Each vpcDescription In allVpcs
 
             Dim MenuText = vpcDescription.VpcId
@@ -363,7 +362,7 @@ Public Class Form1
         Next
         '-----------------------------------------------------------------
         Dim subnetFilter As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-subnet")
-        Dim allSubnets = Ec2Instances.DescribeSubnets(CurrentAccount)
+        Dim allSubnets = AmazonApi.DescribeSubnets(CurrentAccount)
         For Each subnetDescription In allSubnets
 
             Dim MenuText = subnetDescription.SubnetId
@@ -398,7 +397,7 @@ Public Class Form1
         InstanceStatusTable.Clear()
         InstanceVolumesTable.Clear()
 
-        Dim InstanceList = Ec2Instances.ListEc2Instances(CurrentAccount, UserFilterForInstances, NextToken)
+        Dim InstanceList = AmazonApi.ListEc2Instances(CurrentAccount, UserFilterForInstances, NextToken)
 
         If InstanceList.Count > 0 Then
 
@@ -407,7 +406,7 @@ Public Class Form1
                 If InstanceVolumesTable.ContainsKey(instance.InstanceId) Then
                     InstanceVolumesTable.Remove(instance.InstanceId)
                 End If
-                InstanceVolumesTable.Add(instance.InstanceId, New List(Of Volume))
+                InstanceVolumesTable.Add(instance.InstanceId, New List(Of Amazon.EC2.Model.Volume))
             Next
 
             Dim UserFilter = New Dictionary(Of String, List(Of String))
@@ -419,7 +418,7 @@ Public Class Form1
                 Next
             Next
 
-            Dim ListVolumes = Ec2Instances.ListVolumes(CurrentAccount, UserFilter)
+            Dim ListVolumes = AmazonApi.ListVolumes(CurrentAccount, UserFilter)
 
             For Each Volume In ListVolumes
                 InstanceVolumesTable.Item(Volume.Attachments.Item(0).InstanceId).Add(Volume)
@@ -507,7 +506,7 @@ Public Class Form1
 
         Dim VolumeNode = TreeViewInstanceProperties.Nodes.Add("volumes", "Volumes")
         Dim Volumes = InstanceVolumesTable.Item(InstanceID)
-        For Each Volume As Volume In Volumes
+        For Each Volume As Amazon.EC2.Model.Volume In Volumes
             VolumeNode.Nodes.Add(Volume.VolumeId, Volume.VolumeType.Value & " / " & Volume.Size.ToString & " Gb / " & Volume.Iops.ToString & " IOPS / " & Volume.Throughput & " MiB/s")
         Next
 
@@ -577,17 +576,9 @@ Public Class Form1
 
         Dim InstanceID = GetSelectedInstanceId()
 
-        Dim a = Ec2Instances.GetResourceConfigHistory(CurrentAccount, InstanceID)
+        Dim a = AmazonApi.GetResourceConfigHistory(CurrentAccount, InstanceID)
 
         MsgBox("TBD - " + a.Count.ToString + " records")
-
-        'Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
-        '
-        'Dim FormWP = New ChangeTermintationProtection
-        'FormWP.CurrentAccount = CurrentAccount
-        'FormWP.InstanceId = InstanceID
-        'FormWP.StartPosition = FormStartPosition.CenterParent
-        'FormWP.ShowDialog()
 
     End Sub
 
@@ -595,17 +586,9 @@ Public Class Form1
 
         Dim VolumeId = sender.tag
 
-        Dim a = Ec2Instances.GetResourceConfigHistory(CurrentAccount, VolumeId)
+        Dim a = AmazonApi.GetResourceConfigHistory(CurrentAccount, VolumeId)
 
         MsgBox("TBD - " + a.Count.ToString + " records")
-
-        'Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
-        '
-        'Dim FormWP = New ChangeTermintationProtection
-        'FormWP.CurrentAccount = CurrentAccount
-        'FormWP.InstanceId = InstanceID
-        'FormWP.StartPosition = FormStartPosition.CenterParent
-        'FormWP.ShowDialog()
 
     End Sub
 
@@ -617,7 +600,7 @@ Public Class Form1
 
         If Rez = MsgBoxResult.Yes Then
 
-            Ec2Instances.TerminateInstance(CurrentAccount, InstanceID)
+            AmazonApi.TerminateInstance(CurrentAccount, InstanceID)
 
         End If
 
@@ -631,7 +614,7 @@ Public Class Form1
 
         If Rez = MsgBoxResult.Yes Then
 
-            Ec2Instances.StartInstance(CurrentAccount, InstanceID)
+            AmazonApi.StartInstance(CurrentAccount, InstanceID)
 
         End If
 
@@ -645,7 +628,7 @@ Public Class Form1
 
         If Rez = MsgBoxResult.Yes Then
 
-            Ec2Instances.StopInstance(CurrentAccount, InstanceID)
+            AmazonApi.StopInstance(CurrentAccount, InstanceID)
 
         End If
 
@@ -659,7 +642,7 @@ Public Class Form1
 
         If Rez = MsgBoxResult.Yes Then
 
-            Ec2Instances.RebootInstance(CurrentAccount, InstanceID)
+            AmazonApi.RebootInstance(CurrentAccount, InstanceID)
 
         End If
 

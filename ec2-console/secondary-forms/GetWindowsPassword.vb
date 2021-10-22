@@ -8,7 +8,7 @@
 
         Try
 
-            Dim password = Ec2Instances.GetWindowsPassword(CurrentAccount, InstanceId, ComboBoxKeyPairs.SelectedItem)
+            Dim password = AmazonApi.GetWindowsPassword(CurrentAccount, InstanceId, ComboBoxKeyPairs.SelectedItem)
 
             TextBoxDecryptedPassword.Text = password
 

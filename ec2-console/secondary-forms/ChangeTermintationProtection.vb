@@ -5,7 +5,7 @@
 
     Private Sub ButtonSave_Click(sender As Object, e As EventArgs) Handles ButtonSave.Click
 
-        Ec2Instances.UpdateTerminationProtection(CurrentAccount, InstanceId, CheckBoxTerminationProtection.Checked)
+        AmazonApi.UpdateTerminationProtection(CurrentAccount, InstanceId, CheckBoxTerminationProtection.Checked)
 
         Close()
 
@@ -13,7 +13,7 @@
 
     Private Sub ChangeTermintationProtection_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        Dim CurrentValue = Ec2Instances.GetTerminationProtection(CurrentAccount, InstanceId)
+        Dim CurrentValue = AmazonApi.GetTerminationProtection(CurrentAccount, InstanceId)
 
         CheckBoxTerminationProtection.Checked = CurrentValue
 

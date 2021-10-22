@@ -15,7 +15,7 @@ Public Class ModifyVolumeForm
         UserFilter.Add("volume-id", New List(Of String))
         UserFilter.Item("volume-id").Add(VolumeId)
 
-        Dim ListVolumes = Ec2Instances.ListVolumes(CurrentAccount, UserFilter)
+        Dim ListVolumes = AmazonApi.ListVolumes(CurrentAccount, UserFilter)
 
         If ListVolumes.Count = 1 Then
 
@@ -69,7 +69,7 @@ Public Class ModifyVolumeForm
             VolumeIops = NumericUpDownVolumeIops.Value
         End If
 
-        Ec2Instances.ModifyVolume(CurrentAccount, VolumeId, VolumeSize, VolumeType, VolumeIops, VolumeThroughput)
+        AmazonApi.ModifyVolume(CurrentAccount, VolumeId, VolumeSize, VolumeType, VolumeIops, VolumeThroughput)
 
         Dim Msg = String.Format("The {0} volume has been modified: type {1}, size {2}, iops {3}, throughput {4}",
                          VolumeId, VolumeType, VolumeSize, VolumeIops, VolumeThroughput)

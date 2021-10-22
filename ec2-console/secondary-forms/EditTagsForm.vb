@@ -34,7 +34,7 @@ Public Class EditTagsForm
         Dim UserFilter = New Dictionary(Of String, List(Of String))
         UserFilter.Add("instance-id", FilterList)
 
-        Dim Instances = Ec2Instances.ListEc2Instances(CurrentAccount, UserFilter, NextToken)
+        Dim Instances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter, NextToken)
 
         If Instances.Count = 1 Then
 
@@ -111,7 +111,7 @@ Public Class EditTagsForm
 
         If TagsToAdd.Count > 0 Then
 
-            Ec2Instances.CreateTags(CurrentAccount, InstanceId, TagsToAdd)
+            AmazonApi.CreateTags(CurrentAccount, InstanceId, TagsToAdd)
 
             For Each TagToAdd In TagsToAdd
 
@@ -130,7 +130,7 @@ Public Class EditTagsForm
 
         If TagsToDelete.Count > 0 Then
 
-            Ec2Instances.DeleteTags(CurrentAccount, InstanceId, TagsToDelete)
+            AmazonApi.DeleteTags(CurrentAccount, InstanceId, TagsToDelete)
 
             For Each TagToDelete In TagsToDelete
 

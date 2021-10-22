@@ -1,6 +1,4 @@
-﻿Imports System.Windows.Forms
-
-Public Class ChangeInstanceType
+﻿Public Class ChangeInstanceType
 
     Public InstanceTypeList As List(Of Amazon.EC2.Model.InstanceTypeInfo)
     Public CurrentAccount As AwsAccount
@@ -48,7 +46,7 @@ Public Class ChangeInstanceType
         Dim InstanceId = Instance.InstanceId
         Dim InstanceTypeOld = Instance.InstanceType.Value
 
-        Ec2Instances.ModifyInstanceType(CurrentAccount, Instance.InstanceId, InstanceType)
+        AmazonApi.ModifyInstanceType(CurrentAccount, Instance.InstanceId, InstanceType)
 
         Dim Msg = String.Format("The instance type for {0} instance has been modified: {1} -> {2}",
                         InstanceId, InstanceTypeOld, InstanceType)

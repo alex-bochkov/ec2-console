@@ -8,7 +8,7 @@ Public Class ChangeSecurityGroupsForm
 
     Sub ShowAllSecurityGroups()
 
-        Dim AllSGs = Ec2Instances.ListSecurityGroups(CurrentAccount, Instance)
+        Dim AllSGs = AmazonApi.ListSecurityGroups(CurrentAccount, Instance)
 
         Dim ExistingSG = New Hashtable
         For Each SG In Instance.SecurityGroups

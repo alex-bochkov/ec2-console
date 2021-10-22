@@ -14,7 +14,7 @@
         Dim UserFilter = New Dictionary(Of String, List(Of String))
         UserFilter.Add("instance-id", FilterList)
 
-        Dim Instances = Ec2Instances.ListEc2Instances(CurrentAccount, UserFilter, NextToken)
+        Dim Instances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter, NextToken)
 
         If Instances.Count > 0 Then
             Instance = Instances.Item(0)
@@ -30,7 +30,7 @@
 
         '*******************************************************
 
-        Dim Profiles = Ec2Instances.ListInstanceProfiles(CurrentAccount)
+        Dim Profiles = AmazonApi.ListInstanceProfiles(CurrentAccount)
 
         For Each Profile In Profiles
 
@@ -42,18 +42,18 @@
 
     Private Sub ButtonSave_Click(sender As Object, e As EventArgs) Handles ButtonSave.Click
 
-        Dim CurrentAssosiations = Ec2Instances.GetInstanceProfileAssociation(CurrentAccount, InstanceId)
+        Dim CurrentAssosiations = AmazonApi.GetInstanceProfileAssociation(CurrentAccount, InstanceId)
 
         If (CurrentAssosiations.Count > 0) Then
 
-            Ec2Instances.RemoveInstanceProfileAssociation(CurrentAccount, CurrentAssosiations.Item(0).AssociationId)
+            AmazonApi.RemoveInstanceProfileAssociation(CurrentAccount, CurrentAssosiations.Item(0).AssociationId)
 
         End If
 
 
         Dim Iam = New Amazon.EC2.Model.IamInstanceProfileSpecification
         Iam.Arn = ComboBoxNewInstanceProfile.Text
-        Dim Result = Ec2Instances.AddInstanceProfileAssociation(CurrentAccount, InstanceId, Iam)
+        Dim Result = AmazonApi.AddInstanceProfileAssociation(CurrentAccount, InstanceId, Iam)
 
         Close()
 

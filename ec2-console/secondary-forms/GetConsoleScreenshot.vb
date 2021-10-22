@@ -4,7 +4,7 @@
     Public InstanceId As String
     Private Sub ConsoleScreenshot_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Dim result = Ec2Instances.GetConsoleScreenshot(CurrentAccount, InstanceId)
+        Dim result = AmazonApi.GetConsoleScreenshot(CurrentAccount, InstanceId)
 
         Dim bytes = Convert.FromBase64String(result.ImageData)
 
