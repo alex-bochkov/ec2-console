@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class ChangeInstanceType
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class ObjectHistoryForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,15 +20,13 @@ Partial Class ChangeInstanceType
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.OK_Button = New System.Windows.Forms.Button()
         Me.Cancel_Button = New System.Windows.Forms.Button()
+        Me.ListBoxVersions = New System.Windows.Forms.ListBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.ComboBoxInstanceType = New System.Windows.Forms.ComboBox()
-        Me.ButtonScaleUp = New System.Windows.Forms.Button()
-        Me.ButtonScaleDown = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -40,7 +38,7 @@ Partial Class ChangeInstanceType
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(260, 41)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(443, 387)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
@@ -68,66 +66,42 @@ Partial Class ChangeInstanceType
         Me.Cancel_Button.TabIndex = 1
         Me.Cancel_Button.Text = "Cancel"
         '
+        'ListBoxVersions
+        '
+        Me.ListBoxVersions.FormattingEnabled = True
+        Me.ListBoxVersions.ItemHeight = 15
+        Me.ListBoxVersions.Location = New System.Drawing.Point(12, 27)
+        Me.ListBoxVersions.Name = "ListBoxVersions"
+        Me.ListBoxVersions.Size = New System.Drawing.Size(592, 349)
+        Me.ListBoxVersions.TabIndex = 1
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 11)
+        Me.Label1.Location = New System.Drawing.Point(13, 6)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(78, 15)
-        Me.Label1.TabIndex = 4
-        Me.Label1.Text = "Instance Type"
+        Me.Label1.Size = New System.Drawing.Size(352, 15)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "Need to come up with a good way displaying JSON comparison..."
         '
-        'ComboBoxInstanceType
-        '
-        Me.ComboBoxInstanceType.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ComboBoxInstanceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBoxInstanceType.FormattingEnabled = True
-        Me.ComboBoxInstanceType.Location = New System.Drawing.Point(96, 8)
-        Me.ComboBoxInstanceType.Name = "ComboBoxInstanceType"
-        Me.ComboBoxInstanceType.Size = New System.Drawing.Size(277, 23)
-        Me.ComboBoxInstanceType.TabIndex = 3
-        '
-        'ButtonScaleUp
-        '
-        Me.ButtonScaleUp.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.ButtonScaleUp.Location = New System.Drawing.Point(379, 8)
-        Me.ButtonScaleUp.Name = "ButtonScaleUp"
-        Me.ButtonScaleUp.Size = New System.Drawing.Size(22, 23)
-        Me.ButtonScaleUp.TabIndex = 5
-        Me.ButtonScaleUp.Text = "↑"
-        Me.ButtonScaleUp.UseVisualStyleBackColor = True
-        '
-        'ButtonScaleDown
-        '
-        Me.ButtonScaleDown.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.ButtonScaleDown.Location = New System.Drawing.Point(405, 8)
-        Me.ButtonScaleDown.Name = "ButtonScaleDown"
-        Me.ButtonScaleDown.Size = New System.Drawing.Size(22, 23)
-        Me.ButtonScaleDown.TabIndex = 6
-        Me.ButtonScaleDown.Text = "↓"
-        Me.ButtonScaleDown.UseVisualStyleBackColor = True
-        '
-        'ChangeInstanceType
+        'ObjectHistoryForm
         '
         Me.AcceptButton = Me.OK_Button
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(434, 76)
-        Me.Controls.Add(Me.ButtonScaleDown)
-        Me.Controls.Add(Me.ButtonScaleUp)
+        Me.ClientSize = New System.Drawing.Size(616, 422)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.ComboBoxInstanceType)
+        Me.Controls.Add(Me.ListBoxVersions)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "ChangeInstanceType"
+        Me.Name = "ObjectHistoryForm"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "ChangeInstanceType"
+        Me.Text = "ObjectHistoryForm"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -136,8 +110,6 @@ Partial Class ChangeInstanceType
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents OK_Button As System.Windows.Forms.Button
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
+    Friend WithEvents ListBoxVersions As ListBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents ComboBoxInstanceType As ComboBox
-    Friend WithEvents ButtonScaleUp As Button
-    Friend WithEvents ButtonScaleDown As Button
 End Class

@@ -576,9 +576,7 @@ Public Class Form1
 
         Dim InstanceID = GetSelectedInstanceId()
 
-        Dim a = AmazonApi.GetResourceConfigHistory(CurrentAccount, InstanceID)
-
-        MsgBox("TBD - " + a.Count.ToString + " records")
+        OpenConfigHistporyForm(InstanceID)
 
     End Sub
 
@@ -586,9 +584,17 @@ Public Class Form1
 
         Dim VolumeId = sender.tag
 
-        Dim a = AmazonApi.GetResourceConfigHistory(CurrentAccount, VolumeId)
+        OpenConfigHistporyForm(VolumeId)
 
-        MsgBox("TBD - " + a.Count.ToString + " records")
+    End Sub
+
+    Sub OpenConfigHistporyForm(ResourceId As String)
+
+        Dim FormWP = New ObjectHistoryForm
+        FormWP.CurrentAccount = CurrentAccount
+        FormWP.ResourceId = ResourceId
+        FormWP.StartPosition = FormStartPosition.CenterParent
+        FormWP.ShowDialog()
 
     End Sub
 

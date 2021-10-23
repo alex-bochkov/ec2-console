@@ -73,4 +73,20 @@
         Me.Close()
     End Sub
 
+    Private Sub ButtonScaleUp_Click(sender As Object, e As EventArgs) Handles ButtonScaleUp.Click
+
+        If ComboBoxInstanceType.SelectedIndex < ComboBoxInstanceType.Items.Count - 1 Then
+            ComboBoxInstanceType.SelectedIndex = ComboBoxInstanceType.SelectedIndex + 1
+        End If
+
+    End Sub
+
+    Private Sub ButtonScaleDown_Click(sender As Object, e As EventArgs) Handles ButtonScaleDown.Click
+
+        If ComboBoxInstanceType.SelectedIndex > 0 Then
+            ComboBoxInstanceType.SelectedIndex = ComboBoxInstanceType.SelectedIndex - 1
+        End If
+
+    End Sub
+
 End Class
