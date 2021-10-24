@@ -1,4 +1,5 @@
-﻿Imports NLog
+﻿Imports System.Threading
+Imports NLog
 
 Public Class Form1
 
@@ -36,8 +37,48 @@ Public Class Form1
 
     End Sub
 
+    Function CheckForTheAppUpdates_Async()
+
+        Dim LatestRelease = ServiceFunctions.GetTheMostRecentReleaseFromGithub()
+
+        Dim LatestVersion As Version = Version.Parse(LatestRelease.tag_name)
+
+        Dim CurrentVersionNumber = My.Application.Info.Version
+
+        If CurrentVersionNumber.CompareTo(LatestVersion) < 0 Then
+
+            Dim msg = "New Version Available " + LatestRelease.tag_name
+
+            Invoke(New Action(Function()
+                                  AddUpdateButton(msg)
+                              End Function))
+
+        End If
+
+    End Function
+
+    Sub AddUpdateButton(msg As String)
+
+        Dim mVer = New ToolStripButton(msg, Nothing, AddressOf GoToDownloadPage)
+        StatusStrip.Items.Add(mVer)
+        StatusStrip.Items.Add(New ToolStripSeparator)
+
+    End Sub
+
+    Sub GoToDownloadPage()
+
+        'this one doesn't work in .NET Core
+        'Process.Start("https://github.com/alekseybochkov/ec2-console/releases")
+
+        Process.Start(New ProcessStartInfo("cmd", $"/c start https://github.com/alekseybochkov/ec2-console/releases") With {.CreateNoWindow = True})
+
+    End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Dim t As New Thread(New ThreadStart(AddressOf CheckForTheAppUpdates_Async))
+        t.Priority = Threading.ThreadPriority.Normal
+        t.Start()
 
         ConfigureLogging()
 
@@ -248,7 +289,7 @@ Public Class Form1
 
         ElseIf TypeOf sender.tag Is Amazon.EC2.Model.Vpc Then
 
-            AddFilterByVPC(sender.tag)
+            AddFilterByVpc(sender.tag)
 
         ElseIf TypeOf sender.tag Is Amazon.EC2.Model.Subnet Then
 
