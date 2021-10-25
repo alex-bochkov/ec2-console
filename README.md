@@ -25,3 +25,4 @@ The goal for this solution is to fix address those issues.
 3. <b>Why vb.net?</b> I'm Windows user, I like .NET, I like Visual Basic, I enjoy writing it.
 4. <b>Your code is aweful!</b> I'm a database architect, not a software engineer. Also, a big fan of incremental development and improvement. 
 5. <b>Do you have a release schedule?</b> No, this is a pet project with no dedicated resources. 
+6. <b>It throws exceptions!</b> There are no plans at this time to make it fool-proof.

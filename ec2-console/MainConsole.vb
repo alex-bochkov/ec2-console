@@ -37,7 +37,7 @@ Public Class Form1
 
     End Sub
 
-    Function CheckForTheAppUpdates_Async()
+    Sub CheckForTheAppUpdates_Async()
 
         Dim LatestRelease = ServiceFunctions.GetTheMostRecentReleaseFromGithub()
 
@@ -49,13 +49,13 @@ Public Class Form1
 
             Dim msg = "New Version Available " + LatestRelease.tag_name
 
-            Invoke(New Action(Function()
+            Invoke(New Action(Sub()
                                   AddUpdateButton(msg)
-                              End Function))
+                              End Sub))
 
         End If
 
-    End Function
+    End Sub
 
     Sub AddUpdateButton(msg As String)
 

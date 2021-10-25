@@ -16,6 +16,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <OptionCompare>Text</OptionCompare>
     <SignAssembly>false</SignAssembly>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
