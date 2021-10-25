@@ -1,0 +1,30 @@
+﻿{
+  "messages": [
+    {
+      "id": "please-download-new-version",
+      "en_US": "Please download and install the new version: {0} ({1})",
+      "ru_RU": "Пожалуйста установите новую версию: {0} ({1})"
+    },
+    {
+      "id": "language",
+      "en_US": "Language",
+      "ru_RU": "Язык интерфейса"
+    },
+    {
+      "id": "language-name-english",
+      "en_US": "English",
+      "ru_RU": "Английский"
+    },
+    {
+      "id": "language-name-russian",
+      "en_US": "Russian",
+      "ru_RU": "Русский"
+    },
+    {
+      "id": "restart-the-app-language",
+      "en_US": "Please restart the app",
+      "ru_RU": "Перезапустите приложение для применения изменений в полной мере"
+    }
+
+  ]
+}

@@ -28,6 +28,9 @@ Partial Class Form1
         Me.MenuStripMain = New System.Windows.Forms.MenuStrip()
         Me.AccountsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LanguageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EnglishToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RussianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabControl = New System.Windows.Forms.TabControl()
         Me.TabPageEC2 = New System.Windows.Forms.TabPage()
         Me.MenuStripInstances = New System.Windows.Forms.MenuStrip()
@@ -66,7 +69,7 @@ Partial Class Form1
         '
         'MenuStripMain
         '
-        Me.MenuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AccountsToolStripMenuItem, Me.AboutToolStripMenuItem})
+        Me.MenuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AccountsToolStripMenuItem, Me.AboutToolStripMenuItem, Me.LanguageToolStripMenuItem})
         Me.MenuStripMain.Location = New System.Drawing.Point(0, 0)
         Me.MenuStripMain.Name = "MenuStripMain"
         Me.MenuStripMain.Size = New System.Drawing.Size(1415, 24)
@@ -84,6 +87,25 @@ Partial Class Form1
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
         Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(52, 20)
         Me.AboutToolStripMenuItem.Text = "About"
+        '
+        'LanguageToolStripMenuItem
+        '
+        Me.LanguageToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EnglishToolStripMenuItem, Me.RussianToolStripMenuItem})
+        Me.LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem"
+        Me.LanguageToolStripMenuItem.Size = New System.Drawing.Size(71, 20)
+        Me.LanguageToolStripMenuItem.Text = "Language"
+        '
+        'EnglishToolStripMenuItem
+        '
+        Me.EnglishToolStripMenuItem.Name = "EnglishToolStripMenuItem"
+        Me.EnglishToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EnglishToolStripMenuItem.Text = "English"
+        '
+        'RussianToolStripMenuItem
+        '
+        Me.RussianToolStripMenuItem.Name = "RussianToolStripMenuItem"
+        Me.RussianToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RussianToolStripMenuItem.Text = "Russian"
         '
         'TabControl
         '
@@ -251,4 +273,7 @@ Partial Class Form1
     Friend WithEvents MenuStripInstances As MenuStrip
     Friend WithEvents ToolStripMenuItemRefreshInstanceList As ToolStripMenuItem
     Friend WithEvents ToolStripStatusLabelNextToken As ToolStripStatusLabel
+    Friend WithEvents LanguageToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EnglishToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RussianToolStripMenuItem As ToolStripMenuItem
 End Class

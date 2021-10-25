@@ -47,7 +47,7 @@ Public Class Form1
 
         If CurrentVersionNumber.CompareTo(LatestVersion) < 0 Then
 
-            Dim msg = "Please download and install the new version " + LatestRelease.tag_name
+            Dim msg = String.Format(ServiceFunctions.GetLocalizedMessage("please-download-new-version"), LatestRelease.tag_name, LatestRelease.published_at)
 
             Invoke(New Action(Sub()
                                   AddUpdateButton(msg)
@@ -75,6 +75,8 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        LocalizeInterface()
 
         Dim t As New Thread(New ThreadStart(AddressOf CheckForTheAppUpdates_Async))
         t.Priority = Threading.ThreadPriority.Normal
@@ -897,5 +899,35 @@ Public Class Form1
 
     End Sub
 
+    Private Sub EnglishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnglishToolStripMenuItem.Click
+
+        ChangeUiLanguage("en-US")
+
+    End Sub
+    Private Sub RussianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RussianToolStripMenuItem.Click
+
+        ChangeUiLanguage("ru-RU")
+
+    End Sub
+
+    Sub ChangeUiLanguage(Language As String)
+
+        My.Settings.Language = Language
+
+        LocalizeInterface()
+
+        Dim msg = ServiceFunctions.GetLocalizedMessage("restart-the-app-language")
+
+        MsgBox(msg)
+
+    End Sub
+
+    Sub LocalizeInterface()
+
+        LanguageToolStripMenuItem.Text = ServiceFunctions.GetLocalizedMessage("language")
+        EnglishToolStripMenuItem.Text = ServiceFunctions.GetLocalizedMessage("language-name-english")
+        RussianToolStripMenuItem.Text = ServiceFunctions.GetLocalizedMessage("language-name-russian")
+
+    End Sub
 
 End Class

@@ -53,16 +53,28 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("")>
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property SavedAccounts() As String
             Get
-                Return CType(Me("SavedAccounts"), String)
+                Return CType(Me("SavedAccounts"),String)
             End Get
             Set
-                Me("SavedAccounts") = Value
+                Me("SavedAccounts") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Language() As String
+            Get
+                Return CType(Me("Language"),String)
+            End Get
+            Set
+                Me("Language") = value
             End Set
         End Property
     End Class

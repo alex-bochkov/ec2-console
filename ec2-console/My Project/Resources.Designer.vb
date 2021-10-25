@@ -91,6 +91,25 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to {
+        '''  &quot;messages&quot;: [
+        '''    {
+        '''      &quot;id&quot;: &quot;&quot;,
+        '''      &quot;en_US&quot;: &quot;d&quot;,
+        '''      &quot;ru_RU&quot;: &quot;d&quot;
+        '''    }
+        '''
+        '''  ]
+        '''}
+        '''.
+        '''</summary>
+        Friend ReadOnly Property LocalizedMessages() As String
+            Get
+                Return ResourceManager.GetString("LocalizedMessages", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
         Friend ReadOnly Property Play() As System.Drawing.Icon

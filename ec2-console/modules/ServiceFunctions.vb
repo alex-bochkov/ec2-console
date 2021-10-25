@@ -43,6 +43,44 @@ Namespace ServiceFunctions
 
     End Module
 
+    Module ManualLocalization
+
+        Class AllMessages
+            Public Messages As List(Of My.MySettings.LocalizedMessage)
+        End Class
+
+        Sub LoadAllLocalizedMessagesInMemory()
+
+            Dim Dict As Dictionary(Of String, My.MySettings.LocalizedMessage) = New Dictionary(Of String, My.MySettings.LocalizedMessage)
+
+            Dim a = My.Resources.LocalizedMessages
+
+            Dim resultObject = JsonConvert.DeserializeObject(Of AllMessages)(a)
+
+            For Each Msg In resultObject.Messages
+                My.Settings.LocalizedMessages.Add(Msg.id, Msg)
+            Next
+
+        End Sub
+
+        Function GetLocalizedMessage(MessageCode As String) As String
+
+            Dim resultString As My.MySettings.LocalizedMessage = Nothing
+
+            My.Settings.LocalizedMessages.TryGetValue(MessageCode, resultString)
+
+            If My.Settings.Language = "en-US" Then
+                Return resultString.en_US
+            ElseIf My.Settings.Language = "ru-RU" Then
+                Return resultString.ru_RU
+            Else
+                Return resultString.en_US
+            End If
+
+        End Function
+
+    End Module
+
 End Namespace
 
 
