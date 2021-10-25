@@ -24,6 +24,7 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripStatusLabelNextToken = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStripMain = New System.Windows.Forms.MenuStrip()
         Me.AccountsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -38,8 +39,6 @@ Partial Class Form1
         Me.MenuStripFilterPresentation = New System.Windows.Forms.MenuStrip()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.TreeViewInstanceProperties = New System.Windows.Forms.TreeView()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.ToolStripStatusLabelNextToken = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStripMain.SuspendLayout()
         Me.TabControl.SuspendLayout()
@@ -59,6 +58,11 @@ Partial Class Form1
         Me.StatusStrip.Size = New System.Drawing.Size(1415, 22)
         Me.StatusStrip.TabIndex = 0
         Me.StatusStrip.Text = "StatusStrip1"
+        '
+        'ToolStripStatusLabelNextToken
+        '
+        Me.ToolStripStatusLabelNextToken.Name = "ToolStripStatusLabelNextToken"
+        Me.ToolStripStatusLabelNextToken.Size = New System.Drawing.Size(0, 17)
         '
         'MenuStripMain
         '
@@ -84,7 +88,6 @@ Partial Class Form1
         'TabControl
         '
         Me.TabControl.Controls.Add(Me.TabPageEC2)
-        Me.TabControl.Controls.Add(Me.TabPage2)
         Me.TabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl.Location = New System.Drawing.Point(0, 24)
         Me.TabControl.Name = "TabControl"
@@ -199,21 +202,6 @@ Partial Class Form1
         Me.TreeViewInstanceProperties.Size = New System.Drawing.Size(310, 563)
         Me.TreeViewInstanceProperties.TabIndex = 0
         '
-        'TabPage2
-        '
-        Me.TabPage2.Location = New System.Drawing.Point(4, 24)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1407, 572)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "Volumes"
-        Me.TabPage2.UseVisualStyleBackColor = True
-        '
-        'ToolStripStatusLabelNextToken
-        '
-        Me.ToolStripStatusLabelNextToken.Name = "ToolStripStatusLabelNextToken"
-        Me.ToolStripStatusLabelNextToken.Size = New System.Drawing.Size(0, 17)
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -253,7 +241,6 @@ Partial Class Form1
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TabControl As TabControl
     Friend WithEvents TabPageEC2 As TabPage
-    Friend WithEvents TabPage2 As TabPage
     Friend WithEvents Panel1 As Panel
     Friend WithEvents TreeViewInstanceProperties As TreeView
     Friend WithEvents DataListViewEC2 As BrightIdeasSoftware.DataListView

@@ -21,6 +21,8 @@ Public Class AttachNewVolumesToTheInstance
         Parameters.Add("VolumeType", ComboBoxVolumeType.SelectedItem)
         Parameters.Add("VolumeSize", NumericUpDownVolumeSize.Value)
         Parameters.Add("VolumeEncrypted", CheckBoxVolumeEncrypted.Checked)
+        Parameters.Add("VolumeIops", NumericUpDownVolumeIops.Value)
+        Parameters.Add("VolumeThroughput", NumericUpDownVolumeThroughput.Value)
 
         Dim t As New Thread(Sub()
                                 AttachNewVolumes_Async(Parameters)
@@ -47,6 +49,8 @@ Public Class AttachNewVolumesToTheInstance
         Dim VolumeType As String = Parameters.Item("VolumeType")
         Dim VolumeSize As Integer = Parameters.Item("VolumeSize")
         Dim VolumeEncrypted As Boolean = Parameters.Item("VolumeEncrypted")
+        Dim VolumeIopsParameter As Integer = Parameters.Item("VolumeIops")
+        Dim VolumeThroughputParameter As Integer = Parameters.Item("VolumeThroughput")
 
         Dim Msg As String = ""
         Dim Percent As Integer = 50
@@ -68,7 +72,18 @@ Public Class AttachNewVolumesToTheInstance
                 Dim Instance As Amazon.EC2.Model.Instance = Instances.Item(0)
                 Dim VolumeAZ = Instance.Placement.AvailabilityZone
 
-                Dim NewVolume = AmazonApi.CreateVolume(CurrentAccount, VolumeAZ, VolumeType, VolumeSize, VolumeEncrypted)
+                Dim VolumeIops As Integer = Nothing
+                Dim VolumeThroughput As Integer = Nothing
+
+                If VolumeType = "gp3" Then
+                    VolumeIops = VolumeIopsParameter
+                    VolumeThroughput = VolumeThroughputParameter
+                ElseIf VolumeType = "io1" Or VolumeType = "io2" Then
+                    VolumeIops = VolumeIopsParameter
+                End If
+
+
+                Dim NewVolume = AmazonApi.CreateVolume(CurrentAccount, VolumeAZ, VolumeType, VolumeSize, VolumeEncrypted, VolumeIops, VolumeThroughput)
                 Dim VolumeId = NewVolume.VolumeId
 
                 Msg = "New volume has been created: " + VolumeId
@@ -196,8 +211,6 @@ Public Class AttachNewVolumesToTheInstance
 
         Next
 
-
-
         ShowProgress("Completed successfully", 100)
 
     End Sub
@@ -209,6 +222,24 @@ Public Class AttachNewVolumesToTheInstance
 
     End Sub
 
+    Private Sub ComboBoxVolumeType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxVolumeType.SelectedIndexChanged
+
+        Dim IopsVisible As Boolean = False
+        Dim ThroughputVisible As Boolean = False
+
+        Dim CurrentType As String = ComboBoxVolumeType.SelectedItem
+
+        If CurrentType = "gp3" Then
+            IopsVisible = True
+            ThroughputVisible = True
+        ElseIf CurrentType = "io1" Or CurrentType = "io2" Then
+            IopsVisible = True
+        End If
+
+        NumericUpDownVolumeIops.Visible = IopsVisible
+        NumericUpDownVolumeThroughput.Visible = ThroughputVisible
+
+    End Sub
 
 
 End Class

@@ -42,9 +42,7 @@ Public Class ModifyVolumeForm
         If CurrentType = "gp3" Then
             IopsVisible = True
             ThroughputVisible = True
-        ElseIf CurrentType = "io1" Then
-            IopsVisible = True
-        ElseIf CurrentType = "io2" Then
+        ElseIf CurrentType = "io1" Or CurrentType = "io2" Then
             IopsVisible = True
         End If
 
@@ -63,9 +61,7 @@ Public Class ModifyVolumeForm
         If VolumeType = "gp3" Then
             VolumeIops = NumericUpDownVolumeIops.Value
             VolumeThroughput = NumericUpDownVolumeThroughput.Value
-        ElseIf VolumeType = "io1" Then
-            VolumeIops = NumericUpDownVolumeIops.Value
-        ElseIf VolumeType = "io2" Then
+        ElseIf VolumeType = "io1" Or VolumeType = "io2" Then
             VolumeIops = NumericUpDownVolumeIops.Value
         End If
 
