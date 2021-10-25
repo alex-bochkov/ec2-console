@@ -47,7 +47,7 @@ Public Class Form1
 
         If CurrentVersionNumber.CompareTo(LatestVersion) < 0 Then
 
-            Dim msg = "New Version Available " + LatestRelease.tag_name
+            Dim msg = "Please download and install the new version " + LatestRelease.tag_name
 
             Invoke(New Action(Sub()
                                   AddUpdateButton(msg)
