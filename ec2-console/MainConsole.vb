@@ -593,6 +593,10 @@ Public Class Form1
                 m5.DropDownItems.Add(New ToolStripMenuItem("Get instance screenshot", Nothing, AddressOf GetConsoleScreenshot))
                 m.Items.Add(m5)
 
+                Dim m6 = New ToolStripMenuItem("Storage")
+                m6.DropDownItems.Add(New ToolStripMenuItem("Add New Volumes", Nothing, AddressOf OpenAddNewVolumesForm))
+                m.Items.Add(m6)
+
                 'm.Items.Add(New ToolStripMenuItem(String.Format("Do something to row {0}", hti.RowIndex.ToString())))
 
                 m.Items.Add(New ToolStripMenuItem("Instance config history", My.Resources.Timeline.ToBitmap, AddressOf GetInstanceConfigHistory))
@@ -692,6 +696,18 @@ Public Class Form1
             AmazonApi.RebootInstance(CurrentAccount, InstanceID)
 
         End If
+
+    End Sub
+    Sub OpenAddNewVolumesForm()
+
+        Dim InstanceID = GetSelectedInstanceId()
+
+        Dim FormAddVolumes = New AttachNewVolumesToTheInstance
+        FormAddVolumes.CurrentAccount = CurrentAccount
+        FormAddVolumes.InstanceId = InstanceID
+        'FormAddVolumes.Parent = Me
+        FormAddVolumes.StartPosition = FormStartPosition.CenterScreen
+        FormAddVolumes.Show()
 
     End Sub
 

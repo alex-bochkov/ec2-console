@@ -296,6 +296,89 @@
 
         End Function
 
+        Public Function CreateVolume(AwsAccount As AwsAccount,
+                                     AvailabilityZone As String,
+                                     VolumeType As String,
+                                     VolumeSize As Integer,
+                                     VolumeEncrypted As Boolean,
+                                     Optional VolumeIops As Integer = Nothing,
+                                     Optional VolumeThroughput As Integer = Nothing) As Amazon.EC2.Model.Volume
+
+
+            Dim client = NewAmazonEC2Client(AwsAccount)
+
+            Dim request = New Amazon.EC2.Model.CreateVolumeRequest
+            request.AvailabilityZone = AvailabilityZone
+            request.VolumeType = Amazon.EC2.VolumeType.FindValue(VolumeType)
+            request.Size = VolumeSize
+            request.Encrypted = VolumeEncrypted
+
+            If Not VolumeIops = Nothing Then
+                request.Iops = VolumeIops
+            End If
+
+            If Not VolumeThroughput = Nothing Then
+                request.Throughput = VolumeThroughput
+            End If
+
+            Dim requestResult = client.CreateVolumeAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.Volume
+
+        End Function
+
+        Public Function AttachVolume(AwsAccount As AwsAccount,
+                                     VolumeId As String,
+                                     InstanceId As String,
+                                     Device As String) As Amazon.EC2.Model.VolumeAttachment
+
+            Dim client = NewAmazonEC2Client(AwsAccount)
+
+            Dim request = New Amazon.EC2.Model.AttachVolumeRequest
+            request.VolumeId = VolumeId
+            request.InstanceId = InstanceId
+            request.Device = Device
+
+            Dim requestResult = client.AttachVolumeAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.Attachment
+
+        End Function
+
+        Public Function DescribeVolumeStatus(AwsAccount As AwsAccount,
+                                     VolumeId As String) As Amazon.EC2.Model.VolumeStatusItem
+
+
+            Dim client = NewAmazonEC2Client(AwsAccount)
+
+            Dim request = New Amazon.EC2.Model.DescribeVolumeStatusRequest
+            request.VolumeIds.Add(VolumeId)
+
+            Dim requestResult = client.DescribeVolumeStatusAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            If result.VolumeStatuses.Count = 1 Then
+                Return result.VolumeStatuses.Item(0)
+            Else
+                Return New Amazon.EC2.Model.VolumeStatusItem
+            End If
+
+        End Function
+
         Public Function ListSecurityGroups(AwsAccount As AwsAccount, Instance As Amazon.EC2.Model.Instance) As List(Of Amazon.EC2.Model.SecurityGroup)
 
             Dim List As List(Of Amazon.EC2.Model.SecurityGroup) = New List(Of Amazon.EC2.Model.SecurityGroup)
@@ -657,6 +740,9 @@
             Return result.Vpcs
 
         End Function
+
+
+
 
     End Module
 
