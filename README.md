@@ -21,7 +21,7 @@ Fully based on the official AWS .NET SDK using .NET 5.
 1. <b>Should I use this app?</b> Use at your own risk. I do not provide any support but appreciate your feedback in issues.
 2. <b>Why would you duplicate something that already exists?</b> 
 As an engineer who work with AWS for over a decade, I'm deeply frustrated with the development direction of the Console - aweful, unreadable and slow UI.
-The goal for this solution is to fix address those issues.
+The goal for this solution is to address those issues.
 3. <b>Why vb.net?</b> I'm Windows user, I like .NET, I like Visual Basic, I enjoy writing it.
 4. <b>Your code is aweful!</b> I'm a database architect, not a software engineer. Also, a big fan of incremental development and improvement. 
 5. <b>Do you have a release schedule?</b> No, this is a pet project with no dedicated resources. 
