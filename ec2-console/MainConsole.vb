@@ -572,7 +572,7 @@ Public Class Form1
                 m.Items.Add(New ToolStripMenuItem("Stop instance", My.Resources.StopRed.ToBitmap, AddressOf StopInstance))
                 m.Items.Add(New ToolStripMenuItem("Start instance", My.Resources.Play.ToBitmap, AddressOf StartInstance))
                 m.Items.Add(New ToolStripMenuItem("Reboot instance", My.Resources.Reboot.ToBitmap, AddressOf RebootInstance))
-                m.Items.Add(New ToolStripMenuItem("Terminate instance", Nothing, AddressOf TerminateInstance))
+                m.Items.Add(New ToolStripMenuItem("Terminate instance", Nothing, AddressOf TerminateInstances))
 
 
                 Dim m1 = New ToolStripMenuItem("Instance settings")
@@ -612,6 +612,19 @@ Public Class Form1
         End If
 
     End Sub
+    Function GetAllSelectedInstanceIds() As List(Of String)
+
+        Dim ResultList As List(Of String) = New List(Of String)
+
+        Dim ColumnNumber = 3
+
+        For Each SelectedInstance As System.Data.DataRowView In DataListViewEC2.SelectedObjects
+            ResultList.Add(SelectedInstance.Row.ItemArray.GetValue(ColumnNumber))
+        Next
+
+        Return ResultList
+
+    End Function
     Function GetSelectedInstanceId() As String
 
         Dim ColumnNumber = 3
@@ -648,17 +661,13 @@ Public Class Form1
 
     End Sub
 
-    Sub TerminateInstance()
+    Sub TerminateInstances()
 
-        Dim InstanceID = GetSelectedInstanceId()
-
-        Dim Rez = MsgBox("Do you want to terminate " + InstanceID + "?", MsgBoxStyle.YesNo, "TERMINATE instance")
-
-        If Rez = MsgBoxResult.Yes Then
-
-            AmazonApi.TerminateInstance(CurrentAccount, InstanceID)
-
-        End If
+        Dim FormTerminate = New TerminateInstanceForm
+        FormTerminate.CurrentAccount = CurrentAccount
+        FormTerminate.InstanceIds = GetAllSelectedInstanceIds()
+        FormTerminate.StartPosition = FormStartPosition.CenterScreen
+        FormTerminate.Show()
 
     End Sub
 

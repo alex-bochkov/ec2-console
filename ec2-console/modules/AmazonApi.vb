@@ -146,7 +146,7 @@
 
         Public Function ListEc2Instances(AwsAccount As AwsAccount,
                                          UserFilters As Dictionary(Of String, List(Of String)),
-                                         ByRef NextToken As String) As List(Of Amazon.EC2.Model.Instance)
+                                         ByRef NextToken_old As String) As List(Of Amazon.EC2.Model.Instance)
 
             Dim List As List(Of Amazon.EC2.Model.Instance) = New List(Of Amazon.EC2.Model.Instance)
 
@@ -154,37 +154,50 @@
 
             Dim request = New Amazon.EC2.Model.DescribeInstancesRequest
 
-            If Not NextToken Is Nothing Then
-                request.NextToken = NextToken
+            '***************************************************
+            'solely for development purpose on my machine
+            If My.Computer.Name = "DESKTOP-PKNQCHC" Then
+                Dim tags = New List(Of String)
+                tags.Add("DBA")
+                request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "tag:Owner", .Values = tags})
             End If
+            '***************************************************
 
-            Dim tags = New List(Of String)
-            tags.Add("DBA")
-
-            request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "tag:Owner", .Values = tags})
 
             For Each UserFilter In UserFilters
                 request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = UserFilter.Key, .Values = UserFilter.Value})
             Next
 
-            request.MaxResults = 50
+            request.MaxResults = 100
 
-            Dim requestResult = client.DescribeInstancesAsync(request).GetAwaiter()
-            While Not requestResult.IsCompleted
-                Application.DoEvents()
+            Dim NextToken As String = "first-request"
+
+            While NextToken <> ""
+
+                If NextToken <> "first-request" Then
+                    request.NextToken = NextToken
+                End If
+
+                Dim requestResult = client.DescribeInstancesAsync(request).GetAwaiter()
+                While Not requestResult.IsCompleted
+                    Application.DoEvents()
+                End While
+
+                Dim result = requestResult.GetResult()
+
+                For Each resultRow In result.Reservations
+
+                    For Each instance In resultRow.Instances
+
+                        List.Add(instance)
+
+                    Next
+
+                Next
+
+                NextToken = request.NextToken
+
             End While
-
-            Dim result = requestResult.GetResult()
-
-            For Each resultRow In result.Reservations
-
-                Dim instance = resultRow.Instances.Item(0)
-
-                List.Add(instance)
-
-            Next
-
-            NextToken = result.NextToken
 
             Return List
 
