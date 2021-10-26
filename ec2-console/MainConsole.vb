@@ -568,8 +568,6 @@ Public Class Form1
 
     Sub PopulateInstanceProperties()
 
-        TreeViewInstanceProperties.Nodes.Clear()
-
         Dim InstanceID = GetSelectedInstanceId()
 
         Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
@@ -578,30 +576,74 @@ Public Class Form1
             Exit Sub
         End If
 
-        TreeViewInstanceProperties.Nodes.Add("_1", "AZ       : " + Instance.Placement.AvailabilityZone)
-        TreeViewInstanceProperties.Nodes.Add("_2", "Launched : " + Instance.LaunchTime.ToString)
-        TreeViewInstanceProperties.Nodes.Add("_3", "AMI      : " + Instance.ImageId)
+        '*****************************************************************
+        ' Tab - Security
+        ListViewInstanceSG.Items.Clear()
+        For Each InstanceSG In Instance.SecurityGroups
 
-        Dim Tags = TreeViewInstanceProperties.Nodes.Add("tags", "Instance Tags")
+            Dim ListViewItemSG As ListViewItem = New ListViewItem(InstanceSG.GroupId)
+            ListViewItemSG.SubItems.Add(InstanceSG.GroupName)
 
+            ListViewInstanceSG.Items.Add(ListViewItemSG)
+
+        Next
+
+        '*****************************************************************
+        ' Tab - Network
+        ListViewInstanceNetworkProperties.Items.Clear()
+        ListViewInstanceNetworkProperties.Items.Add(New ListViewItem({"PrivateDnsName", Instance.PrivateDnsName}))
+        ListViewInstanceNetworkProperties.Items.Add(New ListViewItem({"PrivateIpAddress", Instance.PrivateIpAddress}))
+        ListViewInstanceNetworkProperties.Items.Add(New ListViewItem({"VpcId", Instance.VpcId}))
+        ListViewInstanceNetworkProperties.Items.Add(New ListViewItem({"SubnetId", Instance.SubnetId}))
+        ListViewInstanceNetworkProperties.Items.Add(New ListViewItem({"AvailabilityZone", Instance.Placement.AvailabilityZone}))
+
+        '*****************************************************************
+        ' Tab - Storage
+        ListViewInstanceVolumes.Items.Clear()
+        For Each InstanceVolume In Instance.BlockDeviceMappings
+
+            Dim ListViewItemVolume As ListViewItem = New ListViewItem(InstanceVolume.Ebs.VolumeId)
+            ListViewItemVolume.SubItems.Add(InstanceVolume.DeviceName)
+            ListViewItemVolume.SubItems.Add(0) 'Size
+            ListViewItemVolume.SubItems.Add(InstanceVolume.Ebs.AttachTime.ToString)
+            ListViewItemVolume.SubItems.Add("N/A") 'Encrypted 
+            ListViewItemVolume.SubItems.Add("N/A") 'KMS Key 
+            ListViewItemVolume.SubItems.Add(InstanceVolume.Ebs.DeleteOnTermination)
+
+            ListViewInstanceVolumes.Items.Add(ListViewItemVolume)
+
+
+        Next
+
+        If Instance.BlockDeviceMappings.Count = 0 Then
+            TabPageStorage.Text = "Storage (none)"
+        Else
+            TabPageStorage.Text = String.Format("Storage ({0})", Instance.BlockDeviceMappings.Count)
+        End If
+
+
+        '*****************************************************************
+        ' Tab - Tags
+        ListViewInstanceTags.Items.Clear()
         For Each InstanceTag In Instance.Tags
 
-            Tags.Nodes.Add(InstanceTag.Key, InstanceTag.Key + ": " + InstanceTag.Value)
+            Dim ListViewItemTag As ListViewItem = New ListViewItem(InstanceTag.Key)
+            ListViewItemTag.SubItems.Add(InstanceTag.Value)
+
+            ListViewInstanceTags.Items.Add(ListViewItemTag)
 
         Next
 
-        Dim SG = TreeViewInstanceProperties.Nodes.Add("security-groups", "Security Groups")
-        For Each InstanceSG In Instance.SecurityGroups
-            SG.Nodes.Add(InstanceSG.GroupId, InstanceSG.GroupName & "(" & InstanceSG.GroupId & ")")
-        Next
+        If Instance.Tags.Count = 0 Then
+            TabPageTags.Text = "Tags (none)"
+        Else
+            TabPageTags.Text = String.Format("Tags ({0})", Instance.Tags.Count)
+        End If
 
-        Dim VolumeNode = TreeViewInstanceProperties.Nodes.Add("volumes", "Volumes")
-        Dim Volumes = InstanceVolumesTable.Item(InstanceID)
-        For Each Volume As Amazon.EC2.Model.Volume In Volumes
-            VolumeNode.Nodes.Add(Volume.VolumeId, Volume.VolumeType.Value & " / " & Volume.Size.ToString & " Gb / " & Volume.Iops.ToString & " IOPS / " & Volume.Throughput & " MiB/s")
-        Next
+        '*****************************************************************
+        'TreeViewInstanceProperties.Nodes.Add("_2", "Launched : " + Instance.LaunchTime.ToString)
+        'TreeViewInstanceProperties.Nodes.Add("_3", "AMI      : " + Instance.ImageId)
 
-        TreeViewInstanceProperties.ExpandAll()
 
     End Sub
 
@@ -914,54 +956,54 @@ Public Class Form1
 
     End Sub
 
-    Private Sub TreeViewInstanceProperties_MouseDown(sender As Object, e As MouseEventArgs) Handles TreeViewInstanceProperties.MouseDown
-
-        If (e.Button = MouseButtons.Right) Then
-
-            Dim hti = TreeViewInstanceProperties.HitTest(e.X, e.Y)
-
-            If Not hti.Node Is Nothing Then
-
-                TreeViewInstanceProperties.SelectedNode = hti.Node
-
-                Dim m As ContextMenuStrip = New ContextMenuStrip()
-
-                If Not hti.Node.Parent Is Nothing Then
-
-                    If hti.Node.Parent.Name = "security-groups" Then
-
-                        m.Items.Add(New ToolStripMenuItem("Edit Security Groups...", My.Resources.AddObject.ToBitmap, AddressOf EditSecurityGroups))
-                        'm.Items.Add(New ToolStripMenuItem("Remove this SG", My.Resources.DeleteObject.ToBitmap))
-
-                    ElseIf hti.Node.Parent.Name = "tags" Then
-
-                        m.Items.Add(New ToolStripMenuItem("Manage Tags", Nothing, AddressOf EditTags))
-                        'm.Items.Add(New ToolStripMenuItem("Remove this tag", My.Resources.DeleteObject.ToBitmap))
-
-                    ElseIf hti.Node.Parent.Name = "volumes" Then
-
-                        Dim mVolume1 As ToolStripItem = New ToolStripMenuItem("Modify Volume", Nothing, AddressOf EditVolume)
-                        mVolume1.Tag = hti.Node.Name
-                        m.Items.Add(mVolume1)
-
-                        Dim mVolume2 As ToolStripItem = New ToolStripMenuItem("Volume Config History", My.Resources.Timeline.ToBitmap, AddressOf GetVolumeConfigHistory)
-                        mVolume2.Tag = hti.Node.Name
-                        m.Items.Add(mVolume2)
-
-                    End If
-
-                End If
-
-                If m.Items.Count > 0 Then
-                    m.Show(Cursor.Position)
-                End If
-
-
-            End If
-
-        End If
-
-    End Sub
+    'Private Sub TreeViewInstanceProperties_MouseDown(sender As Object, e As MouseEventArgs)
+    '
+    '    If (e.Button = MouseButtons.Right) Then
+    '
+    '        Dim hti = TreeViewInstanceProperties.HitTest(e.X, e.Y)
+    '
+    '        If Not hti.Node Is Nothing Then
+    '
+    '            TreeViewInstanceProperties.SelectedNode = hti.Node
+    '
+    '            Dim m As ContextMenuStrip = New ContextMenuStrip()
+    '
+    '            If Not hti.Node.Parent Is Nothing Then
+    '
+    '                If hti.Node.Parent.Name = "security-groups" Then
+    '
+    '                    m.Items.Add(New ToolStripMenuItem("Edit Security Groups...", My.Resources.AddObject.ToBitmap, AddressOf EditSecurityGroups))
+    '                    'm.Items.Add(New ToolStripMenuItem("Remove this SG", My.Resources.DeleteObject.ToBitmap))
+    '
+    '                ElseIf hti.Node.Parent.Name = "tags" Then
+    '
+    '                    m.Items.Add(New ToolStripMenuItem("Manage Tags", Nothing, AddressOf EditTags))
+    '                    'm.Items.Add(New ToolStripMenuItem("Remove this tag", My.Resources.DeleteObject.ToBitmap))
+    '
+    '                ElseIf hti.Node.Parent.Name = "volumes" Then
+    '
+    '                    Dim mVolume1 As ToolStripItem = New ToolStripMenuItem("Modify Volume", Nothing, AddressOf EditVolume)
+    '                    mVolume1.Tag = hti.Node.Name
+    '                    m.Items.Add(mVolume1)
+    '
+    '                    Dim mVolume2 As ToolStripItem = New ToolStripMenuItem("Volume Config History", My.Resources.Timeline.ToBitmap, AddressOf GetVolumeConfigHistory)
+    '                    mVolume2.Tag = hti.Node.Name
+    '                    m.Items.Add(mVolume2)
+    '
+    '                End If
+    '
+    '            End If
+    '
+    '            If m.Items.Count > 0 Then
+    '                m.Show(Cursor.Position)
+    '            End If
+    '
+    '
+    '        End If
+    '
+    '    End If
+    '
+    'End Sub
 
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
 
