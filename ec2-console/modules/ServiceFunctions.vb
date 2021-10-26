@@ -18,7 +18,7 @@ Namespace ServiceFunctions
 
                 Dim webClient As New System.Net.WebClient
 
-                Dim request = WebRequest.Create("https://api.github.com/repos/alekseybochkov/ec2-console/releases/latest")
+                Dim request = WebRequest.Create("https://api.github.com/repos/alex-bochkov/ec2-console/releases/latest")
                 request.Headers.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36")
 
                 Dim response As WebResponse = request.GetResponse()

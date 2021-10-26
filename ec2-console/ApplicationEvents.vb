@@ -31,12 +31,6 @@ Namespace My
 
         End Sub
 
-        Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) Handles Me.UnhandledException
-
-            MsgBox("Something went bad... TBD")
-
-        End Sub
-
     End Class
 
 End Namespace

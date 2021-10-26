@@ -24,7 +24,11 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
-        Me.ToolStripStatusLabelNextToken = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabelCurrentRegion = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStripMain = New System.Windows.Forms.MenuStrip()
         Me.AccountsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -55,17 +59,47 @@ Partial Class Form1
         '
         'StatusStrip
         '
-        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabelNextToken})
+        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabelCurrentRegion})
         Me.StatusStrip.Location = New System.Drawing.Point(0, 624)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(1415, 22)
         Me.StatusStrip.TabIndex = 0
         Me.StatusStrip.Text = "StatusStrip1"
         '
-        'ToolStripStatusLabelNextToken
+        'ToolStripStatusLabelCurrentRegion
         '
-        Me.ToolStripStatusLabelNextToken.Name = "ToolStripStatusLabelNextToken"
-        Me.ToolStripStatusLabelNextToken.Size = New System.Drawing.Size(0, 17)
+        Me.ToolStripStatusLabelCurrentRegion.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ToolStripMenuItem2, Me.ToolStripMenuItem3, Me.ToolStripMenuItem4})
+        Me.ToolStripStatusLabelCurrentRegion.Name = "ToolStripStatusLabelCurrentRegion"
+        Me.ToolStripStatusLabelCurrentRegion.Size = New System.Drawing.Size(76, 20)
+        Me.ToolStripStatusLabelCurrentRegion.Text = "< region >"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(203, 22)
+        Me.ToolStripMenuItem1.Tag = "us-east-1"
+        Me.ToolStripMenuItem1.Text = "us-east-1 (N. Virginia)"
+        '
+        'ToolStripMenuItem2
+        '
+        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(203, 22)
+        Me.ToolStripMenuItem2.Tag = "us-east-2"
+        Me.ToolStripMenuItem2.Text = "us-east-2 (Ohio)"
+        '
+        'ToolStripMenuItem3
+        '
+        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(203, 22)
+        Me.ToolStripMenuItem3.Tag = "us-west-1"
+        Me.ToolStripMenuItem3.Text = "us-west-1 (N. California)"
+        '
+        'ToolStripMenuItem4
+        '
+        Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(203, 22)
+        Me.ToolStripMenuItem4.Tag = "us-west-2"
+        Me.ToolStripMenuItem4.Text = "us-west-2 (Oregon)"
         '
         'MenuStripMain
         '
@@ -98,13 +132,13 @@ Partial Class Form1
         'EnglishToolStripMenuItem
         '
         Me.EnglishToolStripMenuItem.Name = "EnglishToolStripMenuItem"
-        Me.EnglishToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EnglishToolStripMenuItem.Size = New System.Drawing.Size(114, 22)
         Me.EnglishToolStripMenuItem.Text = "English"
         '
         'RussianToolStripMenuItem
         '
         Me.RussianToolStripMenuItem.Name = "RussianToolStripMenuItem"
-        Me.RussianToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RussianToolStripMenuItem.Size = New System.Drawing.Size(114, 22)
         Me.RussianToolStripMenuItem.Text = "Russian"
         '
         'TabControl
@@ -155,7 +189,7 @@ Partial Class Form1
         Me.Panel2.Controls.Add(Me.MenuStripFilterPresentation)
         Me.Panel2.Location = New System.Drawing.Point(2, 29)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1085, 537)
+        Me.Panel2.Size = New System.Drawing.Size(1085, 515)
         Me.Panel2.TabIndex = 12
         '
         'DataListViewEC2
@@ -172,7 +206,7 @@ Partial Class Form1
         Me.DataListViewEC2.Location = New System.Drawing.Point(6, 27)
         Me.DataListViewEC2.Name = "DataListViewEC2"
         Me.DataListViewEC2.ShowGroups = False
-        Me.DataListViewEC2.Size = New System.Drawing.Size(1079, 507)
+        Me.DataListViewEC2.Size = New System.Drawing.Size(1079, 463)
         Me.DataListViewEC2.TabIndex = 9
         Me.DataListViewEC2.UseFiltering = True
         Me.DataListViewEC2.View = System.Windows.Forms.View.Details
@@ -210,7 +244,7 @@ Partial Class Form1
         Me.Panel1.Controls.Add(Me.TreeViewInstanceProperties)
         Me.Panel1.Location = New System.Drawing.Point(1093, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(310, 563)
+        Me.Panel1.Size = New System.Drawing.Size(310, 541)
         Me.Panel1.TabIndex = 8
         '
         'TreeViewInstanceProperties
@@ -221,7 +255,7 @@ Partial Class Form1
         Me.TreeViewInstanceProperties.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.TreeViewInstanceProperties.Location = New System.Drawing.Point(0, 0)
         Me.TreeViewInstanceProperties.Name = "TreeViewInstanceProperties"
-        Me.TreeViewInstanceProperties.Size = New System.Drawing.Size(310, 563)
+        Me.TreeViewInstanceProperties.Size = New System.Drawing.Size(310, 519)
         Me.TreeViewInstanceProperties.TabIndex = 0
         '
         'Form1
@@ -272,8 +306,12 @@ Partial Class Form1
     Friend WithEvents Panel2 As Panel
     Friend WithEvents MenuStripInstances As MenuStrip
     Friend WithEvents ToolStripMenuItemRefreshInstanceList As ToolStripMenuItem
-    Friend WithEvents ToolStripStatusLabelNextToken As ToolStripStatusLabel
     Friend WithEvents LanguageToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EnglishToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RussianToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripStatusLabelCurrentRegion As ToolStripDropDownButton
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem2 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem3 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem4 As ToolStripMenuItem
 End Class

@@ -68,9 +68,9 @@ Public Class Form1
     Sub GoToDownloadPage()
 
         'this one doesn't work in .NET Core
-        'Process.Start("https://github.com/alekseybochkov/ec2-console/releases")
+        'Process.Start("https://github.com/alex-bochkov/ec2-console/releases")
 
-        Process.Start(New ProcessStartInfo("cmd", $"/c start https://github.com/alekseybochkov/ec2-console/releases") With {.CreateNoWindow = True})
+        Process.Start(New ProcessStartInfo("cmd", $"/c start https://github.com/alex-bochkov/ec2-console/releases") With {.CreateNoWindow = True})
 
     End Sub
 
@@ -109,6 +109,8 @@ Public Class Form1
     Sub SetCurrentAccount()
 
         AccountsToolStripMenuItem.Text = "Active account: " + CurrentAccount.Description
+
+        ToolStripStatusLabelCurrentRegion.Text = CurrentAccount.Region
 
         StatusStrip.BackColor = CurrentAccount.BackgroundColor
 
@@ -929,5 +931,29 @@ Public Class Form1
         RussianToolStripMenuItem.Text = ServiceFunctions.GetLocalizedMessage("language-name-russian")
 
     End Sub
+
+    Private Sub ToolStripMenuItemRegion1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+        ChangeRegion(sender.tag)
+    End Sub
+
+    Private Sub ToolStripMenuItemRegion2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
+        ChangeRegion(sender.tag)
+    End Sub
+    Private Sub ToolStripMenuItemRegion3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
+        ChangeRegion(sender.tag)
+    End Sub
+    Private Sub ToolStripMenuItemRegion4_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem4.Click
+        ChangeRegion(sender.tag)
+    End Sub
+
+    Sub ChangeRegion(Region As String)
+
+        CurrentAccount.Region = Region
+
+        SetCurrentAccount()
+
+    End Sub
+
+
 
 End Class
