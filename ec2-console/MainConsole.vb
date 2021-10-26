@@ -569,9 +569,9 @@ Public Class Form1
             If Not hti.Item Is Nothing Then
 
                 Dim m As ContextMenuStrip = New ContextMenuStrip()
-                m.Items.Add(New ToolStripMenuItem("Stop instance", My.Resources.StopRed.ToBitmap, AddressOf StopInstance))
-                m.Items.Add(New ToolStripMenuItem("Start instance", My.Resources.Play.ToBitmap, AddressOf StartInstance))
-                m.Items.Add(New ToolStripMenuItem("Reboot instance", My.Resources.Reboot.ToBitmap, AddressOf RebootInstance))
+                m.Items.Add(New ToolStripMenuItem("Stop instance", My.Resources.StopRed.ToBitmap, AddressOf StopInstances))
+                m.Items.Add(New ToolStripMenuItem("Start instance", My.Resources.Play.ToBitmap, AddressOf StartInstances))
+                m.Items.Add(New ToolStripMenuItem("Reboot instance", My.Resources.Reboot.ToBitmap, AddressOf RebootInstances))
                 m.Items.Add(New ToolStripMenuItem("Terminate instance", Nothing, AddressOf TerminateInstances))
 
 
@@ -671,43 +671,64 @@ Public Class Form1
 
     End Sub
 
-    Sub StartInstance()
+    Sub StartInstances()
 
-        Dim InstanceID = GetSelectedInstanceId()
+        Dim InstanceIDs = GetAllSelectedInstanceIds()
 
-        Dim Rez = MsgBox("Start instance: " + InstanceID + "?", MsgBoxStyle.YesNo, "Start instance")
+        Dim TextAllIds = vbCrLf
+        For Each InstanceId In InstanceIDs
+            TextAllIds += InstanceId + vbCrLf
+        Next
+
+        Dim Rez = MsgBox("Start instance: " + TextAllIds + "?", MsgBoxStyle.YesNo, "Start instance")
 
         If Rez = MsgBoxResult.Yes Then
 
-            AmazonApi.StartInstance(CurrentAccount, InstanceID)
+            For Each InstanceId In InstanceIDs
+                AmazonApi.StartInstance(CurrentAccount, InstanceId)
+            Next
 
         End If
 
     End Sub
 
-    Sub StopInstance()
+    Sub StopInstances()
 
-        Dim InstanceID = GetSelectedInstanceId()
+        Dim InstanceIDs = GetAllSelectedInstanceIds()
 
-        Dim Rez = MsgBox("Stop instance: " + InstanceID + "?", MsgBoxStyle.YesNo, "Stop instance")
+        Dim TextAllIds = vbCrLf
+        For Each InstanceId In InstanceIDs
+            TextAllIds += InstanceId + vbCrLf
+        Next
+
+        Dim Rez = MsgBox("Stop instance: " + TextAllIds + "?", MsgBoxStyle.YesNo, "Stop instance")
 
         If Rez = MsgBoxResult.Yes Then
 
-            AmazonApi.StopInstance(CurrentAccount, InstanceID)
+            For Each InstanceID In InstanceIDs
+                AmazonApi.StopInstance(CurrentAccount, InstanceID)
+            Next
 
         End If
 
     End Sub
 
-    Sub RebootInstance()
+    Sub RebootInstances()
 
-        Dim InstanceID = GetSelectedInstanceId()
+        Dim InstanceIDs = GetAllSelectedInstanceIds()
 
-        Dim Rez = MsgBox("Reboot instance: " + InstanceID + "?", MsgBoxStyle.YesNo, "Reboot instance")
+        Dim TextAllIds = vbCrLf
+        For Each InstanceId In InstanceIDs
+            TextAllIds += InstanceId + vbCrLf
+        Next
+
+        Dim Rez = MsgBox("Reboot instance: " + TextAllIds + "?", MsgBoxStyle.YesNo, "Reboot instance")
 
         If Rez = MsgBoxResult.Yes Then
 
-            AmazonApi.RebootInstance(CurrentAccount, InstanceID)
+            For Each InstanceID In InstanceIDs
+                AmazonApi.RebootInstance(CurrentAccount, InstanceID)
+            Next
 
         End If
 
