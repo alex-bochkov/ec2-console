@@ -886,12 +886,12 @@ Public Class Form1
                     If hti.Node.Parent.Name = "security-groups" Then
 
                         m.Items.Add(New ToolStripMenuItem("Edit Security Groups...", My.Resources.AddObject.ToBitmap, AddressOf EditSecurityGroups))
-                        m.Items.Add(New ToolStripMenuItem("Remove this SG", My.Resources.DeleteObject.ToBitmap))
+                        'm.Items.Add(New ToolStripMenuItem("Remove this SG", My.Resources.DeleteObject.ToBitmap))
 
                     ElseIf hti.Node.Parent.Name = "tags" Then
 
-                        m.Items.Add(New ToolStripMenuItem("Edit Tags"))
-                        m.Items.Add(New ToolStripMenuItem("Remove this tag", My.Resources.DeleteObject.ToBitmap))
+                        m.Items.Add(New ToolStripMenuItem("Manage Tags", Nothing, AddressOf EditTags))
+                        'm.Items.Add(New ToolStripMenuItem("Remove this tag", My.Resources.DeleteObject.ToBitmap))
 
                     ElseIf hti.Node.Parent.Name = "volumes" Then
 
