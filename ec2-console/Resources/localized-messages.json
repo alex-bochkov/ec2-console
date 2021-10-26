@@ -24,6 +24,21 @@
       "id": "restart-the-app-language",
       "en_US": "Please restart the app",
       "ru_RU": "Перезапустите приложение для применения изменений в полной мере"
+    },
+    {
+      "id": "current-user",
+      "en_US": "Current User",
+      "ru_RU": "Текущий пользователь"
+    },
+    {
+      "id": "app-title",
+      "en_US": "AWS EC2 Console",
+      "ru_RU": "AWS EC2 Консоль"
+    },
+    {
+      "id": "active-account",
+      "en_US": "Active Account",
+      "ru_RU": "Этот аккаунт"
     }
 
   ]

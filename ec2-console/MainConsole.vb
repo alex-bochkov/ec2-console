@@ -108,7 +108,7 @@ Public Class Form1
 
     Sub SetCurrentAccount()
 
-        AccountsToolStripMenuItem.Text = "Active account: " + CurrentAccount.Description
+        AccountsToolStripMenuItem.Text = ServiceFunctions.GetLocalizedMessage("active-account") + ": " + CurrentAccount.Description
 
         ToolStripStatusLabelCurrentRegion.Text = CurrentAccount.Region
 
@@ -126,7 +126,8 @@ Public Class Form1
 
         Dim Rez = AmazonApi.GetAccountAttributes(CurrentAccount)
 
-        Text = "AWS EC2 Console / Current User = " + Rez.Arn
+        Text = ServiceFunctions.GetLocalizedMessage("app-title") + " / " _
+            + ServiceFunctions.GetLocalizedMessage("current-user") + " = " + Rez.Arn
 
     End Sub
 
@@ -895,7 +896,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub ToolStripMenuItemRefreshInstanceList_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItemRefreshInstanceList.Click
+    Private Sub ToolStripMenuItemRefreshInstanceList_Click(sender As Object, e As EventArgs)
 
         FillInstanceList()
 
@@ -954,6 +955,10 @@ Public Class Form1
 
     End Sub
 
+    Private Sub ToolStripMenuItem5_Click(sender As Object, e As EventArgs) Handles RefreshInstanceListToolStripMenuItem.Click
 
+        FillInstanceList()
+
+    End Sub
 
 End Class

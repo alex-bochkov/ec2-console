@@ -37,11 +37,10 @@ Partial Class Form1
         Me.RussianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabControl = New System.Windows.Forms.TabControl()
         Me.TabPageEC2 = New System.Windows.Forms.TabPage()
-        Me.MenuStripInstances = New System.Windows.Forms.MenuStrip()
-        Me.ToolStripMenuItemRefreshInstanceList = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.DataListViewEC2 = New BrightIdeasSoftware.DataListView()
         Me.MenuStripInstanceFilter = New System.Windows.Forms.MenuStrip()
+        Me.RefreshInstanceListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FilterByToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStripFilterPresentation = New System.Windows.Forms.MenuStrip()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -50,7 +49,6 @@ Partial Class Form1
         Me.MenuStripMain.SuspendLayout()
         Me.TabControl.SuspendLayout()
         Me.TabPageEC2.SuspendLayout()
-        Me.MenuStripInstances.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.DataListViewEC2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStripInstanceFilter.SuspendLayout()
@@ -153,7 +151,6 @@ Partial Class Form1
         '
         'TabPageEC2
         '
-        Me.TabPageEC2.Controls.Add(Me.MenuStripInstances)
         Me.TabPageEC2.Controls.Add(Me.Panel2)
         Me.TabPageEC2.Controls.Add(Me.Panel1)
         Me.TabPageEC2.Location = New System.Drawing.Point(4, 24)
@@ -163,22 +160,6 @@ Partial Class Form1
         Me.TabPageEC2.TabIndex = 0
         Me.TabPageEC2.Text = "Instances"
         '
-        'MenuStripInstances
-        '
-        Me.MenuStripInstances.Dock = System.Windows.Forms.DockStyle.None
-        Me.MenuStripInstances.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItemRefreshInstanceList})
-        Me.MenuStripInstances.Location = New System.Drawing.Point(5, 3)
-        Me.MenuStripInstances.Name = "MenuStripInstances"
-        Me.MenuStripInstances.Size = New System.Drawing.Size(134, 24)
-        Me.MenuStripInstances.TabIndex = 12
-        Me.MenuStripInstances.Text = "MenuStrip2"
-        '
-        'ToolStripMenuItemRefreshInstanceList
-        '
-        Me.ToolStripMenuItemRefreshInstanceList.Name = "ToolStripMenuItemRefreshInstanceList"
-        Me.ToolStripMenuItemRefreshInstanceList.Size = New System.Drawing.Size(126, 20)
-        Me.ToolStripMenuItemRefreshInstanceList.Text = "Refresh Instance List"
-        '
         'Panel2
         '
         Me.Panel2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -187,9 +168,9 @@ Partial Class Form1
         Me.Panel2.Controls.Add(Me.DataListViewEC2)
         Me.Panel2.Controls.Add(Me.MenuStripInstanceFilter)
         Me.Panel2.Controls.Add(Me.MenuStripFilterPresentation)
-        Me.Panel2.Location = New System.Drawing.Point(2, 29)
+        Me.Panel2.Location = New System.Drawing.Point(2, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1085, 515)
+        Me.Panel2.Size = New System.Drawing.Size(1085, 544)
         Me.Panel2.TabIndex = 12
         '
         'DataListViewEC2
@@ -206,7 +187,7 @@ Partial Class Form1
         Me.DataListViewEC2.Location = New System.Drawing.Point(6, 27)
         Me.DataListViewEC2.Name = "DataListViewEC2"
         Me.DataListViewEC2.ShowGroups = False
-        Me.DataListViewEC2.Size = New System.Drawing.Size(1079, 463)
+        Me.DataListViewEC2.Size = New System.Drawing.Size(1079, 492)
         Me.DataListViewEC2.TabIndex = 9
         Me.DataListViewEC2.UseFiltering = True
         Me.DataListViewEC2.View = System.Windows.Forms.View.Details
@@ -214,12 +195,18 @@ Partial Class Form1
         'MenuStripInstanceFilter
         '
         Me.MenuStripInstanceFilter.Dock = System.Windows.Forms.DockStyle.None
-        Me.MenuStripInstanceFilter.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FilterByToolStripMenuItem})
+        Me.MenuStripInstanceFilter.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RefreshInstanceListToolStripMenuItem, Me.FilterByToolStripMenuItem})
         Me.MenuStripInstanceFilter.Location = New System.Drawing.Point(0, 0)
         Me.MenuStripInstanceFilter.Name = "MenuStripInstanceFilter"
-        Me.MenuStripInstanceFilter.Size = New System.Drawing.Size(69, 24)
+        Me.MenuStripInstanceFilter.Size = New System.Drawing.Size(247, 24)
         Me.MenuStripInstanceFilter.TabIndex = 10
         Me.MenuStripInstanceFilter.Text = "MenuStrip2"
+        '
+        'RefreshInstanceListToolStripMenuItem
+        '
+        Me.RefreshInstanceListToolStripMenuItem.Name = "RefreshInstanceListToolStripMenuItem"
+        Me.RefreshInstanceListToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
+        Me.RefreshInstanceListToolStripMenuItem.Text = "Refresh"
         '
         'FilterByToolStripMenuItem
         '
@@ -231,7 +218,7 @@ Partial Class Form1
         '
         Me.MenuStripFilterPresentation.BackColor = System.Drawing.SystemColors.ScrollBar
         Me.MenuStripFilterPresentation.Dock = System.Windows.Forms.DockStyle.None
-        Me.MenuStripFilterPresentation.Location = New System.Drawing.Point(83, 0)
+        Me.MenuStripFilterPresentation.Location = New System.Drawing.Point(195, 0)
         Me.MenuStripFilterPresentation.Name = "MenuStripFilterPresentation"
         Me.MenuStripFilterPresentation.Size = New System.Drawing.Size(202, 24)
         Me.MenuStripFilterPresentation.TabIndex = 11
@@ -277,9 +264,6 @@ Partial Class Form1
         Me.MenuStripMain.PerformLayout()
         Me.TabControl.ResumeLayout(False)
         Me.TabPageEC2.ResumeLayout(False)
-        Me.TabPageEC2.PerformLayout()
-        Me.MenuStripInstances.ResumeLayout(False)
-        Me.MenuStripInstances.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.DataListViewEC2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -304,8 +288,6 @@ Partial Class Form1
     Friend WithEvents FilterByToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MenuStripFilterPresentation As MenuStrip
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents MenuStripInstances As MenuStrip
-    Friend WithEvents ToolStripMenuItemRefreshInstanceList As ToolStripMenuItem
     Friend WithEvents LanguageToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EnglishToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RussianToolStripMenuItem As ToolStripMenuItem
@@ -314,4 +296,5 @@ Partial Class Form1
     Friend WithEvents ToolStripMenuItem2 As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem3 As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem4 As ToolStripMenuItem
+    Friend WithEvents RefreshInstanceListToolStripMenuItem As ToolStripMenuItem
 End Class
