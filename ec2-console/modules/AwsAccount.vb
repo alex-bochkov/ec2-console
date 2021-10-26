@@ -8,6 +8,7 @@ Public Class AwsAccount
     Public AccessKey As String
     Public SecretKey As String
     Public Region As String
+    Public EnabledRegions As List(Of String) = New List(Of String)
     Public BackgroundColor As Color = SystemColors.Control
     Public KeyPairs As List(Of KeyPairClass)
 

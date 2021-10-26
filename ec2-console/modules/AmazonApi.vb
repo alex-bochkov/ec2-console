@@ -807,4 +807,21 @@
 
     End Module
 
+    Module Internal
+
+        Function GetAllAwsRegions() As List(Of Amazon.RegionEndpoint)
+
+            Dim List As List(Of Amazon.RegionEndpoint) = New List(Of Amazon.RegionEndpoint)
+
+            For Each Region In Amazon.RegionEndpoint.EnumerableAllRegions
+
+                List.Add(Region)
+
+            Next
+
+            Return List
+
+        End Function
+
+    End Module
 End Namespace

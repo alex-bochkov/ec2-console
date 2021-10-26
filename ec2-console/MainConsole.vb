@@ -87,6 +87,43 @@ Public Class Form1
         SetFirstCurrentAccount()
 
     End Sub
+    Sub ShowAllRegions()
+
+        ToolStripStatusLabelCurrentRegion.DropDownItems.Clear()
+
+        If CurrentAccount IsNot Nothing Then
+
+            For Each AwsRegion In AmazonApi.GetAllAwsRegions()
+
+                If CurrentAccount.EnabledRegions.Contains(AwsRegion.SystemName) Or CurrentAccount.EnabledRegions.Count = 0 Then
+
+                    Dim ItemText = AwsRegion.SystemName + " / " + AwsRegion.DisplayName
+
+                    Dim Item = ToolStripStatusLabelCurrentRegion.DropDownItems.Add(ItemText, Nothing, AddressOf ToolStripMenuItemRegion_Click)
+                    Item.Tag = AwsRegion.SystemName
+
+                End If
+
+
+            Next
+
+        End If
+
+    End Sub
+
+    Private Sub ToolStripMenuItemRegion_Click(sender As Object, e As EventArgs)
+
+        ChangeRegion(sender.tag)
+
+    End Sub
+
+    Sub ChangeRegion(Region As String)
+
+        CurrentAccount.Region = Region
+
+        SetCurrentAccount()
+
+    End Sub
 
     Sub SetFirstCurrentAccount()
 
@@ -119,6 +156,8 @@ Public Class Form1
         PopulateFilterMenu()
 
         ShowAccountAttributes()
+
+        ShowAllRegions()
 
     End Sub
 
@@ -960,28 +999,6 @@ Public Class Form1
         LanguageToolStripMenuItem.Text = ServiceFunctions.GetLocalizedMessage("language")
         EnglishToolStripMenuItem.Text = ServiceFunctions.GetLocalizedMessage("language-name-english")
         RussianToolStripMenuItem.Text = ServiceFunctions.GetLocalizedMessage("language-name-russian")
-
-    End Sub
-
-    Private Sub ToolStripMenuItemRegion1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
-        ChangeRegion(sender.tag)
-    End Sub
-
-    Private Sub ToolStripMenuItemRegion2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
-        ChangeRegion(sender.tag)
-    End Sub
-    Private Sub ToolStripMenuItemRegion3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
-        ChangeRegion(sender.tag)
-    End Sub
-    Private Sub ToolStripMenuItemRegion4_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem4.Click
-        ChangeRegion(sender.tag)
-    End Sub
-
-    Sub ChangeRegion(Region As String)
-
-        CurrentAccount.Region = Region
-
-        SetCurrentAccount()
 
     End Sub
 

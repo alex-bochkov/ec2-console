@@ -56,6 +56,17 @@
 
         Next
 
+        CheckedListBoxEnabledRegions.Items.Clear()
+        For Each AwsRegion In AmazonApi.GetAllAwsRegions()
+
+            Dim Checked As Boolean = SelectedAccount.EnabledRegions.Contains(AwsRegion.SystemName) _
+                Or SelectedAccount.EnabledRegions.Count = 0
+
+            CheckedListBoxEnabledRegions.Items.Add(AwsRegion, Checked)
+
+        Next
+
+
     End Sub
 
     Private Sub ButtonSaveAccount_Click(sender As Object, e As EventArgs) Handles ButtonSaveAccount.Click
@@ -72,6 +83,11 @@
 
             SelectedAccount.KeyPairs.Add(KeyPair)
 
+        Next
+
+        SelectedAccount.EnabledRegions.Clear()
+        For Each AwsRegion As Amazon.RegionEndpoint In CheckedListBoxEnabledRegions.CheckedItems
+            SelectedAccount.EnabledRegions.Add(AwsRegion.SystemName)
         Next
 
         AccountManagement.AddNewAccount(SelectedAccount)
