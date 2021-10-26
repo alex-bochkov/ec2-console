@@ -31,10 +31,10 @@ Partial Class Form1
         Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStripMain = New System.Windows.Forms.MenuStrip()
         Me.AccountsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LanguageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EnglishToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RussianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabControl = New System.Windows.Forms.TabControl()
         Me.TabPageEC2 = New System.Windows.Forms.TabPage()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -101,7 +101,7 @@ Partial Class Form1
         '
         'MenuStripMain
         '
-        Me.MenuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AccountsToolStripMenuItem, Me.AboutToolStripMenuItem, Me.LanguageToolStripMenuItem})
+        Me.MenuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AccountsToolStripMenuItem, Me.LanguageToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.MenuStripMain.Location = New System.Drawing.Point(0, 0)
         Me.MenuStripMain.Name = "MenuStripMain"
         Me.MenuStripMain.Size = New System.Drawing.Size(1415, 24)
@@ -113,12 +113,6 @@ Partial Class Form1
         Me.AccountsToolStripMenuItem.Name = "AccountsToolStripMenuItem"
         Me.AccountsToolStripMenuItem.Size = New System.Drawing.Size(116, 20)
         Me.AccountsToolStripMenuItem.Text = "Add New Account"
-        '
-        'AboutToolStripMenuItem
-        '
-        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(52, 20)
-        Me.AboutToolStripMenuItem.Text = "About"
         '
         'LanguageToolStripMenuItem
         '
@@ -138,6 +132,12 @@ Partial Class Form1
         Me.RussianToolStripMenuItem.Name = "RussianToolStripMenuItem"
         Me.RussianToolStripMenuItem.Size = New System.Drawing.Size(114, 22)
         Me.RussianToolStripMenuItem.Text = "Russian"
+        '
+        'AboutToolStripMenuItem
+        '
+        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(52, 20)
+        Me.AboutToolStripMenuItem.Text = "About"
         '
         'TabControl
         '
@@ -198,7 +198,7 @@ Partial Class Form1
         Me.MenuStripInstanceFilter.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RefreshInstanceListToolStripMenuItem, Me.FilterByToolStripMenuItem})
         Me.MenuStripInstanceFilter.Location = New System.Drawing.Point(0, 0)
         Me.MenuStripInstanceFilter.Name = "MenuStripInstanceFilter"
-        Me.MenuStripInstanceFilter.Size = New System.Drawing.Size(247, 24)
+        Me.MenuStripInstanceFilter.Size = New System.Drawing.Size(127, 24)
         Me.MenuStripInstanceFilter.TabIndex = 10
         Me.MenuStripInstanceFilter.Text = "MenuStrip2"
         '

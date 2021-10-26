@@ -78,6 +78,8 @@ Public Class Form1
 
         LocalizeInterface()
 
+        StatusStrip.Items.Add(New ToolStripSeparator)
+
         Dim t As New Thread(New ThreadStart(AddressOf CheckForTheAppUpdates_Async))
         t.Priority = Threading.ThreadPriority.Normal
         t.Start()
@@ -100,7 +102,7 @@ Public Class Form1
                     Dim ItemText = AwsRegion.SystemName + " / " + AwsRegion.DisplayName
 
                     Dim Item = ToolStripStatusLabelCurrentRegion.DropDownItems.Add(ItemText, Nothing, AddressOf ToolStripMenuItemRegion_Click)
-                    Item.Tag = AwsRegion.SystemName
+                    Item.Tag = AwsRegion
 
                 End If
 
@@ -117,9 +119,9 @@ Public Class Form1
 
     End Sub
 
-    Sub ChangeRegion(Region As String)
+    Sub ChangeRegion(AwsRegion As Amazon.RegionEndpoint)
 
-        CurrentAccount.Region = Region
+        CurrentAccount.Region = AwsRegion.SystemName
 
         SetCurrentAccount()
 
@@ -147,7 +149,9 @@ Public Class Form1
 
         AccountsToolStripMenuItem.Text = ServiceFunctions.GetLocalizedMessage("active-account") + ": " + CurrentAccount.Description
 
-        ToolStripStatusLabelCurrentRegion.Text = CurrentAccount.Region
+        Dim AwsRegion = Amazon.RegionEndpoint.GetBySystemName(CurrentAccount.Region)
+
+        ToolStripStatusLabelCurrentRegion.Text = AwsRegion.SystemName + " / " + AwsRegion.DisplayName
 
         StatusStrip.BackColor = CurrentAccount.BackgroundColor
 
@@ -556,7 +560,9 @@ Public Class Form1
         End If
 
         DataListViewEC2.DataSource = table
-        DataListViewEC2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        If table.Rows.Count > 0 Then
+            DataListViewEC2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        End If
 
     End Sub
 
