@@ -237,9 +237,9 @@
 
         End Function
 
-        Public Function ListVolumes(AwsAccount As AwsAccount, UserFilters As Dictionary(Of String, List(Of String))) As List(Of Amazon.EC2.Model.Volume)
-
-            Dim List As List(Of Amazon.EC2.Model.Volume) = New List(Of Amazon.EC2.Model.Volume)
+        Public Function ListVolumes(AwsAccount As AwsAccount,
+                                    UserFilters As Dictionary(Of String, List(Of String))) _
+                                    As List(Of Amazon.EC2.Model.Volume)
 
             Dim client = NewAmazonEC2Client(AwsAccount)
 
@@ -262,13 +262,7 @@
 
             Dim result = requestResult.GetResult()
 
-            For Each resultRow In result.Volumes
-
-                List.Add(resultRow)
-
-            Next
-
-            Return List
+            Return result.Volumes
 
         End Function
 

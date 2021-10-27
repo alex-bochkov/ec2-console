@@ -42,8 +42,14 @@ Partial Class Form1
         Me.MenuStripFilterPresentation = New System.Windows.Forms.MenuStrip()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPageDetails = New System.Windows.Forms.TabPage()
-        Me.TabPageSecurity = New System.Windows.Forms.TabPage()
         Me.TabPageNetworking = New System.Windows.Forms.TabPage()
+        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.ButtonChangeSecurityGroups = New System.Windows.Forms.Button()
+        Me.ListViewInstanceSG = New System.Windows.Forms.ListView()
+        Me.ColumnHeaderInstanceSgId = New System.Windows.Forms.ColumnHeader()
+        Me.ColumnHeaderInstanceSgName = New System.Windows.Forms.ColumnHeader()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.ListViewInstanceNetworkProperties = New System.Windows.Forms.ListView()
         Me.ColumnHeaderNetworkPropertyKey = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderNetworkPropertyValue = New System.Windows.Forms.ColumnHeader()
@@ -51,6 +57,7 @@ Partial Class Form1
         Me.ListViewInstanceVolumes = New System.Windows.Forms.ListView()
         Me.ColumnHeaderVolumeID = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderDeviceName = New System.Windows.Forms.ColumnHeader()
+        Me.ColumnHeaderVolumeType = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderSize = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderAttachmentTime = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderEncrypted = New System.Windows.Forms.ColumnHeader()
@@ -59,12 +66,10 @@ Partial Class Form1
         Me.TabPageStatusCheck = New System.Windows.Forms.TabPage()
         Me.TabPageMonitoring = New System.Windows.Forms.TabPage()
         Me.TabPageTags = New System.Windows.Forms.TabPage()
+        Me.ButtonEditTags = New System.Windows.Forms.Button()
         Me.ListViewInstanceTags = New System.Windows.Forms.ListView()
         Me.ColumnHeaderKey = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderValue = New System.Windows.Forms.ColumnHeader()
-        Me.ListViewInstanceSG = New System.Windows.Forms.ListView()
-        Me.ColumnHeaderInstanceSgId = New System.Windows.Forms.ColumnHeader()
-        Me.ColumnHeaderInstanceSgName = New System.Windows.Forms.ColumnHeader()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStripMain.SuspendLayout()
         Me.TabControl.SuspendLayout()
@@ -77,8 +82,13 @@ Partial Class Form1
         CType(Me.DataListViewEC2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStripInstanceFilter.SuspendLayout()
         Me.TabControl1.SuspendLayout()
-        Me.TabPageSecurity.SuspendLayout()
         Me.TabPageNetworking.SuspendLayout()
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer2.Panel1.SuspendLayout()
+        Me.SplitContainer2.Panel2.SuspendLayout()
+        Me.SplitContainer2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.TabPageStorage.SuspendLayout()
         Me.TabPageTags.SuspendLayout()
         Me.SuspendLayout()
@@ -86,9 +96,9 @@ Partial Class Form1
         'StatusStrip
         '
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabelCurrentRegion})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 607)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 614)
         Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(774, 22)
+        Me.StatusStrip.Size = New System.Drawing.Size(941, 22)
         Me.StatusStrip.TabIndex = 0
         Me.StatusStrip.Text = "StatusStrip1"
         '
@@ -103,7 +113,7 @@ Partial Class Form1
         Me.MenuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AccountsToolStripMenuItem, Me.LanguageToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.MenuStripMain.Location = New System.Drawing.Point(0, 0)
         Me.MenuStripMain.Name = "MenuStripMain"
-        Me.MenuStripMain.Size = New System.Drawing.Size(774, 24)
+        Me.MenuStripMain.Size = New System.Drawing.Size(941, 24)
         Me.MenuStripMain.TabIndex = 1
         Me.MenuStripMain.Text = "MenuStrip1"
         '
@@ -145,7 +155,7 @@ Partial Class Form1
         Me.TabControl.Location = New System.Drawing.Point(0, 24)
         Me.TabControl.Name = "TabControl"
         Me.TabControl.SelectedIndex = 0
-        Me.TabControl.Size = New System.Drawing.Size(774, 583)
+        Me.TabControl.Size = New System.Drawing.Size(941, 590)
         Me.TabControl.TabIndex = 4
         '
         'TabPageEC2
@@ -154,7 +164,7 @@ Partial Class Form1
         Me.TabPageEC2.Location = New System.Drawing.Point(4, 24)
         Me.TabPageEC2.Name = "TabPageEC2"
         Me.TabPageEC2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageEC2.Size = New System.Drawing.Size(766, 555)
+        Me.TabPageEC2.Size = New System.Drawing.Size(933, 562)
         Me.TabPageEC2.TabIndex = 0
         Me.TabPageEC2.Text = "Instances"
         '
@@ -164,7 +174,7 @@ Partial Class Form1
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(3, 3)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(760, 549)
+        Me.Panel2.Size = New System.Drawing.Size(927, 556)
         Me.Panel2.TabIndex = 12
         '
         'SplitContainer1
@@ -184,8 +194,8 @@ Partial Class Form1
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.TabControl1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(760, 549)
-        Me.SplitContainer1.SplitterDistance = 276
+        Me.SplitContainer1.Size = New System.Drawing.Size(927, 556)
+        Me.SplitContainer1.SplitterDistance = 279
         Me.SplitContainer1.TabIndex = 0
         '
         'DataListViewEC2
@@ -202,7 +212,7 @@ Partial Class Form1
         Me.DataListViewEC2.Location = New System.Drawing.Point(3, 27)
         Me.DataListViewEC2.Name = "DataListViewEC2"
         Me.DataListViewEC2.ShowGroups = False
-        Me.DataListViewEC2.Size = New System.Drawing.Size(754, 246)
+        Me.DataListViewEC2.Size = New System.Drawing.Size(921, 249)
         Me.DataListViewEC2.TabIndex = 9
         Me.DataListViewEC2.UseFiltering = True
         Me.DataListViewEC2.View = System.Windows.Forms.View.Details
@@ -245,7 +255,6 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabControl1.Controls.Add(Me.TabPageDetails)
-        Me.TabControl1.Controls.Add(Me.TabPageSecurity)
         Me.TabControl1.Controls.Add(Me.TabPageNetworking)
         Me.TabControl1.Controls.Add(Me.TabPageStorage)
         Me.TabControl1.Controls.Add(Me.TabPageStatusCheck)
@@ -255,7 +264,7 @@ Partial Class Form1
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(761, 267)
+        Me.TabControl1.Size = New System.Drawing.Size(928, 271)
         Me.TabControl1.TabIndex = 0
         '
         'TabPageDetails
@@ -268,20 +277,9 @@ Partial Class Form1
         Me.TabPageDetails.Text = "Details"
         Me.TabPageDetails.UseVisualStyleBackColor = True
         '
-        'TabPageSecurity
-        '
-        Me.TabPageSecurity.Controls.Add(Me.ListViewInstanceSG)
-        Me.TabPageSecurity.Location = New System.Drawing.Point(4, 24)
-        Me.TabPageSecurity.Name = "TabPageSecurity"
-        Me.TabPageSecurity.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageSecurity.Size = New System.Drawing.Size(753, 239)
-        Me.TabPageSecurity.TabIndex = 1
-        Me.TabPageSecurity.Text = "Security"
-        Me.TabPageSecurity.UseVisualStyleBackColor = True
-        '
         'TabPageNetworking
         '
-        Me.TabPageNetworking.Controls.Add(Me.ListViewInstanceNetworkProperties)
+        Me.TabPageNetworking.Controls.Add(Me.SplitContainer2)
         Me.TabPageNetworking.Location = New System.Drawing.Point(4, 24)
         Me.TabPageNetworking.Name = "TabPageNetworking"
         Me.TabPageNetworking.Size = New System.Drawing.Size(753, 239)
@@ -289,17 +287,97 @@ Partial Class Form1
         Me.TabPageNetworking.Text = "Networking"
         Me.TabPageNetworking.UseVisualStyleBackColor = True
         '
+        'SplitContainer2
+        '
+        Me.SplitContainer2.Cursor = System.Windows.Forms.Cursors.VSplit
+        Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer2.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer2.Name = "SplitContainer2"
+        '
+        'SplitContainer2.Panel1
+        '
+        Me.SplitContainer2.Panel1.Controls.Add(Me.GroupBox1)
+        '
+        'SplitContainer2.Panel2
+        '
+        Me.SplitContainer2.Panel2.Controls.Add(Me.GroupBox2)
+        Me.SplitContainer2.Size = New System.Drawing.Size(753, 239)
+        Me.SplitContainer2.SplitterDistance = 251
+        Me.SplitContainer2.TabIndex = 6
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.ButtonChangeSecurityGroups)
+        Me.GroupBox1.Controls.Add(Me.ListViewInstanceSG)
+        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(251, 239)
+        Me.GroupBox1.TabIndex = 4
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Security Groups"
+        '
+        'ButtonChangeSecurityGroups
+        '
+        Me.ButtonChangeSecurityGroups.Location = New System.Drawing.Point(5, 18)
+        Me.ButtonChangeSecurityGroups.Name = "ButtonChangeSecurityGroups"
+        Me.ButtonChangeSecurityGroups.Size = New System.Drawing.Size(75, 23)
+        Me.ButtonChangeSecurityGroups.TabIndex = 4
+        Me.ButtonChangeSecurityGroups.Text = "Change"
+        Me.ButtonChangeSecurityGroups.UseVisualStyleBackColor = True
+        '
+        'ListViewInstanceSG
+        '
+        Me.ListViewInstanceSG.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ListViewInstanceSG.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderInstanceSgId, Me.ColumnHeaderInstanceSgName})
+        Me.ListViewInstanceSG.FullRowSelect = True
+        Me.ListViewInstanceSG.GridLines = True
+        Me.ListViewInstanceSG.HideSelection = False
+        Me.ListViewInstanceSG.Location = New System.Drawing.Point(1, 47)
+        Me.ListViewInstanceSG.Name = "ListViewInstanceSG"
+        Me.ListViewInstanceSG.ShowGroups = False
+        Me.ListViewInstanceSG.Size = New System.Drawing.Size(244, 186)
+        Me.ListViewInstanceSG.Sorting = System.Windows.Forms.SortOrder.Ascending
+        Me.ListViewInstanceSG.TabIndex = 3
+        Me.ListViewInstanceSG.UseCompatibleStateImageBehavior = False
+        Me.ListViewInstanceSG.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeaderInstanceSgId
+        '
+        Me.ColumnHeaderInstanceSgId.Text = "Security Group ID"
+        Me.ColumnHeaderInstanceSgId.Width = 150
+        '
+        'ColumnHeaderInstanceSgName
+        '
+        Me.ColumnHeaderInstanceSgName.Text = "Name"
+        Me.ColumnHeaderInstanceSgName.Width = 250
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.ListViewInstanceNetworkProperties)
+        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(498, 239)
+        Me.GroupBox2.TabIndex = 5
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Network Attributes"
+        '
         'ListViewInstanceNetworkProperties
         '
+        Me.ListViewInstanceNetworkProperties.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListViewInstanceNetworkProperties.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderNetworkPropertyKey, Me.ColumnHeaderNetworkPropertyValue})
-        Me.ListViewInstanceNetworkProperties.Dock = System.Windows.Forms.DockStyle.Left
         Me.ListViewInstanceNetworkProperties.FullRowSelect = True
         Me.ListViewInstanceNetworkProperties.GridLines = True
         Me.ListViewInstanceNetworkProperties.HideSelection = False
-        Me.ListViewInstanceNetworkProperties.Location = New System.Drawing.Point(0, 0)
+        Me.ListViewInstanceNetworkProperties.Location = New System.Drawing.Point(6, 47)
         Me.ListViewInstanceNetworkProperties.Name = "ListViewInstanceNetworkProperties"
         Me.ListViewInstanceNetworkProperties.ShowGroups = False
-        Me.ListViewInstanceNetworkProperties.Size = New System.Drawing.Size(410, 239)
+        Me.ListViewInstanceNetworkProperties.Size = New System.Drawing.Size(486, 186)
         Me.ListViewInstanceNetworkProperties.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceNetworkProperties.TabIndex = 2
         Me.ListViewInstanceNetworkProperties.UseCompatibleStateImageBehavior = False
@@ -320,14 +398,14 @@ Partial Class Form1
         Me.TabPageStorage.Controls.Add(Me.ListViewInstanceVolumes)
         Me.TabPageStorage.Location = New System.Drawing.Point(4, 24)
         Me.TabPageStorage.Name = "TabPageStorage"
-        Me.TabPageStorage.Size = New System.Drawing.Size(753, 239)
+        Me.TabPageStorage.Size = New System.Drawing.Size(920, 243)
         Me.TabPageStorage.TabIndex = 3
         Me.TabPageStorage.Text = "Storage"
         Me.TabPageStorage.UseVisualStyleBackColor = True
         '
         'ListViewInstanceVolumes
         '
-        Me.ListViewInstanceVolumes.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderVolumeID, Me.ColumnHeaderDeviceName, Me.ColumnHeaderSize, Me.ColumnHeaderAttachmentTime, Me.ColumnHeaderEncrypted, Me.ColumnHeaderKmsKeyId, Me.ColumnHeaderDeleteOnTermination})
+        Me.ListViewInstanceVolumes.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderVolumeID, Me.ColumnHeaderDeviceName, Me.ColumnHeaderVolumeType, Me.ColumnHeaderSize, Me.ColumnHeaderAttachmentTime, Me.ColumnHeaderEncrypted, Me.ColumnHeaderKmsKeyId, Me.ColumnHeaderDeleteOnTermination})
         Me.ListViewInstanceVolumes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ListViewInstanceVolumes.FullRowSelect = True
         Me.ListViewInstanceVolumes.GridLines = True
@@ -335,7 +413,7 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 0)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(753, 239)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(920, 243)
         Me.ListViewInstanceVolumes.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
@@ -351,6 +429,10 @@ Partial Class Form1
         Me.ColumnHeaderDeviceName.Text = "Device Name"
         Me.ColumnHeaderDeviceName.Width = 100
         '
+        'ColumnHeaderVolumeType
+        '
+        Me.ColumnHeaderVolumeType.Text = "Type"
+        '
         'ColumnHeaderSize
         '
         Me.ColumnHeaderSize.Text = "Size"
@@ -358,12 +440,11 @@ Partial Class Form1
         'ColumnHeaderAttachmentTime
         '
         Me.ColumnHeaderAttachmentTime.Text = "Attachment time"
-        Me.ColumnHeaderAttachmentTime.Width = 150
+        Me.ColumnHeaderAttachmentTime.Width = 140
         '
         'ColumnHeaderEncrypted
         '
         Me.ColumnHeaderEncrypted.Text = "Encrypted"
-        Me.ColumnHeaderEncrypted.Width = 100
         '
         'ColumnHeaderKmsKeyId
         '
@@ -373,7 +454,7 @@ Partial Class Form1
         'ColumnHeaderDeleteOnTermination
         '
         Me.ColumnHeaderDeleteOnTermination.Text = "Delete on Termination"
-        Me.ColumnHeaderDeleteOnTermination.Width = 150
+        Me.ColumnHeaderDeleteOnTermination.Width = 140
         '
         'TabPageStatusCheck
         '
@@ -395,6 +476,7 @@ Partial Class Form1
         '
         'TabPageTags
         '
+        Me.TabPageTags.Controls.Add(Me.ButtonEditTags)
         Me.TabPageTags.Controls.Add(Me.ListViewInstanceTags)
         Me.TabPageTags.Location = New System.Drawing.Point(4, 24)
         Me.TabPageTags.Name = "TabPageTags"
@@ -403,17 +485,28 @@ Partial Class Form1
         Me.TabPageTags.Text = "Tags"
         Me.TabPageTags.UseVisualStyleBackColor = True
         '
+        'ButtonEditTags
+        '
+        Me.ButtonEditTags.Location = New System.Drawing.Point(0, 0)
+        Me.ButtonEditTags.Name = "ButtonEditTags"
+        Me.ButtonEditTags.Size = New System.Drawing.Size(75, 23)
+        Me.ButtonEditTags.TabIndex = 1
+        Me.ButtonEditTags.Text = "Edit Tags"
+        Me.ButtonEditTags.UseVisualStyleBackColor = True
+        '
         'ListViewInstanceTags
         '
+        Me.ListViewInstanceTags.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListViewInstanceTags.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderKey, Me.ColumnHeaderValue})
-        Me.ListViewInstanceTags.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ListViewInstanceTags.FullRowSelect = True
         Me.ListViewInstanceTags.GridLines = True
         Me.ListViewInstanceTags.HideSelection = False
-        Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 0)
+        Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 26)
         Me.ListViewInstanceTags.Name = "ListViewInstanceTags"
         Me.ListViewInstanceTags.ShowGroups = False
-        Me.ListViewInstanceTags.Size = New System.Drawing.Size(753, 239)
+        Me.ListViewInstanceTags.Size = New System.Drawing.Size(753, 213)
         Me.ListViewInstanceTags.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceTags.TabIndex = 0
         Me.ListViewInstanceTags.UseCompatibleStateImageBehavior = False
@@ -429,37 +522,11 @@ Partial Class Form1
         Me.ColumnHeaderValue.Text = "Value"
         Me.ColumnHeaderValue.Width = 500
         '
-        'ListViewInstanceSG
-        '
-        Me.ListViewInstanceSG.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderInstanceSgId, Me.ColumnHeaderInstanceSgName})
-        Me.ListViewInstanceSG.Dock = System.Windows.Forms.DockStyle.Left
-        Me.ListViewInstanceSG.FullRowSelect = True
-        Me.ListViewInstanceSG.GridLines = True
-        Me.ListViewInstanceSG.HideSelection = False
-        Me.ListViewInstanceSG.Location = New System.Drawing.Point(3, 3)
-        Me.ListViewInstanceSG.Name = "ListViewInstanceSG"
-        Me.ListViewInstanceSG.ShowGroups = False
-        Me.ListViewInstanceSG.Size = New System.Drawing.Size(409, 233)
-        Me.ListViewInstanceSG.Sorting = System.Windows.Forms.SortOrder.Ascending
-        Me.ListViewInstanceSG.TabIndex = 3
-        Me.ListViewInstanceSG.UseCompatibleStateImageBehavior = False
-        Me.ListViewInstanceSG.View = System.Windows.Forms.View.Details
-        '
-        'ColumnHeaderInstanceSgId
-        '
-        Me.ColumnHeaderInstanceSgId.Text = "Security Group ID"
-        Me.ColumnHeaderInstanceSgId.Width = 150
-        '
-        'ColumnHeaderInstanceSgName
-        '
-        Me.ColumnHeaderInstanceSgName.Text = "Name"
-        Me.ColumnHeaderInstanceSgName.Width = 250
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(774, 629)
+        Me.ClientSize = New System.Drawing.Size(941, 636)
         Me.Controls.Add(Me.TabControl)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.MenuStripMain)
@@ -484,8 +551,13 @@ Partial Class Form1
         Me.MenuStripInstanceFilter.ResumeLayout(False)
         Me.MenuStripInstanceFilter.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
-        Me.TabPageSecurity.ResumeLayout(False)
         Me.TabPageNetworking.ResumeLayout(False)
+        Me.SplitContainer2.Panel1.ResumeLayout(False)
+        Me.SplitContainer2.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer2.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
         Me.TabPageStorage.ResumeLayout(False)
         Me.TabPageTags.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -512,7 +584,6 @@ Partial Class Form1
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPageDetails As TabPage
-    Friend WithEvents TabPageSecurity As TabPage
     Friend WithEvents TabPageNetworking As TabPage
     Friend WithEvents TabPageStorage As TabPage
     Friend WithEvents TabPageStatusCheck As TabPage
@@ -535,4 +606,10 @@ Partial Class Form1
     Friend WithEvents ListViewInstanceSG As ListView
     Friend WithEvents ColumnHeaderInstanceSgId As ColumnHeader
     Friend WithEvents ColumnHeaderInstanceSgName As ColumnHeader
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents ButtonChangeSecurityGroups As Button
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents ButtonEditTags As Button
+    Friend WithEvents SplitContainer2 As SplitContainer
+    Friend WithEvents ColumnHeaderVolumeType As ColumnHeader
 End Class
