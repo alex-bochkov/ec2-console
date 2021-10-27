@@ -390,7 +390,7 @@ Public Class Form1
         For Each instanceTagDescription In AggregatedTags
 
             ToolStripTextBoxFilterByTag.Items.Add(instanceTagDescription.Key) ', Nothing, AddressOf onClickFilter)
-            '
+
             '    For Each TagValue In instanceTagDescription.Value
             '        Dim b As ToolStripDropDownItem = a.DropDownItems.Add(TagValue, Nothing, AddressOf onClickFilter)
             '    Next
