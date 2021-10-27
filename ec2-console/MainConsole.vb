@@ -18,6 +18,8 @@ Public Class Form1
 
     Private UserFilterForInstances As Dictionary(Of String, List(Of String)) = New Dictionary(Of String, List(Of String))
 
+    Private AggregatedTags As SortedDictionary(Of String, List(Of String)) = New SortedDictionary(Of String, List(Of String))
+
     Public Log As Logger = LogManager.GetCurrentClassLogger()
 
     Sub ConfigureLogging()
@@ -370,12 +372,29 @@ Public Class Form1
             a.Tag = AZ
         Next
 
-        Dim tag As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-tag")
-        Dim tags = AmazonApi.ListTags(CurrentAccount)
+        'Dim tag As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-tag")
+        Dim tags = AmazonApi.ListInstanceTags(CurrentAccount)
+
         For Each instanceTagDescription In tags
 
-            Dim a As ToolStripDropDownItem = tag.DropDownItems.Add(instanceTagDescription.Key, Nothing, AddressOf onClickFilter)
+            If Not AggregatedTags.ContainsKey(instanceTagDescription.Key) Then
+                AggregatedTags.Add(instanceTagDescription.Key, New List(Of String))
+            End If
 
+            If Not AggregatedTags.Item(instanceTagDescription.Key).Contains(instanceTagDescription.Value) Then
+                AggregatedTags.Item(instanceTagDescription.Key).Add(instanceTagDescription.Value)
+            End If
+
+        Next
+
+        For Each instanceTagDescription In AggregatedTags
+
+            ToolStripTextBoxFilterByTag.Items.Add(instanceTagDescription.Key) ', Nothing, AddressOf onClickFilter)
+            '
+            '    For Each TagValue In instanceTagDescription.Value
+            '        Dim b As ToolStripDropDownItem = a.DropDownItems.Add(TagValue, Nothing, AddressOf onClickFilter)
+            '    Next
+            '
         Next
 
         '-----------------------------------------------------------------

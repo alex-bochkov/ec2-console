@@ -100,6 +100,33 @@
 
         End Function
 
+        Public Function ListInstanceTags(AwsAccount As AwsAccount) As List(Of Amazon.EC2.Model.TagDescription)
+
+            Dim client = NewAmazonEC2Client(AwsAccount)
+
+            Dim request = New Amazon.EC2.Model.DescribeTagsRequest
+
+            Dim regionFilter = New List(Of String)
+            regionFilter.Add(AwsAccount.Region)
+
+            Dim resourceTypeFilter = New List(Of String)
+            resourceTypeFilter.Add("instance")
+
+            request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "resource-type", .Values = resourceTypeFilter})
+            'request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "region", .Values = regionFilter})
+            'request.MaxResults = 50
+
+            Dim requestResult = client.DescribeTagsAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.Tags
+
+        End Function
+
         Public Function ListTags(AwsAccount As AwsAccount) As SortedDictionary(Of String, List(Of String))
 
             Dim AllTags As SortedDictionary(Of String, List(Of String)) = New SortedDictionary(Of String, List(Of String))
@@ -120,7 +147,6 @@
             For Each resultRow In result.TagKeys
                 AllTags.Add(resultRow, New List(Of String))
             Next
-
 
             'Dim requestValues = New Amazon.ResourceGroupsTaggingAPI.Model.GetTagValuesRequest
 
