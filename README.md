@@ -13,10 +13,10 @@ Fully based on the official AWS .NET SDK using .NET 5.0.
 
 ## Your help and feedback is greatly appreciated
 1. A fast and nice-looking interface is everything. Please let me know if there are any better *free* Windows Forms components that you might find useful here.
-2. Constructive feedback is appreciated in <a href="/issues/">project issues</a>.
+2. Constructive feedback is appreciated in <a href="https://github.com/alex-bochkov/ec2-console/issues">project issues</a>.
 
 ## FAQ
-1. <b>Should I use this app?</b> Use at your own risk. I don't provide any support, but appreciate your feedback in <a href="/issues/">project issues</a>.
+1. <b>Should I use this app?</b> Use at your own risk. I don't provide any support, but appreciate your feedback in <a href="https://github.com/alex-bochkov/ec2-console/issues">project issues</a>.
 2. <b>Why would you duplicate something that already exists?</b> 
 As an engineer who work with AWS for over a decade, I'm deeply frustrated with the development direction of the Console - aweful, unreadable and slow UI.
 The purpose of this solution is to address those issues.
