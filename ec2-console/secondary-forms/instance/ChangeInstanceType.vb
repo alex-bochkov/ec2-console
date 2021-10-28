@@ -2,7 +2,8 @@
 
     Public InstanceTypeList As List(Of Amazon.EC2.Model.InstanceTypeInfo)
     Public CurrentAccount As AwsAccount
-    Public Instance As Amazon.EC2.Model.Instance
+    Public InstanceIDs As List(Of String) = New List(Of String)
+    Public Instances As List(Of Amazon.EC2.Model.Instance) = New List(Of Amazon.EC2.Model.Instance)
     Public Log As NLog.Logger = NLog.LogManager.GetCurrentClassLogger()
 
     Private Sub ChangeInstanceType_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -30,31 +31,48 @@
 
             End Function)
 
+        For Each InstanceID In InstanceIDs
+            ListBoxInstancesToModify.Items.Add(InstanceID)
+        Next
+
+        Dim UserFilter = New Dictionary(Of String, List(Of String))
+        UserFilter.Add("instance-id", InstanceIDs)
+
+        Instances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter, Nothing)
+
         For Each InstanceType In InstanceTypeList
 
             ComboBoxInstanceType.Items.Add(InstanceType.InstanceType.Value)
 
         Next
 
-        ComboBoxInstanceType.SelectedItem = Instance.InstanceType.Value
+        If Instances.Count > 0 Then
+            ComboBoxInstanceType.SelectedItem = Instances.Item(0).InstanceType.Value
+        End If
 
     End Sub
 
     Private Sub ModifyInstanceType()
 
         Dim InstanceType = ComboBoxInstanceType.SelectedItem
-        Dim InstanceId = Instance.InstanceId
-        Dim InstanceTypeOld = Instance.InstanceType.Value
 
-        AmazonApi.ModifyInstanceType(CurrentAccount, Instance.InstanceId, InstanceType)
+        For Each Instance In Instances
 
-        Dim Msg = String.Format("The instance type for {0} instance has been modified: {1} -> {2}",
-                        InstanceId, InstanceTypeOld, InstanceType)
+            Dim InstanceId = Instance.InstanceId
+            Dim InstanceTypeOld = Instance.InstanceType.Value
 
-        Dim eventInfo = New NLog.LogEventInfo(NLog.LogLevel.Info, Log.Name, Msg)
-        eventInfo.Properties.Add("Category", "ModifyInstanceType")
+            AmazonApi.ModifyInstanceType(CurrentAccount, Instance.InstanceId, InstanceType)
 
-        Log.Info(eventInfo)
+            Dim Msg = String.Format("The instance type for {0} instance has been modified: {1} -> {2}",
+                            InstanceId, InstanceTypeOld, InstanceType)
+
+            Dim eventInfo = New NLog.LogEventInfo(NLog.LogLevel.Info, Log.Name, Msg)
+            eventInfo.Properties.Add("Category", "ModifyInstanceType")
+
+            Log.Info(eventInfo)
+
+        Next
+
 
         Close()
 

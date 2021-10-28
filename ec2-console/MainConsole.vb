@@ -941,13 +941,11 @@ Public Class Form1
 
     Sub ChangeInstanceType()
 
-        Dim InstanceID = GetSelectedInstanceId()
-
-        Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
+        Dim InstanceIDs = GetAllSelectedInstanceIds()
 
         Dim FormWP = New ChangeInstanceType
         FormWP.CurrentAccount = CurrentAccount
-        FormWP.Instance = Instance
+        FormWP.InstanceIDs = InstanceIDs
         FormWP.InstanceTypeList = InstanceTypesList
         FormWP.StartPosition = FormStartPosition.CenterParent
         FormWP.ShowDialog()
