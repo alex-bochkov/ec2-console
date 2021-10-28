@@ -38,6 +38,7 @@ Partial Class AttachNewVolumesToTheInstance
         Me.NumericUpDownVolumeIops = New System.Windows.Forms.NumericUpDown()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.CheckBoxDeleteOnTermitation = New System.Windows.Forms.CheckBox()
         CType(Me.NumericUpDownVolumeSize, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownVolumeCount, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownVolumeThroughput, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -93,7 +94,7 @@ Partial Class AttachNewVolumesToTheInstance
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(23, 38)
+        Me.Label2.Location = New System.Drawing.Point(23, 39)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(76, 15)
         Me.Label2.TabIndex = 13
@@ -101,7 +102,7 @@ Partial Class AttachNewVolumesToTheInstance
         '
         'NumericUpDownVolumeCount
         '
-        Me.NumericUpDownVolumeCount.Location = New System.Drawing.Point(139, 36)
+        Me.NumericUpDownVolumeCount.Location = New System.Drawing.Point(139, 37)
         Me.NumericUpDownVolumeCount.Name = "NumericUpDownVolumeCount"
         Me.NumericUpDownVolumeCount.Size = New System.Drawing.Size(70, 23)
         Me.NumericUpDownVolumeCount.TabIndex = 12
@@ -191,11 +192,22 @@ Partial Class AttachNewVolumesToTheInstance
         Me.Label6.TabIndex = 22
         Me.Label6.Text = "IOPS"
         '
+        'CheckBoxDeleteOnTermitation
+        '
+        Me.CheckBoxDeleteOnTermitation.AutoSize = True
+        Me.CheckBoxDeleteOnTermitation.Location = New System.Drawing.Point(267, 40)
+        Me.CheckBoxDeleteOnTermitation.Name = "CheckBoxDeleteOnTermitation"
+        Me.CheckBoxDeleteOnTermitation.Size = New System.Drawing.Size(140, 19)
+        Me.CheckBoxDeleteOnTermitation.TabIndex = 26
+        Me.CheckBoxDeleteOnTermitation.Text = "delete on termination"
+        Me.CheckBoxDeleteOnTermitation.UseVisualStyleBackColor = True
+        '
         'AttachNewVolumesToTheInstance
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(490, 302)
+        Me.Controls.Add(Me.CheckBoxDeleteOnTermitation)
         Me.Controls.Add(Me.NumericUpDownVolumeThroughput)
         Me.Controls.Add(Me.NumericUpDownVolumeIops)
         Me.Controls.Add(Me.Label5)
@@ -240,4 +252,5 @@ Partial Class AttachNewVolumesToTheInstance
     Friend WithEvents NumericUpDownVolumeIops As NumericUpDown
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
+    Friend WithEvents CheckBoxDeleteOnTermitation As CheckBox
 End Class

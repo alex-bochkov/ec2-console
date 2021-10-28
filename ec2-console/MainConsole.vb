@@ -642,6 +642,8 @@ Public Class Form1
             ListViewItemVolume.SubItems.Add(InstanceVolumeMapping.DeviceName)
             ListViewItemVolume.SubItems.Add(InstanceVolume.VolumeType.Value)
             ListViewItemVolume.SubItems.Add(InstanceVolume.Size)
+            ListViewItemVolume.SubItems.Add(InstanceVolume.Iops)
+            ListViewItemVolume.SubItems.Add(InstanceVolume.Throughput)
             ListViewItemVolume.SubItems.Add(InstanceVolumeMapping.Ebs.AttachTime.ToString)
             ListViewItemVolume.SubItems.Add(InstanceVolume.Encrypted.ToString)
             ListViewItemVolume.SubItems.Add(InstanceVolume.KmsKeyId)

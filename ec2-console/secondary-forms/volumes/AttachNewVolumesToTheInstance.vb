@@ -23,6 +23,7 @@ Public Class AttachNewVolumesToTheInstance
         Parameters.Add("VolumeEncrypted", CheckBoxVolumeEncrypted.Checked)
         Parameters.Add("VolumeIops", NumericUpDownVolumeIops.Value)
         Parameters.Add("VolumeThroughput", NumericUpDownVolumeThroughput.Value)
+        Parameters.Add("VolumeDeleteOnTermination", CheckBoxDeleteOnTermitation.Checked)
 
         Dim t As New Thread(Sub()
                                 AttachNewVolumes_Async(Parameters)
@@ -51,6 +52,7 @@ Public Class AttachNewVolumesToTheInstance
         Dim VolumeEncrypted As Boolean = Parameters.Item("VolumeEncrypted")
         Dim VolumeIopsParameter As Integer = Parameters.Item("VolumeIops")
         Dim VolumeThroughputParameter As Integer = Parameters.Item("VolumeThroughput")
+        Dim VolumeDeleteOnTermination As Boolean = Parameters.Item("VolumeDeleteOnTermination")
 
         Dim Msg As String = ""
         Dim Percent As Integer = 50
@@ -202,6 +204,12 @@ Public Class AttachNewVolumesToTheInstance
                     End If
 
                 End While
+
+                If VolumeDeleteOnTermination Then
+
+                    AmazonApi.ModifyInstanceAttribute_DeleteVolumeOnInstanceTermination(CurrentAccount, InstanceId, VolumeId, DeviceName)
+
+                End If
 
                 Msg = "Volume " + VolumeId + " is attached"
                 ShowProgress(Msg, Percent)

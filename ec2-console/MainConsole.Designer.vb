@@ -38,8 +38,8 @@ Partial Class Form1
         Me.DataListViewEC2 = New BrightIdeasSoftware.DataListView()
         Me.MenuStripInstanceFilter = New System.Windows.Forms.MenuStrip()
         Me.RefreshInstanceListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripTextBoxFilterByTag = New System.Windows.Forms.ToolStripComboBox()
         Me.FilterByToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripTextBoxFilterByTag = New System.Windows.Forms.ToolStripComboBox()
         Me.MenuStripFilterPresentation = New System.Windows.Forms.MenuStrip()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPageDetails = New System.Windows.Forms.TabPage()
@@ -71,6 +71,8 @@ Partial Class Form1
         Me.ListViewInstanceTags = New System.Windows.Forms.ListView()
         Me.ColumnHeaderKey = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderValue = New System.Windows.Forms.ColumnHeader()
+        Me.ColumnHeaderVolumeIOPS = New System.Windows.Forms.ColumnHeader()
+        Me.ColumnHeaderVolumeThroughput = New System.Windows.Forms.ColumnHeader()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStripMain.SuspendLayout()
         Me.TabControl.SuspendLayout()
@@ -234,17 +236,19 @@ Partial Class Form1
         Me.RefreshInstanceListToolStripMenuItem.Size = New System.Drawing.Size(58, 23)
         Me.RefreshInstanceListToolStripMenuItem.Text = "Refresh"
         '
-        'ToolStripTextBoxFilterByTag
-        '
-        Me.ToolStripTextBoxFilterByTag.Name = "ToolStripTextBoxFilterByTag"
-        Me.ToolStripTextBoxFilterByTag.Size = New System.Drawing.Size(200, 23)
-        Me.ToolStripTextBoxFilterByTag.ToolTipText = "Filter by Tag"
-        '
         'FilterByToolStripMenuItem
         '
         Me.FilterByToolStripMenuItem.Name = "FilterByToolStripMenuItem"
         Me.FilterByToolStripMenuItem.Size = New System.Drawing.Size(109, 23)
         Me.FilterByToolStripMenuItem.Text = "Filter by Property"
+        '
+        'ToolStripTextBoxFilterByTag
+        '
+        Me.ToolStripTextBoxFilterByTag.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ToolStripTextBoxFilterByTag.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ToolStripTextBoxFilterByTag.Name = "ToolStripTextBoxFilterByTag"
+        Me.ToolStripTextBoxFilterByTag.Size = New System.Drawing.Size(200, 23)
+        Me.ToolStripTextBoxFilterByTag.ToolTipText = "Filter by Tag"
         '
         'MenuStripFilterPresentation
         '
@@ -252,7 +256,7 @@ Partial Class Form1
         Me.MenuStripFilterPresentation.Dock = System.Windows.Forms.DockStyle.None
         Me.MenuStripFilterPresentation.Location = New System.Drawing.Point(377, 0)
         Me.MenuStripFilterPresentation.Name = "MenuStripFilterPresentation"
-        Me.MenuStripFilterPresentation.Size = New System.Drawing.Size(128, 24)
+        Me.MenuStripFilterPresentation.Size = New System.Drawing.Size(202, 24)
         Me.MenuStripFilterPresentation.TabIndex = 11
         Me.MenuStripFilterPresentation.Text = "MenuStrip2"
         '
@@ -412,7 +416,7 @@ Partial Class Form1
         '
         'ListViewInstanceVolumes
         '
-        Me.ListViewInstanceVolumes.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderVolumeID, Me.ColumnHeaderDeviceName, Me.ColumnHeaderVolumeType, Me.ColumnHeaderSize, Me.ColumnHeaderAttachmentTime, Me.ColumnHeaderEncrypted, Me.ColumnHeaderKmsKeyId, Me.ColumnHeaderDeleteOnTermination})
+        Me.ListViewInstanceVolumes.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderVolumeID, Me.ColumnHeaderDeviceName, Me.ColumnHeaderVolumeType, Me.ColumnHeaderSize, Me.ColumnHeaderVolumeIOPS, Me.ColumnHeaderVolumeThroughput, Me.ColumnHeaderAttachmentTime, Me.ColumnHeaderEncrypted, Me.ColumnHeaderKmsKeyId, Me.ColumnHeaderDeleteOnTermination})
         Me.ListViewInstanceVolumes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ListViewInstanceVolumes.FullRowSelect = True
         Me.ListViewInstanceVolumes.GridLines = True
@@ -529,6 +533,14 @@ Partial Class Form1
         Me.ColumnHeaderValue.Text = "Value"
         Me.ColumnHeaderValue.Width = 500
         '
+        'ColumnHeaderVolumeIOPS
+        '
+        Me.ColumnHeaderVolumeIOPS.Text = "IOPS"
+        '
+        'ColumnHeaderVolumeThroughput
+        '
+        Me.ColumnHeaderVolumeThroughput.Text = "Throughput (MB/s)"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -620,4 +632,6 @@ Partial Class Form1
     Friend WithEvents SplitContainer2 As SplitContainer
     Friend WithEvents ColumnHeaderVolumeType As ColumnHeader
     Friend WithEvents ToolStripTextBoxFilterByTag As ToolStripComboBox
+    Friend WithEvents ColumnHeaderVolumeIOPS As ColumnHeader
+    Friend WithEvents ColumnHeaderVolumeThroughput As ColumnHeader
 End Class

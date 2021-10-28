@@ -388,6 +388,36 @@
 
         End Function
 
+        Public Sub ModifyInstanceAttribute_DeleteVolumeOnInstanceTermination(AwsAccount As AwsAccount,
+                                     InstanceId As String,
+                                     VolumeId As String,
+                                     DeviceName As String)
+
+            Dim client = NewAmazonEC2Client(AwsAccount)
+
+            Dim request = New Amazon.EC2.Model.ModifyInstanceAttributeRequest
+            request.InstanceId = InstanceId
+
+            Dim BlockDeviceMapping = New Amazon.EC2.Model.InstanceBlockDeviceMappingSpecification
+            BlockDeviceMapping.DeviceName = DeviceName
+
+            BlockDeviceMapping.Ebs = New Amazon.EC2.Model.EbsInstanceBlockDeviceSpecification
+            BlockDeviceMapping.Ebs.VolumeId = VolumeId
+            BlockDeviceMapping.Ebs.DeleteOnTermination = True
+
+            request.BlockDeviceMappings.Add(BlockDeviceMapping)
+
+            Dim requestResult = client.ModifyInstanceAttributeAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            'Return result.HttpStatusCode.OK
+
+        End Sub
+
         Public Function DescribeVolumeStatus(AwsAccount As AwsAccount,
                                      VolumeId As String) As Amazon.EC2.Model.VolumeStatusItem
 
