@@ -1084,4 +1084,10 @@ Public Class Form1
 
     End Sub
 
+    Private Sub ButtonAddNewVolumes_Click(sender As Object, e As EventArgs) Handles ButtonAddNewVolumes.Click
+
+        OpenAddNewVolumesForm()
+
+    End Sub
+
 End Class

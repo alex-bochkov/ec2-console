@@ -60,6 +60,8 @@ Partial Class Form1
         Me.ColumnHeaderDeviceName = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderVolumeType = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderSize = New System.Windows.Forms.ColumnHeader()
+        Me.ColumnHeaderVolumeIOPS = New System.Windows.Forms.ColumnHeader()
+        Me.ColumnHeaderVolumeThroughput = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderAttachmentTime = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderEncrypted = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderKmsKeyId = New System.Windows.Forms.ColumnHeader()
@@ -71,8 +73,7 @@ Partial Class Form1
         Me.ListViewInstanceTags = New System.Windows.Forms.ListView()
         Me.ColumnHeaderKey = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderValue = New System.Windows.Forms.ColumnHeader()
-        Me.ColumnHeaderVolumeIOPS = New System.Windows.Forms.ColumnHeader()
-        Me.ColumnHeaderVolumeThroughput = New System.Windows.Forms.ColumnHeader()
+        Me.ButtonAddNewVolumes = New System.Windows.Forms.Button()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStripMain.SuspendLayout()
         Me.TabControl.SuspendLayout()
@@ -406,6 +407,7 @@ Partial Class Form1
         '
         'TabPageStorage
         '
+        Me.TabPageStorage.Controls.Add(Me.ButtonAddNewVolumes)
         Me.TabPageStorage.Controls.Add(Me.ListViewInstanceVolumes)
         Me.TabPageStorage.Location = New System.Drawing.Point(4, 24)
         Me.TabPageStorage.Name = "TabPageStorage"
@@ -416,15 +418,17 @@ Partial Class Form1
         '
         'ListViewInstanceVolumes
         '
+        Me.ListViewInstanceVolumes.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListViewInstanceVolumes.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderVolumeID, Me.ColumnHeaderDeviceName, Me.ColumnHeaderVolumeType, Me.ColumnHeaderSize, Me.ColumnHeaderVolumeIOPS, Me.ColumnHeaderVolumeThroughput, Me.ColumnHeaderAttachmentTime, Me.ColumnHeaderEncrypted, Me.ColumnHeaderKmsKeyId, Me.ColumnHeaderDeleteOnTermination})
-        Me.ListViewInstanceVolumes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ListViewInstanceVolumes.FullRowSelect = True
         Me.ListViewInstanceVolumes.GridLines = True
         Me.ListViewInstanceVolumes.HideSelection = False
-        Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 0)
+        Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 23)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(920, 243)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(920, 223)
         Me.ListViewInstanceVolumes.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
@@ -447,11 +451,23 @@ Partial Class Form1
         'ColumnHeaderSize
         '
         Me.ColumnHeaderSize.Text = "Size"
+        Me.ColumnHeaderSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'ColumnHeaderVolumeIOPS
+        '
+        Me.ColumnHeaderVolumeIOPS.Text = "IOPS"
+        Me.ColumnHeaderVolumeIOPS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'ColumnHeaderVolumeThroughput
+        '
+        Me.ColumnHeaderVolumeThroughput.Text = "Throughput (MB/s)"
+        Me.ColumnHeaderVolumeThroughput.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.ColumnHeaderVolumeThroughput.Width = 120
         '
         'ColumnHeaderAttachmentTime
         '
         Me.ColumnHeaderAttachmentTime.Text = "Attachment time"
-        Me.ColumnHeaderAttachmentTime.Width = 140
+        Me.ColumnHeaderAttachmentTime.Width = 120
         '
         'ColumnHeaderEncrypted
         '
@@ -533,13 +549,14 @@ Partial Class Form1
         Me.ColumnHeaderValue.Text = "Value"
         Me.ColumnHeaderValue.Width = 500
         '
-        'ColumnHeaderVolumeIOPS
+        'ButtonAddNewVolumes
         '
-        Me.ColumnHeaderVolumeIOPS.Text = "IOPS"
-        '
-        'ColumnHeaderVolumeThroughput
-        '
-        Me.ColumnHeaderVolumeThroughput.Text = "Throughput (MB/s)"
+        Me.ButtonAddNewVolumes.Location = New System.Drawing.Point(3, -1)
+        Me.ButtonAddNewVolumes.Name = "ButtonAddNewVolumes"
+        Me.ButtonAddNewVolumes.Size = New System.Drawing.Size(121, 23)
+        Me.ButtonAddNewVolumes.TabIndex = 2
+        Me.ButtonAddNewVolumes.Text = "Add New Volumes"
+        Me.ButtonAddNewVolumes.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -634,4 +651,5 @@ Partial Class Form1
     Friend WithEvents ToolStripTextBoxFilterByTag As ToolStripComboBox
     Friend WithEvents ColumnHeaderVolumeIOPS As ColumnHeader
     Friend WithEvents ColumnHeaderVolumeThroughput As ColumnHeader
+    Friend WithEvents ButtonAddNewVolumes As Button
 End Class
