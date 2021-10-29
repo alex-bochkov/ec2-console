@@ -148,24 +148,6 @@
                 AllTags.Add(resultRow, New List(Of String))
             Next
 
-            'Dim requestValues = New Amazon.ResourceGroupsTaggingAPI.Model.GetTagValuesRequest
-
-            'Dim requestValuesResult = client.GetTagValuesAsync(requestValues).GetAwaiter()
-            'While Not requestValuesResult.IsCompleted
-            '    Application.DoEvents()
-            'End While
-
-            'Dim resultValues = requestValuesResult.GetResult()
-
-            'For Each resultRow In resultValues.
-
-
-            '    AllTags.Item()
-
-            '    Add(resultRow, New List(Of String))
-            'Next
-
-
             Return AllTags
 
         End Function

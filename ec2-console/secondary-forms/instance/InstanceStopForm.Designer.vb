@@ -88,7 +88,7 @@ Partial Class InstanceStopForm
         '
         Me.CheckBoxUseForceStop.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CheckBoxUseForceStop.AutoSize = True
-        Me.CheckBoxUseForceStop.Location = New System.Drawing.Point(6, 204)
+        Me.CheckBoxUseForceStop.Location = New System.Drawing.Point(12, 204)
         Me.CheckBoxUseForceStop.Name = "CheckBoxUseForceStop"
         Me.CheckBoxUseForceStop.Size = New System.Drawing.Size(104, 19)
         Me.CheckBoxUseForceStop.TabIndex = 12

@@ -315,6 +315,18 @@ Public Class Form1
         UserFilterForInstances.Item("subnet-id").Add(subnet.SubnetId)
 
     End Sub
+
+    Private Sub AddFilterByTag(TagKey As String, TagValue As String)
+
+        Dim FilterKey As String = "tag:" + TagKey
+
+        If Not UserFilterForInstances.ContainsKey(FilterKey) Then
+            UserFilterForInstances.Item(FilterKey) = New List(Of String)
+        End If
+
+        UserFilterForInstances.Item(FilterKey).Add(TagValue)
+
+    End Sub
     Private Sub onClickClearFilter(sender As Object, e As EventArgs)
 
         If UserFilterForInstances.ContainsKey(sender.tag) Then
@@ -329,7 +341,13 @@ Public Class Form1
 
     Private Sub onClickFilter(sender As Object, e As EventArgs)
 
-        If TypeOf sender.tag Is Amazon.EC2.Model.AvailabilityZone Then
+        If TypeOf sender Is Amazon.EC2.Model.TagDescription Then
+
+            Dim TagDescription As Amazon.EC2.Model.TagDescription = sender
+
+            AddFilterByTag(TagDescription.Key, TagDescription.Value)
+
+        ElseIf TypeOf sender.tag Is Amazon.EC2.Model.AvailabilityZone Then
 
             AddFilterByAZ(sender.tag)
 
@@ -391,10 +409,6 @@ Public Class Form1
 
             ToolStripTextBoxFilterByTag.Items.Add(instanceTagDescription.Key) ', Nothing, AddressOf onClickFilter)
 
-            '    For Each TagValue In instanceTagDescription.Value
-            '        Dim b As ToolStripDropDownItem = a.DropDownItems.Add(TagValue, Nothing, AddressOf onClickFilter)
-            '    Next
-            '
         Next
 
         '-----------------------------------------------------------------
@@ -1078,5 +1092,37 @@ Public Class Form1
         OpenAddNewVolumesForm()
 
     End Sub
+
+    Private Sub ToolStripTextBoxFilterByTag_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ToolStripTextBoxFilterByTag.SelectedIndexChanged
+
+        ToolStripTextBoxFilterByTagValue.Items.Clear()
+        ToolStripTextBoxFilterByTagValue.Text = ""
+
+        Dim TagValues = AggregatedTags.GetValueOrDefault(ToolStripTextBoxFilterByTag.SelectedItem)
+        For Each TagValue In TagValues
+            ToolStripTextBoxFilterByTagValue.Items.Add(TagValue)
+        Next
+
+        ToolStripTextBoxFilterByTagValue.DroppedDown = True
+
+    End Sub
+
+    Private Sub ToolStripTextBoxFilterByTagValue_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ToolStripTextBoxFilterByTagValue.SelectedIndexChanged
+
+        Dim TagKey As String = ToolStripTextBoxFilterByTag.SelectedItem
+        Dim TagValue As String = ToolStripTextBoxFilterByTagValue.SelectedItem
+
+        If TagValue <> "" Then
+
+            Dim Tag = New Amazon.EC2.Model.TagDescription
+            Tag.Key = TagKey
+            Tag.Value = TagValue
+
+            onClickFilter(Tag, Nothing)
+
+        End If
+
+    End Sub
+
 
 End Class

@@ -40,6 +40,7 @@ Partial Class Form1
         Me.RefreshInstanceListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FilterByToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripTextBoxFilterByTag = New System.Windows.Forms.ToolStripComboBox()
+        Me.ToolStripTextBoxFilterByTagValue = New System.Windows.Forms.ToolStripComboBox()
         Me.MenuStripFilterPresentation = New System.Windows.Forms.MenuStrip()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPageDetails = New System.Windows.Forms.TabPage()
@@ -55,6 +56,7 @@ Partial Class Form1
         Me.ColumnHeaderNetworkPropertyKey = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderNetworkPropertyValue = New System.Windows.Forms.ColumnHeader()
         Me.TabPageStorage = New System.Windows.Forms.TabPage()
+        Me.ButtonAddNewVolumes = New System.Windows.Forms.Button()
         Me.ListViewInstanceVolumes = New System.Windows.Forms.ListView()
         Me.ColumnHeaderVolumeID = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderDeviceName = New System.Windows.Forms.ColumnHeader()
@@ -73,7 +75,6 @@ Partial Class Form1
         Me.ListViewInstanceTags = New System.Windows.Forms.ListView()
         Me.ColumnHeaderKey = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderValue = New System.Windows.Forms.ColumnHeader()
-        Me.ButtonAddNewVolumes = New System.Windows.Forms.Button()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStripMain.SuspendLayout()
         Me.TabControl.SuspendLayout()
@@ -224,10 +225,10 @@ Partial Class Form1
         'MenuStripInstanceFilter
         '
         Me.MenuStripInstanceFilter.Dock = System.Windows.Forms.DockStyle.None
-        Me.MenuStripInstanceFilter.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RefreshInstanceListToolStripMenuItem, Me.FilterByToolStripMenuItem, Me.ToolStripTextBoxFilterByTag})
+        Me.MenuStripInstanceFilter.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RefreshInstanceListToolStripMenuItem, Me.FilterByToolStripMenuItem, Me.ToolStripTextBoxFilterByTag, Me.ToolStripTextBoxFilterByTagValue})
         Me.MenuStripInstanceFilter.Location = New System.Drawing.Point(0, 0)
         Me.MenuStripInstanceFilter.Name = "MenuStripInstanceFilter"
-        Me.MenuStripInstanceFilter.Size = New System.Drawing.Size(377, 27)
+        Me.MenuStripInstanceFilter.Size = New System.Drawing.Size(500, 27)
         Me.MenuStripInstanceFilter.TabIndex = 10
         Me.MenuStripInstanceFilter.Text = "MenuStrip2"
         '
@@ -247,15 +248,24 @@ Partial Class Form1
         '
         Me.ToolStripTextBoxFilterByTag.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.ToolStripTextBoxFilterByTag.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ToolStripTextBoxFilterByTag.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.ToolStripTextBoxFilterByTag.Name = "ToolStripTextBoxFilterByTag"
         Me.ToolStripTextBoxFilterByTag.Size = New System.Drawing.Size(200, 23)
         Me.ToolStripTextBoxFilterByTag.ToolTipText = "Filter by Tag"
+        '
+        'ToolStripTextBoxFilterByTagValue
+        '
+        Me.ToolStripTextBoxFilterByTagValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ToolStripTextBoxFilterByTagValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ToolStripTextBoxFilterByTagValue.FlatStyle = System.Windows.Forms.FlatStyle.Standard
+        Me.ToolStripTextBoxFilterByTagValue.Name = "ToolStripTextBoxFilterByTagValue"
+        Me.ToolStripTextBoxFilterByTagValue.Size = New System.Drawing.Size(121, 23)
         '
         'MenuStripFilterPresentation
         '
         Me.MenuStripFilterPresentation.BackColor = System.Drawing.SystemColors.ScrollBar
         Me.MenuStripFilterPresentation.Dock = System.Windows.Forms.DockStyle.None
-        Me.MenuStripFilterPresentation.Location = New System.Drawing.Point(377, 0)
+        Me.MenuStripFilterPresentation.Location = New System.Drawing.Point(500, 0)
         Me.MenuStripFilterPresentation.Name = "MenuStripFilterPresentation"
         Me.MenuStripFilterPresentation.Size = New System.Drawing.Size(202, 24)
         Me.MenuStripFilterPresentation.TabIndex = 11
@@ -416,6 +426,15 @@ Partial Class Form1
         Me.TabPageStorage.Text = "Storage"
         Me.TabPageStorage.UseVisualStyleBackColor = True
         '
+        'ButtonAddNewVolumes
+        '
+        Me.ButtonAddNewVolumes.Location = New System.Drawing.Point(3, -1)
+        Me.ButtonAddNewVolumes.Name = "ButtonAddNewVolumes"
+        Me.ButtonAddNewVolumes.Size = New System.Drawing.Size(121, 23)
+        Me.ButtonAddNewVolumes.TabIndex = 2
+        Me.ButtonAddNewVolumes.Text = "Add New Volumes"
+        Me.ButtonAddNewVolumes.UseVisualStyleBackColor = True
+        '
         'ListViewInstanceVolumes
         '
         Me.ListViewInstanceVolumes.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -549,15 +568,6 @@ Partial Class Form1
         Me.ColumnHeaderValue.Text = "Value"
         Me.ColumnHeaderValue.Width = 500
         '
-        'ButtonAddNewVolumes
-        '
-        Me.ButtonAddNewVolumes.Location = New System.Drawing.Point(3, -1)
-        Me.ButtonAddNewVolumes.Name = "ButtonAddNewVolumes"
-        Me.ButtonAddNewVolumes.Size = New System.Drawing.Size(121, 23)
-        Me.ButtonAddNewVolumes.TabIndex = 2
-        Me.ButtonAddNewVolumes.Text = "Add New Volumes"
-        Me.ButtonAddNewVolumes.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -652,4 +662,5 @@ Partial Class Form1
     Friend WithEvents ColumnHeaderVolumeIOPS As ColumnHeader
     Friend WithEvents ColumnHeaderVolumeThroughput As ColumnHeader
     Friend WithEvents ButtonAddNewVolumes As Button
+    Friend WithEvents ToolStripTextBoxFilterByTagValue As ToolStripComboBox
 End Class
