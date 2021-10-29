@@ -26,15 +26,13 @@ Public Class EditTagsForm
 
     Private Sub EditTagsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Dim NextToken As String = ""
-
         Dim FilterList = New List(Of String)
         FilterList.Add(InstanceId)
 
         Dim UserFilter = New Dictionary(Of String, List(Of String))
         UserFilter.Add("instance-id", FilterList)
 
-        Dim Instances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter, NextToken)
+        Dim Instances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter)
 
         If Instances.Count = 1 Then
 

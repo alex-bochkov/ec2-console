@@ -11,7 +11,7 @@ Public Class TerminateInstanceForm
         Dim UserFilter = New Dictionary(Of String, List(Of String))
         UserFilter.Add("instance-id", InstanceIds)
 
-        Instances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter, Nothing)
+        Instances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter)
 
         For Each Instance In Instances
 

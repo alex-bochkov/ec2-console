@@ -66,7 +66,7 @@
 
         Dim UserFilter = New Dictionary(Of String, List(Of String))
         UserFilter.Add("instance-id", InstanceIds)
-        Dim AllInstances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter, Nothing)
+        Dim AllInstances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter)
 
         Dim InstancesToStart As List(Of String) = New List(Of String)
 

@@ -153,8 +153,7 @@
         End Function
 
         Public Function ListEc2Instances(AwsAccount As AwsAccount,
-                                         UserFilters As Dictionary(Of String, List(Of String)),
-                                         Optional ByRef NextToken_old As String = Nothing) As List(Of Amazon.EC2.Model.Instance)
+                                         UserFilters As Dictionary(Of String, List(Of String))) As List(Of Amazon.EC2.Model.Instance)
 
             Dim List As List(Of Amazon.EC2.Model.Instance) = New List(Of Amazon.EC2.Model.Instance)
 
@@ -167,7 +166,7 @@
             If My.Computer.Name = "DESKTOP-PKNQCHC" Then
                 Dim tags = New List(Of String)
                 tags.Add("DBA")
-                request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "tag:Owner", .Values = tags})
+                'request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "tag:Owner", .Values = tags})
             End If
             '***************************************************
 

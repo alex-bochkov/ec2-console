@@ -5,7 +5,6 @@ Public Class Form1
 
     Private AllAccounts As List(Of AwsAccount)
     Private CurrentAccount As AwsAccount
-    Private NextToken As String = Nothing
 
     Private InstanceTable As Hashtable = New Hashtable
     Private InstanceStatusTable As Hashtable = New Hashtable
@@ -514,12 +513,15 @@ Public Class Form1
         table.Columns.Add("PrivateIpAddress", GetType(String))
         table.Columns.Add("PlatformDetails", GetType(String))
         table.Columns.Add("LaunchTime", GetType(DateTime))
+        table.Columns.Add("NumberOfVolumes", GetType(Integer))
+        table.Columns.Add("NumberOfSecurityGroups", GetType(Integer))
+        table.Columns.Add("NumberOfTags", GetType(Integer))
 
         InstanceTable.Clear()
         InstanceStatusTable.Clear()
         InstanceVolumesTable.Clear()
 
-        Dim InstanceList = AmazonApi.ListEc2Instances(CurrentAccount, UserFilterForInstances, NextToken)
+        Dim InstanceList = AmazonApi.ListEc2Instances(CurrentAccount, UserFilterForInstances)
 
         If InstanceList.Count > 0 Then
 
@@ -579,6 +581,10 @@ Public Class Form1
                 RowRepresentation.Item("PrivateIpAddress") = instance.PrivateIpAddress
                 RowRepresentation.Item("PlatformDetails") = instance.PlatformDetails
                 RowRepresentation.Item("LaunchTime") = instance.LaunchTime
+
+                RowRepresentation.Item("NumberOfVolumes") = instance.BlockDeviceMappings.Count
+                RowRepresentation.Item("NumberOfSecurityGroups") = instance.SecurityGroups.Count
+                RowRepresentation.Item("NumberOfTags") = instance.Tags.Count
 
                 table.Rows.Add(RowRepresentation)
 

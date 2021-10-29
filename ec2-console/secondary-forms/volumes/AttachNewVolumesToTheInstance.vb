@@ -65,7 +65,7 @@ Public Class AttachNewVolumesToTheInstance
 
         For VolumeNumber = 1 To TotalVolumesToCreate
 
-            Dim Instances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter, Nothing)
+            Dim Instances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter)
 
             Percent = Math.Round(VolumeNumber / TotalVolumesToCreate * 100)
 
