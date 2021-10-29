@@ -172,7 +172,7 @@
 
         Public Function ListEc2Instances(AwsAccount As AwsAccount,
                                          UserFilters As Dictionary(Of String, List(Of String)),
-                                         ByRef NextToken_old As String) As List(Of Amazon.EC2.Model.Instance)
+                                         Optional ByRef NextToken_old As String = Nothing) As List(Of Amazon.EC2.Model.Instance)
 
             Dim List As List(Of Amazon.EC2.Model.Instance) = New List(Of Amazon.EC2.Model.Instance)
 
@@ -226,6 +226,24 @@
             End While
 
             Return List
+
+        End Function
+
+        Public Function GetEc2Instance(AwsAccount As AwsAccount, InstanceId As String) As Amazon.EC2.Model.Instance
+
+            Dim ListInstanceId As List(Of String) = New List(Of String)
+            ListInstanceId.Add(InstanceId)
+
+            Dim UserFilter = New Dictionary(Of String, List(Of String))
+            UserFilter.Add("instance-id", ListInstanceId)
+
+            Dim InstanceResult = AmazonApi.ListEc2Instances(AwsAccount, UserFilter)
+
+            If InstanceResult.Count = 1 Then
+                Return InstanceResult.Item(0)
+            End If
+
+            Return New Amazon.EC2.Model.Instance
 
         End Function
 
@@ -475,12 +493,13 @@
 
         End Function
 
-        Public Function StopInstance(AwsAccount As AwsAccount, InstanceId As String) As Boolean
+        Public Function StopInstance(AwsAccount As AwsAccount, InstanceId As String, Optional Force As Boolean = False) As Boolean
 
             Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.StopInstancesRequest
             request.InstanceIds.Add(InstanceId)
+            request.Force = Force
 
             Dim requestResult = client.StopInstancesAsync(request).GetAwaiter()
             While Not requestResult.IsCompleted

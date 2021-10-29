@@ -948,7 +948,7 @@ Public Class Form1
         FormWP.InstanceIDs = InstanceIDs
         FormWP.InstanceTypeList = InstanceTypesList
         FormWP.StartPosition = FormStartPosition.CenterParent
-        FormWP.ShowDialog()
+        FormWP.Show()
 
     End Sub
 

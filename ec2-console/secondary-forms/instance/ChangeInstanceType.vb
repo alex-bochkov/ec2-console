@@ -31,14 +31,19 @@
 
             End Function)
 
-        For Each InstanceID In InstanceIDs
-            ListBoxInstancesToModify.Items.Add(InstanceID)
-        Next
 
         Dim UserFilter = New Dictionary(Of String, List(Of String))
         UserFilter.Add("instance-id", InstanceIDs)
+        Instances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter)
 
-        Instances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter, Nothing)
+        For Each Instance In Instances
+
+            Dim Text As String = Instance.InstanceId + " / " + Instance.State.Name.Value + " / " + Instance.InstanceType.Value
+
+            Dim Item = ListViewInstancesToModify.Items.Add(Text)
+            Item.Tag = Instance.InstanceId
+
+        Next
 
         For Each InstanceType In InstanceTypeList
 
@@ -52,39 +57,123 @@
 
     End Sub
 
-    Private Sub ModifyInstanceType()
+    Private Sub ModifyInstanceType_Async(Parameters As Dictionary(Of String, Object))
 
-        Dim InstanceType = ComboBoxInstanceType.SelectedItem
+        Dim StopAndRestart As Boolean = Parameters.Item("StopAndRestart")
+        Dim InstanceIds As List(Of String) = Parameters.Item("InstanceIds")
+        Dim NewInstanceType As String = Parameters.Item("InstanceType")
 
-        For Each Instance In Instances
 
-            Dim InstanceId = Instance.InstanceId
-            Dim InstanceTypeOld = Instance.InstanceType.Value
+        Dim UserFilter = New Dictionary(Of String, List(Of String))
+        UserFilter.Add("instance-id", InstanceIds)
+        Dim AllInstances = AmazonApi.ListEc2Instances(CurrentAccount, UserFilter, Nothing)
 
-            AmazonApi.ModifyInstanceType(CurrentAccount, Instance.InstanceId, InstanceType)
+        Dim InstancesToStart As List(Of String) = New List(Of String)
 
-            Dim Msg = String.Format("The instance type for {0} instance has been modified: {1} -> {2}",
-                            InstanceId, InstanceTypeOld, InstanceType)
 
-            Dim eventInfo = New NLog.LogEventInfo(NLog.LogLevel.Info, Log.Name, Msg)
-            eventInfo.Properties.Add("Category", "ModifyInstanceType")
+        If StopAndRestart Then
+            'stop currently running instances
+            For Each Instance In AllInstances
+                If Instance.State.Name = "running" Then
 
-            Log.Info(eventInfo)
+                    InstancesToStart.Add(Instance.InstanceId)
+
+                    AmazonApi.StopInstance(CurrentAccount, Instance.InstanceId, Force:=True)
+
+                End If
+            Next
+        End If
+
+        For i = 1 To 300
+
+            Dim CompletedInstances As List(Of String) = New List(Of String)
+
+            For Each InstanceId In InstanceIds
+
+                Dim CurrentInstance = AmazonApi.GetEc2Instance(CurrentAccount, InstanceId)
+
+                Dim CurrentInstanceType = CurrentInstance.InstanceType.Value
+
+                If CurrentInstance.State.Name = "stopped" And CurrentInstanceType <> NewInstanceType Then
+
+                    AmazonApi.ModifyInstanceType(CurrentAccount, InstanceId, NewInstanceType)
+
+                    'Dim Msg = String.Format("The instance type for {0} instance has been modified: {1} -> {2}",
+                    'InstanceId, InstanceTypeOld, InstanceType)
+
+                    ' Dim eventInfo = New NLog.LogEventInfo(NLog.LogLevel.Info, Log.Name, Msg)
+                    'eventInfo.Properties.Add("Category", "ModifyInstanceType")
+
+                    'Log.Info(eventInfo)
+
+
+                    If InstancesToStart.Contains(InstanceId) Then
+                        AmazonApi.StartInstance(CurrentAccount, InstanceId)
+                    End If
+
+                    CurrentInstanceType = NewInstanceType
+
+                End If
+
+                If CurrentInstanceType = NewInstanceType Then
+                    CompletedInstances.Add(InstanceId)
+                End If
+
+
+            Next
+
+            Dim Msg As String = CompletedInstances.Count.ToString + " instances modified.."
+            Dim Percent As Integer = CompletedInstances.Count / InstanceIds.Count * 100
+
+            Invoke(New Action(Sub()
+                                  UpdateProgress(Msg, Percent, CompletedInstances)
+                              End Sub))
+
+            If CompletedInstances.Count = InstanceIds.Count Then
+                Exit For
+            Else
+                Threading.Thread.Sleep(1000)
+            End If
 
         Next
 
+    End Sub
 
-        Close()
+    Sub UpdateProgress(Msg As String, Percent As Integer, CompletedInstances As List(Of String))
+
+        ProgressBar.Value = Percent
+
+        LabelCurrentOperation.Text = Msg
+
+        If Percent = 100 Then
+            LabelCurrentOperation.Text = Msg + " DONE"
+        End If
+
+        For Each CompletedInstance In CompletedInstances
+
+            For Each Item As ListViewItem In ListViewInstancesToModify.Items
+                If Item.Tag = CompletedInstance Then
+                    If Not Item.Text.EndsWith(" - DONE") Then
+                        Item.Text = Item.Text + " - DONE"
+                    End If
+                End If
+            Next
+
+        Next
 
     End Sub
-    Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
 
-        ModifyInstanceType()
+    Private Function AllInstancesAreStopped() As Boolean
 
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Close()
+        For Each Instance In Instances
+            If Instance.State.Name <> "stopped" Then
+                Return False
+            End If
+        Next
 
-    End Sub
+        Return True
+
+    End Function
 
     Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel_Button.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
@@ -103,6 +192,37 @@
 
         If ComboBoxInstanceType.SelectedIndex > 0 Then
             ComboBoxInstanceType.SelectedIndex = ComboBoxInstanceType.SelectedIndex - 1
+        End If
+
+    End Sub
+
+    Private Sub ButtonModifyInstanceType_Click(sender As Object, e As EventArgs) Handles ButtonModifyInstanceType.Click
+
+        If AllInstancesAreStopped() Or CheckBoxStopAndRestart.Checked Then
+
+            Dim InstanceType = ComboBoxInstanceType.SelectedItem
+
+            Dim Parameters As Dictionary(Of String, Object) = New Dictionary(Of String, Object)
+
+            Parameters.Add("StopAndRestart", CheckBoxStopAndRestart.Checked)
+            Parameters.Add("InstanceIds", InstanceIDs)
+            Parameters.Add("InstanceType", InstanceType)
+
+            Dim t As New Threading.Thread(Sub()
+                                              ModifyInstanceType_Async(Parameters)
+                                          End Sub)
+            t.Priority = Threading.ThreadPriority.Normal
+            t.Start()
+
+            LabelCurrentOperation.Text = "Process has started..."
+            ButtonModifyInstanceType.Enabled = False
+
+        Else
+
+            MsgBox("Not all instances were stopped. Can't change the instance type.")
+
+            Exit Sub
+
         End If
 
     End Sub

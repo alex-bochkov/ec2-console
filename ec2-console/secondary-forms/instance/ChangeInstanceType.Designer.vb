@@ -23,7 +23,6 @@ Partial Class ChangeInstanceType
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.OK_Button = New System.Windows.Forms.Button()
         Me.Cancel_Button = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ComboBoxInstanceType = New System.Windows.Forms.ComboBox()
@@ -33,7 +32,9 @@ Partial Class ChangeInstanceType
         Me.LabelCurrentOperation = New System.Windows.Forms.Label()
         Me.ProgressBar = New System.Windows.Forms.ProgressBar()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.ListBoxInstancesToModify = New System.Windows.Forms.ListBox()
+        Me.ListViewInstancesToModify = New System.Windows.Forms.ListView()
+        Me.ColumnHeaderInstance = New System.Windows.Forms.ColumnHeader()
+        Me.ButtonModifyInstanceType = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -44,25 +45,14 @@ Partial Class ChangeInstanceType
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(448, 296)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(445, 354)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(170, 33)
         Me.TableLayoutPanel1.TabIndex = 0
-        '
-        'OK_Button
-        '
-        Me.OK_Button.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.OK_Button.Location = New System.Drawing.Point(4, 3)
-        Me.OK_Button.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.OK_Button.Name = "OK_Button"
-        Me.OK_Button.Size = New System.Drawing.Size(77, 27)
-        Me.OK_Button.TabIndex = 0
-        Me.OK_Button.Text = "OK"
         '
         'Cancel_Button
         '
@@ -72,7 +62,7 @@ Partial Class ChangeInstanceType
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(77, 27)
         Me.Cancel_Button.TabIndex = 1
-        Me.Cancel_Button.Text = "Cancel"
+        Me.Cancel_Button.Text = "Close"
         '
         'Label1
         '
@@ -91,14 +81,14 @@ Partial Class ChangeInstanceType
         Me.ComboBoxInstanceType.FormattingEnabled = True
         Me.ComboBoxInstanceType.Location = New System.Drawing.Point(96, 8)
         Me.ComboBoxInstanceType.Name = "ComboBoxInstanceType"
-        Me.ComboBoxInstanceType.Size = New System.Drawing.Size(465, 23)
+        Me.ComboBoxInstanceType.Size = New System.Drawing.Size(462, 23)
         Me.ComboBoxInstanceType.TabIndex = 3
         '
         'ButtonScaleUp
         '
         Me.ButtonScaleUp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonScaleUp.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.ButtonScaleUp.Location = New System.Drawing.Point(563, 8)
+        Me.ButtonScaleUp.Location = New System.Drawing.Point(560, 8)
         Me.ButtonScaleUp.Name = "ButtonScaleUp"
         Me.ButtonScaleUp.Size = New System.Drawing.Size(24, 23)
         Me.ButtonScaleUp.TabIndex = 5
@@ -109,7 +99,7 @@ Partial Class ChangeInstanceType
         '
         Me.ButtonScaleDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonScaleDown.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.ButtonScaleDown.Location = New System.Drawing.Point(589, 8)
+        Me.ButtonScaleDown.Location = New System.Drawing.Point(586, 8)
         Me.ButtonScaleDown.Name = "ButtonScaleDown"
         Me.ButtonScaleDown.Size = New System.Drawing.Size(24, 23)
         Me.ButtonScaleDown.TabIndex = 6
@@ -120,20 +110,19 @@ Partial Class ChangeInstanceType
         '
         Me.CheckBoxStopAndRestart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CheckBoxStopAndRestart.AutoSize = True
-        Me.CheckBoxStopAndRestart.Enabled = False
-        Me.CheckBoxStopAndRestart.Location = New System.Drawing.Point(7, 181)
+        Me.CheckBoxStopAndRestart.Location = New System.Drawing.Point(8, 197)
         Me.CheckBoxStopAndRestart.Name = "CheckBoxStopAndRestart"
-        Me.CheckBoxStopAndRestart.Size = New System.Drawing.Size(486, 19)
+        Me.CheckBoxStopAndRestart.Size = New System.Drawing.Size(506, 19)
         Me.CheckBoxStopAndRestart.TabIndex = 8
-        Me.CheckBoxStopAndRestart.Text = "Stop and Restart running instances (otherwise, only stopped instances will be mod" &
-    "ified)"
+        Me.CheckBoxStopAndRestart.Text = "Force Stop and Restart running instances (otherwise, all instances must be stoppe" &
+    "d already)"
         Me.CheckBoxStopAndRestart.UseVisualStyleBackColor = True
         '
         'LabelCurrentOperation
         '
         Me.LabelCurrentOperation.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LabelCurrentOperation.AutoSize = True
-        Me.LabelCurrentOperation.Location = New System.Drawing.Point(13, 249)
+        Me.LabelCurrentOperation.Location = New System.Drawing.Point(13, 307)
         Me.LabelCurrentOperation.Name = "LabelCurrentOperation"
         Me.LabelCurrentOperation.Size = New System.Drawing.Size(121, 15)
         Me.LabelCurrentOperation.TabIndex = 22
@@ -143,9 +132,9 @@ Partial Class ChangeInstanceType
         '
         Me.ProgressBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar.Location = New System.Drawing.Point(12, 270)
+        Me.ProgressBar.Location = New System.Drawing.Point(12, 328)
         Me.ProgressBar.Name = "ProgressBar"
-        Me.ProgressBar.Size = New System.Drawing.Size(606, 23)
+        Me.ProgressBar.Size = New System.Drawing.Size(603, 23)
         Me.ProgressBar.TabIndex = 21
         '
         'GroupBox1
@@ -153,34 +142,47 @@ Partial Class ChangeInstanceType
         Me.GroupBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.ListBoxInstancesToModify)
+        Me.GroupBox1.Controls.Add(Me.ListViewInstancesToModify)
+        Me.GroupBox1.Controls.Add(Me.ButtonModifyInstanceType)
         Me.GroupBox1.Controls.Add(Me.CheckBoxStopAndRestart)
         Me.GroupBox1.Location = New System.Drawing.Point(6, 37)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(611, 208)
+        Me.GroupBox1.Size = New System.Drawing.Size(608, 266)
         Me.GroupBox1.TabIndex = 23
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Instances to Modify"
         '
-        'ListBoxInstancesToModify
+        'ListViewInstancesToModify
         '
-        Me.ListBoxInstancesToModify.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ListBoxInstancesToModify.FormattingEnabled = True
-        Me.ListBoxInstancesToModify.ItemHeight = 15
-        Me.ListBoxInstancesToModify.Location = New System.Drawing.Point(8, 22)
-        Me.ListBoxInstancesToModify.Name = "ListBoxInstancesToModify"
-        Me.ListBoxInstancesToModify.Size = New System.Drawing.Size(596, 154)
-        Me.ListBoxInstancesToModify.TabIndex = 9
+        Me.ListViewInstancesToModify.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderInstance})
+        Me.ListViewInstancesToModify.HideSelection = False
+        Me.ListViewInstancesToModify.Location = New System.Drawing.Point(8, 22)
+        Me.ListViewInstancesToModify.Name = "ListViewInstancesToModify"
+        Me.ListViewInstancesToModify.Size = New System.Drawing.Size(594, 169)
+        Me.ListViewInstancesToModify.TabIndex = 11
+        Me.ListViewInstancesToModify.UseCompatibleStateImageBehavior = False
+        Me.ListViewInstancesToModify.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeaderInstance
+        '
+        Me.ColumnHeaderInstance.Text = "Instance Description"
+        Me.ColumnHeaderInstance.Width = 550
+        '
+        'ButtonModifyInstanceType
+        '
+        Me.ButtonModifyInstanceType.Location = New System.Drawing.Point(8, 222)
+        Me.ButtonModifyInstanceType.Name = "ButtonModifyInstanceType"
+        Me.ButtonModifyInstanceType.Size = New System.Drawing.Size(195, 38)
+        Me.ButtonModifyInstanceType.TabIndex = 10
+        Me.ButtonModifyInstanceType.Text = "Modify Instance Type"
+        Me.ButtonModifyInstanceType.UseVisualStyleBackColor = True
         '
         'ChangeInstanceType
         '
-        Me.AcceptButton = Me.OK_Button
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(622, 331)
+        Me.ClientSize = New System.Drawing.Size(619, 389)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.LabelCurrentOperation)
         Me.Controls.Add(Me.ProgressBar)
@@ -195,7 +197,7 @@ Partial Class ChangeInstanceType
         Me.MinimizeBox = False
         Me.Name = "ChangeInstanceType"
         Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ChangeInstanceType"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
@@ -205,7 +207,6 @@ Partial Class ChangeInstanceType
 
     End Sub
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents OK_Button As System.Windows.Forms.Button
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
     Friend WithEvents Label1 As Label
     Friend WithEvents ComboBoxInstanceType As ComboBox
@@ -215,5 +216,7 @@ Partial Class ChangeInstanceType
     Friend WithEvents LabelCurrentOperation As Label
     Friend WithEvents ProgressBar As ProgressBar
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents ListBoxInstancesToModify As ListBox
+    Friend WithEvents ButtonModifyInstanceType As Button
+    Friend WithEvents ListViewInstancesToModify As ListView
+    Friend WithEvents ColumnHeaderInstance As ColumnHeader
 End Class
