@@ -495,10 +495,19 @@
 
         Public Function StopInstance(AwsAccount As AwsAccount, InstanceId As String, Optional Force As Boolean = False) As Boolean
 
+            Dim Instances As List(Of String) = New List(Of String)
+            Instances.Add(InstanceId)
+
+            Return StopInstances(AwsAccount, Instances, Force)
+
+        End Function
+
+        Public Function StopInstances(AwsAccount As AwsAccount, InstanceIds As List(Of String), Optional Force As Boolean = False) As Boolean
+
             Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.StopInstancesRequest
-            request.InstanceIds.Add(InstanceId)
+            request.InstanceIds = InstanceIds
             request.Force = Force
 
             Dim requestResult = client.StopInstancesAsync(request).GetAwaiter()

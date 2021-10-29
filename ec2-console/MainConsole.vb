@@ -860,20 +860,12 @@ Public Class Form1
 
         Dim InstanceIDs = GetAllSelectedInstanceIds()
 
-        Dim TextAllIds = vbCrLf
-        For Each InstanceId In InstanceIDs
-            TextAllIds += InstanceId + vbCrLf
-        Next
-
-        Dim Rez = MsgBox("Stop instance: " + TextAllIds + "?", MsgBoxStyle.YesNo, "Stop instance")
-
-        If Rez = MsgBoxResult.Yes Then
-
-            For Each InstanceID In InstanceIDs
-                AmazonApi.StopInstance(CurrentAccount, InstanceID)
-            Next
-
-        End If
+        Dim FormAddVolumes = New InstanceStopForm
+        FormAddVolumes.CurrentAccount = CurrentAccount
+        FormAddVolumes.InstanceIDs = InstanceIDs
+        'FormAddVolumes.Parent = Me
+        FormAddVolumes.StartPosition = FormStartPosition.CenterScreen
+        FormAddVolumes.Show()
 
     End Sub
 
@@ -904,7 +896,6 @@ Public Class Form1
         Dim FormAddVolumes = New AttachNewVolumesToTheInstance
         FormAddVolumes.CurrentAccount = CurrentAccount
         FormAddVolumes.InstanceId = InstanceID
-        'FormAddVolumes.Parent = Me
         FormAddVolumes.StartPosition = FormStartPosition.CenterScreen
         FormAddVolumes.Show()
 
