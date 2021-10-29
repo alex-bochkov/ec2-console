@@ -101,9 +101,10 @@ Partial Class Form1
         'StatusStrip
         '
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabelCurrentRegion})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 614)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 656)
         Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(941, 22)
+        Me.StatusStrip.Padding = New System.Windows.Forms.Padding(1, 0, 16, 0)
+        Me.StatusStrip.Size = New System.Drawing.Size(1075, 22)
         Me.StatusStrip.TabIndex = 0
         Me.StatusStrip.Text = "StatusStrip1"
         '
@@ -118,7 +119,8 @@ Partial Class Form1
         Me.MenuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AccountsToolStripMenuItem, Me.LanguageToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.MenuStripMain.Location = New System.Drawing.Point(0, 0)
         Me.MenuStripMain.Name = "MenuStripMain"
-        Me.MenuStripMain.Size = New System.Drawing.Size(941, 24)
+        Me.MenuStripMain.Padding = New System.Windows.Forms.Padding(7, 2, 0, 2)
+        Me.MenuStripMain.Size = New System.Drawing.Size(1075, 24)
         Me.MenuStripMain.TabIndex = 1
         Me.MenuStripMain.Text = "MenuStrip1"
         '
@@ -160,16 +162,16 @@ Partial Class Form1
         Me.TabControl.Location = New System.Drawing.Point(0, 24)
         Me.TabControl.Name = "TabControl"
         Me.TabControl.SelectedIndex = 0
-        Me.TabControl.Size = New System.Drawing.Size(941, 590)
+        Me.TabControl.Size = New System.Drawing.Size(1075, 632)
         Me.TabControl.TabIndex = 4
         '
         'TabPageEC2
         '
         Me.TabPageEC2.Controls.Add(Me.Panel2)
-        Me.TabPageEC2.Location = New System.Drawing.Point(4, 24)
+        Me.TabPageEC2.Location = New System.Drawing.Point(4, 25)
         Me.TabPageEC2.Name = "TabPageEC2"
         Me.TabPageEC2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageEC2.Size = New System.Drawing.Size(933, 562)
+        Me.TabPageEC2.Size = New System.Drawing.Size(1067, 603)
         Me.TabPageEC2.TabIndex = 0
         Me.TabPageEC2.Text = "Instances"
         '
@@ -179,7 +181,7 @@ Partial Class Form1
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(3, 3)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(927, 556)
+        Me.Panel2.Size = New System.Drawing.Size(1061, 597)
         Me.Panel2.TabIndex = 12
         '
         'SplitContainer1
@@ -199,8 +201,8 @@ Partial Class Form1
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.TabControl1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(927, 556)
-        Me.SplitContainer1.SplitterDistance = 279
+        Me.SplitContainer1.Size = New System.Drawing.Size(1061, 597)
+        Me.SplitContainer1.SplitterDistance = 297
         Me.SplitContainer1.TabIndex = 0
         '
         'DataListViewEC2
@@ -211,13 +213,15 @@ Partial Class Form1
         Me.DataListViewEC2.CellEditUseWholeCell = False
         Me.DataListViewEC2.Cursor = System.Windows.Forms.Cursors.Default
         Me.DataListViewEC2.DataSource = Nothing
+        Me.DataListViewEC2.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.DataListViewEC2.FullRowSelect = True
+        Me.DataListViewEC2.GridLines = True
         Me.DataListViewEC2.HideSelection = False
         Me.DataListViewEC2.IsSearchOnSortColumn = False
-        Me.DataListViewEC2.Location = New System.Drawing.Point(3, 27)
+        Me.DataListViewEC2.Location = New System.Drawing.Point(3, 29)
         Me.DataListViewEC2.Name = "DataListViewEC2"
         Me.DataListViewEC2.ShowGroups = False
-        Me.DataListViewEC2.Size = New System.Drawing.Size(921, 249)
+        Me.DataListViewEC2.Size = New System.Drawing.Size(1053, 264)
         Me.DataListViewEC2.TabIndex = 9
         Me.DataListViewEC2.UseFiltering = True
         Me.DataListViewEC2.View = System.Windows.Forms.View.Details
@@ -228,7 +232,8 @@ Partial Class Form1
         Me.MenuStripInstanceFilter.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RefreshInstanceListToolStripMenuItem, Me.FilterByToolStripMenuItem, Me.ToolStripTextBoxFilterByTag, Me.ToolStripTextBoxFilterByTagValue})
         Me.MenuStripInstanceFilter.Location = New System.Drawing.Point(0, 0)
         Me.MenuStripInstanceFilter.Name = "MenuStripInstanceFilter"
-        Me.MenuStripInstanceFilter.Size = New System.Drawing.Size(500, 27)
+        Me.MenuStripInstanceFilter.Padding = New System.Windows.Forms.Padding(7, 2, 0, 2)
+        Me.MenuStripInstanceFilter.Size = New System.Drawing.Size(546, 27)
         Me.MenuStripInstanceFilter.TabIndex = 10
         Me.MenuStripInstanceFilter.Text = "MenuStrip2"
         '
@@ -250,7 +255,7 @@ Partial Class Form1
         Me.ToolStripTextBoxFilterByTag.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ToolStripTextBoxFilterByTag.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.ToolStripTextBoxFilterByTag.Name = "ToolStripTextBoxFilterByTag"
-        Me.ToolStripTextBoxFilterByTag.Size = New System.Drawing.Size(200, 23)
+        Me.ToolStripTextBoxFilterByTag.Size = New System.Drawing.Size(228, 23)
         Me.ToolStripTextBoxFilterByTag.ToolTipText = "Filter by Tag"
         '
         'ToolStripTextBoxFilterByTagValue
@@ -259,14 +264,15 @@ Partial Class Form1
         Me.ToolStripTextBoxFilterByTagValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ToolStripTextBoxFilterByTagValue.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.ToolStripTextBoxFilterByTagValue.Name = "ToolStripTextBoxFilterByTagValue"
-        Me.ToolStripTextBoxFilterByTagValue.Size = New System.Drawing.Size(121, 23)
+        Me.ToolStripTextBoxFilterByTagValue.Size = New System.Drawing.Size(138, 23)
         '
         'MenuStripFilterPresentation
         '
         Me.MenuStripFilterPresentation.BackColor = System.Drawing.SystemColors.ScrollBar
         Me.MenuStripFilterPresentation.Dock = System.Windows.Forms.DockStyle.None
-        Me.MenuStripFilterPresentation.Location = New System.Drawing.Point(500, 0)
+        Me.MenuStripFilterPresentation.Location = New System.Drawing.Point(571, 0)
         Me.MenuStripFilterPresentation.Name = "MenuStripFilterPresentation"
+        Me.MenuStripFilterPresentation.Padding = New System.Windows.Forms.Padding(7, 2, 0, 2)
         Me.MenuStripFilterPresentation.Size = New System.Drawing.Size(202, 24)
         Me.MenuStripFilterPresentation.TabIndex = 11
         Me.MenuStripFilterPresentation.Text = "MenuStrip2"
@@ -286,7 +292,7 @@ Partial Class Form1
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(928, 271)
+        Me.TabControl1.Size = New System.Drawing.Size(1061, 291)
         Me.TabControl1.TabIndex = 0
         '
         'TabPageDetails
@@ -294,7 +300,7 @@ Partial Class Form1
         Me.TabPageDetails.Location = New System.Drawing.Point(4, 24)
         Me.TabPageDetails.Name = "TabPageDetails"
         Me.TabPageDetails.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageDetails.Size = New System.Drawing.Size(920, 243)
+        Me.TabPageDetails.Size = New System.Drawing.Size(1051, 261)
         Me.TabPageDetails.TabIndex = 0
         Me.TabPageDetails.Text = "Details"
         Me.TabPageDetails.UseVisualStyleBackColor = True
@@ -304,7 +310,7 @@ Partial Class Form1
         Me.TabPageNetworking.Controls.Add(Me.SplitContainer2)
         Me.TabPageNetworking.Location = New System.Drawing.Point(4, 24)
         Me.TabPageNetworking.Name = "TabPageNetworking"
-        Me.TabPageNetworking.Size = New System.Drawing.Size(920, 243)
+        Me.TabPageNetworking.Size = New System.Drawing.Size(1051, 261)
         Me.TabPageNetworking.TabIndex = 2
         Me.TabPageNetworking.Text = "Networking"
         Me.TabPageNetworking.UseVisualStyleBackColor = True
@@ -323,8 +329,9 @@ Partial Class Form1
         'SplitContainer2.Panel2
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.GroupBox2)
-        Me.SplitContainer2.Size = New System.Drawing.Size(920, 243)
-        Me.SplitContainer2.SplitterDistance = 306
+        Me.SplitContainer2.Size = New System.Drawing.Size(1051, 261)
+        Me.SplitContainer2.SplitterDistance = 349
+        Me.SplitContainer2.SplitterWidth = 5
         Me.SplitContainer2.TabIndex = 6
         '
         'GroupBox1
@@ -334,16 +341,16 @@ Partial Class Form1
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(306, 243)
+        Me.GroupBox1.Size = New System.Drawing.Size(349, 261)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Security Groups"
         '
         'ButtonChangeSecurityGroups
         '
-        Me.ButtonChangeSecurityGroups.Location = New System.Drawing.Point(5, 18)
+        Me.ButtonChangeSecurityGroups.Location = New System.Drawing.Point(6, 19)
         Me.ButtonChangeSecurityGroups.Name = "ButtonChangeSecurityGroups"
-        Me.ButtonChangeSecurityGroups.Size = New System.Drawing.Size(75, 23)
+        Me.ButtonChangeSecurityGroups.Size = New System.Drawing.Size(86, 25)
         Me.ButtonChangeSecurityGroups.TabIndex = 4
         Me.ButtonChangeSecurityGroups.Text = "Change"
         Me.ButtonChangeSecurityGroups.UseVisualStyleBackColor = True
@@ -357,10 +364,10 @@ Partial Class Form1
         Me.ListViewInstanceSG.FullRowSelect = True
         Me.ListViewInstanceSG.GridLines = True
         Me.ListViewInstanceSG.HideSelection = False
-        Me.ListViewInstanceSG.Location = New System.Drawing.Point(1, 47)
+        Me.ListViewInstanceSG.Location = New System.Drawing.Point(1, 50)
         Me.ListViewInstanceSG.Name = "ListViewInstanceSG"
         Me.ListViewInstanceSG.ShowGroups = False
-        Me.ListViewInstanceSG.Size = New System.Drawing.Size(299, 190)
+        Me.ListViewInstanceSG.Size = New System.Drawing.Size(340, 206)
         Me.ListViewInstanceSG.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceSG.TabIndex = 3
         Me.ListViewInstanceSG.UseCompatibleStateImageBehavior = False
@@ -382,7 +389,7 @@ Partial Class Form1
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(610, 243)
+        Me.GroupBox2.Size = New System.Drawing.Size(697, 261)
         Me.GroupBox2.TabIndex = 5
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Network Attributes"
@@ -396,10 +403,10 @@ Partial Class Form1
         Me.ListViewInstanceNetworkProperties.FullRowSelect = True
         Me.ListViewInstanceNetworkProperties.GridLines = True
         Me.ListViewInstanceNetworkProperties.HideSelection = False
-        Me.ListViewInstanceNetworkProperties.Location = New System.Drawing.Point(6, 47)
+        Me.ListViewInstanceNetworkProperties.Location = New System.Drawing.Point(7, 50)
         Me.ListViewInstanceNetworkProperties.Name = "ListViewInstanceNetworkProperties"
         Me.ListViewInstanceNetworkProperties.ShowGroups = False
-        Me.ListViewInstanceNetworkProperties.Size = New System.Drawing.Size(598, 190)
+        Me.ListViewInstanceNetworkProperties.Size = New System.Drawing.Size(683, 206)
         Me.ListViewInstanceNetworkProperties.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceNetworkProperties.TabIndex = 2
         Me.ListViewInstanceNetworkProperties.UseCompatibleStateImageBehavior = False
@@ -421,7 +428,7 @@ Partial Class Form1
         Me.TabPageStorage.Controls.Add(Me.ListViewInstanceVolumes)
         Me.TabPageStorage.Location = New System.Drawing.Point(4, 24)
         Me.TabPageStorage.Name = "TabPageStorage"
-        Me.TabPageStorage.Size = New System.Drawing.Size(920, 243)
+        Me.TabPageStorage.Size = New System.Drawing.Size(1051, 261)
         Me.TabPageStorage.TabIndex = 3
         Me.TabPageStorage.Text = "Storage"
         Me.TabPageStorage.UseVisualStyleBackColor = True
@@ -430,7 +437,7 @@ Partial Class Form1
         '
         Me.ButtonAddNewVolumes.Location = New System.Drawing.Point(3, -1)
         Me.ButtonAddNewVolumes.Name = "ButtonAddNewVolumes"
-        Me.ButtonAddNewVolumes.Size = New System.Drawing.Size(121, 23)
+        Me.ButtonAddNewVolumes.Size = New System.Drawing.Size(138, 25)
         Me.ButtonAddNewVolumes.TabIndex = 2
         Me.ButtonAddNewVolumes.Text = "Add New Volumes"
         Me.ButtonAddNewVolumes.UseVisualStyleBackColor = True
@@ -444,10 +451,10 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.FullRowSelect = True
         Me.ListViewInstanceVolumes.GridLines = True
         Me.ListViewInstanceVolumes.HideSelection = False
-        Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 23)
+        Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 25)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(920, 223)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1051, 238)
         Me.ListViewInstanceVolumes.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
@@ -506,7 +513,7 @@ Partial Class Form1
         '
         Me.TabPageStatusCheck.Location = New System.Drawing.Point(4, 24)
         Me.TabPageStatusCheck.Name = "TabPageStatusCheck"
-        Me.TabPageStatusCheck.Size = New System.Drawing.Size(920, 243)
+        Me.TabPageStatusCheck.Size = New System.Drawing.Size(1051, 261)
         Me.TabPageStatusCheck.TabIndex = 4
         Me.TabPageStatusCheck.Text = "Status Check"
         Me.TabPageStatusCheck.UseVisualStyleBackColor = True
@@ -515,7 +522,7 @@ Partial Class Form1
         '
         Me.TabPageMonitoring.Location = New System.Drawing.Point(4, 24)
         Me.TabPageMonitoring.Name = "TabPageMonitoring"
-        Me.TabPageMonitoring.Size = New System.Drawing.Size(920, 243)
+        Me.TabPageMonitoring.Size = New System.Drawing.Size(1051, 261)
         Me.TabPageMonitoring.TabIndex = 5
         Me.TabPageMonitoring.Text = "Monitoring"
         Me.TabPageMonitoring.UseVisualStyleBackColor = True
@@ -524,9 +531,9 @@ Partial Class Form1
         '
         Me.TabPageTags.Controls.Add(Me.ButtonEditTags)
         Me.TabPageTags.Controls.Add(Me.ListViewInstanceTags)
-        Me.TabPageTags.Location = New System.Drawing.Point(4, 24)
+        Me.TabPageTags.Location = New System.Drawing.Point(4, 25)
         Me.TabPageTags.Name = "TabPageTags"
-        Me.TabPageTags.Size = New System.Drawing.Size(920, 243)
+        Me.TabPageTags.Size = New System.Drawing.Size(1053, 262)
         Me.TabPageTags.TabIndex = 6
         Me.TabPageTags.Text = "Tags"
         Me.TabPageTags.UseVisualStyleBackColor = True
@@ -535,7 +542,7 @@ Partial Class Form1
         '
         Me.ButtonEditTags.Location = New System.Drawing.Point(0, 0)
         Me.ButtonEditTags.Name = "ButtonEditTags"
-        Me.ButtonEditTags.Size = New System.Drawing.Size(75, 23)
+        Me.ButtonEditTags.Size = New System.Drawing.Size(86, 25)
         Me.ButtonEditTags.TabIndex = 1
         Me.ButtonEditTags.Text = "Edit Tags"
         Me.ButtonEditTags.UseVisualStyleBackColor = True
@@ -549,10 +556,10 @@ Partial Class Form1
         Me.ListViewInstanceTags.FullRowSelect = True
         Me.ListViewInstanceTags.GridLines = True
         Me.ListViewInstanceTags.HideSelection = False
-        Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 26)
+        Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 28)
         Me.ListViewInstanceTags.Name = "ListViewInstanceTags"
         Me.ListViewInstanceTags.ShowGroups = False
-        Me.ListViewInstanceTags.Size = New System.Drawing.Size(920, 217)
+        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1053, 233)
         Me.ListViewInstanceTags.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceTags.TabIndex = 0
         Me.ListViewInstanceTags.UseCompatibleStateImageBehavior = False
@@ -570,12 +577,13 @@ Partial Class Form1
         '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(941, 636)
+        Me.ClientSize = New System.Drawing.Size(1075, 678)
         Me.Controls.Add(Me.TabControl)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.MenuStripMain)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStripMain
         Me.Name = "Form1"
