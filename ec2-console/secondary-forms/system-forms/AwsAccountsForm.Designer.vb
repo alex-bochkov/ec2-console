@@ -29,34 +29,34 @@ Partial Class AwsAccountsForm
         Me.AccountAccessKey = New System.Windows.Forms.ColumnHeader()
         Me.AccountRegion = New System.Windows.Forms.ColumnHeader()
         Me.AccountKeyPairs = New System.Windows.Forms.ColumnHeader()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.CheckedListBoxEnabledRegions = New System.Windows.Forms.CheckedListBox()
-        Me.ButtonBackgroundColor = New System.Windows.Forms.Button()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.TextBoxAccountDescription = New System.Windows.Forms.TextBox()
         Me.ButtonSaveAccount = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.ButtonDeleteKeyPair = New System.Windows.Forms.Button()
         Me.ButtonAddKeyPair = New System.Windows.Forms.Button()
         Me.ListBoxKeyPairs = New System.Windows.Forms.ListBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.TextBoxAccountSecretKey = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.TextBoxAccountAccessKey = New System.Windows.Forms.TextBox()
+        Me.ButtonBackgroundColor = New System.Windows.Forms.Button()
+        Me.TextBoxAccountSecretKey = New System.Windows.Forms.TextBox()
         Me.ComboBoxAccountRegion = New System.Windows.Forms.ComboBox()
-        Me.TextBoxAccountDescription = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButtonDeleteAccount = New System.Windows.Forms.ToolStripButton()
         Me.OpenFileDialogKeyPair = New System.Windows.Forms.OpenFileDialog()
         Me.ColorDialogBackgroundColor = New System.Windows.Forms.ColorDialog()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.TableLayoutPanel1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.ToolStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -110,6 +110,39 @@ Partial Class AwsAccountsForm
         Me.AccountKeyPairs.Text = "Key Pairs"
         Me.AccountKeyPairs.Width = 100
         '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.GroupBox2)
+        Me.Panel1.Controls.Add(Me.TextBoxAccountDescription)
+        Me.Panel1.Controls.Add(Me.ButtonSaveAccount)
+        Me.Panel1.Controls.Add(Me.GroupBox1)
+        Me.Panel1.Controls.Add(Me.Label1)
+        Me.Panel1.Controls.Add(Me.Label2)
+        Me.Panel1.Controls.Add(Me.TextBoxAccountAccessKey)
+        Me.Panel1.Controls.Add(Me.ButtonBackgroundColor)
+        Me.Panel1.Controls.Add(Me.TextBoxAccountSecretKey)
+        Me.Panel1.Controls.Add(Me.ComboBoxAccountRegion)
+        Me.Panel1.Controls.Add(Me.Label5)
+        Me.Panel1.Controls.Add(Me.Label3)
+        Me.Panel1.Controls.Add(Me.Label4)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(3, 250)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(932, 359)
+        Me.Panel1.TabIndex = 1
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Controls.Add(Me.CheckedListBoxEnabledRegions)
+        Me.GroupBox2.Location = New System.Drawing.Point(597, 3)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(330, 307)
+        Me.GroupBox2.TabIndex = 14
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Enabled Regions"
+        '
         'CheckedListBoxEnabledRegions
         '
         Me.CheckedListBoxEnabledRegions.CheckOnClick = True
@@ -121,23 +154,14 @@ Partial Class AwsAccountsForm
         Me.CheckedListBoxEnabledRegions.Sorted = True
         Me.CheckedListBoxEnabledRegions.TabIndex = 12
         '
-        'ButtonBackgroundColor
+        'TextBoxAccountDescription
         '
-        Me.ButtonBackgroundColor.Location = New System.Drawing.Point(131, 131)
-        Me.ButtonBackgroundColor.Name = "ButtonBackgroundColor"
-        Me.ButtonBackgroundColor.Size = New System.Drawing.Size(133, 25)
-        Me.ButtonBackgroundColor.TabIndex = 11
-        Me.ButtonBackgroundColor.Text = "Pick Color"
-        Me.ButtonBackgroundColor.UseVisualStyleBackColor = True
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(9, 135)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(121, 16)
-        Me.Label5.TabIndex = 10
-        Me.Label5.Text = "Background Color"
+        Me.TextBoxAccountDescription.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBoxAccountDescription.Location = New System.Drawing.Point(131, 8)
+        Me.TextBoxAccountDescription.Name = "TextBoxAccountDescription"
+        Me.TextBoxAccountDescription.Size = New System.Drawing.Size(456, 23)
+        Me.TextBoxAccountDescription.TabIndex = 0
         '
         'ButtonSaveAccount
         '
@@ -196,23 +220,41 @@ Partial Class AwsAccountsForm
         Me.ListBoxKeyPairs.Size = New System.Drawing.Size(563, 84)
         Me.ListBoxKeyPairs.TabIndex = 0
         '
-        'Label4
+        'Label1
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(9, 106)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(102, 16)
-        Me.Label4.TabIndex = 8
-        Me.Label4.Text = "Default Region"
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(9, 12)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(80, 16)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "Description"
         '
-        'Label3
+        'Label2
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 75)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(80, 16)
-        Me.Label3.TabIndex = 7
-        Me.Label3.Text = "Secret Key"
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(9, 44)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(83, 16)
+        Me.Label2.TabIndex = 4
+        Me.Label2.Text = "Access Key"
+        '
+        'TextBoxAccountAccessKey
+        '
+        Me.TextBoxAccountAccessKey.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBoxAccountAccessKey.Location = New System.Drawing.Point(131, 40)
+        Me.TextBoxAccountAccessKey.Name = "TextBoxAccountAccessKey"
+        Me.TextBoxAccountAccessKey.Size = New System.Drawing.Size(456, 23)
+        Me.TextBoxAccountAccessKey.TabIndex = 2
+        '
+        'ButtonBackgroundColor
+        '
+        Me.ButtonBackgroundColor.Location = New System.Drawing.Point(131, 131)
+        Me.ButtonBackgroundColor.Name = "ButtonBackgroundColor"
+        Me.ButtonBackgroundColor.Size = New System.Drawing.Size(133, 25)
+        Me.ButtonBackgroundColor.TabIndex = 11
+        Me.ButtonBackgroundColor.Text = "Pick Color"
+        Me.ButtonBackgroundColor.UseVisualStyleBackColor = True
         '
         'TextBoxAccountSecretKey
         '
@@ -224,52 +266,43 @@ Partial Class AwsAccountsForm
         Me.TextBoxAccountSecretKey.TabIndex = 6
         Me.TextBoxAccountSecretKey.UseSystemPasswordChar = True
         '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(9, 44)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(83, 16)
-        Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Access Key"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(9, 12)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(80, 16)
-        Me.Label1.TabIndex = 3
-        Me.Label1.Text = "Description"
-        '
-        'TextBoxAccountAccessKey
-        '
-        Me.TextBoxAccountAccessKey.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxAccountAccessKey.Location = New System.Drawing.Point(131, 40)
-        Me.TextBoxAccountAccessKey.Name = "TextBoxAccountAccessKey"
-        Me.TextBoxAccountAccessKey.Size = New System.Drawing.Size(456, 23)
-        Me.TextBoxAccountAccessKey.TabIndex = 2
-        '
         'ComboBoxAccountRegion
         '
         Me.ComboBoxAccountRegion.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboBoxAccountRegion.FormattingEnabled = True
-        Me.ComboBoxAccountRegion.Items.AddRange(New Object() {"us-east-1", "us-east-2", "us-west-1", "us-west-2", "af-south-1", "ap-east-1", "ap-south-1", "ap-northeast-3", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "ca-central-1", "eu-central-1", "eu-west-1", "eu-west-2", "eu-south-1", "eu-west-3", "eu-north-1", "me-south-1", "sa-east-1", "us-gov-east-1", "us-gov-west-1"})
         Me.ComboBoxAccountRegion.Location = New System.Drawing.Point(131, 102)
         Me.ComboBoxAccountRegion.Name = "ComboBoxAccountRegion"
         Me.ComboBoxAccountRegion.Size = New System.Drawing.Size(456, 24)
+        Me.ComboBoxAccountRegion.Sorted = True
         Me.ComboBoxAccountRegion.TabIndex = 1
         '
-        'TextBoxAccountDescription
+        'Label5
         '
-        Me.TextBoxAccountDescription.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxAccountDescription.Location = New System.Drawing.Point(131, 8)
-        Me.TextBoxAccountDescription.Name = "TextBoxAccountDescription"
-        Me.TextBoxAccountDescription.Size = New System.Drawing.Size(456, 23)
-        Me.TextBoxAccountDescription.TabIndex = 0
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(9, 135)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(121, 16)
+        Me.Label5.TabIndex = 10
+        Me.Label5.Text = "Background Color"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(9, 75)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(80, 16)
+        Me.Label3.TabIndex = 7
+        Me.Label3.Text = "Secret Key"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(9, 106)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(102, 16)
+        Me.Label4.TabIndex = 8
+        Me.Label4.Text = "Default Region"
         '
         'ToolStrip1
         '
@@ -302,39 +335,6 @@ Partial Class AwsAccountsForm
         '
         Me.OpenFileDialogKeyPair.FileName = "OpenFileDialog1"
         '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.GroupBox2)
-        Me.Panel1.Controls.Add(Me.TextBoxAccountDescription)
-        Me.Panel1.Controls.Add(Me.ButtonSaveAccount)
-        Me.Panel1.Controls.Add(Me.GroupBox1)
-        Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Controls.Add(Me.TextBoxAccountAccessKey)
-        Me.Panel1.Controls.Add(Me.ButtonBackgroundColor)
-        Me.Panel1.Controls.Add(Me.TextBoxAccountSecretKey)
-        Me.Panel1.Controls.Add(Me.ComboBoxAccountRegion)
-        Me.Panel1.Controls.Add(Me.Label5)
-        Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.Label4)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 250)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(932, 359)
-        Me.Panel1.TabIndex = 1
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox2.Controls.Add(Me.CheckedListBoxEnabledRegions)
-        Me.GroupBox2.Location = New System.Drawing.Point(597, 3)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(330, 307)
-        Me.GroupBox2.TabIndex = 14
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Enabled Regions"
-        '
         'AwsAccountsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -346,12 +346,12 @@ Partial Class AwsAccountsForm
         Me.Name = "AwsAccountsForm"
         Me.Text = "AwsAccountsForm"
         Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

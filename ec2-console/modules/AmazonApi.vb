@@ -813,6 +813,29 @@
 
         End Function
 
+        Public Function DescribeImages(AwsAccount As AwsAccount) As List(Of Amazon.EC2.Model.Image)
+
+            Dim client = NewAmazonEC2Client(AwsAccount)
+
+            Dim FilterOwnerValues = New List(Of String)
+            FilterOwnerValues.Add("amazon")
+
+            Dim FilterImageIdValues = New List(Of String)
+
+            Dim request = New Amazon.EC2.Model.DescribeImagesRequest
+            request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "owner-alias", .Values = FilterOwnerValues})
+            ' request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "image-id", .Values = FilterImageIdValues})
+
+            Dim requestResult = client.DescribeImagesAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.Images
+
+        End Function
 
 
 

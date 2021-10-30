@@ -33,11 +33,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.5.5" />
-    <PackageReference Include="AWSSDK.EC2" Version="3.7.35.1" />
-    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.66" />
-    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.86" />
-    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.76" />
+    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.5.7" />
+    <PackageReference Include="AWSSDK.EC2" Version="3.7.38" />
+    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.68" />
+    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.88" />
+    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.78" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="4.7.12" />
     <PackageReference Include="NLog.Config" Version="4.7.12" />

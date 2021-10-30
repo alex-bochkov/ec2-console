@@ -793,6 +793,9 @@ Public Class Form1
                 m.Items.Add(New ToolStripMenuItem("Instance config history", My.Resources.Timeline.ToBitmap, AddressOf GetInstanceConfigHistory))
                 m.Show(Cursor.Position)
 
+                m.Items.Add(New ToolStripMenuItem("Launch more like this", Nothing, AddressOf CopySelectedInstance))
+                m.Show(Cursor.Position)
+
             End If
 
         End If
@@ -826,6 +829,12 @@ Public Class Form1
         Dim InstanceID = GetSelectedInstanceId()
 
         OpenConfigHistporyForm(InstanceID)
+
+    End Sub
+
+    Sub CopySelectedInstance(sender As Object, e As EventArgs)
+
+        OpenLaunchNewInstancesForm(True)
 
     End Sub
 
@@ -1132,5 +1141,24 @@ Public Class Form1
 
     End Sub
 
+    Private Sub ToolStripMenuItemLaunchNewInstances_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItemLaunchNewInstances.Click
+
+        OpenLaunchNewInstancesForm(False)
+
+    End Sub
+
+    Sub OpenLaunchNewInstancesForm(CopySelected As String)
+
+        Dim FormLaunchNew = New LaunchNewInstancesForm
+        FormLaunchNew.CurrentAccount = CurrentAccount
+
+        If CopySelected Then
+            FormLaunchNew.InstanceIdTemplate = GetSelectedInstanceId()
+        End If
+
+        FormLaunchNew.StartPosition = FormStartPosition.CenterScreen
+        FormLaunchNew.Show()
+
+    End Sub
 
 End Class

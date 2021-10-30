@@ -56,6 +56,7 @@
 
         Next
 
+        ComboBoxAccountRegion.Items.Clear()
         CheckedListBoxEnabledRegions.Items.Clear()
         For Each AwsRegion In AmazonApi.GetAllAwsRegions()
 
@@ -63,6 +64,8 @@
                 Or SelectedAccount.EnabledRegions.Count = 0
 
             CheckedListBoxEnabledRegions.Items.Add(AwsRegion, Checked)
+
+            ComboBoxAccountRegion.Items.Add(AwsRegion.SystemName)
 
         Next
 
