@@ -40,31 +40,31 @@ Partial Class InstanceStopForm
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(322, 234)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(368, 250)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(170, 33)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(194, 35)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'OK_Button
         '
         Me.OK_Button.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.OK_Button.Location = New System.Drawing.Point(4, 3)
-        Me.OK_Button.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.OK_Button.Location = New System.Drawing.Point(5, 3)
+        Me.OK_Button.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.OK_Button.Name = "OK_Button"
-        Me.OK_Button.Size = New System.Drawing.Size(77, 27)
+        Me.OK_Button.Size = New System.Drawing.Size(87, 29)
         Me.OK_Button.TabIndex = 0
         Me.OK_Button.Text = "OK"
         '
         'Cancel_Button
         '
         Me.Cancel_Button.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Cancel_Button.Location = New System.Drawing.Point(89, 3)
-        Me.Cancel_Button.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Cancel_Button.Location = New System.Drawing.Point(102, 3)
+        Me.Cancel_Button.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.Cancel_Button.Name = "Cancel_Button"
-        Me.Cancel_Button.Size = New System.Drawing.Size(77, 27)
+        Me.Cancel_Button.Size = New System.Drawing.Size(87, 29)
         Me.Cancel_Button.TabIndex = 1
         Me.Cancel_Button.Text = "Cancel"
         '
@@ -72,9 +72,9 @@ Partial Class InstanceStopForm
         '
         Me.ListViewInstancesToStop.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderInstance})
         Me.ListViewInstancesToStop.HideSelection = False
-        Me.ListViewInstancesToStop.Location = New System.Drawing.Point(6, 28)
+        Me.ListViewInstancesToStop.Location = New System.Drawing.Point(7, 30)
         Me.ListViewInstancesToStop.Name = "ListViewInstancesToStop"
-        Me.ListViewInstancesToStop.Size = New System.Drawing.Size(483, 169)
+        Me.ListViewInstancesToStop.Size = New System.Drawing.Size(551, 180)
         Me.ListViewInstancesToStop.TabIndex = 13
         Me.ListViewInstancesToStop.UseCompatibleStateImageBehavior = False
         Me.ListViewInstancesToStop.View = System.Windows.Forms.View.Details
@@ -88,34 +88,35 @@ Partial Class InstanceStopForm
         '
         Me.CheckBoxUseForceStop.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CheckBoxUseForceStop.AutoSize = True
-        Me.CheckBoxUseForceStop.Location = New System.Drawing.Point(12, 204)
+        Me.CheckBoxUseForceStop.Location = New System.Drawing.Point(14, 218)
         Me.CheckBoxUseForceStop.Name = "CheckBoxUseForceStop"
-        Me.CheckBoxUseForceStop.Size = New System.Drawing.Size(104, 19)
+        Me.CheckBoxUseForceStop.Size = New System.Drawing.Size(128, 20)
         Me.CheckBoxUseForceStop.TabIndex = 12
         Me.CheckBoxUseForceStop.Text = "Use Force Stop"
         Me.CheckBoxUseForceStop.UseVisualStyleBackColor = True
         '
         'Label1
         '
-        Me.Label1.Location = New System.Drawing.Point(6, 9)
+        Me.Label1.Location = New System.Drawing.Point(7, 10)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(483, 25)
+        Me.Label1.Size = New System.Drawing.Size(552, 27)
         Me.Label1.TabIndex = 14
         Me.Label1.Text = "Do you want to stop these instances?"
         '
         'InstanceStopForm
         '
         Me.AcceptButton = Me.OK_Button
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(493, 269)
+        Me.ClientSize = New System.Drawing.Size(563, 287)
         Me.Controls.Add(Me.ListViewInstancesToStop)
         Me.Controls.Add(Me.CheckBoxUseForceStop)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.Label1)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "InstanceStopForm"

@@ -25,6 +25,7 @@ Partial Class Form1
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabelCurrentRegion = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.ToolStripStatusLabelCurrentVersion = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStripMain = New System.Windows.Forms.MenuStrip()
         Me.AccountsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LanguageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -101,19 +102,28 @@ Partial Class Form1
         'StatusStrip
         '
         Me.StatusStrip.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabelCurrentRegion})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 656)
+        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabelCurrentRegion, Me.ToolStripStatusLabelCurrentVersion})
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 653)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Padding = New System.Windows.Forms.Padding(1, 0, 16, 0)
-        Me.StatusStrip.Size = New System.Drawing.Size(1075, 22)
+        Me.StatusStrip.Size = New System.Drawing.Size(1075, 25)
         Me.StatusStrip.TabIndex = 0
         Me.StatusStrip.Text = "StatusStrip1"
         '
         'ToolStripStatusLabelCurrentRegion
         '
         Me.ToolStripStatusLabelCurrentRegion.Name = "ToolStripStatusLabelCurrentRegion"
-        Me.ToolStripStatusLabelCurrentRegion.Size = New System.Drawing.Size(88, 20)
+        Me.ToolStripStatusLabelCurrentRegion.Size = New System.Drawing.Size(88, 23)
         Me.ToolStripStatusLabelCurrentRegion.Text = "< region >"
+        '
+        'ToolStripStatusLabelCurrentVersion
+        '
+        Me.ToolStripStatusLabelCurrentVersion.BorderSides = CType((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripStatusLabelCurrentVersion.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
+        Me.ToolStripStatusLabelCurrentVersion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.ToolStripStatusLabelCurrentVersion.Name = "ToolStripStatusLabelCurrentVersion"
+        Me.ToolStripStatusLabelCurrentVersion.Size = New System.Drawing.Size(112, 20)
+        Me.ToolStripStatusLabelCurrentVersion.Text = "Current Version"
         '
         'MenuStripMain
         '
@@ -164,7 +174,7 @@ Partial Class Form1
         Me.TabControl.Location = New System.Drawing.Point(0, 24)
         Me.TabControl.Name = "TabControl"
         Me.TabControl.SelectedIndex = 0
-        Me.TabControl.Size = New System.Drawing.Size(1075, 632)
+        Me.TabControl.Size = New System.Drawing.Size(1075, 629)
         Me.TabControl.TabIndex = 4
         '
         'TabPageEC2
@@ -173,7 +183,7 @@ Partial Class Form1
         Me.TabPageEC2.Location = New System.Drawing.Point(4, 25)
         Me.TabPageEC2.Name = "TabPageEC2"
         Me.TabPageEC2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageEC2.Size = New System.Drawing.Size(1067, 603)
+        Me.TabPageEC2.Size = New System.Drawing.Size(1067, 600)
         Me.TabPageEC2.TabIndex = 0
         Me.TabPageEC2.Text = "Instances"
         '
@@ -183,7 +193,7 @@ Partial Class Form1
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(3, 3)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1061, 597)
+        Me.Panel2.Size = New System.Drawing.Size(1061, 594)
         Me.Panel2.TabIndex = 12
         '
         'SplitContainer1
@@ -203,8 +213,8 @@ Partial Class Form1
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.TabControl1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1061, 597)
-        Me.SplitContainer1.SplitterDistance = 297
+        Me.SplitContainer1.Size = New System.Drawing.Size(1061, 594)
+        Me.SplitContainer1.SplitterDistance = 295
         Me.SplitContainer1.TabIndex = 0
         '
         'DataListViewEC2
@@ -223,7 +233,7 @@ Partial Class Form1
         Me.DataListViewEC2.Location = New System.Drawing.Point(3, 29)
         Me.DataListViewEC2.Name = "DataListViewEC2"
         Me.DataListViewEC2.ShowGroups = False
-        Me.DataListViewEC2.Size = New System.Drawing.Size(1053, 264)
+        Me.DataListViewEC2.Size = New System.Drawing.Size(1053, 262)
         Me.DataListViewEC2.TabIndex = 9
         Me.DataListViewEC2.UseFiltering = True
         Me.DataListViewEC2.View = System.Windows.Forms.View.Details
@@ -298,7 +308,7 @@ Partial Class Form1
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1061, 291)
+        Me.TabControl1.Size = New System.Drawing.Size(1061, 290)
         Me.TabControl1.TabIndex = 0
         '
         'TabPageDetails
@@ -306,7 +316,7 @@ Partial Class Form1
         Me.TabPageDetails.Location = New System.Drawing.Point(4, 25)
         Me.TabPageDetails.Name = "TabPageDetails"
         Me.TabPageDetails.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageDetails.Size = New System.Drawing.Size(1053, 262)
+        Me.TabPageDetails.Size = New System.Drawing.Size(1053, 261)
         Me.TabPageDetails.TabIndex = 0
         Me.TabPageDetails.Text = "Details"
         Me.TabPageDetails.UseVisualStyleBackColor = True
@@ -432,9 +442,9 @@ Partial Class Form1
         '
         Me.TabPageStorage.Controls.Add(Me.ButtonAddNewVolumes)
         Me.TabPageStorage.Controls.Add(Me.ListViewInstanceVolumes)
-        Me.TabPageStorage.Location = New System.Drawing.Point(4, 25)
+        Me.TabPageStorage.Location = New System.Drawing.Point(4, 24)
         Me.TabPageStorage.Name = "TabPageStorage"
-        Me.TabPageStorage.Size = New System.Drawing.Size(1053, 262)
+        Me.TabPageStorage.Size = New System.Drawing.Size(1053, 263)
         Me.TabPageStorage.TabIndex = 3
         Me.TabPageStorage.Text = "Storage"
         Me.TabPageStorage.UseVisualStyleBackColor = True
@@ -460,7 +470,7 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 25)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1053, 239)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1053, 240)
         Me.ListViewInstanceVolumes.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
@@ -678,4 +688,5 @@ Partial Class Form1
     Friend WithEvents ColumnHeaderVolumeThroughput As ColumnHeader
     Friend WithEvents ButtonAddNewVolumes As Button
     Friend WithEvents ToolStripTextBoxFilterByTagValue As ToolStripComboBox
+    Friend WithEvents ToolStripStatusLabelCurrentVersion As ToolStripStatusLabel
 End Class

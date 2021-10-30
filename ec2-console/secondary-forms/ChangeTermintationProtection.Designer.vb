@@ -29,29 +29,30 @@ Partial Class ChangeTermintationProtection
         'CheckBoxTerminationProtection
         '
         Me.CheckBoxTerminationProtection.AutoSize = True
-        Me.CheckBoxTerminationProtection.Location = New System.Drawing.Point(13, 13)
+        Me.CheckBoxTerminationProtection.Location = New System.Drawing.Point(15, 14)
         Me.CheckBoxTerminationProtection.Name = "CheckBoxTerminationProtection"
-        Me.CheckBoxTerminationProtection.Size = New System.Drawing.Size(205, 19)
+        Me.CheckBoxTerminationProtection.Size = New System.Drawing.Size(248, 20)
         Me.CheckBoxTerminationProtection.TabIndex = 0
         Me.CheckBoxTerminationProtection.Text = "Enable API termination protection"
         Me.CheckBoxTerminationProtection.UseVisualStyleBackColor = True
         '
         'ButtonSave
         '
-        Me.ButtonSave.Location = New System.Drawing.Point(13, 39)
+        Me.ButtonSave.Location = New System.Drawing.Point(15, 42)
         Me.ButtonSave.Name = "ButtonSave"
-        Me.ButtonSave.Size = New System.Drawing.Size(205, 30)
+        Me.ButtonSave.Size = New System.Drawing.Size(248, 32)
         Me.ButtonSave.TabIndex = 1
         Me.ButtonSave.Text = "Save"
         Me.ButtonSave.UseVisualStyleBackColor = True
         '
         'ChangeTermintationProtection
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(226, 76)
+        Me.ClientSize = New System.Drawing.Size(273, 81)
         Me.Controls.Add(Me.ButtonSave)
         Me.Controls.Add(Me.CheckBoxTerminationProtection)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Name = "ChangeTermintationProtection"
         Me.Text = "ChangeTermintationProtection"
         Me.ResumeLayout(False)

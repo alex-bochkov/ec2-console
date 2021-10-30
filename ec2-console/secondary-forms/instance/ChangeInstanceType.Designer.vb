@@ -46,30 +46,30 @@ Partial Class ChangeInstanceType
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(445, 354)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(509, 378)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(170, 33)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(194, 35)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'Cancel_Button
         '
         Me.Cancel_Button.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Cancel_Button.Location = New System.Drawing.Point(89, 3)
-        Me.Cancel_Button.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Cancel_Button.Location = New System.Drawing.Point(102, 3)
+        Me.Cancel_Button.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.Cancel_Button.Name = "Cancel_Button"
-        Me.Cancel_Button.Size = New System.Drawing.Size(77, 27)
+        Me.Cancel_Button.Size = New System.Drawing.Size(87, 29)
         Me.Cancel_Button.TabIndex = 1
         Me.Cancel_Button.Text = "Close"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 11)
+        Me.Label1.Location = New System.Drawing.Point(7, 12)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(78, 15)
+        Me.Label1.Size = New System.Drawing.Size(102, 16)
         Me.Label1.TabIndex = 4
         Me.Label1.Text = "Instance Type"
         '
@@ -79,18 +79,18 @@ Partial Class ChangeInstanceType
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboBoxInstanceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBoxInstanceType.FormattingEnabled = True
-        Me.ComboBoxInstanceType.Location = New System.Drawing.Point(96, 8)
+        Me.ComboBoxInstanceType.Location = New System.Drawing.Point(110, 9)
         Me.ComboBoxInstanceType.Name = "ComboBoxInstanceType"
-        Me.ComboBoxInstanceType.Size = New System.Drawing.Size(462, 23)
+        Me.ComboBoxInstanceType.Size = New System.Drawing.Size(527, 24)
         Me.ComboBoxInstanceType.TabIndex = 3
         '
         'ButtonScaleUp
         '
         Me.ButtonScaleUp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonScaleUp.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.ButtonScaleUp.Location = New System.Drawing.Point(560, 8)
+        Me.ButtonScaleUp.Location = New System.Drawing.Point(640, 9)
         Me.ButtonScaleUp.Name = "ButtonScaleUp"
-        Me.ButtonScaleUp.Size = New System.Drawing.Size(24, 23)
+        Me.ButtonScaleUp.Size = New System.Drawing.Size(27, 25)
         Me.ButtonScaleUp.TabIndex = 5
         Me.ButtonScaleUp.Text = "↑"
         Me.ButtonScaleUp.UseVisualStyleBackColor = True
@@ -99,9 +99,9 @@ Partial Class ChangeInstanceType
         '
         Me.ButtonScaleDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonScaleDown.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.ButtonScaleDown.Location = New System.Drawing.Point(586, 8)
+        Me.ButtonScaleDown.Location = New System.Drawing.Point(670, 9)
         Me.ButtonScaleDown.Name = "ButtonScaleDown"
-        Me.ButtonScaleDown.Size = New System.Drawing.Size(24, 23)
+        Me.ButtonScaleDown.Size = New System.Drawing.Size(27, 25)
         Me.ButtonScaleDown.TabIndex = 6
         Me.ButtonScaleDown.Text = "↓"
         Me.ButtonScaleDown.UseVisualStyleBackColor = True
@@ -110,9 +110,9 @@ Partial Class ChangeInstanceType
         '
         Me.CheckBoxStopAndRestart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CheckBoxStopAndRestart.AutoSize = True
-        Me.CheckBoxStopAndRestart.Location = New System.Drawing.Point(8, 197)
+        Me.CheckBoxStopAndRestart.Location = New System.Drawing.Point(9, 210)
         Me.CheckBoxStopAndRestart.Name = "CheckBoxStopAndRestart"
-        Me.CheckBoxStopAndRestart.Size = New System.Drawing.Size(506, 19)
+        Me.CheckBoxStopAndRestart.Size = New System.Drawing.Size(644, 20)
         Me.CheckBoxStopAndRestart.TabIndex = 8
         Me.CheckBoxStopAndRestart.Text = "Force Stop and Restart running instances (otherwise, all instances must be stoppe" &
     "d already)"
@@ -122,9 +122,9 @@ Partial Class ChangeInstanceType
         '
         Me.LabelCurrentOperation.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LabelCurrentOperation.AutoSize = True
-        Me.LabelCurrentOperation.Location = New System.Drawing.Point(13, 307)
+        Me.LabelCurrentOperation.Location = New System.Drawing.Point(15, 327)
         Me.LabelCurrentOperation.Name = "LabelCurrentOperation"
-        Me.LabelCurrentOperation.Size = New System.Drawing.Size(121, 15)
+        Me.LabelCurrentOperation.Size = New System.Drawing.Size(150, 16)
         Me.LabelCurrentOperation.TabIndex = 22
         Me.LabelCurrentOperation.Text = "< current operation >"
         '
@@ -132,9 +132,9 @@ Partial Class ChangeInstanceType
         '
         Me.ProgressBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar.Location = New System.Drawing.Point(12, 328)
+        Me.ProgressBar.Location = New System.Drawing.Point(14, 350)
         Me.ProgressBar.Name = "ProgressBar"
-        Me.ProgressBar.Size = New System.Drawing.Size(603, 23)
+        Me.ProgressBar.Size = New System.Drawing.Size(689, 25)
         Me.ProgressBar.TabIndex = 21
         '
         'GroupBox1
@@ -145,9 +145,9 @@ Partial Class ChangeInstanceType
         Me.GroupBox1.Controls.Add(Me.ListViewInstancesToModify)
         Me.GroupBox1.Controls.Add(Me.ButtonModifyInstanceType)
         Me.GroupBox1.Controls.Add(Me.CheckBoxStopAndRestart)
-        Me.GroupBox1.Location = New System.Drawing.Point(6, 37)
+        Me.GroupBox1.Location = New System.Drawing.Point(7, 39)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(608, 266)
+        Me.GroupBox1.Size = New System.Drawing.Size(695, 284)
         Me.GroupBox1.TabIndex = 23
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Instances to Modify"
@@ -156,9 +156,9 @@ Partial Class ChangeInstanceType
         '
         Me.ListViewInstancesToModify.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderInstance})
         Me.ListViewInstancesToModify.HideSelection = False
-        Me.ListViewInstancesToModify.Location = New System.Drawing.Point(8, 22)
+        Me.ListViewInstancesToModify.Location = New System.Drawing.Point(9, 23)
         Me.ListViewInstancesToModify.Name = "ListViewInstancesToModify"
-        Me.ListViewInstancesToModify.Size = New System.Drawing.Size(594, 169)
+        Me.ListViewInstancesToModify.Size = New System.Drawing.Size(678, 180)
         Me.ListViewInstancesToModify.TabIndex = 11
         Me.ListViewInstancesToModify.UseCompatibleStateImageBehavior = False
         Me.ListViewInstancesToModify.View = System.Windows.Forms.View.Details
@@ -170,19 +170,19 @@ Partial Class ChangeInstanceType
         '
         'ButtonModifyInstanceType
         '
-        Me.ButtonModifyInstanceType.Location = New System.Drawing.Point(8, 222)
+        Me.ButtonModifyInstanceType.Location = New System.Drawing.Point(9, 237)
         Me.ButtonModifyInstanceType.Name = "ButtonModifyInstanceType"
-        Me.ButtonModifyInstanceType.Size = New System.Drawing.Size(195, 38)
+        Me.ButtonModifyInstanceType.Size = New System.Drawing.Size(223, 41)
         Me.ButtonModifyInstanceType.TabIndex = 10
         Me.ButtonModifyInstanceType.Text = "Modify Instance Type"
         Me.ButtonModifyInstanceType.UseVisualStyleBackColor = True
         '
         'ChangeInstanceType
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(619, 389)
+        Me.ClientSize = New System.Drawing.Size(707, 415)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.LabelCurrentOperation)
         Me.Controls.Add(Me.ProgressBar)
@@ -191,8 +191,9 @@ Partial Class ChangeInstanceType
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ComboBoxInstanceType)
         Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "ChangeInstanceType"

@@ -36,18 +36,18 @@ Partial Class TerminateInstanceForm
         '
         Me.LabelCurrentOperation.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LabelCurrentOperation.AutoSize = True
-        Me.LabelCurrentOperation.Location = New System.Drawing.Point(13, 371)
+        Me.LabelCurrentOperation.Location = New System.Drawing.Point(15, 396)
         Me.LabelCurrentOperation.Name = "LabelCurrentOperation"
-        Me.LabelCurrentOperation.Size = New System.Drawing.Size(121, 15)
+        Me.LabelCurrentOperation.Size = New System.Drawing.Size(150, 16)
         Me.LabelCurrentOperation.TabIndex = 23
         Me.LabelCurrentOperation.Text = "< current operation >"
         '
         'ButtonTerminateInstances
         '
         Me.ButtonTerminateInstances.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ButtonTerminateInstances.Location = New System.Drawing.Point(9, 323)
+        Me.ButtonTerminateInstances.Location = New System.Drawing.Point(10, 345)
         Me.ButtonTerminateInstances.Name = "ButtonTerminateInstances"
-        Me.ButtonTerminateInstances.Size = New System.Drawing.Size(226, 45)
+        Me.ButtonTerminateInstances.Size = New System.Drawing.Size(258, 48)
         Me.ButtonTerminateInstances.TabIndex = 22
         Me.ButtonTerminateInstances.Text = "Terminate Instances"
         Me.ButtonTerminateInstances.UseVisualStyleBackColor = True
@@ -56,9 +56,9 @@ Partial Class TerminateInstanceForm
         '
         Me.ProgressBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar.Location = New System.Drawing.Point(12, 392)
+        Me.ProgressBar.Location = New System.Drawing.Point(14, 418)
         Me.ProgressBar.Name = "ProgressBar"
-        Me.ProgressBar.Size = New System.Drawing.Size(533, 23)
+        Me.ProgressBar.Size = New System.Drawing.Size(609, 25)
         Me.ProgressBar.TabIndex = 21
         '
         'TreeViewInstances
@@ -66,9 +66,9 @@ Partial Class TerminateInstanceForm
         Me.TreeViewInstances.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TreeViewInstances.Location = New System.Drawing.Point(6, 17)
+        Me.TreeViewInstances.Location = New System.Drawing.Point(7, 18)
         Me.TreeViewInstances.Name = "TreeViewInstances"
-        Me.TreeViewInstances.Size = New System.Drawing.Size(524, 257)
+        Me.TreeViewInstances.Size = New System.Drawing.Size(598, 274)
         Me.TreeViewInstances.TabIndex = 24
         '
         'GroupBox1
@@ -78,9 +78,9 @@ Partial Class TerminateInstanceForm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.CheckBoxDisableTerminationProtection)
         Me.GroupBox1.Controls.Add(Me.TreeViewInstances)
-        Me.GroupBox1.Location = New System.Drawing.Point(9, 4)
+        Me.GroupBox1.Location = New System.Drawing.Point(10, 4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(536, 313)
+        Me.GroupBox1.Size = New System.Drawing.Size(613, 334)
         Me.GroupBox1.TabIndex = 25
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Instances to terminate"
@@ -90,9 +90,9 @@ Partial Class TerminateInstanceForm
         Me.CheckBoxDisableTerminationProtection.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CheckBoxDisableTerminationProtection.AutoSize = True
         Me.CheckBoxDisableTerminationProtection.ForeColor = System.Drawing.Color.Black
-        Me.CheckBoxDisableTerminationProtection.Location = New System.Drawing.Point(6, 283)
+        Me.CheckBoxDisableTerminationProtection.Location = New System.Drawing.Point(7, 302)
         Me.CheckBoxDisableTerminationProtection.Name = "CheckBoxDisableTerminationProtection"
-        Me.CheckBoxDisableTerminationProtection.Size = New System.Drawing.Size(188, 19)
+        Me.CheckBoxDisableTerminationProtection.Size = New System.Drawing.Size(226, 20)
         Me.CheckBoxDisableTerminationProtection.TabIndex = 25
         Me.CheckBoxDisableTerminationProtection.Text = "Disable Termination Protection"
         Me.CheckBoxDisableTerminationProtection.UseVisualStyleBackColor = True
@@ -100,23 +100,24 @@ Partial Class TerminateInstanceForm
         'ButtonCancelClose
         '
         Me.ButtonCancelClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonCancelClose.Location = New System.Drawing.Point(319, 323)
+        Me.ButtonCancelClose.Location = New System.Drawing.Point(365, 345)
         Me.ButtonCancelClose.Name = "ButtonCancelClose"
-        Me.ButtonCancelClose.Size = New System.Drawing.Size(226, 45)
+        Me.ButtonCancelClose.Size = New System.Drawing.Size(258, 48)
         Me.ButtonCancelClose.TabIndex = 26
         Me.ButtonCancelClose.Text = "Cancel and Close"
         Me.ButtonCancelClose.UseVisualStyleBackColor = True
         '
         'TerminateInstanceForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(551, 424)
+        Me.ClientSize = New System.Drawing.Size(630, 452)
         Me.Controls.Add(Me.ButtonCancelClose)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.LabelCurrentOperation)
         Me.Controls.Add(Me.ButtonTerminateInstances)
         Me.Controls.Add(Me.ProgressBar)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Name = "TerminateInstanceForm"
         Me.Text = "TerminateInstanceForm"
         Me.GroupBox1.ResumeLayout(False)

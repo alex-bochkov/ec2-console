@@ -33,10 +33,10 @@ Partial Class ChangeIamRole
         '
         Me.TextBoxCurrentIamRole.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxCurrentIamRole.Location = New System.Drawing.Point(173, 6)
+        Me.TextBoxCurrentIamRole.Location = New System.Drawing.Point(213, 6)
         Me.TextBoxCurrentIamRole.Name = "TextBoxCurrentIamRole"
         Me.TextBoxCurrentIamRole.ReadOnly = True
-        Me.TextBoxCurrentIamRole.Size = New System.Drawing.Size(313, 23)
+        Me.TextBoxCurrentIamRole.Size = New System.Drawing.Size(342, 23)
         Me.TextBoxCurrentIamRole.TabIndex = 0
         '
         'ComboBoxNewInstanceProfile
@@ -44,17 +44,17 @@ Partial Class ChangeIamRole
         Me.ComboBoxNewInstanceProfile.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboBoxNewInstanceProfile.FormattingEnabled = True
-        Me.ComboBoxNewInstanceProfile.Location = New System.Drawing.Point(173, 35)
+        Me.ComboBoxNewInstanceProfile.Location = New System.Drawing.Point(213, 37)
         Me.ComboBoxNewInstanceProfile.Name = "ComboBoxNewInstanceProfile"
-        Me.ComboBoxNewInstanceProfile.Size = New System.Drawing.Size(313, 23)
+        Me.ComboBoxNewInstanceProfile.Size = New System.Drawing.Size(342, 24)
         Me.ComboBoxNewInstanceProfile.TabIndex = 1
         '
         'ButtonSave
         '
         Me.ButtonSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonSave.Location = New System.Drawing.Point(489, 34)
+        Me.ButtonSave.Location = New System.Drawing.Point(559, 36)
         Me.ButtonSave.Name = "ButtonSave"
-        Me.ButtonSave.Size = New System.Drawing.Size(80, 23)
+        Me.ButtonSave.Size = New System.Drawing.Size(91, 25)
         Me.ButtonSave.TabIndex = 2
         Me.ButtonSave.Text = "Save"
         Me.ButtonSave.UseVisualStyleBackColor = True
@@ -62,31 +62,32 @@ Partial Class ChangeIamRole
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(11, 9)
+        Me.Label1.Location = New System.Drawing.Point(13, 10)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(156, 15)
+        Me.Label1.Size = New System.Drawing.Size(194, 16)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Current IAM Instance Profile"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(11, 39)
+        Me.Label2.Location = New System.Drawing.Point(13, 42)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(140, 15)
+        Me.Label2.Size = New System.Drawing.Size(173, 16)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "New IAM Instance Profile"
         '
         'ChangeIamRole
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(574, 65)
+        Me.ClientSize = New System.Drawing.Size(656, 69)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ButtonSave)
         Me.Controls.Add(Me.ComboBoxNewInstanceProfile)
         Me.Controls.Add(Me.TextBoxCurrentIamRole)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Name = "ChangeIamRole"
         Me.Text = "ChangeIamRole"
         Me.ResumeLayout(False)
