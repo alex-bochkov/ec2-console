@@ -8,7 +8,10 @@ Public Class ChangeSecurityGroupsForm
 
     Sub ShowAllSecurityGroups()
 
-        Dim AllSGs = AmazonApi.ListSecurityGroups(CurrentAccount, Instance)
+        Dim UserFilters As Dictionary(Of String, List(Of String)) = New Dictionary(Of String, List(Of String))
+        UserFilters.Add("vpc-id", New List(Of String) From {Instance.VpcId})
+
+        Dim AllSGs = AmazonApi.DescribeSecurityGroups(CurrentAccount, UserFilters)
 
         Dim ExistingSG = New Hashtable
         For Each SG In Instance.SecurityGroups

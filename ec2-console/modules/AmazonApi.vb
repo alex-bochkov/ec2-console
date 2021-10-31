@@ -441,20 +441,17 @@
 
         End Function
 
-        Public Function ListSecurityGroups(AwsAccount As AwsAccount, Instance As Amazon.EC2.Model.Instance) As List(Of Amazon.EC2.Model.SecurityGroup)
-
-            Dim List As List(Of Amazon.EC2.Model.SecurityGroup) = New List(Of Amazon.EC2.Model.SecurityGroup)
+        Public Function DescribeSecurityGroups(AwsAccount As AwsAccount,
+                                               UserFilters As Dictionary(Of String, List(Of String))
+                                               ) As List(Of Amazon.EC2.Model.SecurityGroup)
 
             Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.DescribeSecurityGroupsRequest
 
-            Dim VpcID = New List(Of String)
-            VpcID.Add(Instance.VpcId)
-            ' 100 is the max
-
-            request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "vpc-id", .Values = VpcID})
-            'request.MaxResults = 50
+            For Each UserFilter In UserFilters
+                request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = UserFilter.Key, .Values = UserFilter.Value})
+            Next
 
             Dim requestResult = client.DescribeSecurityGroupsAsync(request).GetAwaiter()
             While Not requestResult.IsCompleted
@@ -463,14 +460,7 @@
 
             Dim result = requestResult.GetResult()
 
-            For Each resultRow In result.SecurityGroups
-
-
-                List.Add(resultRow)
-
-            Next
-
-            Return List
+            Return result.SecurityGroups
 
         End Function
 

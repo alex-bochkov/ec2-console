@@ -116,6 +116,7 @@ Partial Class GetWindowsPassword
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.ComboBoxKeyPairs)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "GetWindowsPassword"
         Me.Text = "Get Windows Password for Local Administrator"
         Me.GroupBox1.ResumeLayout(False)

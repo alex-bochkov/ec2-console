@@ -702,8 +702,6 @@ Public Class Form1
         End If
 
         '*****************************************************************
-        'TreeViewInstanceProperties.Nodes.Add("_2", "Launched : " + Instance.LaunchTime.ToString)
-        'TreeViewInstanceProperties.Nodes.Add("_3", "AMI      : " + Instance.ImageId)
 
 
     End Sub
@@ -845,6 +843,14 @@ Public Class Form1
         OpenConfigHistporyForm(VolumeId)
 
     End Sub
+    Sub GetSecurityGroupConfigHistory(sender As Object, e As EventArgs)
+
+        Dim SecurityGroupId = sender.tag
+
+        OpenConfigHistporyForm(SecurityGroupId)
+
+    End Sub
+
 
     Sub OpenConfigHistporyForm(ResourceId As String)
 
@@ -1030,18 +1036,23 @@ Public Class Form1
 
     Sub EditVolume(sender As Object, e As EventArgs)
 
-        Dim InstanceID = GetSelectedInstanceId()
-
-        Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
-
-        Dim FormSG = New ModifyVolumeForm
-        FormSG.CurrentAccount = CurrentAccount
-        FormSG.VolumeId = sender.tag
-        FormSG.StartPosition = FormStartPosition.CenterParent
-        FormSG.ShowDialog()
+        Dim FormEditVolume = New ModifyVolumeForm
+        FormEditVolume.CurrentAccount = CurrentAccount
+        FormEditVolume.VolumeId = sender.tag
+        FormEditVolume.StartPosition = FormStartPosition.CenterParent
+        FormEditVolume.ShowDialog()
 
     End Sub
 
+    Sub EditSecurityGroup(sender As Object, e As EventArgs)
+
+        Dim FormEditVolume = New SecurityGroupForm
+        FormEditVolume.CurrentAccount = CurrentAccount
+        FormEditVolume.SecurityGroupID = sender.tag
+        FormEditVolume.StartPosition = FormStartPosition.CenterParent
+        FormEditVolume.ShowDialog()
+
+    End Sub
 
     Private Sub DataListViewEC2_SelectionChanged(sender As Object, e As EventArgs) Handles DataListViewEC2.SelectionChanged
 
@@ -1160,5 +1171,32 @@ Public Class Form1
         FormLaunchNew.Show()
 
     End Sub
+
+    Private Sub ListViewInstanceSG_MouseDown(sender As Object, e As MouseEventArgs) Handles ListViewInstanceSG.MouseDown
+
+        If (e.Button = MouseButtons.Right) Then
+
+            Dim hti = ListViewInstanceSG.HitTest(e.X, e.Y)
+
+            If Not hti.Item Is Nothing Then
+
+                Dim m As ContextMenuStrip = New ContextMenuStrip()
+
+                Dim mSG1 As ToolStripItem = New ToolStripMenuItem("Modify Security Group", Nothing, AddressOf EditSecurityGroup)
+                mSG1.Tag = hti.Item.Tag.GroupID
+                m.Items.Add(mSG1)
+
+                Dim mSG2 As ToolStripItem = New ToolStripMenuItem("Security Group Config History", My.Resources.Timeline.ToBitmap, AddressOf GetSecurityGroupConfigHistory)
+                mSG2.Tag = hti.Item.Tag.GroupID
+                m.Items.Add(mSG2)
+
+                m.Show(Cursor.Position)
+
+            End If
+
+        End If
+
+    End Sub
+
 
 End Class
