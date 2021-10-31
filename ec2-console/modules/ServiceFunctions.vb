@@ -44,7 +44,6 @@ Namespace ServiceFunctions
     End Module
 
     Module ManualLocalization
-
         Class AllMessages
             Public Messages As List(Of My.MySettings.LocalizedMessage)
         End Class

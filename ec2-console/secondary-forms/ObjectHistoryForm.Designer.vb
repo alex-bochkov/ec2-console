@@ -22,15 +22,13 @@ Partial Class ObjectHistoryForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.OK_Button = New System.Windows.Forms.Button()
         Me.Cancel_Button = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.DataGridViewVersions = New System.Windows.Forms.DataGridView()
-        Me.ColumnVersion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ListViewVersions = New System.Windows.Forms.ListView()
+        Me.ColumnHeaderChange = New System.Windows.Forms.ColumnHeader()
         Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.DataGridViewVersions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -78,37 +76,24 @@ Partial Class ObjectHistoryForm
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Need to come up with a good way displaying JSON comparison..."
         '
-        'DataGridViewVersions
+        'ListViewVersions
         '
-        Me.DataGridViewVersions.AllowUserToAddRows = False
-        Me.DataGridViewVersions.AllowUserToDeleteRows = False
-        Me.DataGridViewVersions.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.ListViewVersions.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DataGridViewVersions.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.DataGridViewVersions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridViewVersions.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ColumnVersion})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewVersions.DefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridViewVersions.Location = New System.Drawing.Point(12, 25)
-        Me.DataGridViewVersions.Name = "DataGridViewVersions"
-        Me.DataGridViewVersions.ReadOnly = True
-        Me.DataGridViewVersions.RowTemplate.Height = 25
-        Me.DataGridViewVersions.Size = New System.Drawing.Size(605, 403)
-        Me.DataGridViewVersions.TabIndex = 3
+        Me.ListViewVersions.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderChange})
+        Me.ListViewVersions.HideSelection = False
+        Me.ListViewVersions.Location = New System.Drawing.Point(12, 25)
+        Me.ListViewVersions.Name = "ListViewVersions"
+        Me.ListViewVersions.Size = New System.Drawing.Size(605, 400)
+        Me.ListViewVersions.TabIndex = 4
+        Me.ListViewVersions.UseCompatibleStateImageBehavior = False
+        Me.ListViewVersions.View = System.Windows.Forms.View.Details
         '
-        'ColumnVersion
+        'ColumnHeaderChange
         '
-        Me.ColumnVersion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.ColumnVersion.HeaderText = "Change"
-        Me.ColumnVersion.Name = "ColumnVersion"
-        Me.ColumnVersion.ReadOnly = True
+        Me.ColumnHeaderChange.Text = "Change"
+        Me.ColumnHeaderChange.Width = 500
         '
         'ObjectHistoryForm
         '
@@ -117,7 +102,7 @@ Partial Class ObjectHistoryForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(621, 468)
-        Me.Controls.Add(Me.DataGridViewVersions)
+        Me.Controls.Add(Me.ListViewVersions)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
@@ -130,7 +115,6 @@ Partial Class ObjectHistoryForm
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "ObjectHistoryForm"
         Me.TableLayoutPanel1.ResumeLayout(False)
-        CType(Me.DataGridViewVersions, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -139,6 +123,6 @@ Partial Class ObjectHistoryForm
     Friend WithEvents OK_Button As System.Windows.Forms.Button
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
     Friend WithEvents Label1 As Label
-    Friend WithEvents DataGridViewVersions As DataGridView
-    Friend WithEvents ColumnVersion As DataGridViewTextBoxColumn
+    Friend WithEvents ListViewVersions As ListView
+    Friend WithEvents ColumnHeaderChange As ColumnHeader
 End Class

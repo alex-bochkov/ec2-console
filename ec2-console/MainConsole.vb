@@ -19,7 +19,7 @@ Public Class Form1
 
     Private AggregatedTags As SortedDictionary(Of String, List(Of String)) = New SortedDictionary(Of String, List(Of String))
 
-    Public Log As Logger = LogManager.GetCurrentClassLogger()
+    Private Log As Logger = LogManager.GetCurrentClassLogger()
 
     Sub ConfigureLogging()
 
@@ -80,8 +80,6 @@ Public Class Form1
         ToolStripStatusLabelCurrentVersion.Text = "Current Version: " + My.Application.Info.Version.ToString
 
         LocalizeInterface()
-
-        StatusStrip.Items.Add(New ToolStripSeparator)
 
         Dim t As New Thread(New ThreadStart(AddressOf CheckForTheAppUpdates_Async))
         t.Priority = Threading.ThreadPriority.Normal
@@ -617,6 +615,13 @@ Public Class Form1
             Exit Sub
         End If
 
+        '*****************************************************************
+        ' Tab - Details
+        TextBoxInstanceAMI.Text = Instance.ImageId
+        TextBoxInstancePlatform.Text = Instance.Platform
+        TextBoxInstancePlatformDetails.Text = Instance.PlatformDetails
+        TextBoxInstanceTenancy.Text = Instance.Placement.Tenancy.Value
+        TextBoxInstancevCPU.Text = Instance.CpuOptions.CoreCount.ToString + " cores / " + Instance.CpuOptions.ThreadsPerCore.ToString + " threads"
 
         '*****************************************************************
         ' Tab - Network
@@ -702,6 +707,7 @@ Public Class Form1
         End If
 
         '*****************************************************************
+
 
 
     End Sub
@@ -826,7 +832,7 @@ Public Class Form1
 
         Dim InstanceID = GetSelectedInstanceId()
 
-        OpenConfigHistporyForm(InstanceID)
+        OpenConfigHistoryForm(InstanceID)
 
     End Sub
 
@@ -840,19 +846,19 @@ Public Class Form1
 
         Dim VolumeId = sender.tag
 
-        OpenConfigHistporyForm(VolumeId)
+        OpenConfigHistoryForm(VolumeId)
 
     End Sub
     Sub GetSecurityGroupConfigHistory(sender As Object, e As EventArgs)
 
         Dim SecurityGroupId = sender.tag
 
-        OpenConfigHistporyForm(SecurityGroupId)
+        OpenConfigHistoryForm(SecurityGroupId)
 
     End Sub
 
 
-    Sub OpenConfigHistporyForm(ResourceId As String)
+    Sub OpenConfigHistoryForm(ResourceId As String)
 
         Dim FormWP = New ObjectHistoryForm
         FormWP.CurrentAccount = CurrentAccount
@@ -1198,5 +1204,14 @@ Public Class Form1
 
     End Sub
 
+    Private Sub ButtonOpenAmiForm_Click(sender As Object, e As EventArgs) Handles ButtonOpenAmiForm.Click
+
+        Dim FormAmi = New ImageForm
+        FormAmi.CurrentAccount = CurrentAccount
+        FormAmi.ImageID = TextBoxInstanceAMI.Text
+        FormAmi.StartPosition = FormStartPosition.CenterScreen
+        FormAmi.Show()
+
+    End Sub
 
 End Class

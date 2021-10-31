@@ -18,10 +18,7 @@ Public Class SecurityGroupForm
 
     Private Sub SecurityGroupForm_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        Dim UserFilters As Dictionary(Of String, List(Of String)) = New Dictionary(Of String, List(Of String))
-        UserFilters.Add("group-id", New List(Of String) From {SecurityGroupID})
-
-        Dim SecurityGroupList = AmazonApi.DescribeSecurityGroups(CurrentAccount, UserFilters)
+        Dim SecurityGroupList = AmazonApi.DescribeSecurityGroups(CurrentAccount, AmazonApi.CreateSimpleFilter("group-id", SecurityGroupID))
 
         If SecurityGroupList.Count = 1 Then
             SecurityGroup = SecurityGroupList.Item(0)

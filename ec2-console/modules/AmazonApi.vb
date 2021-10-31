@@ -73,8 +73,6 @@
 
         Public Function ListAvailabilityZones(AwsAccount As AwsAccount) As List(Of Amazon.EC2.Model.AvailabilityZone)
 
-            Dim List As List(Of Amazon.EC2.Model.AvailabilityZone) = New List(Of Amazon.EC2.Model.AvailabilityZone)
-
             Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.DescribeAvailabilityZonesRequest
@@ -92,11 +90,7 @@
 
             Dim result = requestResult.GetResult()
 
-            For Each resultRow In result.AvailabilityZones
-                List.Add(resultRow)
-            Next
-
-            Return List
+            Return result.AvailabilityZones
 
         End Function
 
@@ -803,7 +797,9 @@
 
         End Function
 
-        Public Function DescribeImages(AwsAccount As AwsAccount) As List(Of Amazon.EC2.Model.Image)
+        Public Function DescribeImages(AwsAccount As AwsAccount,
+                                       Optional UserFilters As Dictionary(Of String, List(Of String)) = Nothing
+                                       ) As List(Of Amazon.EC2.Model.Image)
 
             Dim client = NewAmazonEC2Client(AwsAccount)
 
@@ -813,7 +809,14 @@
             Dim FilterImageIdValues = New List(Of String)
 
             Dim request = New Amazon.EC2.Model.DescribeImagesRequest
-            request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "owner-alias", .Values = FilterOwnerValues})
+
+            If UserFilters IsNot Nothing Then
+                For Each UserFilter In UserFilters
+                    request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = UserFilter.Key, .Values = UserFilter.Value})
+                Next
+            End If
+
+            'request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "owner-alias", .Values = FilterOwnerValues})
             ' request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "image-id", .Values = FilterImageIdValues})
 
             Dim requestResult = client.DescribeImagesAsync(request).GetAwaiter()
@@ -892,6 +895,15 @@
             Next
 
             Return List
+
+        End Function
+
+        Function CreateSimpleFilter(FilterName As String, FilterValue As String) As Dictionary(Of String, List(Of String))
+
+            Dim UserFilter As Dictionary(Of String, List(Of String)) = New Dictionary(Of String, List(Of String))
+            UserFilter.Add(FilterName, New List(Of String) From {FilterValue})
+
+            Return UserFilter
 
         End Function
 

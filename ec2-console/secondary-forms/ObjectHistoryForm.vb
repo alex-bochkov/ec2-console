@@ -21,6 +21,10 @@ Public Class ObjectHistoryForm
         AllVersions = AmazonApi.GetResourceConfigHistory(CurrentAccount, ResourceId)
 
         If AllVersions.Count > 1 Then
+
+            Dim LVGroupFirst As ListViewGroup = New ListViewGroup("Initial Version: " + AllVersions.Item(0).ConfigurationItemCaptureTime.ToString)
+            ListViewVersions.Groups.Add(LVGroupFirst)
+
             For i = 1 To AllVersions.Count - 1
 
                 Dim Version1 = AllVersions.Item(i - 1)
@@ -30,23 +34,25 @@ Public Class ObjectHistoryForm
 
                 Dim DiffString = Newtonsoft.Json.JsonConvert.SerializeObject(Diff, Newtonsoft.Json.Formatting.Indented)
 
-                DataGridViewVersions.Rows.Add(DiffString)
+                'DataGridViewVersions.Rows.Add(DiffString)
 
-                '                foreach(ManagementObject share In shares.Get()) {
-                '  dgv.Rows.Add(New String[] { share["Name"].ToString(),
-                '                              share["Path"].ToString() + "\n" + "AAAA" });
-                '}
+                '************************************************
+                Dim LVGroup As ListViewGroup = New ListViewGroup(Version2.ConfigurationItemCaptureTime.ToString)
+                ListViewVersions.Groups.Add(LVGroup)
 
-                '                Dim LVGroup As ListViewGroup = New ListViewGroup(Version2.ConfigurationItemCaptureTime.ToString)
-                '                ListViewVersion.Groups.Add(LVGroup)
+                Using SR = New IO.StringReader(DiffString)
+                    While SR.Peek >= 0
+
+                        Dim strContents As String = SR.ReadLine()
+
+                        Dim LVItem As ListViewItem = New ListViewItem(strContents, LVGroup)
+                        ListViewVersions.Items.Add(LVItem)
+
+                    End While
+                End Using
 
 
 
-                '                Dim LVItem As ListViewItem = New ListViewItem(DiffString, LVGroup)
-
-                '                'LVItem.SubItems.Add("2")
-
-                '                ListViewVersion.Items.Add(LVItem)
 
             Next
 
