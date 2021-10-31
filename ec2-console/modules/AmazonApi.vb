@@ -155,21 +155,16 @@
 
             Dim request = New Amazon.EC2.Model.DescribeInstancesRequest
 
-            '***************************************************
-            'solely for development purpose on my machine
-            If My.Computer.Name = "DESKTOP-PKNQCHC" Then
-                Dim tags = New List(Of String)
-                tags.Add("DBA")
-                'request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = "tag:Owner", .Values = tags})
-            End If
-            '***************************************************
-
-
             For Each UserFilter In UserFilters
                 request.Filters.Add(New Amazon.EC2.Model.Filter With {.Name = UserFilter.Key, .Values = UserFilter.Value})
             Next
 
-            request.MaxResults = 100
+            ' limit the result set
+            If My.Settings.MaxInstancesToLoad > 1000 Or My.Settings.MaxInstancesToLoad < 100 Then
+                request.MaxResults = 200
+            Else
+                request.MaxResults = My.Settings.MaxInstancesToLoad
+            End If
 
             Dim NextToken As String = "first-request"
 

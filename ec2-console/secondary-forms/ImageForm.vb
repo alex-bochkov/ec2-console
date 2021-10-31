@@ -31,7 +31,10 @@ Public Class ImageForm
         TextBoxImageDeprecationTime.DataBindings.Add("Text", Image, "DeprecationTime")
         TextBoxImageStatus.DataBindings.Add("Text", Image, "State")
         TextBoxImagePlatform.DataBindings.Add("Text", Image, "Platform")
+        TextBoxImagePlatformDetails.DataBindings.Add("Text", Image, "PlatformDetails")
+        TextBoxImageType.DataBindings.Add("Text", Image, "ImageType")
 
 
     End Sub
+
 End Class

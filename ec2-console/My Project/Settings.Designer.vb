@@ -77,6 +77,18 @@ Namespace My
                 Me("Language") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("200")>  _
+        Public Property MaxInstancesToLoad() As Decimal
+            Get
+                Return CType(Me("MaxInstancesToLoad"),Decimal)
+            End Get
+            Set
+                Me("MaxInstancesToLoad") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

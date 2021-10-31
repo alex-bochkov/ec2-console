@@ -516,6 +516,7 @@ Public Class Form1
         table.Columns.Add("NumberOfVolumes", GetType(Integer))
         table.Columns.Add("NumberOfSecurityGroups", GetType(Integer))
         table.Columns.Add("NumberOfTags", GetType(Integer))
+        table.Columns.Add("NumberOfCores", GetType(Integer))
 
         InstanceTable.Clear()
         InstanceStatusTable.Clear()
@@ -533,20 +534,48 @@ Public Class Form1
                 InstanceVolumesTable.Add(instance.InstanceId, New List(Of Amazon.EC2.Model.Volume))
             Next
 
+
             Dim UserFilter = New Dictionary(Of String, List(Of String))
             UserFilter.Add("volume-id", New List(Of String))
+
             For Each Instance In InstanceList
                 For Each BlockDeviceMappings In Instance.BlockDeviceMappings
+
                     Dim Volume = BlockDeviceMappings.Ebs.VolumeId
                     UserFilter.Item("volume-id").Add(Volume)
+
+
+                    If UserFilter.Item("volume-id").Count = 200 Then
+
+                        Dim ListVolumes = AmazonApi.ListVolumes(CurrentAccount, UserFilter)
+
+                        For Each InstanceVolume In ListVolumes
+                            For Each InstanceVolumeAttachment In InstanceVolume.Attachments
+                                InstanceVolumesTable.Item(InstanceVolumeAttachment.InstanceId).Add(InstanceVolume)
+                            Next
+                        Next
+
+                        UserFilter.Item("volume-id").Clear()
+
+                    End If
+
+
                 Next
             Next
 
-            Dim ListVolumes = AmazonApi.ListVolumes(CurrentAccount, UserFilter)
+            If UserFilter.Item("volume-id").Count > 0 Then
 
-            For Each Volume In ListVolumes
-                InstanceVolumesTable.Item(Volume.Attachments.Item(0).InstanceId).Add(Volume)
-            Next
+                Dim ListVolumes = AmazonApi.ListVolumes(CurrentAccount, UserFilter)
+
+                For Each InstanceVolume In ListVolumes
+                    For Each InstanceVolumeAttachment In InstanceVolume.Attachments
+                        InstanceVolumesTable.Item(InstanceVolumeAttachment.InstanceId).Add(InstanceVolume)
+                    Next
+                Next
+
+            End If
+
+
             'Dim ListStatuses = Ec2Instances.ListEc2InstanceStatuses(CurrentAccount, List)
 
             'For Each Status In ListStatuses
@@ -585,6 +614,7 @@ Public Class Form1
                 RowRepresentation.Item("NumberOfVolumes") = instance.BlockDeviceMappings.Count
                 RowRepresentation.Item("NumberOfSecurityGroups") = instance.SecurityGroups.Count
                 RowRepresentation.Item("NumberOfTags") = instance.Tags.Count
+                RowRepresentation.Item("NumberOfCores") = instance.CpuOptions.CoreCount
 
                 table.Rows.Add(RowRepresentation)
 
@@ -603,6 +633,8 @@ Public Class Form1
             DataListViewEC2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         End If
 
+        TabPageEC2.Text = String.Format("Instances ({0})", table.Rows.Count)
+
     End Sub
 
     Sub PopulateInstanceProperties()
@@ -617,12 +649,16 @@ Public Class Form1
 
         '*****************************************************************
         ' Tab - Details
+        TextBoxInstanceId.Text = InstanceID
         TextBoxInstanceAMI.Text = Instance.ImageId
         TextBoxInstancePlatform.Text = Instance.Platform
         TextBoxInstancePlatformDetails.Text = Instance.PlatformDetails
         TextBoxInstanceTenancy.Text = Instance.Placement.Tenancy.Value
         TextBoxInstancevCPU.Text = Instance.CpuOptions.CoreCount.ToString + " cores / " + Instance.CpuOptions.ThreadsPerCore.ToString + " threads"
 
+        If Instance.IamInstanceProfile IsNot Nothing Then
+            TextBoxInstanceIamRole.Text = Instance.IamInstanceProfile.Arn.Substring(Instance.IamInstanceProfile.Arn.IndexOf("/") + 1)
+        End If
         '*****************************************************************
         ' Tab - Network
         ListViewInstanceSG.Items.Clear()
@@ -1117,6 +1153,8 @@ Public Class Form1
 
     Private Sub ToolStripMenuItem5_Click(sender As Object, e As EventArgs) Handles RefreshInstanceListToolStripMenuItem.Click
 
+        DataListViewEC2.DataSource.Rows.Clear()
+
         FillInstanceList()
 
     End Sub
@@ -1210,7 +1248,21 @@ Public Class Form1
         FormAmi.CurrentAccount = CurrentAccount
         FormAmi.ImageID = TextBoxInstanceAMI.Text
         FormAmi.StartPosition = FormStartPosition.CenterScreen
-        FormAmi.Show()
+        FormAmi.ShowDialog()
+
+    End Sub
+
+    Private Sub ButtonCopyInstanceID_Click(sender As Object, e As EventArgs) Handles ButtonCopyInstanceID.Click
+
+        My.Computer.Clipboard.SetText(TextBoxInstanceId.Text)
+
+    End Sub
+
+    Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
+
+        Dim FormUserSettings = New UserSettingsForm
+        FormUserSettings.StartPosition = FormStartPosition.CenterScreen
+        FormUserSettings.ShowDialog()
 
     End Sub
 

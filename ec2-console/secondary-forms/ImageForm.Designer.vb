@@ -34,12 +34,16 @@ Partial Class ImageForm
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TextBoxImageName = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.TextBoxImagePlatform = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TextBoxImageStatus = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.TextBoxImagePlatform = New System.Windows.Forms.TextBox()
         Me.TextBoxImageDeprecationTime = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.TextBoxImageType = New System.Windows.Forms.TextBox()
+        Me.TextBoxImagePlatformDetails = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
@@ -52,7 +56,7 @@ Partial Class ImageForm
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(605, 225)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(605, 293)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
@@ -101,9 +105,15 @@ Partial Class ImageForm
         Me.TableLayoutPanel2.Controls.Add(Me.Label5, 0, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.TextBoxImagePlatform, 1, 6)
         Me.TableLayoutPanel2.Controls.Add(Me.TextBoxImageDeprecationTime, 1, 4)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label8, 0, 8)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label9, 0, 7)
+        Me.TableLayoutPanel2.Controls.Add(Me.TextBoxImageType, 1, 8)
+        Me.TableLayoutPanel2.Controls.Add(Me.TextBoxImagePlatformDetails, 1, 7)
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(4, 6)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 8
+        Me.TableLayoutPanel2.RowCount = 10
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
@@ -112,7 +122,7 @@ Partial Class ImageForm
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(771, 213)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(771, 284)
         Me.TableLayoutPanel2.TabIndex = 2
         '
         'TextBoxImageCreationDate
@@ -211,30 +221,6 @@ Partial Class ImageForm
         Me.TextBoxImageName.Size = New System.Drawing.Size(659, 23)
         Me.TextBoxImageName.TabIndex = 4
         '
-        'Label5
-        '
-        Me.Label5.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(3, 116)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(100, 29)
-        Me.Label5.TabIndex = 8
-        Me.Label5.Text = "Deprecation Time"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TextBoxImagePlatform
-        '
-        Me.TextBoxImagePlatform.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxImagePlatform.Location = New System.Drawing.Point(109, 177)
-        Me.TextBoxImagePlatform.Name = "TextBoxImagePlatform"
-        Me.TextBoxImagePlatform.ReadOnly = True
-        Me.TextBoxImagePlatform.Size = New System.Drawing.Size(659, 23)
-        Me.TextBoxImagePlatform.TabIndex = 9
-        '
         'Label6
         '
         Me.Label6.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -272,6 +258,30 @@ Partial Class ImageForm
         Me.Label7.Text = "Platform"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'Label5
+        '
+        Me.Label5.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(3, 116)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(100, 29)
+        Me.Label5.TabIndex = 8
+        Me.Label5.Text = "Deprecation Time"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TextBoxImagePlatform
+        '
+        Me.TextBoxImagePlatform.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBoxImagePlatform.Location = New System.Drawing.Point(109, 177)
+        Me.TextBoxImagePlatform.Name = "TextBoxImagePlatform"
+        Me.TextBoxImagePlatform.ReadOnly = True
+        Me.TextBoxImagePlatform.Size = New System.Drawing.Size(659, 23)
+        Me.TextBoxImagePlatform.TabIndex = 9
+        '
         'TextBoxImageDeprecationTime
         '
         Me.TextBoxImageDeprecationTime.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -283,13 +293,61 @@ Partial Class ImageForm
         Me.TextBoxImageDeprecationTime.Size = New System.Drawing.Size(659, 23)
         Me.TextBoxImageDeprecationTime.TabIndex = 13
         '
+        'Label8
+        '
+        Me.Label8.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(3, 232)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(100, 29)
+        Me.Label8.TabIndex = 14
+        Me.Label8.Text = "Image Type"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label9
+        '
+        Me.Label9.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(3, 203)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(100, 29)
+        Me.Label9.TabIndex = 16
+        Me.Label9.Text = "Platform Details"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TextBoxImageType
+        '
+        Me.TextBoxImageType.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBoxImageType.Location = New System.Drawing.Point(109, 235)
+        Me.TextBoxImageType.Name = "TextBoxImageType"
+        Me.TextBoxImageType.ReadOnly = True
+        Me.TextBoxImageType.Size = New System.Drawing.Size(659, 23)
+        Me.TextBoxImageType.TabIndex = 15
+        '
+        'TextBoxImagePlatformDetails
+        '
+        Me.TextBoxImagePlatformDetails.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBoxImagePlatformDetails.Location = New System.Drawing.Point(109, 206)
+        Me.TextBoxImagePlatformDetails.Name = "TextBoxImagePlatformDetails"
+        Me.TextBoxImagePlatformDetails.ReadOnly = True
+        Me.TextBoxImagePlatformDetails.Size = New System.Drawing.Size(659, 23)
+        Me.TextBoxImagePlatformDetails.TabIndex = 17
+        '
         'ImageForm
         '
         Me.AcceptButton = Me.OK_Button
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(777, 259)
+        Me.ClientSize = New System.Drawing.Size(777, 327)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
@@ -324,4 +382,8 @@ Partial Class ImageForm
     Friend WithEvents Label5 As Label
     Friend WithEvents TextBoxImagePlatform As TextBox
     Friend WithEvents TextBoxImageDeprecationTime As TextBox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents TextBoxImageType As TextBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents TextBoxImagePlatformDetails As TextBox
 End Class
