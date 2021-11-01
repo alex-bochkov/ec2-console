@@ -1378,4 +1378,24 @@ Public Class Form1
 
     End Sub
 
+    Private Sub ButtonOpenInstanceTypeForm_Click(sender As Object, e As EventArgs) Handles ButtonOpenInstanceTypeForm.Click
+
+        For Each InstanceTypeInfo In InstanceTypesList
+            If InstanceTypeInfo.InstanceType.Value = TextBoxInstanceType.Text Then
+
+                Dim FormInstanceType = New InstanceTypeForm
+                FormInstanceType.CurrentAccount = CurrentAccount
+                FormInstanceType.InstanceType = TextBoxInstanceType.Text
+                FormInstanceType.InstanceTypeInfo = InstanceTypeInfo
+                FormInstanceType.StartPosition = FormStartPosition.CenterScreen
+                FormInstanceType.ShowDialog()
+
+                Exit For
+            End If
+        Next
+
+
+
+    End Sub
+
 End Class

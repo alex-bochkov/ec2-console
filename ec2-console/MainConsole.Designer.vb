@@ -64,6 +64,7 @@ Partial Class Form1
         Me.TextBoxInstanceKeyName = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.TextBox7 = New System.Windows.Forms.TextBox()
+        Me.ButtonOpenInstanceTypeForm = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TextBoxInstancevCPU = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -387,7 +388,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 77.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.TextBox1, 1, 5)
         Me.TableLayoutPanel2.Controls.Add(Me.Label8, 0, 5)
         Me.TableLayoutPanel2.Controls.Add(Me.TextBox2, 1, 4)
@@ -402,6 +403,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.Controls.Add(Me.TextBoxInstanceKeyName, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label14, 0, 6)
         Me.TableLayoutPanel2.Controls.Add(Me.TextBox7, 1, 6)
+        Me.TableLayoutPanel2.Controls.Add(Me.ButtonOpenInstanceTypeForm, 2, 3)
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(508, 3)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 8
@@ -413,7 +415,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(507, 240)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(526, 242)
         Me.TableLayoutPanel2.TabIndex = 1
         '
         'TextBox1
@@ -590,6 +592,15 @@ Partial Class Form1
         Me.TextBox7.TabIndex = 15
         Me.TextBox7.Visible = False
         '
+        'ButtonOpenInstanceTypeForm
+        '
+        Me.ButtonOpenInstanceTypeForm.Location = New System.Drawing.Point(470, 90)
+        Me.ButtonOpenInstanceTypeForm.Name = "ButtonOpenInstanceTypeForm"
+        Me.ButtonOpenInstanceTypeForm.Size = New System.Drawing.Size(52, 23)
+        Me.ButtonOpenInstanceTypeForm.TabIndex = 16
+        Me.ButtonOpenInstanceTypeForm.Text = "Open"
+        Me.ButtonOpenInstanceTypeForm.UseVisualStyleBackColor = True
+        '
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -625,7 +636,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 255)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 257)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -819,7 +830,7 @@ Partial Class Form1
         Me.TabPageNetworking.Controls.Add(Me.SplitContainer2)
         Me.TabPageNetworking.Location = New System.Drawing.Point(4, 25)
         Me.TabPageNetworking.Name = "TabPageNetworking"
-        Me.TabPageNetworking.Size = New System.Drawing.Size(1021, 248)
+        Me.TabPageNetworking.Size = New System.Drawing.Size(1030, 248)
         Me.TabPageNetworking.TabIndex = 2
         Me.TabPageNetworking.Text = "Networking"
         Me.TabPageNetworking.UseVisualStyleBackColor = True
@@ -838,8 +849,8 @@ Partial Class Form1
         'SplitContainer2.Panel2
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.GroupBox2)
-        Me.SplitContainer2.Size = New System.Drawing.Size(1021, 248)
-        Me.SplitContainer2.SplitterDistance = 429
+        Me.SplitContainer2.Size = New System.Drawing.Size(1030, 248)
+        Me.SplitContainer2.SplitterDistance = 432
         Me.SplitContainer2.SplitterWidth = 5
         Me.SplitContainer2.TabIndex = 6
         '
@@ -850,7 +861,7 @@ Partial Class Form1
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(429, 248)
+        Me.GroupBox1.Size = New System.Drawing.Size(432, 248)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Security Groups"
@@ -877,7 +888,7 @@ Partial Class Form1
         Me.ListViewInstanceSG.Location = New System.Drawing.Point(1, 50)
         Me.ListViewInstanceSG.Name = "ListViewInstanceSG"
         Me.ListViewInstanceSG.ShowGroups = False
-        Me.ListViewInstanceSG.Size = New System.Drawing.Size(420, 193)
+        Me.ListViewInstanceSG.Size = New System.Drawing.Size(423, 193)
         Me.ListViewInstanceSG.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceSG.TabIndex = 3
         Me.ListViewInstanceSG.UseCompatibleStateImageBehavior = False
@@ -899,7 +910,7 @@ Partial Class Form1
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(587, 248)
+        Me.GroupBox2.Size = New System.Drawing.Size(593, 248)
         Me.GroupBox2.TabIndex = 5
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Network Attributes"
@@ -916,7 +927,7 @@ Partial Class Form1
         Me.ListViewInstanceNetworkProperties.Location = New System.Drawing.Point(7, 50)
         Me.ListViewInstanceNetworkProperties.Name = "ListViewInstanceNetworkProperties"
         Me.ListViewInstanceNetworkProperties.ShowGroups = False
-        Me.ListViewInstanceNetworkProperties.Size = New System.Drawing.Size(573, 193)
+        Me.ListViewInstanceNetworkProperties.Size = New System.Drawing.Size(579, 193)
         Me.ListViewInstanceNetworkProperties.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceNetworkProperties.TabIndex = 2
         Me.ListViewInstanceNetworkProperties.UseCompatibleStateImageBehavior = False
@@ -938,7 +949,7 @@ Partial Class Form1
         Me.TabPageStorage.Controls.Add(Me.ListViewInstanceVolumes)
         Me.TabPageStorage.Location = New System.Drawing.Point(4, 25)
         Me.TabPageStorage.Name = "TabPageStorage"
-        Me.TabPageStorage.Size = New System.Drawing.Size(1021, 248)
+        Me.TabPageStorage.Size = New System.Drawing.Size(1030, 248)
         Me.TabPageStorage.TabIndex = 3
         Me.TabPageStorage.Text = "Storage"
         Me.TabPageStorage.UseVisualStyleBackColor = True
@@ -964,7 +975,7 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 25)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1021, 227)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 229)
         Me.ListViewInstanceVolumes.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
@@ -1024,7 +1035,7 @@ Partial Class Form1
         '
         Me.TabPageStatusCheck.Location = New System.Drawing.Point(4, 25)
         Me.TabPageStatusCheck.Name = "TabPageStatusCheck"
-        Me.TabPageStatusCheck.Size = New System.Drawing.Size(1021, 248)
+        Me.TabPageStatusCheck.Size = New System.Drawing.Size(1030, 248)
         Me.TabPageStatusCheck.TabIndex = 4
         Me.TabPageStatusCheck.Text = "Status Check"
         Me.TabPageStatusCheck.UseVisualStyleBackColor = True
@@ -1033,7 +1044,7 @@ Partial Class Form1
         '
         Me.TabPageMonitoring.Location = New System.Drawing.Point(4, 25)
         Me.TabPageMonitoring.Name = "TabPageMonitoring"
-        Me.TabPageMonitoring.Size = New System.Drawing.Size(1021, 248)
+        Me.TabPageMonitoring.Size = New System.Drawing.Size(1030, 248)
         Me.TabPageMonitoring.TabIndex = 5
         Me.TabPageMonitoring.Text = "Monitoring"
         Me.TabPageMonitoring.UseVisualStyleBackColor = True
@@ -1044,7 +1055,7 @@ Partial Class Form1
         Me.TabPageTags.Controls.Add(Me.ListViewInstanceTags)
         Me.TabPageTags.Location = New System.Drawing.Point(4, 25)
         Me.TabPageTags.Name = "TabPageTags"
-        Me.TabPageTags.Size = New System.Drawing.Size(1021, 248)
+        Me.TabPageTags.Size = New System.Drawing.Size(1030, 248)
         Me.TabPageTags.TabIndex = 6
         Me.TabPageTags.Text = "Tags"
         Me.TabPageTags.UseVisualStyleBackColor = True
@@ -1070,7 +1081,7 @@ Partial Class Form1
         Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 28)
         Me.ListViewInstanceTags.Name = "ListViewInstanceTags"
         Me.ListViewInstanceTags.ShowGroups = False
-        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1021, 221)
+        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 223)
         Me.ListViewInstanceTags.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceTags.TabIndex = 0
         Me.ListViewInstanceTags.UseCompatibleStateImageBehavior = False
@@ -1222,4 +1233,5 @@ Partial Class Form1
     Friend WithEvents TextBoxInstanceKeyName As TextBox
     Friend WithEvents Label14 As Label
     Friend WithEvents TextBox7 As TextBox
+    Friend WithEvents ButtonOpenInstanceTypeForm As Button
 End Class
