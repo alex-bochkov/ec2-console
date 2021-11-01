@@ -30,6 +30,8 @@ Partial Class AwsAccountsForm
         Me.AccountRegion = New System.Windows.Forms.ColumnHeader()
         Me.AccountKeyPairs = New System.Windows.Forms.ColumnHeader()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.TextBoxDefaultInstanceFilter = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.CheckedListBoxEnabledRegions = New System.Windows.Forms.CheckedListBox()
         Me.TextBoxAccountDescription = New System.Windows.Forms.TextBox()
@@ -71,8 +73,8 @@ Partial Class AwsAccountsForm
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 25)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.41237!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 59.58763!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.86275!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 68.13725!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(938, 612)
         Me.TableLayoutPanel1.TabIndex = 0
         '
@@ -85,7 +87,7 @@ Partial Class AwsAccountsForm
         Me.ListViewAccounts.HideSelection = False
         Me.ListViewAccounts.Location = New System.Drawing.Point(3, 3)
         Me.ListViewAccounts.Name = "ListViewAccounts"
-        Me.ListViewAccounts.Size = New System.Drawing.Size(932, 241)
+        Me.ListViewAccounts.Size = New System.Drawing.Size(932, 189)
         Me.ListViewAccounts.TabIndex = 0
         Me.ListViewAccounts.UseCompatibleStateImageBehavior = False
         Me.ListViewAccounts.View = System.Windows.Forms.View.Details
@@ -112,6 +114,8 @@ Partial Class AwsAccountsForm
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.TextBoxDefaultInstanceFilter)
+        Me.Panel1.Controls.Add(Me.Label6)
         Me.Panel1.Controls.Add(Me.GroupBox2)
         Me.Panel1.Controls.Add(Me.TextBoxAccountDescription)
         Me.Panel1.Controls.Add(Me.ButtonSaveAccount)
@@ -126,10 +130,28 @@ Partial Class AwsAccountsForm
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 250)
+        Me.Panel1.Location = New System.Drawing.Point(3, 198)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(932, 359)
+        Me.Panel1.Size = New System.Drawing.Size(932, 411)
         Me.Panel1.TabIndex = 1
+        '
+        'TextBoxDefaultInstanceFilter
+        '
+        Me.TextBoxDefaultInstanceFilter.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBoxDefaultInstanceFilter.Location = New System.Drawing.Point(170, 132)
+        Me.TextBoxDefaultInstanceFilter.Name = "TextBoxDefaultInstanceFilter"
+        Me.TextBoxDefaultInstanceFilter.Size = New System.Drawing.Size(417, 23)
+        Me.TextBoxDefaultInstanceFilter.TabIndex = 15
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(9, 137)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(155, 16)
+        Me.Label6.TabIndex = 16
+        Me.Label6.Text = "Default Instance Filter"
         '
         'GroupBox2
         '
@@ -138,7 +160,7 @@ Partial Class AwsAccountsForm
         Me.GroupBox2.Controls.Add(Me.CheckedListBoxEnabledRegions)
         Me.GroupBox2.Location = New System.Drawing.Point(597, 3)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(330, 307)
+        Me.GroupBox2.Size = New System.Drawing.Size(330, 359)
         Me.GroupBox2.TabIndex = 14
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Enabled Regions"
@@ -150,7 +172,7 @@ Partial Class AwsAccountsForm
         Me.CheckedListBoxEnabledRegions.FormattingEnabled = True
         Me.CheckedListBoxEnabledRegions.Location = New System.Drawing.Point(3, 19)
         Me.CheckedListBoxEnabledRegions.Name = "CheckedListBoxEnabledRegions"
-        Me.CheckedListBoxEnabledRegions.Size = New System.Drawing.Size(324, 285)
+        Me.CheckedListBoxEnabledRegions.Size = New System.Drawing.Size(324, 337)
         Me.CheckedListBoxEnabledRegions.Sorted = True
         Me.CheckedListBoxEnabledRegions.TabIndex = 12
         '
@@ -158,15 +180,15 @@ Partial Class AwsAccountsForm
         '
         Me.TextBoxAccountDescription.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxAccountDescription.Location = New System.Drawing.Point(131, 8)
+        Me.TextBoxAccountDescription.Location = New System.Drawing.Point(170, 8)
         Me.TextBoxAccountDescription.Name = "TextBoxAccountDescription"
-        Me.TextBoxAccountDescription.Size = New System.Drawing.Size(456, 23)
+        Me.TextBoxAccountDescription.Size = New System.Drawing.Size(417, 23)
         Me.TextBoxAccountDescription.TabIndex = 0
         '
         'ButtonSaveAccount
         '
         Me.ButtonSaveAccount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ButtonSaveAccount.Location = New System.Drawing.Point(9, 316)
+        Me.ButtonSaveAccount.Location = New System.Drawing.Point(9, 368)
         Me.ButtonSaveAccount.Name = "ButtonSaveAccount"
         Me.ButtonSaveAccount.Size = New System.Drawing.Size(199, 36)
         Me.ButtonSaveAccount.TabIndex = 3
@@ -181,9 +203,9 @@ Partial Class AwsAccountsForm
         Me.GroupBox1.Controls.Add(Me.ButtonDeleteKeyPair)
         Me.GroupBox1.Controls.Add(Me.ButtonAddKeyPair)
         Me.GroupBox1.Controls.Add(Me.ListBoxKeyPairs)
-        Me.GroupBox1.Location = New System.Drawing.Point(9, 162)
+        Me.GroupBox1.Location = New System.Drawing.Point(9, 195)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(578, 148)
+        Me.GroupBox1.Size = New System.Drawing.Size(578, 167)
         Me.GroupBox1.TabIndex = 9
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Key Pairs"
@@ -191,7 +213,7 @@ Partial Class AwsAccountsForm
         'ButtonDeleteKeyPair
         '
         Me.ButtonDeleteKeyPair.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ButtonDeleteKeyPair.Location = New System.Drawing.Point(101, 113)
+        Me.ButtonDeleteKeyPair.Location = New System.Drawing.Point(101, 132)
         Me.ButtonDeleteKeyPair.Name = "ButtonDeleteKeyPair"
         Me.ButtonDeleteKeyPair.Size = New System.Drawing.Size(86, 25)
         Me.ButtonDeleteKeyPair.TabIndex = 2
@@ -201,7 +223,7 @@ Partial Class AwsAccountsForm
         'ButtonAddKeyPair
         '
         Me.ButtonAddKeyPair.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ButtonAddKeyPair.Location = New System.Drawing.Point(8, 113)
+        Me.ButtonAddKeyPair.Location = New System.Drawing.Point(8, 132)
         Me.ButtonAddKeyPair.Name = "ButtonAddKeyPair"
         Me.ButtonAddKeyPair.Size = New System.Drawing.Size(86, 25)
         Me.ButtonAddKeyPair.TabIndex = 1
@@ -217,7 +239,7 @@ Partial Class AwsAccountsForm
         Me.ListBoxKeyPairs.ItemHeight = 16
         Me.ListBoxKeyPairs.Location = New System.Drawing.Point(8, 23)
         Me.ListBoxKeyPairs.Name = "ListBoxKeyPairs"
-        Me.ListBoxKeyPairs.Size = New System.Drawing.Size(563, 84)
+        Me.ListBoxKeyPairs.Size = New System.Drawing.Size(563, 100)
         Me.ListBoxKeyPairs.TabIndex = 0
         '
         'Label1
@@ -242,14 +264,14 @@ Partial Class AwsAccountsForm
         '
         Me.TextBoxAccountAccessKey.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxAccountAccessKey.Location = New System.Drawing.Point(131, 40)
+        Me.TextBoxAccountAccessKey.Location = New System.Drawing.Point(170, 40)
         Me.TextBoxAccountAccessKey.Name = "TextBoxAccountAccessKey"
-        Me.TextBoxAccountAccessKey.Size = New System.Drawing.Size(456, 23)
+        Me.TextBoxAccountAccessKey.Size = New System.Drawing.Size(417, 23)
         Me.TextBoxAccountAccessKey.TabIndex = 2
         '
         'ButtonBackgroundColor
         '
-        Me.ButtonBackgroundColor.Location = New System.Drawing.Point(131, 131)
+        Me.ButtonBackgroundColor.Location = New System.Drawing.Point(131, 164)
         Me.ButtonBackgroundColor.Name = "ButtonBackgroundColor"
         Me.ButtonBackgroundColor.Size = New System.Drawing.Size(133, 25)
         Me.ButtonBackgroundColor.TabIndex = 11
@@ -260,9 +282,9 @@ Partial Class AwsAccountsForm
         '
         Me.TextBoxAccountSecretKey.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxAccountSecretKey.Location = New System.Drawing.Point(131, 71)
+        Me.TextBoxAccountSecretKey.Location = New System.Drawing.Point(170, 71)
         Me.TextBoxAccountSecretKey.Name = "TextBoxAccountSecretKey"
-        Me.TextBoxAccountSecretKey.Size = New System.Drawing.Size(456, 23)
+        Me.TextBoxAccountSecretKey.Size = New System.Drawing.Size(417, 23)
         Me.TextBoxAccountSecretKey.TabIndex = 6
         Me.TextBoxAccountSecretKey.UseSystemPasswordChar = True
         '
@@ -271,16 +293,16 @@ Partial Class AwsAccountsForm
         Me.ComboBoxAccountRegion.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboBoxAccountRegion.FormattingEnabled = True
-        Me.ComboBoxAccountRegion.Location = New System.Drawing.Point(131, 102)
+        Me.ComboBoxAccountRegion.Location = New System.Drawing.Point(170, 102)
         Me.ComboBoxAccountRegion.Name = "ComboBoxAccountRegion"
-        Me.ComboBoxAccountRegion.Size = New System.Drawing.Size(456, 24)
+        Me.ComboBoxAccountRegion.Size = New System.Drawing.Size(417, 24)
         Me.ComboBoxAccountRegion.Sorted = True
         Me.ComboBoxAccountRegion.TabIndex = 1
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(9, 135)
+        Me.Label5.Location = New System.Drawing.Point(9, 168)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(121, 16)
         Me.Label5.TabIndex = 10
@@ -386,4 +408,6 @@ Partial Class AwsAccountsForm
     Friend WithEvents CheckedListBoxEnabledRegions As CheckedListBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents TextBoxDefaultInstanceFilter As TextBox
+    Friend WithEvents Label6 As Label
 End Class

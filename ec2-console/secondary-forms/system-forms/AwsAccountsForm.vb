@@ -50,6 +50,8 @@
         ComboBoxAccountRegion.Text = SelectedAccount.Region
         ButtonBackgroundColor.BackColor = SelectedAccount.BackgroundColor
 
+        TextBoxDefaultInstanceFilter.Text = SelectedAccount.DefaultInstanceFilter
+
         For Each KeyPair In SelectedAccount.KeyPairs
 
             ListBoxKeyPairs.Items.Add(KeyPair)
@@ -79,6 +81,7 @@
         SelectedAccount.SecretKey = TextBoxAccountSecretKey.Text
         SelectedAccount.Region = ComboBoxAccountRegion.Text
         SelectedAccount.BackgroundColor = ButtonBackgroundColor.BackColor
+        SelectedAccount.DefaultInstanceFilter = TextBoxDefaultInstanceFilter.Text
 
         SelectedAccount.KeyPairs.Clear()
 

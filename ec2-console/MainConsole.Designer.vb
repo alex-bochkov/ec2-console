@@ -63,6 +63,8 @@ Partial Class Form1
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TextBoxInstanceId = New System.Windows.Forms.TextBox()
         Me.ButtonCopyInstanceID = New System.Windows.Forms.Button()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.TextBoxInstanceIamRole = New System.Windows.Forms.TextBox()
         Me.TabPageNetworking = New System.Windows.Forms.TabPage()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -94,8 +96,6 @@ Partial Class Form1
         Me.ListViewInstanceTags = New System.Windows.Forms.ListView()
         Me.ColumnHeaderKey = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderValue = New System.Windows.Forms.ColumnHeader()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.TextBoxInstanceIamRole = New System.Windows.Forms.TextBox()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStripMain.SuspendLayout()
         Me.TabControl.SuspendLayout()
@@ -321,6 +321,7 @@ Partial Class Form1
         Me.ToolStripTextBoxFilterByTagValue.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ToolStripTextBoxFilterByTagValue.Name = "ToolStripTextBoxFilterByTagValue"
         Me.ToolStripTextBoxFilterByTagValue.Size = New System.Drawing.Size(138, 24)
+        Me.ToolStripTextBoxFilterByTagValue.Sorted = True
         '
         'MenuStripFilterPresentation
         '
@@ -398,7 +399,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 262)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 263)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -562,6 +563,30 @@ Partial Class Form1
         Me.ButtonCopyInstanceID.TabIndex = 13
         Me.ButtonCopyInstanceID.Text = "Copy"
         Me.ButtonCopyInstanceID.UseVisualStyleBackColor = True
+        '
+        'Label7
+        '
+        Me.Label7.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(3, 174)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(110, 29)
+        Me.Label7.TabIndex = 14
+        Me.Label7.Text = "IAM Role"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TextBoxInstanceIamRole
+        '
+        Me.TextBoxInstanceIamRole.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBoxInstanceIamRole.Location = New System.Drawing.Point(119, 177)
+        Me.TextBoxInstanceIamRole.Name = "TextBoxInstanceIamRole"
+        Me.TextBoxInstanceIamRole.ReadOnly = True
+        Me.TextBoxInstanceIamRole.Size = New System.Drawing.Size(322, 23)
+        Me.TextBoxInstanceIamRole.TabIndex = 15
         '
         'TabPageNetworking
         '
@@ -834,30 +859,6 @@ Partial Class Form1
         '
         Me.ColumnHeaderValue.Text = "Value"
         Me.ColumnHeaderValue.Width = 500
-        '
-        'Label7
-        '
-        Me.Label7.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(3, 174)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(110, 29)
-        Me.Label7.TabIndex = 14
-        Me.Label7.Text = "IAM Role"
-        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TextBoxInstanceIamRole
-        '
-        Me.TextBoxInstanceIamRole.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxInstanceIamRole.Location = New System.Drawing.Point(119, 177)
-        Me.TextBoxInstanceIamRole.Name = "TextBoxInstanceIamRole"
-        Me.TextBoxInstanceIamRole.ReadOnly = True
-        Me.TextBoxInstanceIamRole.Size = New System.Drawing.Size(322, 23)
-        Me.TextBoxInstanceIamRole.TabIndex = 15
         '
         'Form1
         '

@@ -128,6 +128,40 @@ Public Class Form1
 
     End Sub
 
+    Sub ApplyDefaultInstanceFilter()
+
+        Try
+
+            UserFilterForInstances.Clear()
+
+            Dim FilterText As String = CurrentAccount.DefaultInstanceFilter.Trim
+
+            If FilterText > "" Then
+
+                For Each FilterElement In FilterText.Split("|")
+                    Dim FilterKey As String = FilterElement.Split("=").GetValue(0)
+                    Dim FilterValues As String = FilterElement.Split("=").GetValue(1)
+
+                    Dim List = New List(Of String)
+                    For Each FilterValue In FilterValues.Split(",")
+                        List.Add(FilterValue)
+                    Next
+
+                    UserFilterForInstances.Add(FilterKey, List)
+
+                Next
+
+
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
+
+
+    End Sub
+
     Sub SetFirstCurrentAccount()
 
         AllAccounts = AccountManagement.GetAllAccounts()
@@ -147,6 +181,10 @@ Public Class Form1
     End Sub
 
     Sub SetCurrentAccount()
+
+        ApplyDefaultInstanceFilter()
+
+        RefreshFilterRepresentation()
 
         AccountsToolStripMenuItem.Text = ServiceFunctions.GetLocalizedMessage("active-account") + ": " + CurrentAccount.Description
 
