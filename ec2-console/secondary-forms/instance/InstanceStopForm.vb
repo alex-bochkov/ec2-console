@@ -1,6 +1,4 @@
-﻿Imports System.Windows.Forms
-
-Public Class InstanceStopForm
+﻿Public Class InstanceStopForm
 
     Public CurrentAccount As AwsAccount
     Public InstanceIDs As List(Of String) = New List(Of String)

@@ -36,7 +36,7 @@ Partial Class ChangeIamRole
         Me.TextBoxCurrentIamRole.Location = New System.Drawing.Point(213, 6)
         Me.TextBoxCurrentIamRole.Name = "TextBoxCurrentIamRole"
         Me.TextBoxCurrentIamRole.ReadOnly = True
-        Me.TextBoxCurrentIamRole.Size = New System.Drawing.Size(342, 23)
+        Me.TextBoxCurrentIamRole.Size = New System.Drawing.Size(537, 23)
         Me.TextBoxCurrentIamRole.TabIndex = 0
         '
         'ComboBoxNewInstanceProfile
@@ -46,13 +46,13 @@ Partial Class ChangeIamRole
         Me.ComboBoxNewInstanceProfile.FormattingEnabled = True
         Me.ComboBoxNewInstanceProfile.Location = New System.Drawing.Point(213, 37)
         Me.ComboBoxNewInstanceProfile.Name = "ComboBoxNewInstanceProfile"
-        Me.ComboBoxNewInstanceProfile.Size = New System.Drawing.Size(342, 24)
+        Me.ComboBoxNewInstanceProfile.Size = New System.Drawing.Size(537, 24)
         Me.ComboBoxNewInstanceProfile.TabIndex = 1
         '
         'ButtonSave
         '
         Me.ButtonSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonSave.Location = New System.Drawing.Point(559, 36)
+        Me.ButtonSave.Location = New System.Drawing.Point(754, 36)
         Me.ButtonSave.Name = "ButtonSave"
         Me.ButtonSave.Size = New System.Drawing.Size(91, 25)
         Me.ButtonSave.TabIndex = 2
@@ -81,13 +81,14 @@ Partial Class ChangeIamRole
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(656, 69)
+        Me.ClientSize = New System.Drawing.Size(851, 68)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ButtonSave)
         Me.Controls.Add(Me.ComboBoxNewInstanceProfile)
         Me.Controls.Add(Me.TextBoxCurrentIamRole)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
         Me.Name = "ChangeIamRole"
         Me.Text = "ChangeIamRole"
         Me.ResumeLayout(False)

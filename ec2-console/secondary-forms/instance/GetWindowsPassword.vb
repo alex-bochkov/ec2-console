@@ -27,6 +27,10 @@
             ComboBoxKeyPairs.Items.Add(KeyPair)
         Next
 
+        If CurrentAccount.KeyPairs.Count > 0 Then
+            ComboBoxKeyPairs.SelectedItem = CurrentAccount.KeyPairs.Item(0)
+        End If
+
         TextBoxInstanceKey.Text = InstanceKey
 
     End Sub

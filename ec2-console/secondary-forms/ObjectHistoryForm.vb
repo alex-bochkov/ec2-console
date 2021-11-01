@@ -1,5 +1,4 @@
-﻿Imports System.Windows.Forms
-Imports Newtonsoft.Json.Linq
+﻿Imports Newtonsoft.Json.Linq
 
 Public Class ObjectHistoryForm
 
@@ -22,9 +21,6 @@ Public Class ObjectHistoryForm
 
         If AllVersions.Count > 1 Then
 
-            Dim LVGroupFirst As ListViewGroup = New ListViewGroup("Initial Version: " + AllVersions.Item(0).ConfigurationItemCaptureTime.ToString)
-            ListViewVersions.Groups.Add(LVGroupFirst)
-
             For i = 1 To AllVersions.Count - 1
 
                 Dim Version1 = AllVersions.Item(i - 1)
@@ -37,7 +33,7 @@ Public Class ObjectHistoryForm
                 'DataGridViewVersions.Rows.Add(DiffString)
 
                 '************************************************
-                Dim LVGroup As ListViewGroup = New ListViewGroup(Version2.ConfigurationItemCaptureTime.ToString)
+                Dim LVGroup As ListViewGroup = New ListViewGroup(Version1.ConfigurationItemCaptureTime.ToString)
                 ListViewVersions.Groups.Add(LVGroup)
 
                 Using SR = New IO.StringReader(DiffString)
@@ -51,10 +47,13 @@ Public Class ObjectHistoryForm
                     End While
                 End Using
 
-
-
-
             Next
+
+        ElseIf AllVersions.Count = 1 Then
+
+            Dim LVGroupFirst As ListViewGroup = New ListViewGroup("Initial Version: " + AllVersions.Item(0).ConfigurationItemCaptureTime.ToString)
+            ListViewVersions.Groups.Add(LVGroupFirst)
+            ListViewVersions.Items.Add(New ListViewItem("< the full JSON content is hidden >", LVGroupFirst))
 
         End If
 

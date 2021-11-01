@@ -1,6 +1,4 @@
-﻿Imports System.Windows.Forms
-
-Public Class SecurityGroupForm
+﻿Public Class SecurityGroupForm
 
     Public CurrentAccount As AwsAccount
     Public SecurityGroupID As String

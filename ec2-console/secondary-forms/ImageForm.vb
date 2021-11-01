@@ -1,6 +1,4 @@
-﻿Imports System.Windows.Forms
-
-Public Class ImageForm
+﻿Public Class ImageForm
 
     Public CurrentAccount As AwsAccount
     Public ImageID As String

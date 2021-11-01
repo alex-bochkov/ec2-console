@@ -860,16 +860,37 @@
             Dim request = New Amazon.ConfigService.Model.GetResourceConfigHistoryRequest
             request.ResourceId = ResourceId
             request.ResourceType = ResourceType
+            request.Limit = 100
 
-            Dim requestResult = client.GetResourceConfigHistoryAsync(request).GetAwaiter()
+            Dim List As List(Of Amazon.ConfigService.Model.ConfigurationItem) = New List(Of Amazon.ConfigService.Model.ConfigurationItem)
 
-            While Not requestResult.IsCompleted
-                Application.DoEvents()
+            Dim NextToken As String = "first-request"
+
+            While NextToken <> ""
+
+                If NextToken <> "first-request" Then
+                    request.NextToken = NextToken
+                End If
+
+                Dim requestResult = client.GetResourceConfigHistoryAsync(request).GetAwaiter()
+                While Not requestResult.IsCompleted
+                    Application.DoEvents()
+                End While
+
+                Dim result = requestResult.GetResult()
+
+                For Each resultRow In result.ConfigurationItems
+                    List.Add(resultRow)
+                Next
+
+                NextToken = result.NextToken
+
+                'not sure how select properly all records here.. this works way too long
+                Exit While
+
             End While
 
-            Dim result = requestResult.GetResult()
-
-            Return result.ConfigurationItems
+            Return List
 
         End Function
 

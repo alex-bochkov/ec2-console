@@ -22,7 +22,7 @@
 
             Dim Arn As String = Instance.IamInstanceProfile.Arn
 
-            TextBoxCurrentIamRole.Text = Arn.Substring(Arn.IndexOf("/")) 'show only the role name
+            TextBoxCurrentIamRole.Text = Arn.Substring(Arn.IndexOf("/") + 1) 'show only the role name
 
         End If
 

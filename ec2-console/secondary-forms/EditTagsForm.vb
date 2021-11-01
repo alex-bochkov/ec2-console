@@ -1,6 +1,4 @@
-﻿Imports System.Windows.Forms
-
-Public Class EditTagsForm
+﻿Public Class EditTagsForm
 
     Public CurrentAccount As AwsAccount
     Public InstanceId As String

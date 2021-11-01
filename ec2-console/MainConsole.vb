@@ -6,6 +6,8 @@ Public Class Form1
     Private AllAccounts As List(Of AwsAccount)
     Private CurrentAccount As AwsAccount
 
+    Dim InstanceDataSource As DataTable = New DataTable
+
     Private InstanceTable As Hashtable = New Hashtable
     Private InstanceStatusTable As Hashtable = New Hashtable
     Private InstanceVolumesTable As Hashtable = New Hashtable
@@ -75,7 +77,80 @@ Public Class Form1
 
     End Sub
 
+    Sub CreateInstanceDataSource()
+
+        'table.Columns.Add("RowSelected", GetType(Boolean))
+        InstanceDataSource.Columns.Clear()
+
+        InstanceDataSource.Columns.Add("#", GetType(Integer))
+        InstanceDataSource.Columns.Add("Name", GetType(String))
+        InstanceDataSource.Columns.Add("State", GetType(String))
+        InstanceDataSource.Columns.Add("InstanceId", GetType(String))
+        InstanceDataSource.Columns.Add("InstanceType", GetType(String))
+        InstanceDataSource.Columns.Add("PrivateIpAddress", GetType(String))
+        InstanceDataSource.Columns.Add("PlatformDetails", GetType(String))
+        InstanceDataSource.Columns.Add("LaunchTime", GetType(DateTime))
+        InstanceDataSource.Columns.Add("NumberOfVolumes", GetType(Integer))
+        InstanceDataSource.Columns.Add("NumberOfSecurityGroups", GetType(Integer))
+        InstanceDataSource.Columns.Add("NumberOfTags", GetType(Integer))
+        InstanceDataSource.Columns.Add("NumberOfCores", GetType(Integer))
+
+        DataListViewEC2.DataSource = InstanceDataSource
+
+        For Each Column As ColumnHeader In DataListViewEC2.Columns
+
+            Select Case Column.Name
+                Case "#"
+                    Column.Width = 50
+
+                Case "Name"
+                    Column.Width = 300
+
+                Case "State"
+                    Column.Width = 80
+
+                Case "InstanceId"
+                    Column.Width = 180
+
+                Case "InstanceType"
+                    Column.Width = 120
+
+                Case "PrivateIpAddress"
+                    Column.Width = 150
+
+                Case "PlatformDetails"
+                    Column.Width = 150
+
+                Case "LaunchTime"
+                    Column.Width = 200
+
+                Case "NumberOfVolumes"
+                    Column.Width = 100
+                    Column.Text = "# vol."
+
+                Case "NumberOfSecurityGroups"
+                    Column.Width = 100
+                    Column.Text = "# SGs"
+
+                Case "NumberOfTags"
+                    Column.Width = 100
+                    Column.Text = "# tags"
+
+                Case "NumberOfCores"
+                    Column.Width = 100
+                    Column.Text = "# cores"
+
+                Case Else
+                    Column.Width = 100
+            End Select
+
+        Next
+
+    End Sub
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        CreateInstanceDataSource()
 
         ToolStripStatusLabelCurrentVersion.Text = "Current Version: " + My.Application.Info.Version.ToString
 
@@ -541,20 +616,8 @@ Public Class Form1
 
     Private Sub FillInstanceList()
 
-        Dim table As New DataTable
-        'table.Columns.Add("RowSelected", GetType(Boolean))
-        table.Columns.Add("#", GetType(Integer))
-        table.Columns.Add("Name", GetType(String))
-        table.Columns.Add("State", GetType(String))
-        table.Columns.Add("InstanceId", GetType(String))
-        table.Columns.Add("InstanceType", GetType(String))
-        table.Columns.Add("PrivateIpAddress", GetType(String))
-        table.Columns.Add("PlatformDetails", GetType(String))
-        table.Columns.Add("LaunchTime", GetType(DateTime))
-        table.Columns.Add("NumberOfVolumes", GetType(Integer))
-        table.Columns.Add("NumberOfSecurityGroups", GetType(Integer))
-        table.Columns.Add("NumberOfTags", GetType(Integer))
-        table.Columns.Add("NumberOfCores", GetType(Integer))
+        DataListViewEC2.DataSource = Nothing
+        InstanceDataSource.Rows.Clear()
 
         InstanceTable.Clear()
         InstanceStatusTable.Clear()
@@ -626,7 +689,7 @@ Public Class Form1
 
                 i = i + 1
 
-                Dim RowRepresentation As DataRow = table.NewRow()
+                Dim RowRepresentation As DataRow = InstanceDataSource.NewRow()
                 RowRepresentation.Item("#") = i.ToString
 
                 For Each InstanceTag In instance.Tags
@@ -654,7 +717,7 @@ Public Class Form1
                 RowRepresentation.Item("NumberOfTags") = instance.Tags.Count
                 RowRepresentation.Item("NumberOfCores") = instance.CpuOptions.CoreCount
 
-                table.Rows.Add(RowRepresentation)
+                InstanceDataSource.Rows.Add(RowRepresentation)
 
                 'not sure what it failing on duplicates here
                 If InstanceTable.ContainsKey(instance.InstanceId) Then
@@ -666,12 +729,9 @@ Public Class Form1
 
         End If
 
-        DataListViewEC2.DataSource = table
-        If table.Rows.Count > 0 Then
-            DataListViewEC2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-        End If
+        DataListViewEC2.DataSource = InstanceDataSource
 
-        TabPageEC2.Text = String.Format("Instances ({0})", table.Rows.Count)
+        TabPageEC2.Text = String.Format("Instances ({0})", InstanceDataSource.Rows.Count)
 
     End Sub
 
@@ -693,6 +753,10 @@ Public Class Form1
         TextBoxInstancePlatformDetails.Text = Instance.PlatformDetails
         TextBoxInstanceTenancy.Text = Instance.Placement.Tenancy.Value
         TextBoxInstancevCPU.Text = Instance.CpuOptions.CoreCount.ToString + " cores / " + Instance.CpuOptions.ThreadsPerCore.ToString + " threads"
+        TextBoxInstanceKeyName.Text = Instance.KeyName
+        TextBoxInstanceDetailedMonitoring.Text = Instance.Monitoring.State.Value
+        TextBoxInstanceEbsOptimization.Text = Instance.EbsOptimized.ToString
+        TextBoxInstanceType.Text = Instance.InstanceType.Value
 
         If Instance.IamInstanceProfile IsNot Nothing Then
             TextBoxInstanceIamRole.Text = Instance.IamInstanceProfile.Arn.Substring(Instance.IamInstanceProfile.Arn.IndexOf("/") + 1)
@@ -830,6 +894,8 @@ Public Class Form1
 
             Dim hti = DataListViewEC2.HitTest(e.X, e.Y)
 
+            Dim OneInstanceSelected As Boolean = DataListViewEC2.SelectedItems.Count = 1
+
             If Not hti.Item Is Nothing Then
 
                 Dim m As ContextMenuStrip = New ContextMenuStrip()
@@ -842,15 +908,20 @@ Public Class Form1
                 Dim m1 = New ToolStripMenuItem("Instance settings")
                 m1.DropDownItems.Add(New ToolStripMenuItem("Change instance type", Nothing, AddressOf ChangeInstanceType))
                 m1.DropDownItems.Add(New ToolStripMenuItem("Change termination protection", Nothing, AddressOf ChangeTerminationProtection))
-                m1.DropDownItems.Add(New ToolStripMenuItem("Manage tags", Nothing, AddressOf EditTags))
+                If OneInstanceSelected Then
+                    m1.DropDownItems.Add(New ToolStripMenuItem("Manage tags", Nothing, AddressOf EditTags))
+                End If
                 m.Items.Add(m1)
 
                 Dim m2 = New ToolStripMenuItem("Networking")
                 m.Items.Add(m2)
 
                 Dim m3 = New ToolStripMenuItem("Security")
-                m3.DropDownItems.Add(New ToolStripMenuItem("Change security groups", Nothing, AddressOf EditSecurityGroups))
-                m3.DropDownItems.Add(New ToolStripMenuItem("Get Windows password", Nothing, AddressOf GetWindowsPasswordForm))
+                If OneInstanceSelected Then
+                    m3.DropDownItems.Add(New ToolStripMenuItem("Change security groups", Nothing, AddressOf EditSecurityGroups))
+                    m3.DropDownItems.Add(New ToolStripMenuItem("Get Windows password", Nothing, AddressOf GetWindowsPasswordForm))
+                End If
+
                 m3.DropDownItems.Add(New ToolStripMenuItem("Modify IAM Role", Nothing, AddressOf ChangeIamRole))
                 m.Items.Add(m3)
 
@@ -859,7 +930,9 @@ Public Class Form1
                 m.Items.Add(m4)
 
                 Dim m5 = New ToolStripMenuItem("Monitor and troubleshoot")
-                m5.DropDownItems.Add(New ToolStripMenuItem("Get instance screenshot", Nothing, AddressOf GetConsoleScreenshot))
+                If OneInstanceSelected Then
+                    m5.DropDownItems.Add(New ToolStripMenuItem("Get instance screenshot", Nothing, AddressOf GetConsoleScreenshot))
+                End If
                 m.Items.Add(m5)
 
                 Dim m6 = New ToolStripMenuItem("Storage")
@@ -868,10 +941,11 @@ Public Class Form1
 
                 'm.Items.Add(New ToolStripMenuItem(String.Format("Do something to row {0}", hti.RowIndex.ToString())))
 
-                m.Items.Add(New ToolStripMenuItem("Instance config history", My.Resources.Timeline.ToBitmap, AddressOf GetInstanceConfigHistory))
-                m.Show(Cursor.Position)
+                If OneInstanceSelected Then
+                    m.Items.Add(New ToolStripMenuItem("Instance config history", My.Resources.Timeline.ToBitmap, AddressOf GetInstanceConfigHistory))
+                    m.Items.Add(New ToolStripMenuItem("Launch more like this", Nothing, AddressOf CopySelectedInstance))
+                End If
 
-                m.Items.Add(New ToolStripMenuItem("Launch more like this", Nothing, AddressOf CopySelectedInstance))
                 m.Show(Cursor.Position)
 
             End If

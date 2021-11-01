@@ -1,5 +1,4 @@
-﻿Imports System.Threading
-Imports NLog
+﻿Imports NLog
 Public Class TerminateInstanceForm
 
     Public CurrentAccount As AwsAccount
