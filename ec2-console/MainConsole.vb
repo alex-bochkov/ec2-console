@@ -437,6 +437,26 @@ Public Class Form1
 
     End Sub
 
+    Private Sub AddFilterByPlatform(Platform As String)
+
+        If Not UserFilterForInstances.ContainsKey("platform") Then
+            UserFilterForInstances.Item("platform") = New List(Of String)
+        End If
+
+        UserFilterForInstances.Item("platform").Add(Platform)
+
+    End Sub
+
+    Private Sub AddFilterByTenancy(Tenancy As String)
+
+        If Not UserFilterForInstances.ContainsKey("tenancy") Then
+            UserFilterForInstances.Item("tenancy") = New List(Of String)
+        End If
+
+        UserFilterForInstances.Item("tenancy").Add(Tenancy)
+
+    End Sub
+
     Private Sub AddFilterByTag(TagKey As String, TagValue As String)
 
         Dim FilterKey As String = "tag:" + TagKey
@@ -502,10 +522,21 @@ Public Class Form1
 
             AddFilterBySubnet(sender.tag)
 
-        ElseIf TypeOf sender.tag Is String _
-                        And sender.tag = "filter-instance-type" Then
+        ElseIf TypeOf sender.tag Is String Then
 
-            AddFilterByInstanceType(sender.text)
+            If sender.tag = "filter-instance-type" Then
+
+                AddFilterByInstanceType(sender.text)
+
+            ElseIf sender.tag = "filter-platform" Then
+
+                AddFilterByPlatform(sender.text)
+
+            ElseIf sender.tag = "filter-tenancy" Then
+
+                AddFilterByTenancy(sender.text)
+
+            End If
 
         Else
 
@@ -605,6 +636,16 @@ Public Class Form1
         instanceState.DropDownItems.Add("stopped", Nothing, AddressOf onClickFilter).Tag = New Amazon.EC2.Model.InstanceState With {.Name = "stopped"}
 
         '-----------------------------------------------------------------
+        Dim platformFilter As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-platform")
+        platformFilter.DropDownItems.Add("windows", Nothing, AddressOf onClickFilter).Tag = "filter-platform"
+
+        '-----------------------------------------------------------------
+        Dim tenancyFilter As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-tenancy")
+        tenancyFilter.DropDownItems.Add("default", Nothing, AddressOf onClickFilter).Tag = "filter-tenancy"
+        tenancyFilter.DropDownItems.Add("dedicated", Nothing, AddressOf onClickFilter).Tag = "filter-tenancy"
+        tenancyFilter.DropDownItems.Add("host", Nothing, AddressOf onClickFilter).Tag = "filter-tenancy"
+
+        '-----------------------------------------------------------------
         Dim vpcFilter As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-vpc")
         Dim allVpcs = AmazonApi.DescribeVpcs(CurrentAccount)
         For Each vpcDescription In allVpcs
@@ -638,6 +679,7 @@ Public Class Form1
             a.Tag = subnetDescription
 
         Next
+        '-----------------------------------------------------------------
 
     End Sub
 

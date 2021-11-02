@@ -62,8 +62,7 @@
         CheckedListBoxEnabledRegions.Items.Clear()
         For Each AwsRegion In AmazonApi.GetAllAwsRegions()
 
-            Dim Checked As Boolean = SelectedAccount.EnabledRegions.Contains(AwsRegion.SystemName) _
-                Or SelectedAccount.EnabledRegions.Count = 0
+            Dim Checked As Boolean = SelectedAccount.EnabledRegions.Contains(AwsRegion.SystemName) 'Or SelectedAccount.EnabledRegions.Count = 0
 
             CheckedListBoxEnabledRegions.Items.Add(AwsRegion, Checked)
 

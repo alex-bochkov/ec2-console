@@ -166,34 +166,73 @@
                 request.MaxResults = My.Settings.MaxInstancesToLoad
             End If
 
-            Dim NextToken As String = "first-request"
 
-            While NextToken <> ""
+            '*******************************************************
+            ' paginator approach
+            Dim DescribeInstancesPaginator = client.Paginators.DescribeInstances(request)
 
-                If NextToken <> "first-request" Then
-                    request.NextToken = NextToken
-                End If
+            Dim ReservationsEnumerator = DescribeInstancesPaginator.Reservations.GetAsyncEnumerator()
 
-                Dim requestResult = client.DescribeInstancesAsync(request).GetAwaiter()
-                While Not requestResult.IsCompleted
-                    Application.DoEvents()
-                End While
+            Try
 
-                Dim result = requestResult.GetResult()
+                While True
 
-                For Each resultRow In result.Reservations
+                    Dim requestResult = ReservationsEnumerator.MoveNextAsync()
+                    While Not requestResult.IsCompleted
+                        Application.DoEvents()
+                    End While
 
-                    For Each instance In resultRow.Instances
+                    If Not requestResult.Result Then
+                        Exit While
+                    End If
 
+                    For Each instance In ReservationsEnumerator.Current.Instances
                         List.Add(instance)
 
+                        If List.Count >= request.MaxResults Then
+                            Exit While
+                        End If
                     Next
 
-                Next
+                End While
 
-                NextToken = request.NextToken
+            Catch ex As Exception
+            Finally
+                ReservationsEnumerator.DisposeAsync()
+            End Try
 
-            End While
+            ''*******************************************************
+            '' regular async method
+            '' it doesn't return correct result with filters like:
+            '' * platform = windows
+            '' * instance-state = stopped, etc.
+            'Dim NextToken As String = "first-request"
+            'While NextToken <> ""
+            '
+            '    If NextToken <> "first-request" Then
+            '        request.NextToken = NextToken
+            '    End If
+            '
+            '    Dim requestResult = client.DescribeInstancesAsync(request).GetAwaiter()
+            '    While Not requestResult.IsCompleted
+            '        Application.DoEvents()
+            '    End While
+            '
+            '    Dim result = requestResult.GetResult()
+            '
+            '    For Each resultRow In result.Reservations
+            '
+            '        For Each instance In resultRow.Instances
+            '
+            '            List.Add(instance)
+            '
+            '        Next
+            '
+            '    Next
+            '
+            '    NextToken = request.NextToken
+            '
+            'End While
 
             Return List
 
