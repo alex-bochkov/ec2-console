@@ -130,19 +130,19 @@ Public Class Form1
                     Column.Width = 200
 
                 Case "NumberOfVolumes"
-                    Column.Width = 100
+                    Column.Width = 60
                     Column.Text = "# vol."
 
                 Case "NumberOfSecurityGroups"
-                    Column.Width = 100
+                    Column.Width = 60
                     Column.Text = "# SGs"
 
                 Case "NumberOfTags"
-                    Column.Width = 100
+                    Column.Width = 60
                     Column.Text = "# tags"
 
                 Case "NumberOfCores"
-                    Column.Width = 100
+                    Column.Width = 70
                     Column.Text = "# cores"
 
                 Case Else
