@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/alex-bochkov/ec2-console</PackageProjectUrl>
     <RepositoryUrl>https://github.com/alex-bochkov/ec2-console</RepositoryUrl>
     <Authors>Alex Bochkov</Authors>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Company />
     <ApplicationIcon>Resources\app-icon.ico</ApplicationIcon>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
@@ -20,6 +20,7 @@
     <Version>1.4.0</Version>
     <Product>AWS EC2 Console</Product>
     <RepositoryType>GitHub</RepositoryType>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -80,6 +81,10 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 
