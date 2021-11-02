@@ -50,9 +50,9 @@ Partial Class Form1
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPageDetails = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBoxInstanceSystemStatus = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TextBoxInstanceStatus = New System.Windows.Forms.TextBox()
         Me.TextBoxInstanceType = New System.Windows.Forms.TextBox()
         Me.TextBoxInstanceEbsOptimization = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -106,7 +106,6 @@ Partial Class Form1
         Me.ColumnHeaderDeleteOnTermination = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderEncrypted = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderKmsKeyId = New System.Windows.Forms.ColumnHeader()
-        Me.TabPageStatusCheck = New System.Windows.Forms.TabPage()
         Me.TabPageMonitoring = New System.Windows.Forms.TabPage()
         Me.TabPageTags = New System.Windows.Forms.TabPage()
         Me.ButtonEditTags = New System.Windows.Forms.Button()
@@ -210,13 +209,13 @@ Partial Class Form1
         'EnglishToolStripMenuItem
         '
         Me.EnglishToolStripMenuItem.Name = "EnglishToolStripMenuItem"
-        Me.EnglishToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EnglishToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
         Me.EnglishToolStripMenuItem.Text = "English"
         '
         'RussianToolStripMenuItem
         '
         Me.RussianToolStripMenuItem.Name = "RussianToolStripMenuItem"
-        Me.RussianToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RussianToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
         Me.RussianToolStripMenuItem.Text = "Russian"
         '
         'AboutToolStripMenuItem
@@ -360,7 +359,6 @@ Partial Class Form1
         Me.TabControl1.Controls.Add(Me.TabPageDetails)
         Me.TabControl1.Controls.Add(Me.TabPageNetworking)
         Me.TabControl1.Controls.Add(Me.TabPageStorage)
-        Me.TabControl1.Controls.Add(Me.TabPageStatusCheck)
         Me.TabControl1.Controls.Add(Me.TabPageMonitoring)
         Me.TabControl1.Controls.Add(Me.TabPageTags)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
@@ -390,9 +388,9 @@ Partial Class Form1
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.TextBox1, 1, 5)
+        Me.TableLayoutPanel2.Controls.Add(Me.TextBoxInstanceSystemStatus, 1, 5)
         Me.TableLayoutPanel2.Controls.Add(Me.Label8, 0, 5)
-        Me.TableLayoutPanel2.Controls.Add(Me.TextBox2, 1, 4)
+        Me.TableLayoutPanel2.Controls.Add(Me.TextBoxInstanceStatus, 1, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.TextBoxInstanceType, 1, 3)
         Me.TableLayoutPanel2.Controls.Add(Me.TextBoxInstanceEbsOptimization, 1, 2)
         Me.TableLayoutPanel2.Controls.Add(Me.Label9, 0, 1)
@@ -416,20 +414,19 @@ Partial Class Form1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(526, 243)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(526, 245)
         Me.TableLayoutPanel2.TabIndex = 1
         '
-        'TextBox1
+        'TextBoxInstanceSystemStatus
         '
-        Me.TextBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.TextBoxInstanceSystemStatus.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.Location = New System.Drawing.Point(142, 148)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(322, 23)
-        Me.TextBox1.TabIndex = 9
-        Me.TextBox1.Visible = False
+        Me.TextBoxInstanceSystemStatus.Location = New System.Drawing.Point(142, 148)
+        Me.TextBoxInstanceSystemStatus.Name = "TextBoxInstanceSystemStatus"
+        Me.TextBoxInstanceSystemStatus.ReadOnly = True
+        Me.TextBoxInstanceSystemStatus.Size = New System.Drawing.Size(322, 23)
+        Me.TextBoxInstanceSystemStatus.TabIndex = 9
         '
         'Label8
         '
@@ -441,21 +438,19 @@ Partial Class Form1
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(133, 29)
         Me.Label8.TabIndex = 8
-        Me.Label8.Text = "# of vCPUs"
+        Me.Label8.Text = "System Status"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label8.Visible = False
         '
-        'TextBox2
+        'TextBoxInstanceStatus
         '
-        Me.TextBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.TextBoxInstanceStatus.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox2.Location = New System.Drawing.Point(142, 119)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.ReadOnly = True
-        Me.TextBox2.Size = New System.Drawing.Size(322, 23)
-        Me.TextBox2.TabIndex = 7
-        Me.TextBox2.Visible = False
+        Me.TextBoxInstanceStatus.Location = New System.Drawing.Point(142, 119)
+        Me.TextBoxInstanceStatus.Name = "TextBoxInstanceStatus"
+        Me.TextBoxInstanceStatus.ReadOnly = True
+        Me.TextBoxInstanceStatus.Size = New System.Drawing.Size(322, 23)
+        Me.TextBoxInstanceStatus.TabIndex = 7
         '
         'TextBoxInstanceType
         '
@@ -528,9 +523,8 @@ Partial Class Form1
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(133, 29)
         Me.Label12.TabIndex = 3
-        Me.Label12.Text = "Tenancy"
+        Me.Label12.Text = "Instance Status"
         Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label12.Visible = False
         '
         'TextBoxInstanceDetailedMonitoring
         '
@@ -637,7 +631,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 258)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 260)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -976,7 +970,7 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 25)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 230)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 232)
         Me.ListViewInstanceVolumes.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
@@ -1032,15 +1026,6 @@ Partial Class Form1
         Me.ColumnHeaderKmsKeyId.Text = "KMS key ID"
         Me.ColumnHeaderKmsKeyId.Width = 150
         '
-        'TabPageStatusCheck
-        '
-        Me.TabPageStatusCheck.Location = New System.Drawing.Point(4, 25)
-        Me.TabPageStatusCheck.Name = "TabPageStatusCheck"
-        Me.TabPageStatusCheck.Size = New System.Drawing.Size(1030, 248)
-        Me.TabPageStatusCheck.TabIndex = 4
-        Me.TabPageStatusCheck.Text = "Status Check"
-        Me.TabPageStatusCheck.UseVisualStyleBackColor = True
-        '
         'TabPageMonitoring
         '
         Me.TabPageMonitoring.Location = New System.Drawing.Point(4, 25)
@@ -1082,7 +1067,7 @@ Partial Class Form1
         Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 28)
         Me.ListViewInstanceTags.Name = "ListViewInstanceTags"
         Me.ListViewInstanceTags.ShowGroups = False
-        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 224)
+        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 226)
         Me.ListViewInstanceTags.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceTags.TabIndex = 0
         Me.ListViewInstanceTags.UseCompatibleStateImageBehavior = False
@@ -1165,7 +1150,6 @@ Partial Class Form1
     Friend WithEvents TabPageDetails As TabPage
     Friend WithEvents TabPageNetworking As TabPage
     Friend WithEvents TabPageStorage As TabPage
-    Friend WithEvents TabPageStatusCheck As TabPage
     Friend WithEvents TabPageMonitoring As TabPage
     Friend WithEvents TabPageTags As TabPage
     Friend WithEvents ListViewInstanceTags As ListView
@@ -1220,9 +1204,9 @@ Partial Class Form1
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Panel1 As Panel
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TextBoxInstanceSystemStatus As TextBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents TextBoxInstanceStatus As TextBox
     Friend WithEvents TextBoxInstanceType As TextBox
     Friend WithEvents TextBoxInstanceEbsOptimization As TextBox
     Friend WithEvents Label9 As Label

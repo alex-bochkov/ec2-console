@@ -836,6 +836,33 @@ Public Class Form1
         TextBoxInstanceEbsOptimization.Text = Instance.EbsOptimized.ToString
         TextBoxInstanceType.Text = Instance.InstanceType.Value
 
+        '*****************************************************************
+        ' instance status check
+        Dim InstanceStatusText As String = ""
+        Dim InstanceSystemStatusText As String = ""
+
+        Dim InstanceStatus As Amazon.EC2.Model.InstanceStatus = Nothing
+        If InstanceStatusTable.TryGetValue(Instance.InstanceId, InstanceStatus) Then
+
+            For Each StatusDetail In InstanceStatus.Status.Details
+                InstanceStatusText += StatusDetail.Status.Value
+                If StatusDetail.Status.Value <> "passed" Then
+                    InstanceStatusText += String.Format(" ({0})", StatusDetail.ImpairedSince)
+                End If
+            Next
+            For Each StatusDetail In InstanceStatus.SystemStatus.Details
+                InstanceSystemStatusText += StatusDetail.Status.Value
+                If StatusDetail.Status.Value <> "passed" Then
+                    InstanceSystemStatusText += String.Format(" ({0})", StatusDetail.ImpairedSince)
+                End If
+            Next
+
+        End If
+
+        TextBoxInstanceStatus.Text = InstanceStatusText
+        TextBoxInstanceSystemStatus.Text = InstanceSystemStatusText
+        '*****************************************************************
+
         If Instance.IamInstanceProfile IsNot Nothing Then
             TextBoxInstanceIamRole.Text = Instance.IamInstanceProfile.Arn.Substring(Instance.IamInstanceProfile.Arn.IndexOf("/") + 1)
         End If
