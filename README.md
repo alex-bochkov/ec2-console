@@ -2,7 +2,7 @@
 A Windows Forms desktop application that duplicates the most common functions of the AWS EC2 Console.
 Fully based on the official AWS .NET SDK using .NET 5.0.
 
-# < The project is currently at an early stage of development >
+### < The project is currently at an early stage of development >
 
 ## Key Features 
 1. Faster than the official AWS Console.
