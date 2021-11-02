@@ -9,8 +9,8 @@ Public Class Form1
     Dim InstanceDataSource As DataTable = New DataTable
 
     Private InstanceTable As Hashtable = New Hashtable
-    Private InstanceStatusTable As Hashtable = New Hashtable
     Private InstanceVolumesTable As Hashtable = New Hashtable
+    Private InstanceStatusTable As Dictionary(Of String, Amazon.EC2.Model.InstanceStatus) = New Dictionary(Of String, Amazon.EC2.Model.InstanceStatus)
 
     Private InstanceTypesList As List(Of Amazon.EC2.Model.InstanceTypeInfo)
 
@@ -85,6 +85,7 @@ Public Class Form1
         InstanceDataSource.Columns.Add("#", GetType(Integer))
         InstanceDataSource.Columns.Add("Name", GetType(String))
         InstanceDataSource.Columns.Add("State", GetType(String))
+        InstanceDataSource.Columns.Add("StatusCheck", GetType(String))
         InstanceDataSource.Columns.Add("InstanceId", GetType(String))
         InstanceDataSource.Columns.Add("InstanceType", GetType(String))
         InstanceDataSource.Columns.Add("PrivateIpAddress", GetType(String))
@@ -108,6 +109,10 @@ Public Class Form1
 
                 Case "State"
                     Column.Width = 80
+
+                Case "StatusCheck"
+                    Column.Width = 120
+                    Column.Text = "Status Check"
 
                 Case "InstanceId"
                     Column.Width = 180
@@ -649,12 +654,19 @@ Public Class Form1
 
         If InstanceList.Count > 0 Then
 
+            Dim ListRunningInstances As List(Of String) = New List(Of String)
+
             For Each instance In InstanceList
                 'not sure what it failing on duplicates here
                 If InstanceVolumesTable.ContainsKey(instance.InstanceId) Then
                     InstanceVolumesTable.Remove(instance.InstanceId)
                 End If
                 InstanceVolumesTable.Add(instance.InstanceId, New List(Of Amazon.EC2.Model.Volume))
+
+                If instance.State.Name.Value = "running" Then
+                    ListRunningInstances.Add(instance.InstanceId)
+                End If
+
             Next
 
 
@@ -698,15 +710,9 @@ Public Class Form1
 
             End If
 
-
-            'Dim ListStatuses = Ec2Instances.ListEc2InstanceStatuses(CurrentAccount, List)
-
-            'For Each Status In ListStatuses
-            '    InstanceStatusTable.Add(Status.InstanceId, Status)
-            'Next
+            InstanceStatusTable = AmazonApi.ListEc2InstanceStatuses(CurrentAccount, ListRunningInstances)
 
             Dim i = 0
-
             For Each instance In InstanceList
 
                 i = i + 1
@@ -722,10 +728,18 @@ Public Class Form1
 
                 Next
 
-                'Dim Status As Amazon.EC2.Model.InstanceStatus = InstanceStatusTable.Item(instance.InstanceId)
-                'If Not Status Is Nothing Then
-                '    RowRepresentation.Item("State") = Status.InstanceState.Name.Value & " (" & Status.SystemStatus.Status.Value & ")"
-                'End If
+                Dim InstanceStatus As Amazon.EC2.Model.InstanceStatus = Nothing
+
+                If InstanceStatusTable.TryGetValue(instance.InstanceId, InstanceStatus) Then
+
+                    Dim a1 = InstanceStatus.Status.Status.Value
+                    Dim a2 = InstanceStatus.SystemStatus.Status.Value
+
+                    'TODO
+                    RowRepresentation.Item("StatusCheck") = a1 + "/" + a2
+
+                End If
+
 
                 RowRepresentation.Item("State") = instance.State.Name.Value
                 RowRepresentation.Item("InstanceId") = instance.InstanceId
@@ -979,7 +993,7 @@ Public Class Form1
 
         Dim ResultList As List(Of String) = New List(Of String)
 
-        Dim ColumnNumber = 3
+        Dim ColumnNumber = 4
 
         For Each SelectedInstance As System.Data.DataRowView In DataListViewEC2.SelectedObjects
             ResultList.Add(SelectedInstance.Row.ItemArray.GetValue(ColumnNumber))
@@ -990,7 +1004,7 @@ Public Class Form1
     End Function
     Function GetSelectedInstanceId() As String
 
-        Dim ColumnNumber = 3
+        Dim ColumnNumber = 4
 
         Dim InstanceId As String = DataListViewEC2.FocusedItem.SubItems.Item(ColumnNumber).Text
 

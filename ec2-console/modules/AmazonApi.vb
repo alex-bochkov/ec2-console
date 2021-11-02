@@ -217,37 +217,42 @@
 
         End Function
 
-        Public Function ListEc2InstanceStatuses(AwsAccount As AwsAccount, InstanceList As List(Of Amazon.EC2.Model.Instance)) As List(Of Amazon.EC2.Model.InstanceStatus)
+        Public Function ListEc2InstanceStatuses(AwsAccount As AwsAccount, InstanceIds As List(Of String)) As Dictionary(Of String, Amazon.EC2.Model.InstanceStatus)
 
-            Dim List As List(Of Amazon.EC2.Model.InstanceStatus) = New List(Of Amazon.EC2.Model.InstanceStatus)
+            Dim Dict As Dictionary(Of String, Amazon.EC2.Model.InstanceStatus) = New Dictionary(Of String, Amazon.EC2.Model.InstanceStatus)
 
             Dim client = NewAmazonEC2Client(AwsAccount)
 
             Dim request = New Amazon.EC2.Model.DescribeInstanceStatusRequest
 
-            'Dim InstanceIDs = New List(Of String)
-            ' 100 is the max
-            For Each instance In InstanceList
-                request.InstanceIds.Add(instance.InstanceId)
+            Dim i = 0
+            For Each InstanceId In InstanceIds
+                i += 1
+                request.InstanceIds.Add(InstanceId)
+
+                ' 100 is the max
+                If request.InstanceIds.Count = 100 Or i = InstanceIds.Count Then
+
+                    Dim requestResult = client.DescribeInstanceStatusAsync(request).GetAwaiter()
+                    While Not requestResult.IsCompleted
+                        Application.DoEvents()
+                    End While
+
+                    Dim result = requestResult.GetResult()
+
+                    For Each resultRow In result.InstanceStatuses
+
+                        Dict.TryAdd(resultRow.InstanceId, resultRow)
+
+                    Next
+
+                    request.InstanceIds.Clear()
+
+                End If
+
             Next
 
-            'request.Filters.Add(New Filter With {.Name = "instance-id", .Values = InstanceIDs})
-            'request.MaxResults = 50
-
-            Dim requestResult = client.DescribeInstanceStatusAsync(request).GetAwaiter()
-            While Not requestResult.IsCompleted
-                Application.DoEvents()
-            End While
-
-            Dim result = requestResult.GetResult()
-
-            For Each resultRow In result.InstanceStatuses
-
-                List.Add(resultRow)
-
-            Next
-
-            Return List
+            Return Dict
 
         End Function
 
