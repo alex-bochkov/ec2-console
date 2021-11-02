@@ -9,7 +9,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="MaxInstancesToLoad" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">200</Value>
+      <Value Profile="(Default)">100</Value>
     </Setting>
   </Settings>
 </SettingsFile>

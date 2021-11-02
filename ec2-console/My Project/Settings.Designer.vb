@@ -80,7 +80,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("200")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100")>  _
         Public Property MaxInstancesToLoad() As Decimal
             Get
                 Return CType(Me("MaxInstancesToLoad"),Decimal)
