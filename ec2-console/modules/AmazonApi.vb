@@ -828,6 +828,47 @@
 
 
     End Module
+    Module Pricing
+
+        Private Function NewAmazonPricingClient(AwsAccount As AwsAccount) As Amazon.Pricing.AmazonPricingClient
+
+            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
+
+            'The endpoint is in US-East-1
+            'https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/using-pelong.html
+            Dim client = New Amazon.Pricing.AmazonPricingClient(cred, Amazon.RegionEndpoint.GetBySystemName("us-east-1"))
+
+            Return client
+
+        End Function
+
+        Public Function GetPriceListForInstanceType(AwsAccount As AwsAccount, instanceType As String) As List(Of String)
+
+            Dim client = NewAmazonPricingClient(AwsAccount)
+
+            Dim request = New Amazon.Pricing.Model.GetProductsRequest
+            request.ServiceCode = "AmazonEC2"
+            request.Filters.Add(New Amazon.Pricing.Model.Filter With {.Type = "TERM_MATCH", .Field = "instanceType", .Value = instanceType})
+            request.Filters.Add(New Amazon.Pricing.Model.Filter With {.Type = "TERM_MATCH", .Field = "location", .Value = Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region).DisplayName})
+            request.Filters.Add(New Amazon.Pricing.Model.Filter With {.Type = "TERM_MATCH", .Field = "preInstalledSw", .Value = "NA"})
+            request.Filters.Add(New Amazon.Pricing.Model.Filter With {.Type = "TERM_MATCH", .Field = "marketoption", .Value = "OnDemand"})
+            request.Filters.Add(New Amazon.Pricing.Model.Filter With {.Type = "TERM_MATCH", .Field = "tenancy", .Value = "Shared"})
+            request.Filters.Add(New Amazon.Pricing.Model.Filter With {.Type = "TERM_MATCH", .Field = "capacitystatus", .Value = "Used"})
+            ' request.Filters.Add(New Amazon.Pricing.Model.Filter With {.Type = "TERM_MATCH", .Field = "operatingSystem", .Value = "Linux"})
+            request.Filters.Add(New Amazon.Pricing.Model.Filter With {.Type = "TERM_MATCH", .Field = "licenseModel", .Value = "No License required"})
+
+            Dim requestResult = client.GetProductsAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.PriceList
+
+        End Function
+
+    End Module
 
     Module ConfigService
         Private Function NewAmazonConfigServiceClient(AwsAccount As AwsAccount) As Amazon.ConfigService.AmazonConfigServiceClient
@@ -843,8 +884,6 @@
         Public Function GetResourceConfigHistory(AwsAccount As AwsAccount,
                                                  ResourceId As String) _
                 As List(Of Amazon.ConfigService.Model.ConfigurationItem)
-
-            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
 
             Dim client = NewAmazonConfigServiceClient(AwsAccount)
 

@@ -205,17 +205,18 @@ Partial Class Form1
         Me.LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem"
         Me.LanguageToolStripMenuItem.Size = New System.Drawing.Size(82, 20)
         Me.LanguageToolStripMenuItem.Text = "Language"
+        Me.LanguageToolStripMenuItem.Visible = False
         '
         'EnglishToolStripMenuItem
         '
         Me.EnglishToolStripMenuItem.Name = "EnglishToolStripMenuItem"
-        Me.EnglishToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
+        Me.EnglishToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.EnglishToolStripMenuItem.Text = "English"
         '
         'RussianToolStripMenuItem
         '
         Me.RussianToolStripMenuItem.Name = "RussianToolStripMenuItem"
-        Me.RussianToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
+        Me.RussianToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.RussianToolStripMenuItem.Text = "Russian"
         '
         'AboutToolStripMenuItem
@@ -415,7 +416,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(526, 242)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(526, 243)
         Me.TableLayoutPanel2.TabIndex = 1
         '
         'TextBox1
@@ -636,7 +637,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 257)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 258)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -975,7 +976,7 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 25)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 229)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 230)
         Me.ListViewInstanceVolumes.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
@@ -1081,7 +1082,7 @@ Partial Class Form1
         Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 28)
         Me.ListViewInstanceTags.Name = "ListViewInstanceTags"
         Me.ListViewInstanceTags.ShowGroups = False
-        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 223)
+        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 224)
         Me.ListViewInstanceTags.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceTags.TabIndex = 0
         Me.ListViewInstanceTags.UseCompatibleStateImageBehavior = False

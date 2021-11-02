@@ -27,6 +27,35 @@ Public Class InstanceTypeForm
         TextBoxCores.DataBindings.Add("Text", InstanceTypeInfo, "VCpuInfo.DefaultCores")
         TextBoxNetworkPerformance.DataBindings.Add("Text", InstanceTypeInfo, "NetworkInfo.NetworkPerformance")
 
+        Dim InstanceType = InstanceTypeInfo.InstanceType.Value
+
+        Try
+
+            'this API is fucking nightmare!
+            Dim PricesJson = AmazonApi.GetPriceListForInstanceType(CurrentAccount, InstanceType)
+
+            For Each PriceJson In PricesJson
+
+                Dim parcedPrices As Newtonsoft.Json.Linq.JObject = Newtonsoft.Json.Linq.JObject.Parse(PriceJson)
+
+                Dim operatingSystem = DirectCast(parcedPrices.SelectToken("product.attributes.operatingSystem"), Newtonsoft.Json.Linq.JValue).Value
+                Dim CostDescription = DirectCast(parcedPrices.SelectToken("terms.OnDemand.*.priceDimensions.*.description"), Newtonsoft.Json.Linq.JValue).Value
+
+                If operatingSystem = "Windows" Then
+                    TextBoxPriceWindows.Text = CostDescription
+                ElseIf operatingSystem = "Linux" Then
+                    TextBoxPriceLinux.Text = CostDescription
+                End If
+
+            Next
+
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 
+    Private Sub TableLayoutPanel2_Paint(sender As Object, e As PaintEventArgs) Handles TableLayoutPanel2.Paint
+
+    End Sub
 End Class
