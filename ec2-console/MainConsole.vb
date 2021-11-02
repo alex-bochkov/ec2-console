@@ -353,11 +353,15 @@ Public Class Form1
 
                 Dim FilterText = UserFilterObject.Key + " = " + AllKeys
 
-                Dim NewElement As ToolStripDropDownItem = MenuStripFilterPresentation.Items.Add(FilterText) ', Nothing, AddressOf onClickClearFilter)
+                Dim NewElement As ToolStripDropDownItem = MenuStripFilterPresentation.Items.Add(FilterText)
                 NewElement.Tag = UserFilterObject.Key
 
                 For Each FilterValue In UserFilterObject.Value
-                    NewElement.DropDownItems.Add(FilterValue)
+
+                    Dim NewSubElement = NewElement.DropDownItems.Add(FilterValue, Nothing, AddressOf onClickClearFilter_SingleObject)
+                    NewSubElement.Tag = New Dictionary(Of String, String)
+                    NewSubElement.Tag.Add(UserFilterObject.Key, FilterValue)
+
                 Next
 
                 NewElement.DropDownItems.Add(New ToolStripSeparator)
@@ -437,6 +441,24 @@ Public Class Form1
         End If
 
         UserFilterForInstances.Item(FilterKey).Add(TagValue)
+
+    End Sub
+
+    Private Sub onClickClearFilter_SingleObject(sender As Object, e As EventArgs)
+
+        Dim FilterElements As Dictionary(Of String, String) = sender.tag
+
+        For Each FilterElement In FilterElements
+            If UserFilterForInstances.ContainsKey(FilterElement.Key) Then
+                If UserFilterForInstances.Item(FilterElement.Key).Contains(FilterElement.Value) Then
+                    UserFilterForInstances.Item(FilterElement.Key).Remove(FilterElement.Value)
+                End If
+            End If
+        Next
+
+        RefreshFilterRepresentation()
+
+        FillInstanceList()
 
     End Sub
     Private Sub onClickClearFilter(sender As Object, e As EventArgs)

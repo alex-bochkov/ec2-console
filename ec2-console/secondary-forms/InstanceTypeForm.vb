@@ -20,7 +20,10 @@ Public Class InstanceTypeForm
 
         TextBoxArchitecture.Text = String.Join(", ", InstanceTypeInfo.ProcessorInfo.SupportedArchitectures)
         TextBoxMemory.Text = String.Format("{0} Gb", InstanceTypeInfo.MemoryInfo.SizeInMiB / 1024)
-        TextBoxLocalStorage.Text = String.Format("{0} Gb * {1} disks", InstanceTypeInfo.InstanceStorageInfo.TotalSizeInGB, InstanceTypeInfo.InstanceStorageInfo.Disks.Count)
+
+        If InstanceTypeInfo.InstanceStorageInfo IsNot Nothing Then
+            TextBoxLocalStorage.Text = String.Format("{0} Gb * {1} disks", InstanceTypeInfo.InstanceStorageInfo.TotalSizeInGB, InstanceTypeInfo.InstanceStorageInfo.Disks.Count)
+        End If
 
         TextBoxInstanceType.DataBindings.Add("Text", InstanceTypeInfo, "InstanceType")
         TextBoxClockSpeed.DataBindings.Add("Text", InstanceTypeInfo, "ProcessorInfo.SustainedClockSpeedInGhz")
