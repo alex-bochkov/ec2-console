@@ -6,8 +6,7 @@ Imports OxyPlot.Series
 Public Class InstanceMetricBrowserForm
 
     Public CurrentAccount As AwsAccount
-    Public InstanceID As String
-
+    Public InstanceIDs As List(Of String) = New List(Of String)
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -25,7 +24,7 @@ Public Class InstanceMetricBrowserForm
         ComboBoxPeriod.SelectedIndex = 0
         ComboBoxStat.SelectedIndex = 0
 
-        TextBoxInstanceId.Text = InstanceID
+        TextBoxInstanceId.Text = String.Join(", ", InstanceIDs)
 
         ShowGraph()
 
@@ -78,39 +77,45 @@ Public Class InstanceMetricBrowserForm
 
         plot.Axes.Add(LinearAxis2)
 
-        Dim DetailedRecords = AmazonApi.GetCpuUtilizationPerInstance(CurrentAccount, InstanceID, Granularity, Metric, Stat, StartDate, EndDate)
+        For Each InstanceId In InstanceIDs
 
-        DetailedRecords.Sort(Function(elementA As Amazon.CloudWatch.Model.Datapoint, elementB As Amazon.CloudWatch.Model.Datapoint)
+            Dim DetailedRecords = AmazonApi.GetCpuUtilizationPerInstance(CurrentAccount, InstanceId, Granularity, Metric, Stat, StartDate, EndDate)
 
-                                 Return elementA.Timestamp.CompareTo(elementB.Timestamp)
+            DetailedRecords.Sort(Function(elementA As Amazon.CloudWatch.Model.Datapoint, elementB As Amazon.CloudWatch.Model.Datapoint)
 
-                             End Function)
+                                     Return elementA.Timestamp.CompareTo(elementB.Timestamp)
 
-        Dim ls = New LineSeries With {.Title = ""}
+                                 End Function)
 
-        For Each DataPoint In DetailedRecords
+            Dim ls = New LineSeries With {.Title = ""}
 
-            If ls.Title = "" Then
-                ls.Title = DataPoint.Unit.Value
-            End If
+            For Each DataPoint In DetailedRecords
 
-            Dim Val As Int64 = 0
-            Select Case Stat
-                Case "Average"
-                    Val = DataPoint.Average
-                Case "Maximum"
-                    Val = DataPoint.Maximum
-                Case "Minimum"
-                    Val = DataPoint.Minimum
-                Case "Sum"
-                    Val = DataPoint.Sum
-            End Select
+                If ls.Title = "" Then
+                    ls.Title = DataPoint.Unit.Value + " / " + InstanceId
+                End If
 
-            ls.Points.Add(New DataPoint(DateTimeAxis.ToDouble(DataPoint.Timestamp.ToLocalTime), Val))
+                Dim Val As Int64 = 0
+                Select Case Stat
+                    Case "Average"
+                        Val = DataPoint.Average
+                    Case "Maximum"
+                        Val = DataPoint.Maximum
+                    Case "Minimum"
+                        Val = DataPoint.Minimum
+                    Case "Sum"
+                        Val = DataPoint.Sum
+                End Select
+
+                ls.Points.Add(New DataPoint(DateTimeAxis.ToDouble(DataPoint.Timestamp.ToLocalTime), Val))
+
+            Next
+
+            plot.Series.Add(ls)
 
         Next
 
-        plot.Series.Add(ls)
+
 
         PlotView.Model = plot
 

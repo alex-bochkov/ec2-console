@@ -1145,6 +1145,7 @@ Public Class Form1
 
                 'm.Items.Add(New ToolStripMenuItem(String.Format("Do something to row {0}", hti.RowIndex.ToString())))
 
+                m.Items.Add(New ToolStripMenuItem("Metric Browser", Nothing, AddressOf OpenMetricBrowserForm))
                 If OneInstanceSelected Then
                     m.Items.Add(New ToolStripMenuItem("Instance config history", My.Resources.Timeline.ToBitmap, AddressOf GetInstanceConfigHistory))
                     m.Items.Add(New ToolStripMenuItem("Launch more like this", Nothing, AddressOf CopySelectedInstance))
@@ -1605,9 +1606,21 @@ Public Class Form1
     End Sub
     Private Sub ButtonMetricBrowser_Click(sender As Object, e As EventArgs) Handles ButtonMetricBrowser.Click
 
+        OpenMetricBrowserForm_WithInstanceIDs(New List(Of String) From {GetSelectedInstanceId()})
+
+    End Sub
+
+    Sub OpenMetricBrowserForm()
+
+        OpenMetricBrowserForm_WithInstanceIDs(GetAllSelectedInstanceIds())
+
+    End Sub
+
+    Sub OpenMetricBrowserForm_WithInstanceIDs(InstanceIDs As List(Of String))
+
         Dim FormInstanceType = New InstanceMetricBrowserForm
         FormInstanceType.CurrentAccount = CurrentAccount
-        FormInstanceType.InstanceID = GetSelectedInstanceId()
+        FormInstanceType.InstanceIDs = InstanceIDs
         FormInstanceType.StartPosition = FormStartPosition.CenterScreen
         FormInstanceType.ShowDialog()
 
