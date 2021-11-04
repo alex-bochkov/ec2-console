@@ -14,11 +14,11 @@ Fully based on the official AWS .NET SDK using .NET 5.0.
 4. ..
 
 ## Form Examples
-### Main form
+<b>Main form<b><br/>
 <img alt="alt_text" src="main-form.png" />
-### Metric browser
+<b>Metric browser<b><br/>
 <img alt="alt_text" src="metric-browser.png" />
-### Bulk change instance type
+<b>Bulk change instance type<b><br/>
 <img alt="alt_text" src="change-instance-type.png" />
 
 ## Security
