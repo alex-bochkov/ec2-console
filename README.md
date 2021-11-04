@@ -14,11 +14,11 @@ Fully based on the official AWS .NET SDK using .NET 5.0.
 4. ..
 
 ## Form Examples
-<b>Main form<b><br/>
+**Main form**<br/>
 <img alt="alt_text" src="main-form.png" />
-<b>Metric browser<b><br/>
+**Metric browser**<br/>
 <img alt="alt_text" src="metric-browser.png" />
-<b>Bulk change instance type<b><br/>
+**Bulk change instance type**<br/>
 <img alt="alt_text" src="change-instance-type.png" />
 
 ## Security
@@ -30,11 +30,10 @@ Fully based on the official AWS .NET SDK using .NET 5.0.
 2. Constructive feedback is appreciated in <a href="https://github.com/alex-bochkov/ec2-console/issues">project issues</a>.
 
 ## FAQ
-1. <b>Should I use this app?</b> Use at your own risk. I don't provide any support, but appreciate your feedback in <a href="https://github.com/alex-bochkov/ec2-console/issues">project issues</a>.
-2. <b>Why would you duplicate something that already exists?</b> 
-As an engineer who work with AWS for over a decade, I'm deeply frustrated with the development direction of the Console - aweful, unreadable and slow UI.
+1. **Should I use this app?** Use at your own risk. I don't provide any support, but appreciate your feedback in <a href="https://github.com/alex-bochkov/ec2-console/issues">project issues</a>.
+2. **Why would you duplicate something that already exists?** As an engineer who work with AWS for over a decade, I'm deeply frustrated with the development direction of the Console - aweful, unreadable and slow UI.
 The purpose of this solution is to address those issues.
-3. <b>Why vb.net?</b> I'm a Windows user, I like .NET, I like Visual Basic, I enjoy writing it.
-4. <b>Your code is aweful!</b> I'm a database architect, not a software engineer. Also, a big fan of incremental development and improvement. 
-5. <b>Do you have a release schedule?</b> No, this is a pet project without dedicated resources. 
-6. <b>It throws exceptions!</b> There are no plans at this time to make it fool-proof.
+3. **Why vb.net?** I'm a Windows user, I like .NET, I like Visual Basic, I enjoy writing it.
+4. **Your code is aweful!** I'm a database architect, not a software engineer. Also, a big fan of incremental development and improvement. 
+5. **Do you have a release schedule?** No, this is a pet project without dedicated resources. 
+6. **It throws exceptions!** There are no plans at this time to make it fool-proof.
