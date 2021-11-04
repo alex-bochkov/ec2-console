@@ -925,45 +925,34 @@
 
         End Function
 
-        Public Function GetCpuUtilizationPerInstance(AwsAccount As AwsAccount, InstanceIds As List(Of String))
-
-            Dim InstanceData As Dictionary(Of String, Integer) = New Dictionary(Of String, Integer)
+        Public Function GetCpuUtilizationPerInstance(AwsAccount As AwsAccount,
+                                                     InstanceId As String,
+                                                     DetailedMonitoringEnabled As Boolean) As List(Of Amazon.CloudWatch.Model.Datapoint)
 
             Dim client = NewAmazonCloudWatchClient(AwsAccount)
 
             Dim request = New Amazon.CloudWatch.Model.GetMetricStatisticsRequest
             request.StartTimeUtc = Now.AddHours(-1).ToUniversalTime
             request.EndTimeUtc = Now.ToUniversalTime
-            request.Period = 60
+            If DetailedMonitoringEnabled Then
+                request.Period = 60
+            Else
+                request.Period = 300
+            End If
             request.Statistics.Add("Maximum")
             request.Namespace = "AWS/EC2"
             request.MetricName = "CPUUtilization"
 
-            For Each InstanceId In InstanceIds
+            request.Dimensions.Add(New Amazon.CloudWatch.Model.Dimension With {.Name = "InstanceId", .Value = InstanceId})
 
-                request.Dimensions.Clear()
-                request.Dimensions.Add(New Amazon.CloudWatch.Model.Dimension With {.Name = "InstanceId", .Value = InstanceId})
+            Dim requestResult = client.GetMetricStatisticsAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
 
-                Dim requestResult = client.GetMetricStatisticsAsync(request).GetAwaiter()
-                While Not requestResult.IsCompleted
-                    Application.DoEvents()
-                End While
+            Dim result = requestResult.GetResult()
 
-                Dim result = requestResult.GetResult()
-
-                Dim Avg As Integer = 0
-
-                For Each res In result.Datapoints
-                    Avg += res.Maximum
-                Next
-
-                Avg = Avg / result.Datapoints.Count
-
-                InstanceData.Add(InstanceId, Avg)
-
-            Next
-
-            Return InstanceData
+            Return result.Datapoints
 
         End Function
 

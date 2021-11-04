@@ -1,5 +1,8 @@
 ﻿Imports System.Threading
 Imports NLog
+Imports OxyPlot
+Imports OxyPlot.Axes
+Imports OxyPlot.Series
 
 Public Class Form1
 
@@ -467,6 +470,16 @@ Public Class Form1
 
     End Sub
 
+    Private Sub AddFilterByDetailedMonitoring(DetailedMonitoring As String)
+
+        If Not UserFilterForInstances.ContainsKey("monitoring-state") Then
+            UserFilterForInstances.Item("monitoring-state") = New List(Of String)
+        End If
+
+        UserFilterForInstances.Item("monitoring-state").Add(DetailedMonitoring)
+
+    End Sub
+
     Private Sub AddFilterByTag(TagKey As String, TagValue As String)
 
         Dim FilterKey As String = "tag:" + TagKey
@@ -545,6 +558,10 @@ Public Class Form1
             ElseIf sender.tag = "filter-tenancy" Then
 
                 AddFilterByTenancy(sender.text)
+
+            ElseIf sender.tag = "filter-detailed-monitoring" Then
+
+                AddFilterByDetailedMonitoring(sender.text)
 
             End If
 
@@ -644,6 +661,11 @@ Public Class Form1
         instanceState.DropDownItems.Add("terminated", Nothing, AddressOf onClickFilter).Tag = New Amazon.EC2.Model.InstanceState With {.Name = "terminated"}
         instanceState.DropDownItems.Add("stopping", Nothing, AddressOf onClickFilter).Tag = New Amazon.EC2.Model.InstanceState With {.Name = "stopping"}
         instanceState.DropDownItems.Add("stopped", Nothing, AddressOf onClickFilter).Tag = New Amazon.EC2.Model.InstanceState With {.Name = "stopped"}
+
+        '-----------------------------------------------------------------
+        Dim detailedMonitoringFilter As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-detailed-monitoring")
+        detailedMonitoringFilter.DropDownItems.Add("disabled", Nothing, AddressOf onClickFilter).Tag = "filter-detailed-monitoring"
+        detailedMonitoringFilter.DropDownItems.Add("enabled", Nothing, AddressOf onClickFilter).Tag = "filter-detailed-monitoring"
 
         '-----------------------------------------------------------------
         Dim platformFilter As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-platform")
@@ -839,6 +861,8 @@ Public Class Form1
             Exit Sub
         End If
 
+        ShowInstanceCpuUtilization(InstanceID, Instance.Monitoring.State.Value)
+
         '*****************************************************************
         ' Tab - Details
         TextBoxInstanceId.Text = InstanceID
@@ -976,6 +1000,54 @@ Public Class Form1
 
     End Sub
 
+    Sub ShowInstanceCpuUtilization(InstanceID As String, DetailedMonitoring As String)
+
+        Dim plot = New PlotModel With {.Subtitle = "CPU Utilization for the past hour"}
+
+        Dim LinearAxis1 = New LinearAxis
+        LinearAxis1.Position = AxisPosition.Left
+        LinearAxis1.Minimum = 0
+        LinearAxis1.Maximum = 100
+        LinearAxis1.MajorStep = 50
+        LinearAxis1.MinorStep = 10
+        LinearAxis1.TickStyle = TickStyle.Inside
+        plot.Axes.Add(LinearAxis1)
+
+        'Dim LinearAxis2 = New LinearAxis
+        Dim LinearAxis2 = New DateTimeAxis
+        LinearAxis2.Position = AxisPosition.Bottom
+        LinearAxis2.Minimum = DateTimeAxis.ToDouble(Now.AddHours(-1))
+        LinearAxis2.Maximum = DateTimeAxis.ToDouble(Now)
+        'LinearAxis2.MajorStep = 60
+        'LinearAxis2.MinorStep = 15
+        LinearAxis2.TickStyle = TickStyle.Inside
+        LinearAxis2.IntervalType = DateTimeIntervalType.Minutes
+        plot.Axes.Add(LinearAxis2)
+
+
+        Dim DetailedMonitoringEnabled As Boolean = DetailedMonitoring = "enabled"
+        Dim Past60Minutes = AmazonApi.GetCpuUtilizationPerInstance(CurrentAccount, InstanceID, DetailedMonitoringEnabled)
+
+        Past60Minutes.Sort(Function(elementA As Amazon.CloudWatch.Model.Datapoint, elementB As Amazon.CloudWatch.Model.Datapoint)
+
+                               Return elementA.Timestamp.CompareTo(elementB.Timestamp)
+
+                           End Function)
+
+        Dim ls = New LineSeries With {.Title = String.Format("Max CPU per minute")}
+        Dim i = 0
+        For Each DataPoint In Past60Minutes
+            i += 1
+            'ls.Points.Add(New DataPoint(DataPoint.Timestamp.Ticks, DataPoint.Maximum))
+            ls.Points.Add(New DataPoint(DateTimeAxis.ToDouble(DataPoint.Timestamp.ToLocalTime), DataPoint.Maximum))
+            'ls.Points.Add(New DataPoint(DataPoint.Maximum, DataPoint.Timestamp.Ticks))
+        Next
+
+        plot.Series.Add(ls)
+
+        PlotViewInstanceCPU.Model = plot
+
+    End Sub
     Private Sub ListViewInstanceVolumes_MouseDown(sender As Object, e As MouseEventArgs) Handles ListViewInstanceVolumes.MouseDown
 
         If (e.Button = MouseButtons.Right) Then

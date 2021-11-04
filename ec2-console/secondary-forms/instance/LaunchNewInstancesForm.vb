@@ -1,4 +1,8 @@
-﻿Public Class LaunchNewInstancesForm
+﻿Imports OxyPlot
+Imports OxyPlot.Axes
+Imports OxyPlot.Series
+
+Public Class LaunchNewInstancesForm
 
     Public CurrentAccount As AwsAccount
     Public InstanceIdTemplate As String
@@ -7,10 +11,7 @@
 
         'Dim AllImages = AmazonApi.DescribeImages(CurrentAccount)
 
-        Dim a = Amazon.EC2.Util.ImageUtilities.WINDOWS_2016_BASE
-
-        Dim ImageIds = New List(Of String) From {"ami-5731123e"}
-
     End Sub
+
 
 End Class

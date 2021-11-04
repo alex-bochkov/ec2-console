@@ -45,6 +45,7 @@
     <PackageReference Include="NLog" Version="4.7.12" />
     <PackageReference Include="NLog.Config" Version="4.7.12" />
     <PackageReference Include="ObjectListView.Official" Version="2.9.1" />
+    <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>

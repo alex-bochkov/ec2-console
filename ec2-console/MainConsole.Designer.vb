@@ -112,6 +112,7 @@ Partial Class Form1
         Me.ListViewInstanceTags = New System.Windows.Forms.ListView()
         Me.ColumnHeaderKey = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderValue = New System.Windows.Forms.ColumnHeader()
+        Me.PlotViewInstanceCPU = New OxyPlot.WindowsForms.PlotView()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStripMain.SuspendLayout()
         Me.TabControl.SuspendLayout()
@@ -133,6 +134,7 @@ Partial Class Form1
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.TabPageStorage.SuspendLayout()
+        Me.TabPageMonitoring.SuspendLayout()
         Me.TabPageTags.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -414,7 +416,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(526, 245)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(526, 246)
         Me.TableLayoutPanel2.TabIndex = 1
         '
         'TextBoxInstanceSystemStatus
@@ -631,7 +633,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 260)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 261)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -970,7 +972,7 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 25)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 232)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 233)
         Me.ListViewInstanceVolumes.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
@@ -1028,6 +1030,7 @@ Partial Class Form1
         '
         'TabPageMonitoring
         '
+        Me.TabPageMonitoring.Controls.Add(Me.PlotViewInstanceCPU)
         Me.TabPageMonitoring.Location = New System.Drawing.Point(4, 25)
         Me.TabPageMonitoring.Name = "TabPageMonitoring"
         Me.TabPageMonitoring.Size = New System.Drawing.Size(1030, 248)
@@ -1067,7 +1070,7 @@ Partial Class Form1
         Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 28)
         Me.ListViewInstanceTags.Name = "ListViewInstanceTags"
         Me.ListViewInstanceTags.ShowGroups = False
-        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 226)
+        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 227)
         Me.ListViewInstanceTags.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceTags.TabIndex = 0
         Me.ListViewInstanceTags.UseCompatibleStateImageBehavior = False
@@ -1082,6 +1085,19 @@ Partial Class Form1
         '
         Me.ColumnHeaderValue.Text = "Value"
         Me.ColumnHeaderValue.Width = 500
+        '
+        'PlotViewInstanceCPU
+        '
+        Me.PlotViewInstanceCPU.BackColor = System.Drawing.Color.White
+        Me.PlotViewInstanceCPU.Location = New System.Drawing.Point(3, 3)
+        Me.PlotViewInstanceCPU.Name = "PlotViewInstanceCPU"
+        Me.PlotViewInstanceCPU.PanCursor = System.Windows.Forms.Cursors.Hand
+        Me.PlotViewInstanceCPU.Size = New System.Drawing.Size(295, 242)
+        Me.PlotViewInstanceCPU.TabIndex = 0
+        Me.PlotViewInstanceCPU.Text = "PlotViewInstanceCPU"
+        Me.PlotViewInstanceCPU.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
+        Me.PlotViewInstanceCPU.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE
+        Me.PlotViewInstanceCPU.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS
         '
         'Form1
         '
@@ -1124,6 +1140,7 @@ Partial Class Form1
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.TabPageStorage.ResumeLayout(False)
+        Me.TabPageMonitoring.ResumeLayout(False)
         Me.TabPageTags.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -1219,4 +1236,5 @@ Partial Class Form1
     Friend WithEvents Label14 As Label
     Friend WithEvents TextBox7 As TextBox
     Friend WithEvents ButtonOpenInstanceTypeForm As Button
+    Friend WithEvents PlotViewInstanceCPU As OxyPlot.WindowsForms.PlotView
 End Class

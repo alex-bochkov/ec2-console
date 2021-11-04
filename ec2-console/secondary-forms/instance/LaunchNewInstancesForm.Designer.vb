@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class LaunchNewInstancesForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class LaunchNewInstancesForm
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -56,7 +56,7 @@ Partial Class LaunchNewInstancesForm
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(111, 3)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(512, 24)
+        Me.ComboBox1.Size = New System.Drawing.Size(562, 24)
         Me.ComboBox1.TabIndex = 0
         '
         'Label1
@@ -96,7 +96,7 @@ Partial Class LaunchNewInstancesForm
         Me.TableLayoutPanel1.Controls.Add(Me.ComboBox6, 1, 6)
         Me.TableLayoutPanel1.Controls.Add(Me.ComboBox7, 1, 7)
         Me.TableLayoutPanel1.Controls.Add(Me.CheckBoxTerminationProtection, 1, 8)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(36, 60)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(12, 12)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 11
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
@@ -110,7 +110,7 @@ Partial Class LaunchNewInstancesForm
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(626, 343)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(676, 367)
         Me.TableLayoutPanel1.TabIndex = 2
         '
         'Label3
@@ -145,7 +145,7 @@ Partial Class LaunchNewInstancesForm
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InstanceTypeToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(108, 30)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(518, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(568, 24)
         Me.MenuStrip1.TabIndex = 3
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -195,7 +195,7 @@ Partial Class LaunchNewInstancesForm
         Me.ComboBox2.FormattingEnabled = True
         Me.ComboBox2.Location = New System.Drawing.Point(111, 57)
         Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(512, 24)
+        Me.ComboBox2.Size = New System.Drawing.Size(562, 24)
         Me.ComboBox2.TabIndex = 6
         '
         'ComboBox3
@@ -206,7 +206,7 @@ Partial Class LaunchNewInstancesForm
         Me.ComboBox3.FormattingEnabled = True
         Me.ComboBox3.Location = New System.Drawing.Point(111, 87)
         Me.ComboBox3.Name = "ComboBox3"
-        Me.ComboBox3.Size = New System.Drawing.Size(512, 24)
+        Me.ComboBox3.Size = New System.Drawing.Size(562, 24)
         Me.ComboBox3.TabIndex = 7
         '
         'Label5
@@ -269,7 +269,7 @@ Partial Class LaunchNewInstancesForm
         Me.ComboBox4.FormattingEnabled = True
         Me.ComboBox4.Location = New System.Drawing.Point(111, 117)
         Me.ComboBox4.Name = "ComboBox4"
-        Me.ComboBox4.Size = New System.Drawing.Size(512, 24)
+        Me.ComboBox4.Size = New System.Drawing.Size(562, 24)
         Me.ComboBox4.TabIndex = 12
         '
         'ComboBox5
@@ -280,7 +280,7 @@ Partial Class LaunchNewInstancesForm
         Me.ComboBox5.FormattingEnabled = True
         Me.ComboBox5.Location = New System.Drawing.Point(111, 147)
         Me.ComboBox5.Name = "ComboBox5"
-        Me.ComboBox5.Size = New System.Drawing.Size(512, 24)
+        Me.ComboBox5.Size = New System.Drawing.Size(562, 24)
         Me.ComboBox5.TabIndex = 13
         '
         'ComboBox6
@@ -291,7 +291,7 @@ Partial Class LaunchNewInstancesForm
         Me.ComboBox6.FormattingEnabled = True
         Me.ComboBox6.Location = New System.Drawing.Point(111, 177)
         Me.ComboBox6.Name = "ComboBox6"
-        Me.ComboBox6.Size = New System.Drawing.Size(512, 24)
+        Me.ComboBox6.Size = New System.Drawing.Size(562, 24)
         Me.ComboBox6.TabIndex = 14
         '
         'ComboBox7
@@ -302,7 +302,7 @@ Partial Class LaunchNewInstancesForm
         Me.ComboBox7.FormattingEnabled = True
         Me.ComboBox7.Location = New System.Drawing.Point(111, 207)
         Me.ComboBox7.Name = "ComboBox7"
-        Me.ComboBox7.Size = New System.Drawing.Size(512, 24)
+        Me.ComboBox7.Size = New System.Drawing.Size(562, 24)
         Me.ComboBox7.TabIndex = 15
         '
         'CheckBoxTerminationProtection
@@ -319,7 +319,7 @@ Partial Class LaunchNewInstancesForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(813, 415)
+        Me.ClientSize = New System.Drawing.Size(700, 391)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.MainMenuStrip = Me.MenuStrip1
