@@ -154,7 +154,7 @@ Partial Class InstanceMetricBrowserForm
         Me.Name = "InstanceMetricBrowserForm"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "InstanceMetricBrowser"
+        Me.Text = "Basic Metric Browser"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()

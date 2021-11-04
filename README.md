@@ -12,8 +12,14 @@ Fully based on the official AWS .NET SDK using .NET 5.0.
 3.2. Bulk create and attach EBS volumes to an instance.<br/>
 3.3. ...wip...
 4. ..
-<img alt="alt_text" src="main-form.png" />
 
+## Form Examples
+### Main form
+<img alt="alt_text" src="main-form.png" />
+### Metric browser
+<img alt="alt_text" src="metric-browser.png" />
+### Bulk change instance type
+<img alt="alt_text" src="change-instance-type.png" />
 
 ## Security
 1. The AWS Access Key must have full administrator access.

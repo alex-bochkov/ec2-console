@@ -199,7 +199,7 @@ Partial Class ChangeInstanceType
         Me.Name = "ChangeInstanceType"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "ChangeInstanceType"
+        Me.Text = "Change Instance Type"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
