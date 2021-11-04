@@ -1026,7 +1026,16 @@ Public Class Form1
 
 
         Dim DetailedMonitoringEnabled As Boolean = DetailedMonitoring = "enabled"
-        Dim Past60Minutes = AmazonApi.GetCpuUtilizationPerInstance(CurrentAccount, InstanceID, DetailedMonitoringEnabled)
+
+        Dim StartDate As DateTime = Now.AddHours(-1)
+        Dim EndDate As DateTime = Now
+
+        Dim Period As Integer = 300
+        If DetailedMonitoring = "enabled" Then
+            Period = 60
+        End If
+
+        Dim Past60Minutes = AmazonApi.GetCpuUtilizationPerInstance(CurrentAccount, InstanceID, Period, "CPUUtilization", "Maximum", StartDate, EndDate)
 
         Past60Minutes.Sort(Function(elementA As Amazon.CloudWatch.Model.Datapoint, elementB As Amazon.CloudWatch.Model.Datapoint)
 
@@ -1035,12 +1044,9 @@ Public Class Form1
                            End Function)
 
         Dim ls = New LineSeries With {.Title = String.Format("Max CPU per minute")}
-        Dim i = 0
         For Each DataPoint In Past60Minutes
-            i += 1
-            'ls.Points.Add(New DataPoint(DataPoint.Timestamp.Ticks, DataPoint.Maximum))
             ls.Points.Add(New DataPoint(DateTimeAxis.ToDouble(DataPoint.Timestamp.ToLocalTime), DataPoint.Maximum))
-            'ls.Points.Add(New DataPoint(DataPoint.Maximum, DataPoint.Timestamp.Ticks))
+
         Next
 
         plot.Series.Add(ls)
@@ -1595,6 +1601,15 @@ Public Class Form1
         Next
 
 
+
+    End Sub
+    Private Sub ButtonMetricBrowser_Click(sender As Object, e As EventArgs) Handles ButtonMetricBrowser.Click
+
+        Dim FormInstanceType = New InstanceMetricBrowserForm
+        FormInstanceType.CurrentAccount = CurrentAccount
+        FormInstanceType.InstanceID = GetSelectedInstanceId()
+        FormInstanceType.StartPosition = FormStartPosition.CenterScreen
+        FormInstanceType.ShowDialog()
 
     End Sub
 

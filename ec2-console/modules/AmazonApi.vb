@@ -927,21 +927,22 @@
 
         Public Function GetCpuUtilizationPerInstance(AwsAccount As AwsAccount,
                                                      InstanceId As String,
-                                                     DetailedMonitoringEnabled As Boolean) As List(Of Amazon.CloudWatch.Model.Datapoint)
+                                                     Period As String,
+                                                     MetricName As String,
+                                                     Statistics As String,
+                                                     StartTime As DateTime,
+                                                     EndTime As DateTime) As List(Of Amazon.CloudWatch.Model.Datapoint)
 
             Dim client = NewAmazonCloudWatchClient(AwsAccount)
 
             Dim request = New Amazon.CloudWatch.Model.GetMetricStatisticsRequest
-            request.StartTimeUtc = Now.AddHours(-1).ToUniversalTime
-            request.EndTimeUtc = Now.ToUniversalTime
-            If DetailedMonitoringEnabled Then
-                request.Period = 60
-            Else
-                request.Period = 300
-            End If
-            request.Statistics.Add("Maximum")
+            request.StartTimeUtc = StartTime.ToUniversalTime
+            request.EndTimeUtc = EndTime.ToUniversalTime
+
+            request.Period = Period
+            request.Statistics.Add(Statistics)
             request.Namespace = "AWS/EC2"
-            request.MetricName = "CPUUtilization"
+            request.MetricName = MetricName
 
             request.Dimensions.Add(New Amazon.CloudWatch.Model.Dimension With {.Name = "InstanceId", .Value = InstanceId})
 

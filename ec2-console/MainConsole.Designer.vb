@@ -107,12 +107,13 @@ Partial Class Form1
         Me.ColumnHeaderEncrypted = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderKmsKeyId = New System.Windows.Forms.ColumnHeader()
         Me.TabPageMonitoring = New System.Windows.Forms.TabPage()
+        Me.PlotViewInstanceCPU = New OxyPlot.WindowsForms.PlotView()
         Me.TabPageTags = New System.Windows.Forms.TabPage()
         Me.ButtonEditTags = New System.Windows.Forms.Button()
         Me.ListViewInstanceTags = New System.Windows.Forms.ListView()
         Me.ColumnHeaderKey = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderValue = New System.Windows.Forms.ColumnHeader()
-        Me.PlotViewInstanceCPU = New OxyPlot.WindowsForms.PlotView()
+        Me.ButtonMetricBrowser = New System.Windows.Forms.Button()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStripMain.SuspendLayout()
         Me.TabControl.SuspendLayout()
@@ -416,7 +417,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(526, 246)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(526, 247)
         Me.TableLayoutPanel2.TabIndex = 1
         '
         'TextBoxInstanceSystemStatus
@@ -633,7 +634,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 261)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 262)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -972,7 +973,7 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 25)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 233)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 234)
         Me.ListViewInstanceVolumes.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
@@ -1030,6 +1031,7 @@ Partial Class Form1
         '
         'TabPageMonitoring
         '
+        Me.TabPageMonitoring.Controls.Add(Me.ButtonMetricBrowser)
         Me.TabPageMonitoring.Controls.Add(Me.PlotViewInstanceCPU)
         Me.TabPageMonitoring.Location = New System.Drawing.Point(4, 25)
         Me.TabPageMonitoring.Name = "TabPageMonitoring"
@@ -1037,6 +1039,19 @@ Partial Class Form1
         Me.TabPageMonitoring.TabIndex = 5
         Me.TabPageMonitoring.Text = "Monitoring"
         Me.TabPageMonitoring.UseVisualStyleBackColor = True
+        '
+        'PlotViewInstanceCPU
+        '
+        Me.PlotViewInstanceCPU.BackColor = System.Drawing.Color.White
+        Me.PlotViewInstanceCPU.Location = New System.Drawing.Point(3, 33)
+        Me.PlotViewInstanceCPU.Name = "PlotViewInstanceCPU"
+        Me.PlotViewInstanceCPU.PanCursor = System.Windows.Forms.Cursors.Hand
+        Me.PlotViewInstanceCPU.Size = New System.Drawing.Size(295, 212)
+        Me.PlotViewInstanceCPU.TabIndex = 0
+        Me.PlotViewInstanceCPU.Text = "PlotViewInstanceCPU"
+        Me.PlotViewInstanceCPU.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
+        Me.PlotViewInstanceCPU.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE
+        Me.PlotViewInstanceCPU.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS
         '
         'TabPageTags
         '
@@ -1070,7 +1085,7 @@ Partial Class Form1
         Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 28)
         Me.ListViewInstanceTags.Name = "ListViewInstanceTags"
         Me.ListViewInstanceTags.ShowGroups = False
-        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 227)
+        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 228)
         Me.ListViewInstanceTags.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceTags.TabIndex = 0
         Me.ListViewInstanceTags.UseCompatibleStateImageBehavior = False
@@ -1086,18 +1101,14 @@ Partial Class Form1
         Me.ColumnHeaderValue.Text = "Value"
         Me.ColumnHeaderValue.Width = 500
         '
-        'PlotViewInstanceCPU
+        'ButtonMetricBrowser
         '
-        Me.PlotViewInstanceCPU.BackColor = System.Drawing.Color.White
-        Me.PlotViewInstanceCPU.Location = New System.Drawing.Point(3, 3)
-        Me.PlotViewInstanceCPU.Name = "PlotViewInstanceCPU"
-        Me.PlotViewInstanceCPU.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.PlotViewInstanceCPU.Size = New System.Drawing.Size(295, 242)
-        Me.PlotViewInstanceCPU.TabIndex = 0
-        Me.PlotViewInstanceCPU.Text = "PlotViewInstanceCPU"
-        Me.PlotViewInstanceCPU.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
-        Me.PlotViewInstanceCPU.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE
-        Me.PlotViewInstanceCPU.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS
+        Me.ButtonMetricBrowser.Location = New System.Drawing.Point(3, 0)
+        Me.ButtonMetricBrowser.Name = "ButtonMetricBrowser"
+        Me.ButtonMetricBrowser.Size = New System.Drawing.Size(134, 23)
+        Me.ButtonMetricBrowser.TabIndex = 1
+        Me.ButtonMetricBrowser.Text = "Metric Browser"
+        Me.ButtonMetricBrowser.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -1237,4 +1248,5 @@ Partial Class Form1
     Friend WithEvents TextBox7 As TextBox
     Friend WithEvents ButtonOpenInstanceTypeForm As Button
     Friend WithEvents PlotViewInstanceCPU As OxyPlot.WindowsForms.PlotView
+    Friend WithEvents ButtonMetricBrowser As Button
 End Class
