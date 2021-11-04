@@ -91,6 +91,7 @@ Public Class Form1
         InstanceDataSource.Columns.Add("PrivateIpAddress", GetType(String))
         InstanceDataSource.Columns.Add("PlatformDetails", GetType(String))
         InstanceDataSource.Columns.Add("LaunchTime", GetType(DateTime))
+        'InstanceDataSource.Columns.Add("AverageCpuUtilizationPastHour", GetType(Integer))
         InstanceDataSource.Columns.Add("NumberOfVolumes", GetType(Integer))
         InstanceDataSource.Columns.Add("NumberOfSecurityGroups", GetType(Integer))
         InstanceDataSource.Columns.Add("NumberOfTags", GetType(Integer))
@@ -129,21 +130,30 @@ Public Class Form1
                 Case "LaunchTime"
                     Column.Width = 200
 
+                Case "AverageCpuUtilizationPastHour"
+                    Column.Width = 100
+                    Column.Text = "avg CPU %"
+                    Column.TextAlign = HorizontalAlignment.Right
+
                 Case "NumberOfVolumes"
                     Column.Width = 60
                     Column.Text = "# vol."
+                    Column.TextAlign = HorizontalAlignment.Right
 
                 Case "NumberOfSecurityGroups"
                     Column.Width = 60
                     Column.Text = "# SGs"
+                    Column.TextAlign = HorizontalAlignment.Right
 
                 Case "NumberOfTags"
                     Column.Width = 60
                     Column.Text = "# tags"
+                    Column.TextAlign = HorizontalAlignment.Right
 
                 Case "NumberOfCores"
                     Column.Width = 70
                     Column.Text = "# cores"
+                    Column.TextAlign = HorizontalAlignment.Right
 
                 Case Else
                     Column.Width = 100
@@ -754,6 +764,8 @@ Public Class Form1
 
             InstanceStatusTable = AmazonApi.ListEc2InstanceStatuses(CurrentAccount, ListRunningInstances)
 
+            'Dim AverageCPU = AmazonApi.GetCpuUtilizationPerInstance(CurrentAccount, ListRunningInstances)
+
             Dim i = 0
             For Each instance In InstanceList
 
@@ -782,6 +794,10 @@ Public Class Form1
 
                 End If
 
+                ' Dim AvgCPU As Integer = 0
+                ' If AverageCPU.TryGetValue(instance.InstanceId, AvgCPU) Then
+                '     RowRepresentation.Item("AverageCpuUtilizationPastHour") = AvgCPU
+                ' End If
 
                 RowRepresentation.Item("State") = instance.State.Name.Value
                 RowRepresentation.Item("InstanceId") = instance.InstanceId
@@ -908,19 +924,24 @@ Public Class Form1
 
             Dim InstanceVolume = Dict.GetValueOrDefault(InstanceVolumeMapping.Ebs.VolumeId)
 
-            Dim ListViewItemVolume As ListViewItem = New ListViewItem(InstanceVolumeMapping.Ebs.VolumeId)
-            ListViewItemVolume.SubItems.Add(InstanceVolumeMapping.DeviceName)
-            ListViewItemVolume.SubItems.Add(InstanceVolume.VolumeType.Value)
-            ListViewItemVolume.SubItems.Add(InstanceVolume.Size)
-            ListViewItemVolume.SubItems.Add(InstanceVolume.Iops)
-            ListViewItemVolume.SubItems.Add(InstanceVolume.Throughput)
-            ListViewItemVolume.SubItems.Add(InstanceVolumeMapping.Ebs.AttachTime.ToString)
-            ListViewItemVolume.SubItems.Add(InstanceVolume.Encrypted.ToString)
-            ListViewItemVolume.SubItems.Add(InstanceVolume.KmsKeyId)
-            ListViewItemVolume.SubItems.Add(InstanceVolumeMapping.Ebs.DeleteOnTermination)
-            ListViewItemVolume.Tag = InstanceVolumeMapping.Ebs.VolumeId
+            If InstanceVolume IsNot Nothing Then
 
-            ListViewInstanceVolumes.Items.Add(ListViewItemVolume)
+                Dim ListViewItemVolume As ListViewItem = New ListViewItem(InstanceVolumeMapping.Ebs.VolumeId)
+                ListViewItemVolume.SubItems.Add(InstanceVolumeMapping.DeviceName)
+                ListViewItemVolume.SubItems.Add(InstanceVolume.VolumeType.Value)
+                ListViewItemVolume.SubItems.Add(InstanceVolume.Size)
+                ListViewItemVolume.SubItems.Add(InstanceVolume.Iops)
+                ListViewItemVolume.SubItems.Add(InstanceVolume.Throughput)
+                ListViewItemVolume.SubItems.Add(InstanceVolumeMapping.Ebs.AttachTime.ToString)
+                ListViewItemVolume.SubItems.Add(InstanceVolume.Encrypted.ToString)
+                ListViewItemVolume.SubItems.Add(InstanceVolume.KmsKeyId)
+                ListViewItemVolume.SubItems.Add(InstanceVolumeMapping.Ebs.DeleteOnTermination)
+                ListViewItemVolume.Tag = InstanceVolumeMapping.Ebs.VolumeId
+
+                ListViewInstanceVolumes.Items.Add(ListViewItemVolume)
+
+            End If
+
 
         Next
 

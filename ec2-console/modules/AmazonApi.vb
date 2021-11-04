@@ -913,6 +913,62 @@
 
     End Module
 
+    Module CloudWatch
+
+        Private Function NewAmazonCloudWatchClient(AwsAccount As AwsAccount) As Amazon.CloudWatch.AmazonCloudWatchClient
+
+            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
+
+            Dim client = New Amazon.CloudWatch.AmazonCloudWatchClient(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+
+            Return client
+
+        End Function
+
+        Public Function GetCpuUtilizationPerInstance(AwsAccount As AwsAccount, InstanceIds As List(Of String))
+
+            Dim InstanceData As Dictionary(Of String, Integer) = New Dictionary(Of String, Integer)
+
+            Dim client = NewAmazonCloudWatchClient(AwsAccount)
+
+            Dim request = New Amazon.CloudWatch.Model.GetMetricStatisticsRequest
+            request.StartTimeUtc = Now.AddHours(-1).ToUniversalTime
+            request.EndTimeUtc = Now.ToUniversalTime
+            request.Period = 60
+            request.Statistics.Add("Maximum")
+            request.Namespace = "AWS/EC2"
+            request.MetricName = "CPUUtilization"
+
+            For Each InstanceId In InstanceIds
+
+                request.Dimensions.Clear()
+                request.Dimensions.Add(New Amazon.CloudWatch.Model.Dimension With {.Name = "InstanceId", .Value = InstanceId})
+
+                Dim requestResult = client.GetMetricStatisticsAsync(request).GetAwaiter()
+                While Not requestResult.IsCompleted
+                    Application.DoEvents()
+                End While
+
+                Dim result = requestResult.GetResult()
+
+                Dim Avg As Integer = 0
+
+                For Each res In result.Datapoints
+                    Avg += res.Maximum
+                Next
+
+                Avg = Avg / result.Datapoints.Count
+
+                InstanceData.Add(InstanceId, Avg)
+
+            Next
+
+            Return InstanceData
+
+        End Function
+
+    End Module
+
     Module ConfigService
         Private Function NewAmazonConfigServiceClient(AwsAccount As AwsAccount) As Amazon.ConfigService.AmazonConfigServiceClient
 
