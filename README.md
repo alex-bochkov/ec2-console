@@ -18,7 +18,7 @@ Fully based on the official AWS .NET SDK using .NET 5.0.
 <img alt="alt_text" src="main-form.png" />
 **Metric browser**<br/>
 <img alt="alt_text" src="metric-browser.png" />
-**Bulk change instance type**<br/>
+**Bulk instance type change**<br/>
 <img alt="alt_text" src="change-instance-type.png" />
 
 ## Security
