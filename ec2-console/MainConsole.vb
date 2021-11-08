@@ -43,23 +43,61 @@ Public Class Form1
 
     End Sub
 
-    Sub CheckForTheAppUpdates_Async()
+    Sub CheckForTheAppUpdatesAndtrackUsage_Async()
 
-        Dim LatestRelease = ServiceFunctions.GetTheMostRecentReleaseFromGithub()
+        Try
 
-        Dim LatestVersion As Version = Version.Parse(LatestRelease.tag_name)
+            Dim LatestRelease = ServiceFunctions.GetTheMostRecentReleaseFromGithub()
 
-        Dim CurrentVersionNumber = My.Application.Info.Version
+            Dim LatestVersion As Version = Version.Parse(LatestRelease.tag_name)
 
-        If CurrentVersionNumber.CompareTo(LatestVersion) < 0 Then
+            Dim CurrentVersionNumber = My.Application.Info.Version
 
-            Dim msg = String.Format(ServiceFunctions.GetLocalizedMessage("please-download-new-version"), LatestRelease.tag_name, LatestRelease.published_at)
+            If CurrentVersionNumber.CompareTo(LatestVersion) < 0 Then
 
-            Invoke(New Action(Sub()
-                                  AddUpdateButton(msg)
-                              End Sub))
+                Dim msg = String.Format(ServiceFunctions.GetLocalizedMessage("please-download-new-version"), LatestRelease.tag_name, LatestRelease.published_at)
 
-        End If
+                Invoke(New Action(Sub()
+                                      AddUpdateButton(msg)
+                                  End Sub))
+
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
+        'set tracking API request
+        Try
+
+            ' tested - this works
+            Exit Try
+
+            'just to test that it works
+            Dim TrackingURL = "http://petstore.execute-api.us-west-2.amazonaws.com/petstore/pets"
+            Dim request As Net.HttpWebRequest = Net.WebRequest.Create(TrackingURL)
+            request.Method = "GET"
+            request.ContentType = "application/json"
+
+            'Dim webStream As IO.Stream = request.GetRequestStream()
+            'Dim requestWriter As IO.StreamWriter = New IO.StreamWriter(webStream, System.Text.Encoding.ASCII)
+            'requestWriter.Write("Hello!")
+
+            Try
+
+                Dim webResponse As Net.WebResponse = request.GetResponse()
+                Dim webStreamResponse As IO.Stream = webResponse.GetResponseStream()
+                Dim responseReader As IO.StreamReader = New IO.StreamReader(webStreamResponse)
+                Dim response As String = responseReader.ReadToEnd()
+                Dim a = 0
+
+            Catch ex As Exception
+
+            End Try
+
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 
@@ -174,7 +212,7 @@ Public Class Form1
 
         LocalizeInterface()
 
-        Dim t As New Thread(New ThreadStart(AddressOf CheckForTheAppUpdates_Async))
+        Dim t As New Thread(New ThreadStart(AddressOf CheckForTheAppUpdatesAndtrackUsage_Async))
         t.Priority = Threading.ThreadPriority.Normal
         t.Start()
 
