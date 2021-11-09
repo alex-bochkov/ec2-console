@@ -925,8 +925,10 @@
 
         End Function
 
-        Public Function GetCpuUtilizationPerInstance(AwsAccount As AwsAccount,
-                                                     InstanceId As String,
+        Public Function GetMetricStatistics(AwsAccount As AwsAccount,
+                                                     CloudWatchNamespace As String,
+                                                     DimensionName As String,
+                                                     ObjectId As String,
                                                      Period As String,
                                                      MetricName As String,
                                                      Statistics As String,
@@ -941,10 +943,10 @@
 
             request.Period = Period
             request.Statistics.Add(Statistics)
-            request.Namespace = "AWS/EC2"
+            request.Namespace = CloudWatchNamespace
             request.MetricName = MetricName
 
-            request.Dimensions.Add(New Amazon.CloudWatch.Model.Dimension With {.Name = "InstanceId", .Value = InstanceId})
+            request.Dimensions.Add(New Amazon.CloudWatch.Model.Dimension With {.Name = DimensionName, .Value = ObjectId})
 
             Dim requestResult = client.GetMetricStatisticsAsync(request).GetAwaiter()
             While Not requestResult.IsCompleted

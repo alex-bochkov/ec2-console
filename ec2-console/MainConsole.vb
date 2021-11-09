@@ -67,21 +67,18 @@ Public Class Form1
 
         End Try
 
-        'set tracking API request
+        'send tracking API request
         Try
 
-            ' tested - this works
-            Exit Try
-
             'just to test that it works
-            Dim TrackingURL = "http://petstore.execute-api.us-west-2.amazonaws.com/petstore/pets"
+            Dim TrackingURL = "https://x4w5djqv79.execute-api.us-west-2.amazonaws.com/prod/ping"
             Dim request As Net.HttpWebRequest = Net.WebRequest.Create(TrackingURL)
-            request.Method = "GET"
+            request.Method = "PUT"
             request.ContentType = "application/json"
 
-            'Dim webStream As IO.Stream = request.GetRequestStream()
-            'Dim requestWriter As IO.StreamWriter = New IO.StreamWriter(webStream, System.Text.Encoding.ASCII)
-            'requestWriter.Write("Hello!")
+            Dim webStream As IO.Stream = request.GetRequestStream()
+            Dim requestWriter As IO.StreamWriter = New IO.StreamWriter(webStream, System.Text.Encoding.ASCII)
+            requestWriter.Write("Hello!")
 
             Try
 
@@ -1073,7 +1070,9 @@ Public Class Form1
             Period = 60
         End If
 
-        Dim Past60Minutes = AmazonApi.GetCpuUtilizationPerInstance(CurrentAccount, InstanceID, Period, "CPUUtilization", "Maximum", StartDate, EndDate)
+        Dim Past60Minutes = AmazonApi.GetMetricStatistics(CurrentAccount,
+                                                          "AWS/EC2", "InstanceId", InstanceID,
+                                                          Period, "CPUUtilization", "Maximum", StartDate, EndDate)
 
         Past60Minutes.Sort(Function(elementA As Amazon.CloudWatch.Model.Datapoint, elementB As Amazon.CloudWatch.Model.Datapoint)
 
@@ -1109,6 +1108,10 @@ Public Class Form1
                 Dim mVolume2 As ToolStripItem = New ToolStripMenuItem("Volume Config History", My.Resources.Timeline.ToBitmap, AddressOf GetVolumeConfigHistory)
                 mVolume2.Tag = hti.Item.Tag
                 m.Items.Add(mVolume2)
+
+                Dim mVolume3 As ToolStripItem = New ToolStripMenuItem("CloudWatch Metrics", Nothing, AddressOf OpenMetricBrowserFormVolume)
+                mVolume3.Tag = hti.Item.Tag
+                m.Items.Add(mVolume3)
 
                 m.Show(Cursor.Position)
 
@@ -1224,6 +1227,25 @@ Public Class Form1
         Dim InstanceID = GetSelectedInstanceId()
 
         OpenConfigHistoryForm(InstanceID)
+
+    End Sub
+
+    Sub OpenMetricBrowserFormVolume(sender As Object, e As EventArgs)
+
+        Dim VolumeId = sender.tag
+
+        OpenMetricBrowserForm_WithVolumeIDs(New List(Of String) From {VolumeId})
+
+    End Sub
+
+    Sub OpenMetricBrowserForm_WithVolumeIDs(VolumeIDs As List(Of String))
+
+        Dim FormInstanceType = New MetricBrowserForm
+        FormInstanceType.CurrentAccount = CurrentAccount
+        FormInstanceType.ObjectType = "volume"
+        FormInstanceType.ObjectIDs = VolumeIDs
+        FormInstanceType.StartPosition = FormStartPosition.CenterScreen
+        FormInstanceType.Show()
 
     End Sub
 
@@ -1656,11 +1678,12 @@ Public Class Form1
 
     Sub OpenMetricBrowserForm_WithInstanceIDs(InstanceIDs As List(Of String))
 
-        Dim FormInstanceType = New InstanceMetricBrowserForm
+        Dim FormInstanceType = New MetricBrowserForm
         FormInstanceType.CurrentAccount = CurrentAccount
-        FormInstanceType.InstanceIDs = InstanceIDs
+        FormInstanceType.ObjectType = "instance"
+        FormInstanceType.ObjectIDs = InstanceIDs
         FormInstanceType.StartPosition = FormStartPosition.CenterScreen
-        FormInstanceType.ShowDialog()
+        FormInstanceType.Show()
 
     End Sub
 

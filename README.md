@@ -24,7 +24,7 @@ Fully based on the official AWS .NET SDK using .NET 5.0.
 ## Security
 1. The AWS Access Key must have full administrator access.
 2. Account settings with sensitive credentials are stored in the application settings encrypted using standard Windows cryptographic function `System.Security.Cryptography.ProtectedData`. I assume this is safe enough.
-3. I am tracking application usage by calling the AWS API Gateway endpoint every time the application starts. No personal data will ever be collected (please refer to the CheckForTheAppUpdatesAndtrackUsage_Async function in the main form). The app sends following attributes: (WIP - will list as soon as it is enabled).
+3. I am tracking application usage by calling the AWS API Gateway endpoint every time the application starts. Please refer to the CheckForTheAppUpdatesAndtrackUsage_Async function in the main form - no data is sent at all.
 
 ## Your help and feedback is greatly appreciated
 1. A fast and nice-looking interface is everything. Please let me know if there are any better *free* Windows Forms components that you might find useful here.

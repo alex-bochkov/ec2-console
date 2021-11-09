@@ -3,10 +3,13 @@ Imports OxyPlot
 Imports OxyPlot.Axes
 Imports OxyPlot.Series
 
-Public Class InstanceMetricBrowserForm
+Public Class MetricBrowserForm
 
     Public CurrentAccount As AwsAccount
-    Public InstanceIDs As List(Of String) = New List(Of String)
+    Public ObjectIDs As List(Of String) = New List(Of String)
+    Public ObjectType As String
+    Private CloudWatchNamespace As String = ""
+    Private DimensionName As String = ""
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -19,12 +22,45 @@ Public Class InstanceMetricBrowserForm
 
     Private Sub InstanceMetricBrowser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        ComboBoxMetricType.Items.Clear()
+
+        If ObjectType = "instance" Then
+
+            CloudWatchNamespace = "AWS/EC2"
+            DimensionName = "InstanceId"
+
+            ComboBoxMetricType.Items.Add("CPUUtilization")
+            ComboBoxMetricType.Items.Add("NetworkOut")
+            ComboBoxMetricType.Items.Add("NetworkPacketsOut")
+            ComboBoxMetricType.Items.Add("NetworkIn")
+            ComboBoxMetricType.Items.Add("NetworkPacketsIn")
+            ComboBoxMetricType.Items.Add("EBSReadBytes")
+            ComboBoxMetricType.Items.Add("EBSReadOps")
+            ComboBoxMetricType.Items.Add("EBSWriteBytes")
+            ComboBoxMetricType.Items.Add("EBSWriteOps")
+
+        ElseIf ObjectType = "volume" Then
+
+            CloudWatchNamespace = "AWS/EBS"
+            DimensionName = "VolumeId"
+
+            ComboBoxMetricType.Items.Add("VolumeIdleTime")
+            ComboBoxMetricType.Items.Add("VolumeQueueLength")
+            ComboBoxMetricType.Items.Add("VolumeReadBytes")
+            ComboBoxMetricType.Items.Add("VolumeReadOps")
+            ComboBoxMetricType.Items.Add("VolumeTotalReadTime")
+            ComboBoxMetricType.Items.Add("VolumeTotalWriteTime")
+            ComboBoxMetricType.Items.Add("VolumeWriteBytes")
+            ComboBoxMetricType.Items.Add("VolumeWriteOps")
+
+        End If
+
         ComboBoxMetricType.SelectedIndex = 0
         ComboBoxGranularity.SelectedIndex = 0
         ComboBoxPeriod.SelectedIndex = 0
         ComboBoxStat.SelectedIndex = 0
 
-        TextBoxInstanceId.Text = String.Join(", ", InstanceIDs)
+        TextBoxObjectIds.Text = String.Join(", ", ObjectIDs)
 
         ShowGraph()
 
@@ -58,13 +94,19 @@ Public Class InstanceMetricBrowserForm
         '********************************************************
 
         Dim plot = New PlotModel With {.Subtitle = Metric}
+        Dim Legend = New Legends.Legend
+        Legend.LegendPlacement = Legends.LegendPlacement.Inside
+        Legend.LegendPosition = Legends.LegendPosition.RightTop
+        Legend.SelectionMode = OxyPlot.SelectionMode.Multiple
+
+        plot.Legends.Add(Legend)
 
         Dim LinearAxis1 = New LinearAxis
         LinearAxis1.Position = AxisPosition.Left
         LinearAxis1.Minimum = 0
         LinearAxis1.AbsoluteMinimum = 0
         LinearAxis1.IsZoomEnabled = False
-        LinearAxis1.TickStyle = Axes.TickStyle.Inside
+        'LinearAxis1.TickStyle = Axes.TickStyle.Inside
         plot.Axes.Add(LinearAxis1)
 
 
@@ -72,14 +114,17 @@ Public Class InstanceMetricBrowserForm
         LinearAxis2.Position = AxisPosition.Bottom
         LinearAxis2.Minimum = DateTimeAxis.ToDouble(Now.AddHours(-HoursBack))
         LinearAxis2.Maximum = DateTimeAxis.ToDouble(Now)
-        LinearAxis2.TickStyle = Axes.TickStyle.Inside
+        'LinearAxis2.TickStyle = Axes.TickStyle.Inside
         LinearAxis2.IntervalType = DateTimeIntervalType.Minutes
 
         plot.Axes.Add(LinearAxis2)
 
-        For Each InstanceId In InstanceIDs
+        For Each ObjectId In ObjectIDs
 
-            Dim DetailedRecords = AmazonApi.GetCpuUtilizationPerInstance(CurrentAccount, InstanceId, Granularity, Metric, Stat, StartDate, EndDate)
+            Dim DetailedRecords = AmazonApi.GetMetricStatistics(CurrentAccount,
+                                                                CloudWatchNamespace, DimensionName, ObjectId,
+                                                                Granularity, Metric, Stat,
+                                                                StartDate, EndDate)
 
             DetailedRecords.Sort(Function(elementA As Amazon.CloudWatch.Model.Datapoint, elementB As Amazon.CloudWatch.Model.Datapoint)
 
@@ -92,7 +137,7 @@ Public Class InstanceMetricBrowserForm
             For Each DataPoint In DetailedRecords
 
                 If ls.Title = "" Then
-                    ls.Title = DataPoint.Unit.Value + " / " + InstanceId
+                    ls.Title = DataPoint.Unit.Value + " / " + ObjectId
                 End If
 
                 Dim Val As Int64 = 0

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class InstanceMetricBrowserForm
+Partial Class MetricBrowserForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -30,7 +30,7 @@ Partial Class InstanceMetricBrowserForm
         Me.ComboBoxGranularity = New System.Windows.Forms.ComboBox()
         Me.ComboBoxStat = New System.Windows.Forms.ComboBox()
         Me.ComboBoxPeriod = New System.Windows.Forms.ComboBox()
-        Me.TextBoxInstanceId = New System.Windows.Forms.TextBox()
+        Me.TextBoxObjectIds = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -125,21 +125,21 @@ Partial Class InstanceMetricBrowserForm
         Me.ComboBoxPeriod.Size = New System.Drawing.Size(135, 24)
         Me.ComboBoxPeriod.TabIndex = 5
         '
-        'TextBoxInstanceId
+        'TextBoxObjectIds
         '
-        Me.TextBoxInstanceId.Location = New System.Drawing.Point(15, 5)
-        Me.TextBoxInstanceId.Name = "TextBoxInstanceId"
-        Me.TextBoxInstanceId.ReadOnly = True
-        Me.TextBoxInstanceId.Size = New System.Drawing.Size(607, 23)
-        Me.TextBoxInstanceId.TabIndex = 6
+        Me.TextBoxObjectIds.Location = New System.Drawing.Point(15, 5)
+        Me.TextBoxObjectIds.Name = "TextBoxObjectIds"
+        Me.TextBoxObjectIds.ReadOnly = True
+        Me.TextBoxObjectIds.Size = New System.Drawing.Size(607, 23)
+        Me.TextBoxObjectIds.TabIndex = 6
         '
-        'InstanceMetricBrowserForm
+        'MetricBrowserForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(1058, 574)
-        Me.Controls.Add(Me.TextBoxInstanceId)
+        Me.Controls.Add(Me.TextBoxObjectIds)
         Me.Controls.Add(Me.ComboBoxPeriod)
         Me.Controls.Add(Me.ComboBoxStat)
         Me.Controls.Add(Me.ComboBoxGranularity)
@@ -151,7 +151,7 @@ Partial Class InstanceMetricBrowserForm
         Me.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "InstanceMetricBrowserForm"
+        Me.Name = "MetricBrowserForm"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Basic Metric Browser"
@@ -167,6 +167,6 @@ Partial Class InstanceMetricBrowserForm
     Friend WithEvents ComboBoxGranularity As ComboBox
     Friend WithEvents ComboBoxStat As ComboBox
     Friend WithEvents ComboBoxPeriod As ComboBox
-    Friend WithEvents TextBoxInstanceId As TextBox
+    Friend WithEvents TextBoxObjectIds As TextBox
     Friend WithEvents Button1 As Button
 End Class

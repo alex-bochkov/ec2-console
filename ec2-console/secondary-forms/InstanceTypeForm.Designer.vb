@@ -26,6 +26,8 @@ Partial Class InstanceTypeForm
         Me.OK_Button = New System.Windows.Forms.Button()
         Me.Cancel_Button = New System.Windows.Forms.Button()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.TextBoxCores = New System.Windows.Forms.TextBox()
         Me.TextBoxClockSpeed = New System.Windows.Forms.TextBox()
         Me.TextBoxArchitecture = New System.Windows.Forms.TextBox()
@@ -40,9 +42,7 @@ Partial Class InstanceTypeForm
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TextBoxLocalStorage = New System.Windows.Forms.TextBox()
         Me.TextBoxMemory = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.TextBoxPriceLinux = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
         Me.TextBoxPriceWindows = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
@@ -56,31 +56,31 @@ Partial Class InstanceTypeForm
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(626, 287)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(498, 306)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(170, 34)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(194, 36)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'OK_Button
         '
         Me.OK_Button.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.OK_Button.Location = New System.Drawing.Point(4, 3)
-        Me.OK_Button.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.OK_Button.Location = New System.Drawing.Point(5, 3)
+        Me.OK_Button.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.OK_Button.Name = "OK_Button"
-        Me.OK_Button.Size = New System.Drawing.Size(77, 27)
+        Me.OK_Button.Size = New System.Drawing.Size(87, 29)
         Me.OK_Button.TabIndex = 0
         Me.OK_Button.Text = "OK"
         '
         'Cancel_Button
         '
         Me.Cancel_Button.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Cancel_Button.Location = New System.Drawing.Point(89, 3)
-        Me.Cancel_Button.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Cancel_Button.Location = New System.Drawing.Point(102, 3)
+        Me.Cancel_Button.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.Cancel_Button.Name = "Cancel_Button"
-        Me.Cancel_Button.Size = New System.Drawing.Size(77, 27)
+        Me.Cancel_Button.Size = New System.Drawing.Size(87, 29)
         Me.Cancel_Button.TabIndex = 1
         Me.Cancel_Button.Text = "Cancel"
         '
@@ -109,7 +109,7 @@ Partial Class InstanceTypeForm
         Me.TableLayoutPanel2.Controls.Add(Me.TextBoxMemory, 1, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.TextBoxPriceLinux, 1, 9)
         Me.TableLayoutPanel2.Controls.Add(Me.TextBoxPriceWindows, 1, 10)
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(5, 2)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(6, 2)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 12
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
@@ -123,19 +123,45 @@ Partial Class InstanceTypeForm
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(791, 287)
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(687, 306)
         Me.TableLayoutPanel2.TabIndex = 3
+        '
+        'Label9
+        '
+        Me.Label9.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(3, 232)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(197, 29)
+        Me.Label9.TabIndex = 16
+        Me.Label9.Text = "On Demand Price \ Windows"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label8
+        '
+        Me.Label8.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(3, 203)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(197, 29)
+        Me.Label8.TabIndex = 14
+        Me.Label8.Text = "On Demand Price \ Linux"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TextBoxCores
         '
         Me.TextBoxCores.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxCores.Location = New System.Drawing.Point(169, 90)
+        Me.TextBoxCores.Location = New System.Drawing.Point(206, 90)
         Me.TextBoxCores.Name = "TextBoxCores"
         Me.TextBoxCores.ReadOnly = True
-        Me.TextBoxCores.Size = New System.Drawing.Size(623, 23)
+        Me.TextBoxCores.Size = New System.Drawing.Size(478, 23)
         Me.TextBoxCores.TabIndex = 7
         '
         'TextBoxClockSpeed
@@ -143,10 +169,10 @@ Partial Class InstanceTypeForm
         Me.TextBoxClockSpeed.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxClockSpeed.Location = New System.Drawing.Point(169, 61)
+        Me.TextBoxClockSpeed.Location = New System.Drawing.Point(206, 61)
         Me.TextBoxClockSpeed.Name = "TextBoxClockSpeed"
         Me.TextBoxClockSpeed.ReadOnly = True
-        Me.TextBoxClockSpeed.Size = New System.Drawing.Size(623, 23)
+        Me.TextBoxClockSpeed.Size = New System.Drawing.Size(478, 23)
         Me.TextBoxClockSpeed.TabIndex = 6
         '
         'TextBoxArchitecture
@@ -154,10 +180,10 @@ Partial Class InstanceTypeForm
         Me.TextBoxArchitecture.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxArchitecture.Location = New System.Drawing.Point(169, 32)
+        Me.TextBoxArchitecture.Location = New System.Drawing.Point(206, 32)
         Me.TextBoxArchitecture.Name = "TextBoxArchitecture"
         Me.TextBoxArchitecture.ReadOnly = True
-        Me.TextBoxArchitecture.Size = New System.Drawing.Size(623, 23)
+        Me.TextBoxArchitecture.Size = New System.Drawing.Size(478, 23)
         Me.TextBoxArchitecture.TabIndex = 5
         '
         'Label1
@@ -168,7 +194,7 @@ Partial Class InstanceTypeForm
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(160, 29)
+        Me.Label1.Size = New System.Drawing.Size(197, 29)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Instance Type"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -181,7 +207,7 @@ Partial Class InstanceTypeForm
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(3, 29)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(160, 29)
+        Me.Label2.Size = New System.Drawing.Size(197, 29)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Architecture"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -194,7 +220,7 @@ Partial Class InstanceTypeForm
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(3, 58)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(160, 29)
+        Me.Label4.Size = New System.Drawing.Size(197, 29)
         Me.Label4.TabIndex = 3
         Me.Label4.Text = "Sustained clock speed (GHz)"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -207,7 +233,7 @@ Partial Class InstanceTypeForm
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(3, 87)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(160, 29)
+        Me.Label3.Size = New System.Drawing.Size(197, 29)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Cores"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -217,10 +243,10 @@ Partial Class InstanceTypeForm
         Me.TextBoxInstanceType.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxInstanceType.Location = New System.Drawing.Point(169, 3)
+        Me.TextBoxInstanceType.Location = New System.Drawing.Point(206, 3)
         Me.TextBoxInstanceType.Name = "TextBoxInstanceType"
         Me.TextBoxInstanceType.ReadOnly = True
-        Me.TextBoxInstanceType.Size = New System.Drawing.Size(623, 23)
+        Me.TextBoxInstanceType.Size = New System.Drawing.Size(478, 23)
         Me.TextBoxInstanceType.TabIndex = 4
         '
         'Label6
@@ -231,7 +257,7 @@ Partial Class InstanceTypeForm
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(3, 145)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(160, 29)
+        Me.Label6.Size = New System.Drawing.Size(197, 29)
         Me.Label6.TabIndex = 10
         Me.Label6.Text = "Network Performance"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -241,10 +267,10 @@ Partial Class InstanceTypeForm
         Me.TextBoxNetworkPerformance.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxNetworkPerformance.Location = New System.Drawing.Point(169, 148)
+        Me.TextBoxNetworkPerformance.Location = New System.Drawing.Point(206, 148)
         Me.TextBoxNetworkPerformance.Name = "TextBoxNetworkPerformance"
         Me.TextBoxNetworkPerformance.ReadOnly = True
-        Me.TextBoxNetworkPerformance.Size = New System.Drawing.Size(623, 23)
+        Me.TextBoxNetworkPerformance.Size = New System.Drawing.Size(478, 23)
         Me.TextBoxNetworkPerformance.TabIndex = 11
         '
         'Label7
@@ -255,7 +281,7 @@ Partial Class InstanceTypeForm
         Me.Label7.AutoSize = True
         Me.Label7.Location = New System.Drawing.Point(3, 174)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(160, 29)
+        Me.Label7.Size = New System.Drawing.Size(197, 29)
         Me.Label7.TabIndex = 12
         Me.Label7.Text = "Local Storage (GB)"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -268,7 +294,7 @@ Partial Class InstanceTypeForm
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(3, 116)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(160, 29)
+        Me.Label5.Size = New System.Drawing.Size(197, 29)
         Me.Label5.TabIndex = 8
         Me.Label5.Text = "Memory (GiB)"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -278,10 +304,10 @@ Partial Class InstanceTypeForm
         Me.TextBoxLocalStorage.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxLocalStorage.Location = New System.Drawing.Point(169, 177)
+        Me.TextBoxLocalStorage.Location = New System.Drawing.Point(206, 177)
         Me.TextBoxLocalStorage.Name = "TextBoxLocalStorage"
         Me.TextBoxLocalStorage.ReadOnly = True
-        Me.TextBoxLocalStorage.Size = New System.Drawing.Size(623, 23)
+        Me.TextBoxLocalStorage.Size = New System.Drawing.Size(478, 23)
         Me.TextBoxLocalStorage.TabIndex = 9
         '
         'TextBoxMemory
@@ -289,71 +315,46 @@ Partial Class InstanceTypeForm
         Me.TextBoxMemory.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxMemory.Location = New System.Drawing.Point(169, 119)
+        Me.TextBoxMemory.Location = New System.Drawing.Point(206, 119)
         Me.TextBoxMemory.Name = "TextBoxMemory"
         Me.TextBoxMemory.ReadOnly = True
-        Me.TextBoxMemory.Size = New System.Drawing.Size(623, 23)
+        Me.TextBoxMemory.Size = New System.Drawing.Size(478, 23)
         Me.TextBoxMemory.TabIndex = 13
-        '
-        'Label8
-        '
-        Me.Label8.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(3, 203)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(160, 29)
-        Me.Label8.TabIndex = 14
-        Me.Label8.Text = "On Demand Price \ Linux"
-        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TextBoxPriceLinux
         '
         Me.TextBoxPriceLinux.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxPriceLinux.Location = New System.Drawing.Point(169, 206)
+        Me.TextBoxPriceLinux.Location = New System.Drawing.Point(206, 206)
         Me.TextBoxPriceLinux.Name = "TextBoxPriceLinux"
         Me.TextBoxPriceLinux.ReadOnly = True
-        Me.TextBoxPriceLinux.Size = New System.Drawing.Size(623, 23)
+        Me.TextBoxPriceLinux.Size = New System.Drawing.Size(478, 23)
         Me.TextBoxPriceLinux.TabIndex = 15
-        '
-        'Label9
-        '
-        Me.Label9.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(3, 232)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(160, 29)
-        Me.Label9.TabIndex = 16
-        Me.Label9.Text = "On Demand Price \ Windows"
-        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TextBoxPriceWindows
         '
         Me.TextBoxPriceWindows.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxPriceWindows.Location = New System.Drawing.Point(169, 235)
+        Me.TextBoxPriceWindows.Location = New System.Drawing.Point(206, 235)
         Me.TextBoxPriceWindows.Name = "TextBoxPriceWindows"
         Me.TextBoxPriceWindows.ReadOnly = True
-        Me.TextBoxPriceWindows.Size = New System.Drawing.Size(623, 23)
+        Me.TextBoxPriceWindows.Size = New System.Drawing.Size(478, 23)
         Me.TextBoxPriceWindows.TabIndex = 17
         '
         'InstanceTypeForm
         '
         Me.AcceptButton = Me.OK_Button
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(801, 323)
+        Me.ClientSize = New System.Drawing.Size(698, 345)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "InstanceTypeForm"
