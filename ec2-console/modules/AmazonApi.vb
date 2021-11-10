@@ -445,6 +445,42 @@
 
         End Sub
 
+        Public Sub ModifyInstanceMonitoring_DetailedMonitoring(AwsAccount As AwsAccount,
+                                     InstanceId As String,
+                                     DetailedMonitoringEnabled As Boolean)
+
+            Dim client = NewAmazonEC2Client(AwsAccount)
+
+            If DetailedMonitoringEnabled Then
+
+                Dim request = New Amazon.EC2.Model.MonitorInstancesRequest
+                request.InstanceIds = New List(Of String) From {InstanceId}
+
+                Dim requestResult = client.MonitorInstancesAsync(request).GetAwaiter()
+                While Not requestResult.IsCompleted
+                    Application.DoEvents()
+                End While
+
+                Dim result = requestResult.GetResult()
+
+            Else
+
+                Dim request = New Amazon.EC2.Model.UnmonitorInstancesRequest
+                request.InstanceIds = New List(Of String) From {InstanceId}
+
+                Dim requestResult = client.UnmonitorInstancesAsync(request).GetAwaiter()
+                While Not requestResult.IsCompleted
+                    Application.DoEvents()
+                End While
+
+                Dim result = requestResult.GetResult()
+
+            End If
+
+            'Return result.HttpStatusCode.OK
+
+        End Sub
+
         Public Function DescribeVolumeStatus(AwsAccount As AwsAccount,
                                      VolumeId As String) As Amazon.EC2.Model.VolumeStatusItem
 

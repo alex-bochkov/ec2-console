@@ -215,15 +215,7 @@ Public Class Form1
 
         ConfigureLogging()
 
-        Try
-
-            SetFirstCurrentAccount()
-
-        Catch ex As Exception
-
-            Dim errorMessage As String = ex.Message
-
-        End Try
+        SetFirstCurrentAccount()
 
     End Sub
     Sub ShowAllRegions()
@@ -318,25 +310,37 @@ Public Class Form1
 
     Sub SetCurrentAccount()
 
-        ApplyDefaultInstanceFilter()
+        Try
 
-        RefreshFilterRepresentation()
+            ApplyDefaultInstanceFilter()
 
-        AccountsToolStripMenuItem.Text = ServiceFunctions.GetLocalizedMessage("active-account") + ": " + CurrentAccount.Description
+            RefreshFilterRepresentation()
 
-        Dim AwsRegion = Amazon.RegionEndpoint.GetBySystemName(CurrentAccount.Region)
+            AccountsToolStripMenuItem.Text = ServiceFunctions.GetLocalizedMessage("active-account") + ": " + CurrentAccount.Description
 
-        ToolStripStatusLabelCurrentRegion.Text = AwsRegion.SystemName + " / " + AwsRegion.DisplayName
+            Dim AwsRegion = Amazon.RegionEndpoint.GetBySystemName(CurrentAccount.Region)
 
-        StatusStrip.BackColor = CurrentAccount.BackgroundColor
+            ToolStripStatusLabelCurrentRegion.Text = AwsRegion.SystemName + " / " + AwsRegion.DisplayName
 
-        FillInstanceList()
+            StatusStrip.BackColor = CurrentAccount.BackgroundColor
 
-        PopulateFilterMenu()
+            FillInstanceList()
 
-        ShowAccountAttributes()
+            PopulateFilterMenu()
 
-        ShowAllRegions()
+            ShowAccountAttributes()
+
+            ShowAllRegions()
+
+        Catch ex As Exception
+
+            Dim errorMessage As String = ex.Message
+            errorMessage += System.Environment.NewLine + "1. Credential Profile may have incorrect access or secret key"
+            errorMessage += System.Environment.NewLine + "2. AWS SSO session has expired "
+
+            MessageBox.Show(errorMessage, "AWS API error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
 
     End Sub
 
@@ -1185,6 +1189,7 @@ Public Class Form1
                 Dim m5 = New ToolStripMenuItem("Monitor and troubleshoot")
                 If OneInstanceSelected Then
                     m5.DropDownItems.Add(New ToolStripMenuItem("Get instance screenshot", Nothing, AddressOf GetConsoleScreenshot))
+                    m5.DropDownItems.Add(New ToolStripMenuItem("Manage detailed monitoring", Nothing, AddressOf ManageDetailedMonitoringForm))
                 End If
                 m.Items.Add(m5)
 
@@ -1357,6 +1362,19 @@ Public Class Form1
         End If
 
     End Sub
+
+    Sub ManageDetailedMonitoringForm()
+
+        Dim InstanceID = GetSelectedInstanceId()
+
+        Dim FormAddVolumes = New ChangeInstanceDetailedMonitoring
+        FormAddVolumes.CurrentAccount = CurrentAccount
+        FormAddVolumes.InstanceId = InstanceID
+        FormAddVolumes.StartPosition = FormStartPosition.CenterScreen
+        FormAddVolumes.ShowDialog()
+
+    End Sub
+
     Sub OpenAddNewVolumesForm()
 
         Dim InstanceID = GetSelectedInstanceId()

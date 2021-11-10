@@ -10,6 +10,8 @@ Public Class MetricBrowserForm
     Public ObjectType As String
     Private CloudWatchNamespace As String = ""
     Private DimensionName As String = ""
+
+    Public MetricsInBytes As List(Of String) = New List(Of String)
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -22,6 +24,8 @@ Public Class MetricBrowserForm
 
     Private Sub InstanceMetricBrowser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+
+
         ComboBoxMetricType.Items.Clear()
 
         If ObjectType = "instance" Then
@@ -31,12 +35,16 @@ Public Class MetricBrowserForm
 
             ComboBoxMetricType.Items.Add("CPUUtilization")
             ComboBoxMetricType.Items.Add("NetworkOut")
+            MetricsInBytes.Add("NetworkOut")
             ComboBoxMetricType.Items.Add("NetworkPacketsOut")
             ComboBoxMetricType.Items.Add("NetworkIn")
+            MetricsInBytes.Add("NetworkIn")
             ComboBoxMetricType.Items.Add("NetworkPacketsIn")
             ComboBoxMetricType.Items.Add("EBSReadBytes")
+            MetricsInBytes.Add("EBSReadBytes")
             ComboBoxMetricType.Items.Add("EBSReadOps")
             ComboBoxMetricType.Items.Add("EBSWriteBytes")
+            MetricsInBytes.Add("EBSWriteBytes")
             ComboBoxMetricType.Items.Add("EBSWriteOps")
 
         ElseIf ObjectType = "volume" Then
@@ -47,10 +55,12 @@ Public Class MetricBrowserForm
             ComboBoxMetricType.Items.Add("VolumeIdleTime")
             ComboBoxMetricType.Items.Add("VolumeQueueLength")
             ComboBoxMetricType.Items.Add("VolumeReadBytes")
+            MetricsInBytes.Add("VolumeReadBytes")
             ComboBoxMetricType.Items.Add("VolumeReadOps")
             ComboBoxMetricType.Items.Add("VolumeTotalReadTime")
             ComboBoxMetricType.Items.Add("VolumeTotalWriteTime")
             ComboBoxMetricType.Items.Add("VolumeWriteBytes")
+            MetricsInBytes.Add("VolumeWriteBytes")
             ComboBoxMetricType.Items.Add("VolumeWriteOps")
             ComboBoxMetricType.Items.Add("VolumeThroughputPercentage")
             ComboBoxMetricType.Items.Add("VolumeConsumedReadWriteOps")
@@ -149,9 +159,9 @@ Public Class MetricBrowserForm
             For Each DataPoint In DetailedRecords
 
                 If ls.Title = "" Then
-                    If Metric = "VolumeReadBytes" Then
-                        ls.Title = "MB"
-                    ElseIf Metric = "VolumeWriteBytes" Then
+                    If Metric = "VolumeIdleTime" Then
+                        ls.Title = "%"
+                    ElseIf MetricsInBytes.Contains(Metric) Then
                         ls.Title = "MB"
                     Else
                         ls.Title = DataPoint.Unit.Value
@@ -175,11 +185,13 @@ Public Class MetricBrowserForm
                 '********************************************************
                 ' transformations
                 If Metric = "VolumeIdleTime" Then
+
                     Val = Math.Round(Val / 60 * 100)
-                ElseIf Metric = "VolumeReadBytes" Then
+
+                ElseIf MetricsInBytes.Contains(Metric) Then
+
                     Val = Math.Round(Val / 1024 / 1024, 2)
-                ElseIf Metric = "VolumeWriteBytes" Then
-                    Val = Math.Round(Val / 1024 / 1024, 2)
+
                 End If
                 '********************************************************
 
@@ -191,10 +203,7 @@ Public Class MetricBrowserForm
 
         Next
 
-
-
         PlotView.Model = plot
-
 
     End Sub
 
