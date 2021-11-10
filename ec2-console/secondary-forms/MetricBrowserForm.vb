@@ -17,7 +17,7 @@ Public Class MetricBrowserForm
         Me.Close()
     End Sub
 
-    Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel_Button.Click
+    Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Close()
     End Sub
@@ -79,6 +79,13 @@ Public Class MetricBrowserForm
     End Sub
     Sub ShowGraph()
 
+        If Not (ComboBoxMetricType.SelectedIndex > -1 And
+            ComboBoxGranularity.SelectedIndex > -1 And
+            ComboBoxPeriod.SelectedIndex > -1 And
+            ComboBoxStat.SelectedIndex > -1) Then
+            Exit Sub
+        End If
+
         Dim HoursBack As Integer = 1
         If ComboBoxPeriod.SelectedItem = "1 hour" Then
             HoursBack = 1
@@ -105,11 +112,12 @@ Public Class MetricBrowserForm
 
         '********************************************************
 
-        Dim plot = New PlotModel With {.Subtitle = Metric}
+        Dim plot = New PlotModel
         Dim Legend = New Legends.Legend
-        Legend.LegendPlacement = Legends.LegendPlacement.Inside
-        Legend.LegendPosition = Legends.LegendPosition.RightTop
+        Legend.LegendPlacement = Legends.LegendPlacement.Outside
+        Legend.LegendPosition = Legends.LegendPosition.RightMiddle
         Legend.SelectionMode = OxyPlot.SelectionMode.Multiple
+        Legend.AllowUseFullExtent = True
 
         plot.Legends.Add(Legend)
 
@@ -125,7 +133,7 @@ Public Class MetricBrowserForm
             LinearAxis1.Maximum = 110
         End If
 
-            LinearAxis1.Minimum = 0
+        LinearAxis1.Minimum = 0
         LinearAxis1.AbsoluteMinimum = 0
         LinearAxis1.IsZoomEnabled = False
         'LinearAxis1.TickStyle = Axes.TickStyle.Inside
@@ -134,8 +142,8 @@ Public Class MetricBrowserForm
 
         Dim LinearAxis2 = New DateTimeAxis
         LinearAxis2.Position = AxisPosition.Bottom
-        LinearAxis2.Minimum = DateTimeAxis.ToDouble(Now.AddHours(-HoursBack))
-        LinearAxis2.Maximum = DateTimeAxis.ToDouble(Now)
+        LinearAxis2.AbsoluteMinimum = DateTimeAxis.ToDouble(Now.AddHours(-HoursBack))
+        LinearAxis2.AbsoluteMaximum = DateTimeAxis.ToDouble(Now)
         'LinearAxis2.TickStyle = Axes.TickStyle.Inside
         LinearAxis2.IntervalType = DateTimeIntervalType.Minutes
 
@@ -158,15 +166,19 @@ Public Class MetricBrowserForm
 
             For Each DataPoint In DetailedRecords
 
-                If ls.Title = "" Then
+                If plot.Subtitle = "" Then
+                    plot.Subtitle = Metric + " / "
                     If Metric = "VolumeIdleTime" Then
-                        ls.Title = "%"
+                        plot.Subtitle += "%"
                     ElseIf MetricsInBytes.Contains(Metric) Then
-                        ls.Title = "MB"
+                        plot.Subtitle += "MB"
                     Else
-                        ls.Title = DataPoint.Unit.Value
+                        plot.Subtitle += DataPoint.Unit.Value
                     End If
-                    ls.Title += " / " + ObjectId
+                End If
+
+                If ls.Title = "" Then
+                    ls.Title = ObjectId
                 End If
 
                 Dim Val As Decimal = 0
@@ -213,4 +225,29 @@ Public Class MetricBrowserForm
 
     End Sub
 
+    Private Sub ComboBoxMetricType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxMetricType.SelectedIndexChanged
+
+        ShowGraph()
+
+    End Sub
+
+    Private Sub ComboBoxStat_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxStat.SelectedIndexChanged
+
+        ShowGraph()
+
+    End Sub
+
+    Private Sub ComboBoxGranularity_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxGranularity.SelectedIndexChanged
+
+        ShowGraph()
+
+    End Sub
+
+    Private Sub ComboBoxPeriod_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxPeriod.SelectedIndexChanged
+
+        ShowGraph()
+
+    End Sub
+
 End Class
+
