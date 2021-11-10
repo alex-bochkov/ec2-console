@@ -52,6 +52,8 @@ Public Class MetricBrowserForm
             ComboBoxMetricType.Items.Add("VolumeTotalWriteTime")
             ComboBoxMetricType.Items.Add("VolumeWriteBytes")
             ComboBoxMetricType.Items.Add("VolumeWriteOps")
+            ComboBoxMetricType.Items.Add("VolumeThroughputPercentage")
+            ComboBoxMetricType.Items.Add("VolumeConsumedReadWriteOps")
 
         End If
 
@@ -109,6 +111,8 @@ Public Class MetricBrowserForm
             LinearAxis1.Maximum = 110
         ElseIf Metric = "VolumeIdleTime" Then
             LinearAxis1.Maximum = 110
+        ElseIf Metric = "VolumeThroughputPercentage" Then
+            LinearAxis1.Maximum = 110
         End If
 
             LinearAxis1.Minimum = 0
@@ -145,7 +149,14 @@ Public Class MetricBrowserForm
             For Each DataPoint In DetailedRecords
 
                 If ls.Title = "" Then
-                    ls.Title = DataPoint.Unit.Value + " / " + ObjectId
+                    If Metric = "VolumeReadBytes" Then
+                        ls.Title = "MB"
+                    ElseIf Metric = "VolumeWriteBytes" Then
+                        ls.Title = "MB"
+                    Else
+                        ls.Title = DataPoint.Unit.Value
+                    End If
+                    ls.Title += " / " + ObjectId
                 End If
 
                 Dim Val As Decimal = 0
@@ -165,6 +176,10 @@ Public Class MetricBrowserForm
                 ' transformations
                 If Metric = "VolumeIdleTime" Then
                     Val = Math.Round(Val / 60 * 100)
+                ElseIf Metric = "VolumeReadBytes" Then
+                    Val = Math.Round(Val / 1024 / 1024, 2)
+                ElseIf Metric = "VolumeWriteBytes" Then
+                    Val = Math.Round(Val / 1024 / 1024, 2)
                 End If
                 '********************************************************
 
