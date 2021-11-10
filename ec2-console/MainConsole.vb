@@ -1240,9 +1240,13 @@ Public Class Form1
 
     Sub OpenMetricBrowserFormVolume(sender As Object, e As EventArgs)
 
-        Dim VolumeId = sender.tag
+        Dim VolumeList = New List(Of String)
 
-        OpenMetricBrowserForm_WithVolumeIDs(New List(Of String) From {VolumeId})
+        For Each SelectedVolume In ListViewInstanceVolumes.SelectedItems
+            VolumeList.Add(SelectedVolume.tag)
+        Next
+
+        OpenMetricBrowserForm_WithVolumeIDs(VolumeList)
 
     End Sub
 

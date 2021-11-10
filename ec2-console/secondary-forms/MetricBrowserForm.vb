@@ -103,12 +103,15 @@ Public Class MetricBrowserForm
 
         Dim LinearAxis1 = New LinearAxis
         LinearAxis1.Position = AxisPosition.Left
+        LinearAxis1.MajorGridlineStyle = LineStyle.Dot
 
         If Metric = "CPUUtilization" Then
-            LinearAxis1.Maximum = 0
+            LinearAxis1.Maximum = 110
+        ElseIf Metric = "VolumeIdleTime" Then
+            LinearAxis1.Maximum = 110
         End If
 
-        LinearAxis1.Minimum = 0
+            LinearAxis1.Minimum = 0
         LinearAxis1.AbsoluteMinimum = 0
         LinearAxis1.IsZoomEnabled = False
         'LinearAxis1.TickStyle = Axes.TickStyle.Inside
@@ -145,7 +148,7 @@ Public Class MetricBrowserForm
                     ls.Title = DataPoint.Unit.Value + " / " + ObjectId
                 End If
 
-                Dim Val As Int64 = 0
+                Dim Val As Decimal = 0
                 Select Case Stat
                     Case "Average"
                         Val = DataPoint.Average
@@ -156,6 +159,14 @@ Public Class MetricBrowserForm
                     Case "Sum"
                         Val = DataPoint.Sum
                 End Select
+
+
+                '********************************************************
+                ' transformations
+                If Metric = "VolumeIdleTime" Then
+                    Val = Math.Round(Val / 60 * 100)
+                End If
+                '********************************************************
 
                 ls.Points.Add(New DataPoint(DateTimeAxis.ToDouble(DataPoint.Timestamp.ToLocalTime), Val))
 

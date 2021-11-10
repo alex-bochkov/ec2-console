@@ -107,13 +107,13 @@ Partial Class Form1
         Me.ColumnHeaderEncrypted = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderKmsKeyId = New System.Windows.Forms.ColumnHeader()
         Me.TabPageMonitoring = New System.Windows.Forms.TabPage()
+        Me.ButtonMetricBrowser = New System.Windows.Forms.Button()
         Me.PlotViewInstanceCPU = New OxyPlot.WindowsForms.PlotView()
         Me.TabPageTags = New System.Windows.Forms.TabPage()
         Me.ButtonEditTags = New System.Windows.Forms.Button()
         Me.ListViewInstanceTags = New System.Windows.Forms.ListView()
         Me.ColumnHeaderKey = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderValue = New System.Windows.Forms.ColumnHeader()
-        Me.ButtonMetricBrowser = New System.Windows.Forms.Button()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStripMain.SuspendLayout()
         Me.TabControl.SuspendLayout()
@@ -417,7 +417,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(526, 247)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(526, 248)
         Me.TableLayoutPanel2.TabIndex = 1
         '
         'TextBoxInstanceSystemStatus
@@ -634,7 +634,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 262)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 263)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -973,8 +973,7 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 25)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 234)
-        Me.ListViewInstanceVolumes.Sorting = System.Windows.Forms.SortOrder.Ascending
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 235)
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
         Me.ListViewInstanceVolumes.View = System.Windows.Forms.View.Details
@@ -1040,6 +1039,15 @@ Partial Class Form1
         Me.TabPageMonitoring.Text = "Monitoring"
         Me.TabPageMonitoring.UseVisualStyleBackColor = True
         '
+        'ButtonMetricBrowser
+        '
+        Me.ButtonMetricBrowser.Location = New System.Drawing.Point(3, 0)
+        Me.ButtonMetricBrowser.Name = "ButtonMetricBrowser"
+        Me.ButtonMetricBrowser.Size = New System.Drawing.Size(134, 23)
+        Me.ButtonMetricBrowser.TabIndex = 1
+        Me.ButtonMetricBrowser.Text = "Metric Browser"
+        Me.ButtonMetricBrowser.UseVisualStyleBackColor = True
+        '
         'PlotViewInstanceCPU
         '
         Me.PlotViewInstanceCPU.BackColor = System.Drawing.Color.White
@@ -1085,7 +1093,7 @@ Partial Class Form1
         Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 28)
         Me.ListViewInstanceTags.Name = "ListViewInstanceTags"
         Me.ListViewInstanceTags.ShowGroups = False
-        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 228)
+        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 229)
         Me.ListViewInstanceTags.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceTags.TabIndex = 0
         Me.ListViewInstanceTags.UseCompatibleStateImageBehavior = False
@@ -1100,15 +1108,6 @@ Partial Class Form1
         '
         Me.ColumnHeaderValue.Text = "Value"
         Me.ColumnHeaderValue.Width = 500
-        '
-        'ButtonMetricBrowser
-        '
-        Me.ButtonMetricBrowser.Location = New System.Drawing.Point(3, 0)
-        Me.ButtonMetricBrowser.Name = "ButtonMetricBrowser"
-        Me.ButtonMetricBrowser.Size = New System.Drawing.Size(134, 23)
-        Me.ButtonMetricBrowser.TabIndex = 1
-        Me.ButtonMetricBrowser.Text = "Metric Browser"
-        Me.ButtonMetricBrowser.UseVisualStyleBackColor = True
         '
         'Form1
         '

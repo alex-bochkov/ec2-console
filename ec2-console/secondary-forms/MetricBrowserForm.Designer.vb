@@ -152,7 +152,6 @@ Partial Class MetricBrowserForm
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "MetricBrowserForm"
-        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Basic Metric Browser"
         Me.TableLayoutPanel1.ResumeLayout(False)
