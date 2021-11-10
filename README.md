@@ -22,8 +22,10 @@ Fully based on the official AWS .NET SDK using .NET 5.0.
 <img alt="alt_text" src="change-instance-type.png" />
 
 ## Security
-1. The AWS Access Key must have full administrator access.
-2. Account settings with sensitive credentials are stored in the application settings encrypted using standard Windows cryptographic function `System.Security.Cryptography.ProtectedData`. I assume this is safe enough.
+1. At the moment, AWS security credentials should have at least full read-only access to work more or less stable.
+2. Two authentication methods are supported:
+2.1. Credential Profiles with plain text Access and Security Keys - profiles are stored using native NetSDKCredentialsFile format and shared with AWS Toolkit for Visual Studio and PowerShell modules.
+2.2. <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html">AWS Single Sign-On</a>. Credentials are not stored locally, they are requested as needed.
 3. I am tracking application usage by calling the AWS API Gateway endpoint every time the application starts. Please refer to the CheckForTheAppUpdatesAndtrackUsage_Async function in the main form - no data is sent at all.
 
 ## Your help and feedback is greatly appreciated

@@ -3,9 +3,7 @@
 
         Private Function NewAmazonEC2Client(AwsAccount As AwsAccount) As Amazon.EC2.AmazonEC2Client
 
-            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-            Dim client = New Amazon.EC2.AmazonEC2Client(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+            Dim client = New Amazon.EC2.AmazonEC2Client(GetAWSCredentials(AwsAccount), Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
 
             Return client
 
@@ -125,9 +123,7 @@
 
             Dim AllTags As SortedDictionary(Of String, List(Of String)) = New SortedDictionary(Of String, List(Of String))
 
-            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-            Dim client = New Amazon.ResourceGroupsTaggingAPI.AmazonResourceGroupsTaggingAPIClient(cred, Amazon.RegionEndpoint.USWest1)
+            Dim client = New Amazon.ResourceGroupsTaggingAPI.AmazonResourceGroupsTaggingAPIClient(GetAWSCredentials(AwsAccount), Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
 
             Dim request = New Amazon.ResourceGroupsTaggingAPI.Model.GetTagKeysRequest
 
@@ -658,9 +654,7 @@
 
         Public Function GetAccountAttributes(AwsAccount As AwsAccount) As Amazon.SecurityToken.Model.GetCallerIdentityResponse
 
-            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-            Dim client = New Amazon.SecurityToken.AmazonSecurityTokenServiceClient(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+            Dim client = New Amazon.SecurityToken.AmazonSecurityTokenServiceClient(GetAWSCredentials(AwsAccount), Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
 
             Dim request = New Amazon.SecurityToken.Model.GetCallerIdentityRequest
 
@@ -678,9 +672,7 @@
 
         Public Function ListInstanceProfiles(AwsAccount As AwsAccount) As List(Of Amazon.IdentityManagement.Model.InstanceProfile)
 
-            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-            Dim client = New Amazon.IdentityManagement.AmazonIdentityManagementServiceClient(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+            Dim client = New Amazon.IdentityManagement.AmazonIdentityManagementServiceClient(GetAWSCredentials(AwsAccount), Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
 
             Dim request = New Amazon.IdentityManagement.Model.ListInstanceProfilesRequest
 
@@ -875,11 +867,9 @@
 
         Private Function NewAmazonPricingClient(AwsAccount As AwsAccount) As Amazon.Pricing.AmazonPricingClient
 
-            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
             'The endpoint is in US-East-1
             'https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/using-pelong.html
-            Dim client = New Amazon.Pricing.AmazonPricingClient(cred, Amazon.RegionEndpoint.GetBySystemName("us-east-1"))
+            Dim client = New Amazon.Pricing.AmazonPricingClient(GetAWSCredentials(AwsAccount), Amazon.RegionEndpoint.GetBySystemName("us-east-1"))
 
             Return client
 
@@ -917,9 +907,7 @@
 
         Private Function NewAmazonCloudWatchClient(AwsAccount As AwsAccount) As Amazon.CloudWatch.AmazonCloudWatchClient
 
-            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-            Dim client = New Amazon.CloudWatch.AmazonCloudWatchClient(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+            Dim client = New Amazon.CloudWatch.AmazonCloudWatchClient(GetAWSCredentials(AwsAccount), Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
 
             Return client
 
@@ -964,9 +952,7 @@
     Module ConfigService
         Private Function NewAmazonConfigServiceClient(AwsAccount As AwsAccount) As Amazon.ConfigService.AmazonConfigServiceClient
 
-            Dim cred = New Amazon.Runtime.BasicAWSCredentials(AwsAccount.AccessKey, AwsAccount.SecretKey)
-
-            Dim client = New Amazon.ConfigService.AmazonConfigServiceClient(cred, Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+            Dim client = New Amazon.ConfigService.AmazonConfigServiceClient(GetAWSCredentials(AwsAccount), Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
 
             Return client
 
@@ -1029,6 +1015,89 @@
     End Module
 
     Module Internal
+
+        Function AddNewCredentialProfile(ProfileName As String, AccessKey As String, SecretKey As String)
+
+            Dim ProfileOptions = New Amazon.Runtime.CredentialManagement.CredentialProfileOptions
+            ProfileOptions.AccessKey = AccessKey
+            ProfileOptions.SecretKey = SecretKey
+
+            Dim NewCredProfile = New Amazon.Runtime.CredentialManagement.CredentialProfile(ProfileName, ProfileOptions)
+
+            Dim CredFile = New Amazon.Runtime.CredentialManagement.NetSDKCredentialsFile
+            CredFile.RegisterProfile(NewCredProfile)
+
+            Return True
+
+        End Function
+
+        Function DeleteCredentialProfile(ProfileName As String)
+
+            Dim CredFile = New Amazon.Runtime.CredentialManagement.NetSDKCredentialsFile
+            CredFile.UnregisterProfile(ProfileName)
+
+            Return True
+
+        End Function
+
+        Function GetCredentialProfile(ProfileName As String)
+
+            Dim CredProfile As Amazon.Runtime.CredentialManagement.CredentialProfile = Nothing
+
+            Dim CredFile = New Amazon.Runtime.CredentialManagement.NetSDKCredentialsFile
+            If CredFile.TryGetProfile(ProfileName, CredProfile) Then
+                Return CredProfile
+            End If
+
+            Return CredProfile
+
+        End Function
+
+        Function GetAllSavedCredentialProfiles() As List(Of String)
+
+            Dim CredFile = New Amazon.Runtime.CredentialManagement.NetSDKCredentialsFile
+            Return CredFile.ListProfileNames()
+
+        End Function
+
+        Function GetAWSCredentials(AwsAccount As AwsAccount)
+
+            If AwsAccount.CredentialType = AwsAccount.CredentialTypeEnum.CredentialsProfile Then
+
+                ' need to switch to proper SDK store https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-store.html
+
+                Dim CredProfile As Amazon.Runtime.CredentialManagement.CredentialProfile = GetCredentialProfile(AwsAccount.CredentialProfile)
+                If CredProfile IsNot Nothing Then
+
+                    Return New Amazon.Runtime.BasicAWSCredentials(CredProfile.Options.AccessKey, CredProfile.Options.SecretKey)
+
+                End If
+
+            ElseIf AwsAccount.CredentialType = AwsAccount.CredentialTypeEnum.SSO Then
+
+                If AwsAccount.SSOAWSCredentials Is Nothing Then
+
+                    Dim SSOAWSCredentialsOptions = New Amazon.Runtime.SSOAWSCredentialsOptions With {.ClientName = "AWS EC2 Console"}
+
+                    Dim SSOAWSCredentials = New Amazon.Runtime.SSOAWSCredentials(AwsAccount.SSO_AccountId,
+                                                                                 AwsAccount.SSO_Region,
+                                                                                 AwsAccount.SSO_RoleName,
+                                                                                 AwsAccount.SSO_StartUrl,
+                                                                                 SSOAWSCredentialsOptions)
+                    AwsAccount.SSOAWSCredentials = SSOAWSCredentials
+
+                End If
+
+                Dim cred = AwsAccount.SSOAWSCredentials.GetCredentials()
+
+                Return New Amazon.Runtime.SessionAWSCredentials(cred.AccessKey, cred.SecretKey, cred.Token)
+
+            End If
+
+            Return New Amazon.Runtime.AnonymousAWSCredentials
+
+        End Function
+
 
         Function GetAllAwsRegions() As List(Of Amazon.RegionEndpoint)
 

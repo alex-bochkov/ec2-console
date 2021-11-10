@@ -215,7 +215,15 @@ Public Class Form1
 
         ConfigureLogging()
 
-        SetFirstCurrentAccount()
+        Try
+
+            SetFirstCurrentAccount()
+
+        Catch ex As Exception
+
+            Dim errorMessage As String = ex.Message
+
+        End Try
 
     End Sub
     Sub ShowAllRegions()

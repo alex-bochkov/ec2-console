@@ -34,13 +34,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.CloudWatch" Version="3.7.2.47" />
-    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.5.10" />
-    <PackageReference Include="AWSSDK.EC2" Version="3.7.38.3" />
-    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.71" />
-    <PackageReference Include="AWSSDK.Pricing" Version="3.7.1.87" />
-    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.91" />
-    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.81" />
+    <PackageReference Include="AWSSDK.CloudWatch" Version="3.7.2.50" />
+    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.5.13" />
+    <PackageReference Include="AWSSDK.EC2" Version="3.7.41.1" />
+    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.74" />
+    <PackageReference Include="AWSSDK.Pricing" Version="3.7.1.90" />
+    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.95" />
+    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.84" />
+    <PackageReference Include="AWSSDK.SSO" Version="3.7.0.94" />
+    <PackageReference Include="AWSSDK.SSOOIDC" Version="3.7.0.94" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="4.7.12" />
     <PackageReference Include="NLog.Config" Version="4.7.12" />

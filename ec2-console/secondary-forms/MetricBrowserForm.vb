@@ -103,6 +103,11 @@ Public Class MetricBrowserForm
 
         Dim LinearAxis1 = New LinearAxis
         LinearAxis1.Position = AxisPosition.Left
+
+        If Metric = "CPUUtilization" Then
+            LinearAxis1.Maximum = 0
+        End If
+
         LinearAxis1.Minimum = 0
         LinearAxis1.AbsoluteMinimum = 0
         LinearAxis1.IsZoomEnabled = False

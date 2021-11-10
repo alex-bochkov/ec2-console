@@ -5,9 +5,24 @@
     Private SelectedAccount As AwsAccount = New AwsAccount
     Private Sub AwsAccountsForm_Load(sender As Object, e As EventArgs) Handles Me.Load
 
+        ComboBoxCredentialType.Items.Add(AwsAccount.CredentialTypeEnum.CredentialsProfile)
+        ComboBoxCredentialType.Items.Add(AwsAccount.CredentialTypeEnum.SSO)
+
+        GetAllSavedCredentialProfiles()
+
         AllAccounts = AccountManagement.GetAllAccounts()
 
         RefreshAccountList()
+
+    End Sub
+
+    Sub GetAllSavedCredentialProfiles()
+
+        Dim AllProfiles = AmazonApi.GetAllSavedCredentialProfiles()
+
+        ComboBoxCredentialProfile.Items.Clear()
+
+        ComboBoxCredentialProfile.Items.AddRange(AllProfiles.ToArray)
 
     End Sub
 
@@ -18,7 +33,7 @@
         For Each Account In AllAccounts
 
             Dim Item = ListViewAccounts.Items.Add(Account.Description)
-            Item.SubItems.Add(Account.AccessKey)
+            Item.SubItems.Add(Account.CredentialType.ToString)
             Item.SubItems.Add(Account.Region)
             Item.SubItems.Add(Account.KeyPairs.Count.ToString)
             Item.Tag = Account
@@ -45,12 +60,18 @@
         ListBoxKeyPairs.Items.Clear()
 
         TextBoxAccountDescription.Text = SelectedAccount.Description
-        TextBoxAccountAccessKey.Text = SelectedAccount.AccessKey
-        TextBoxAccountSecretKey.Text = SelectedAccount.SecretKey
         ComboBoxAccountRegion.Text = SelectedAccount.Region
         ButtonBackgroundColor.BackColor = SelectedAccount.BackgroundColor
-
         TextBoxDefaultInstanceFilter.Text = SelectedAccount.DefaultInstanceFilter
+
+        ComboBoxCredentialType.SelectedItem = SelectedAccount.CredentialType
+
+        ComboBoxCredentialProfile.SelectedItem = SelectedAccount.CredentialProfile
+
+        TextBoxSSO_AccountId.Text = SelectedAccount.SSO_AccountId
+        TextBoxSSO_Region.Text = SelectedAccount.SSO_Region
+        TextBoxSSO_RoleName.Text = SelectedAccount.SSO_RoleName
+        TextBoxSSO_StartUrl.Text = SelectedAccount.SSO_StartUrl
 
         For Each KeyPair In SelectedAccount.KeyPairs
 
@@ -76,11 +97,18 @@
     Private Sub ButtonSaveAccount_Click(sender As Object, e As EventArgs) Handles ButtonSaveAccount.Click
 
         SelectedAccount.Description = TextBoxAccountDescription.Text
-        SelectedAccount.AccessKey = TextBoxAccountAccessKey.Text
-        SelectedAccount.SecretKey = TextBoxAccountSecretKey.Text
         SelectedAccount.Region = ComboBoxAccountRegion.Text
         SelectedAccount.BackgroundColor = ButtonBackgroundColor.BackColor
         SelectedAccount.DefaultInstanceFilter = TextBoxDefaultInstanceFilter.Text
+
+        SelectedAccount.CredentialType = ComboBoxCredentialType.SelectedItem
+
+        SelectedAccount.CredentialProfile = ComboBoxCredentialProfile.SelectedItem
+
+        SelectedAccount.SSO_AccountId = TextBoxSSO_AccountId.Text
+        SelectedAccount.SSO_Region = TextBoxSSO_Region.Text
+        SelectedAccount.SSO_RoleName = TextBoxSSO_RoleName.Text
+        SelectedAccount.SSO_StartUrl = TextBoxSSO_StartUrl.Text
 
         SelectedAccount.KeyPairs.Clear()
 
@@ -167,5 +195,34 @@
 
     End Sub
 
+    Private Sub ButtonRefreshCredentialProfiles_Click(sender As Object, e As EventArgs) Handles ButtonRefreshCredentialProfiles.Click
+
+        GetAllSavedCredentialProfiles()
+
+    End Sub
+
+    Private Sub ButtonAddNewCredentialProfile_Click(sender As Object, e As EventArgs) Handles ButtonAddNewCredentialProfile.Click
+
+        AmazonApi.AddNewCredentialProfile(TextBoxNewCredProfileName.Text, TextBoxNewCredProfileAccessKey.Text, TextBoxNewCredProfileSecretKey.Text)
+
+        TextBoxNewCredProfileName.Text = ""
+        TextBoxNewCredProfileAccessKey.Text = ""
+        TextBoxNewCredProfileSecretKey.Text = ""
+
+        GetAllSavedCredentialProfiles()
+
+        ComboBoxCredentialProfile.DroppedDown = True
+
+    End Sub
+
+    Private Sub ButtonDeleteSelectedCredentialProfile_Click(sender As Object, e As EventArgs) Handles ButtonDeleteSelecetedCredentialProfile.Click
+
+        AmazonApi.DeleteCredentialProfile(ComboBoxCredentialProfile.SelectedItem.ToString)
+
+        GetAllSavedCredentialProfiles()
+
+        ComboBoxCredentialProfile.DroppedDown = True
+
+    End Sub
 
 End Class
