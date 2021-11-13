@@ -1037,7 +1037,7 @@
 
                 NextToken = result.NextToken
 
-                'not sure how select properly all records here.. this works way too long
+                'not sure how to select all records properly here.. this works way too long
                 Exit While
 
             End While
@@ -1098,7 +1098,7 @@
 
         Function GetAWSCredentials(AwsAccount As AwsAccount)
 
-            If AwsAccount.CredentialType = AwsAccount.CredentialTypeEnum.CredentialsProfile Then
+            If AwsAccount.CredentialType = AwsAccount.CredentialTypeEnum.CredentialProfile Then
 
                 ' need to switch to proper SDK store https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-store.html
 

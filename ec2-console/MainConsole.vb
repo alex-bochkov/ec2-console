@@ -626,6 +626,11 @@ Public Class Form1
 
     Sub PopulateFilterMenu()
 
+        'the form is closing
+        If Not IsHandleCreated Then
+            Exit Sub
+        End If
+
         FilterByToolStripMenuItem.DropDownItems.Clear()
 
         Dim azMenu As ToolStripDropDownItem = FilterByToolStripMenuItem.DropDownItems.Add("filter-availability-zone")
@@ -650,6 +655,7 @@ Public Class Form1
         Next
 
         For Each instanceTagDescription In AggregatedTags
+
 
             ToolStripTextBoxFilterByTag.Items.Add(instanceTagDescription.Key) ', Nothing, AddressOf onClickFilter)
 

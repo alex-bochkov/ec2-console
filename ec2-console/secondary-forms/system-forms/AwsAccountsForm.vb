@@ -1,18 +1,92 @@
 ﻿Public Class AwsAccountsForm
 
-    Private AllAccounts As List(Of AwsAccount)
-
-    Private SelectedAccount As AwsAccount = New AwsAccount
     Private Sub AwsAccountsForm_Load(sender As Object, e As EventArgs) Handles Me.Load
-
-        ComboBoxCredentialType.Items.Add(AwsAccount.CredentialTypeEnum.CredentialsProfile)
-        ComboBoxCredentialType.Items.Add(AwsAccount.CredentialTypeEnum.SSO)
 
         GetAllSavedCredentialProfiles()
 
-        AllAccounts = AccountManagement.GetAllAccounts()
-
         RefreshAccountList()
+
+    End Sub
+
+    Sub RefreshAccountList()
+
+        Dim AllAccounts = AccountManagement.GetAllAccounts()
+
+        ComboBoxAllAccounts.Items.Clear()
+
+        ComboBoxAllAccounts.Items.AddRange(AllAccounts.ToArray)
+
+        If ComboBoxAllAccounts.Items.Count = 0 Then
+            ComboBoxAllAccounts.Items.Add(New AwsAccount)
+        End If
+
+        ComboBoxAllAccounts.SelectedIndex = 0
+
+        GroupBoxSavedAccounts.Text = String.Format("Saved Accounts ({0})", AllAccounts.Count)
+
+    End Sub
+
+    Private Sub ComboBoxAllAccounts_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxAllAccounts.SelectedIndexChanged
+
+        TextBoxAccountDescription.DataBindings.Clear()
+        TextBoxAccountDescription.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "Description")
+
+        TextBoxSSO_AccountId.DataBindings.Clear()
+        TextBoxSSO_AccountId.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "SSO_AccountId")
+
+        TextBoxSSO_Region.DataBindings.Clear()
+        TextBoxSSO_Region.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "SSO_Region")
+
+        TextBoxSSO_RoleName.DataBindings.Clear()
+        TextBoxSSO_RoleName.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "SSO_RoleName")
+
+        TextBoxSSO_StartUrl.DataBindings.Clear()
+        TextBoxSSO_StartUrl.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "SSO_StartUrl")
+
+        TextBoxDefaultInstanceFilter.DataBindings.Clear()
+        TextBoxDefaultInstanceFilter.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "DefaultInstanceFilter")
+
+        ComboBoxAccountRegion.DataBindings.Clear()
+        ComboBoxAccountRegion.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "Region")
+
+        ButtonBackgroundColor.DataBindings.Clear()
+        ButtonBackgroundColor.DataBindings.Add("BackColor", ComboBoxAllAccounts.SelectedItem, "BackgroundColor")
+
+        ComboBoxCredentialProfile.DataBindings.Clear()
+        ComboBoxCredentialProfile.DataBindings.Add("SelectedItem", ComboBoxAllAccounts.SelectedItem, "CredentialProfile")
+
+        ShowAccountDetails()
+
+        TabPageKeyPairs.Text = String.Format("Key Pairs ({0})", ListBoxKeyPairs.Items.Count)
+
+    End Sub
+
+    Private Sub ShowAccountDetails()
+
+        Dim SelectedAccount As AwsAccount = ComboBoxAllAccounts.SelectedItem
+
+        ListBoxKeyPairs.Items.Clear()
+        For Each KeyPair In SelectedAccount.KeyPairs
+            ListBoxKeyPairs.Items.Add(KeyPair)
+        Next
+
+        ComboBoxAccountRegion.Items.Clear()
+        CheckedListBoxEnabledRegions.Items.Clear()
+        For Each AwsRegion In AmazonApi.GetAllAwsRegions()
+
+            Dim Checked As Boolean = SelectedAccount.EnabledRegions.Contains(AwsRegion.SystemName)
+
+            CheckedListBoxEnabledRegions.Items.Add(AwsRegion, Checked)
+
+            ComboBoxAccountRegion.Items.Add(AwsRegion.SystemName)
+
+        Next
+
+        If SelectedAccount.CredentialType = AwsAccount.CredentialTypeEnum.SSO Then
+            TabControlCredentials.SelectedTab = TabPageSSO
+        ElseIf SelectedAccount.CredentialType = AwsAccount.CredentialTypeEnum.CredentialProfile Then
+            TabControlCredentials.SelectedTab = TabPageCredentialProfiles
+        End If
 
     End Sub
 
@@ -22,112 +96,11 @@
 
         ComboBoxCredentialProfile.Items.Clear()
 
+        ComboBoxCredentialProfile.Items.Add("")
+        ComboBoxCredentialProfile.SelectedIndex = 0
+
         ComboBoxCredentialProfile.Items.AddRange(AllProfiles.ToArray)
 
-    End Sub
-
-    Private Sub RefreshAccountList()
-
-        ListViewAccounts.Items.Clear()
-
-        For Each Account In AllAccounts
-
-            Dim Item = ListViewAccounts.Items.Add(Account.Description)
-            Item.SubItems.Add(Account.CredentialType.ToString)
-            Item.SubItems.Add(Account.Region)
-            Item.SubItems.Add(Account.KeyPairs.Count.ToString)
-            Item.Tag = Account
-
-        Next
-
-        ShowAccountDetails()
-
-    End Sub
-    Private Sub ListViewAccounts_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListViewAccounts.SelectedIndexChanged
-
-        If ListViewAccounts.SelectedItems.Count = 1 Then
-
-            SelectedAccount = ListViewAccounts.SelectedItems.Item(0).Tag
-
-            ShowAccountDetails()
-
-        End If
-
-    End Sub
-
-    Private Sub ShowAccountDetails()
-
-        ListBoxKeyPairs.Items.Clear()
-
-        TextBoxAccountDescription.Text = SelectedAccount.Description
-        ComboBoxAccountRegion.Text = SelectedAccount.Region
-        ButtonBackgroundColor.BackColor = SelectedAccount.BackgroundColor
-        TextBoxDefaultInstanceFilter.Text = SelectedAccount.DefaultInstanceFilter
-
-        ComboBoxCredentialType.SelectedItem = SelectedAccount.CredentialType
-
-        ComboBoxCredentialProfile.SelectedItem = SelectedAccount.CredentialProfile
-
-        TextBoxSSO_AccountId.Text = SelectedAccount.SSO_AccountId
-        TextBoxSSO_Region.Text = SelectedAccount.SSO_Region
-        TextBoxSSO_RoleName.Text = SelectedAccount.SSO_RoleName
-        TextBoxSSO_StartUrl.Text = SelectedAccount.SSO_StartUrl
-
-        For Each KeyPair In SelectedAccount.KeyPairs
-
-            ListBoxKeyPairs.Items.Add(KeyPair)
-
-        Next
-
-        ComboBoxAccountRegion.Items.Clear()
-        CheckedListBoxEnabledRegions.Items.Clear()
-        For Each AwsRegion In AmazonApi.GetAllAwsRegions()
-
-            Dim Checked As Boolean = SelectedAccount.EnabledRegions.Contains(AwsRegion.SystemName) 'Or SelectedAccount.EnabledRegions.Count = 0
-
-            CheckedListBoxEnabledRegions.Items.Add(AwsRegion, Checked)
-
-            ComboBoxAccountRegion.Items.Add(AwsRegion.SystemName)
-
-        Next
-
-
-    End Sub
-
-    Private Sub ButtonSaveAccount_Click(sender As Object, e As EventArgs) Handles ButtonSaveAccount.Click
-
-        SelectedAccount.Description = TextBoxAccountDescription.Text
-        SelectedAccount.Region = ComboBoxAccountRegion.Text
-        SelectedAccount.BackgroundColor = ButtonBackgroundColor.BackColor
-        SelectedAccount.DefaultInstanceFilter = TextBoxDefaultInstanceFilter.Text
-
-        SelectedAccount.CredentialType = ComboBoxCredentialType.SelectedItem
-
-        SelectedAccount.CredentialProfile = ComboBoxCredentialProfile.SelectedItem
-
-        SelectedAccount.SSO_AccountId = TextBoxSSO_AccountId.Text
-        SelectedAccount.SSO_Region = TextBoxSSO_Region.Text
-        SelectedAccount.SSO_RoleName = TextBoxSSO_RoleName.Text
-        SelectedAccount.SSO_StartUrl = TextBoxSSO_StartUrl.Text
-
-        SelectedAccount.KeyPairs.Clear()
-
-        For Each KeyPair As AwsAccount.KeyPairClass In ListBoxKeyPairs.Items
-
-            SelectedAccount.KeyPairs.Add(KeyPair)
-
-        Next
-
-        SelectedAccount.EnabledRegions.Clear()
-        For Each AwsRegion As Amazon.RegionEndpoint In CheckedListBoxEnabledRegions.CheckedItems
-            SelectedAccount.EnabledRegions.Add(AwsRegion.SystemName)
-        Next
-
-        AccountManagement.AddNewAccount(SelectedAccount)
-
-        AllAccounts = AccountManagement.GetAllAccounts()
-
-        RefreshAccountList()
 
     End Sub
 
@@ -157,30 +130,6 @@
 
         If ListBoxKeyPairs.SelectedIndex > -1 Then
             ListBoxKeyPairs.Items.RemoveAt(ListBoxKeyPairs.SelectedIndex)
-        End If
-
-    End Sub
-
-    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-
-        AllAccounts.Add(New AwsAccount With {.Description = "New Access Key"})
-
-        RefreshAccountList()
-
-    End Sub
-
-    Private Sub ToolStripButtonDeleteAccount_Click(sender As Object, e As EventArgs) Handles ToolStripButtonDeleteAccount.Click
-
-        If ListViewAccounts.SelectedItems.Count = 1 Then
-
-            SelectedAccount = ListViewAccounts.SelectedItems.Item(0).Tag
-
-            AccountManagement.DeleteSavedAccount(SelectedAccount)
-
-            AllAccounts = AccountManagement.GetAllAccounts()
-
-            RefreshAccountList()
-
         End If
 
     End Sub
@@ -222,6 +171,50 @@
         GetAllSavedCredentialProfiles()
 
         ComboBoxCredentialProfile.DroppedDown = True
+
+    End Sub
+
+    Private Sub ButtonAddNewAccount_Click(sender As Object, e As EventArgs) Handles ButtonAddNewAccount.Click
+
+        ComboBoxAllAccounts.Items.Add(New AwsAccount With {.Description = "New Account"})
+
+        ComboBoxAllAccounts.SelectedIndex = ComboBoxAllAccounts.Items.Count - 1
+
+    End Sub
+
+    Private Sub ButtonSaveAccount_Click(sender As Object, e As EventArgs) Handles ButtonSaveAccount.Click
+
+        Dim SelectedAccount As AwsAccount = ComboBoxAllAccounts.SelectedItem
+
+        SelectedAccount.KeyPairs.Clear()
+        For Each KeyPair As AwsAccount.KeyPairClass In ListBoxKeyPairs.Items
+            SelectedAccount.KeyPairs.Add(KeyPair)
+        Next
+
+        SelectedAccount.EnabledRegions.Clear()
+        For Each AwsRegion As Amazon.RegionEndpoint In CheckedListBoxEnabledRegions.CheckedItems
+            SelectedAccount.EnabledRegions.Add(AwsRegion.SystemName)
+        Next
+
+        If TabControlCredentials.SelectedTab Is TabPageSSO Then
+            SelectedAccount.CredentialType = AwsAccount.CredentialTypeEnum.SSO
+        ElseIf TabControlCredentials.SelectedTab Is TabPageCredentialProfiles Then
+            SelectedAccount.CredentialType = AwsAccount.CredentialTypeEnum.CredentialProfile
+        End If
+
+        AccountManagement.AddNewAccount(SelectedAccount)
+
+        RefreshAccountList()
+
+    End Sub
+
+    Private Sub ButtonDeleteThisAccount_Click(sender As Object, e As EventArgs) Handles ButtonDeleteThisAccount.Click
+
+        Dim SelectedAccount As AwsAccount = ComboBoxAllAccounts.SelectedItem
+
+        AccountManagement.DeleteSavedAccount(SelectedAccount)
+
+        RefreshAccountList()
 
     End Sub
 
