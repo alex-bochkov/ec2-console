@@ -22,6 +22,8 @@ Partial Class MetricBrowserForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MetricBrowserForm))
         Me.Button1 = New System.Windows.Forms.Button()
         Me.PlotView = New OxyPlot.WindowsForms.PlotView()
         Me.ComboBoxMetricType = New System.Windows.Forms.ComboBox()
@@ -35,7 +37,16 @@ Partial Class MetricBrowserForm
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.TimerRefresh = New System.Windows.Forms.Timer(Me.components)
+        Me.StatusStrip = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripDropDownButtonAutorefreshInterval = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.ToolStripMenuItem_5_minutes = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem_1_minute = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem_10_seconds = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TimerProgressBar = New System.Windows.Forms.Timer(Me.components)
+        Me.ToolStripProgressBarRefresh = New System.Windows.Forms.ToolStripProgressBar()
         Me.FlowLayoutPanel1.SuspendLayout()
+        Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
@@ -56,7 +67,7 @@ Partial Class MetricBrowserForm
         Me.PlotView.Location = New System.Drawing.Point(14, 69)
         Me.PlotView.Name = "PlotView"
         Me.PlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.PlotView.Size = New System.Drawing.Size(1038, 502)
+        Me.PlotView.Size = New System.Drawing.Size(1038, 480)
         Me.PlotView.TabIndex = 1
         Me.PlotView.Text = "PlotView"
         Me.PlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -172,11 +183,62 @@ Partial Class MetricBrowserForm
         Me.Label5.Text = "Time Range"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'TimerRefresh
+        '
+        Me.TimerRefresh.Enabled = True
+        '
+        'StatusStrip
+        '
+        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripDropDownButtonAutorefreshInterval, Me.ToolStripProgressBarRefresh})
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 552)
+        Me.StatusStrip.Name = "StatusStrip"
+        Me.StatusStrip.Size = New System.Drawing.Size(1058, 22)
+        Me.StatusStrip.TabIndex = 9
+        Me.StatusStrip.Text = "StatusStrip1"
+        '
+        'ToolStripDropDownButtonAutorefreshInterval
+        '
+        Me.ToolStripDropDownButtonAutorefreshInterval.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.ToolStripDropDownButtonAutorefreshInterval.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem_5_minutes, Me.ToolStripMenuItem_1_minute, Me.ToolStripMenuItem_10_seconds})
+        Me.ToolStripDropDownButtonAutorefreshInterval.Image = CType(resources.GetObject("ToolStripDropDownButtonAutorefreshInterval.Image"), System.Drawing.Image)
+        Me.ToolStripDropDownButtonAutorefreshInterval.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripDropDownButtonAutorefreshInterval.Name = "ToolStripDropDownButtonAutorefreshInterval"
+        Me.ToolStripDropDownButtonAutorefreshInterval.Size = New System.Drawing.Size(90, 20)
+        Me.ToolStripDropDownButtonAutorefreshInterval.Text = "Auto-Refresh"
+        '
+        'ToolStripMenuItem_5_minutes
+        '
+        Me.ToolStripMenuItem_5_minutes.Name = "ToolStripMenuItem_5_minutes"
+        Me.ToolStripMenuItem_5_minutes.Size = New System.Drawing.Size(132, 22)
+        Me.ToolStripMenuItem_5_minutes.Text = "5 minutes"
+        '
+        'ToolStripMenuItem_1_minute
+        '
+        Me.ToolStripMenuItem_1_minute.Name = "ToolStripMenuItem_1_minute"
+        Me.ToolStripMenuItem_1_minute.Size = New System.Drawing.Size(132, 22)
+        Me.ToolStripMenuItem_1_minute.Text = "1 minute"
+        '
+        'ToolStripMenuItem_10_seconds
+        '
+        Me.ToolStripMenuItem_10_seconds.Name = "ToolStripMenuItem_10_seconds"
+        Me.ToolStripMenuItem_10_seconds.Size = New System.Drawing.Size(132, 22)
+        Me.ToolStripMenuItem_10_seconds.Text = "10 seconds"
+        '
+        'TimerProgressBar
+        '
+        Me.TimerProgressBar.Interval = 1000
+        '
+        'ToolStripProgressBarRefresh
+        '
+        Me.ToolStripProgressBarRefresh.Name = "ToolStripProgressBarRefresh"
+        Me.ToolStripProgressBarRefresh.Size = New System.Drawing.Size(100, 16)
+        '
         'MetricBrowserForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1058, 574)
+        Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TextBoxObjectIds)
@@ -190,6 +252,8 @@ Partial Class MetricBrowserForm
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Basic Metric Browser"
         Me.FlowLayoutPanel1.ResumeLayout(False)
+        Me.StatusStrip.ResumeLayout(False)
+        Me.StatusStrip.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -207,4 +271,12 @@ Partial Class MetricBrowserForm
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
+    Friend WithEvents TimerRefresh As Timer
+    Friend WithEvents StatusStrip As StatusStrip
+    Friend WithEvents ToolStripDropDownButtonAutorefreshInterval As ToolStripDropDownButton
+    Friend WithEvents ToolStripMenuItem_5_minutes As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem_10_seconds As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem_1_minute As ToolStripMenuItem
+    Friend WithEvents TimerProgressBar As Timer
+    Friend WithEvents ToolStripProgressBarRefresh As ToolStripProgressBar
 End Class

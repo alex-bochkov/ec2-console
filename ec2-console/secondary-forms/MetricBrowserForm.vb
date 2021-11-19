@@ -249,5 +249,84 @@ Public Class MetricBrowserForm
 
     End Sub
 
+    Private Sub TimerRefresh_Tick(sender As Object, e As EventArgs) Handles TimerRefresh.Tick
+
+        ShowGraph()
+
+        TimerProgressBar.Enabled = True
+        TimerProgressBar.Start()
+
+    End Sub
+
+    Sub EnableTimer(Interval As Integer)
+
+        TimerRefresh.Interval = Interval * 1000
+        TimerRefresh.Enabled = True
+        TimerRefresh.Start()
+
+        ToolStripDropDownButtonAutorefreshInterval.Text = String.Format("Auto-Refresh (every {0} seconds)", Interval)
+
+        ToolStripProgressBarRefresh.Maximum = Interval
+        TimerProgressBar.Enabled = True
+        TimerProgressBar.Start()
+
+    End Sub
+
+    Private Sub ToolStripMenuItem_10_seconds_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem_10_seconds.Click
+
+        EnableTimer(10)
+
+    End Sub
+
+    Private Sub ToolStripMenuItem_1_minute_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem_1_minute.Click
+
+        EnableTimer(60)
+
+    End Sub
+
+    Private Sub ToolStripMenuItem_5_minutes_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem_5_minutes.Click
+
+        EnableTimer(300)
+
+    End Sub
+
+    Private Sub ToolStripDropDownButtonAutorefreshInterval_Click(sender As Object, e As EventArgs) Handles ToolStripDropDownButtonAutorefreshInterval.Click
+
+        If TimerRefresh.Enabled Then
+
+            TimerRefresh.Enabled = False
+            TimerRefresh.Stop()
+
+            ToolStripDropDownButtonAutorefreshInterval.Text = "Auto-Refresh"
+
+        End If
+
+        If TimerProgressBar.Enabled Then
+
+            TimerProgressBar.Enabled = False
+            TimerProgressBar.Stop()
+
+            ToolStripProgressBarRefresh.Value = 0
+
+        End If
+
+    End Sub
+
+    Private Sub TimerProgressBar_Tick(sender As Object, e As EventArgs) Handles TimerProgressBar.Tick
+
+        ToolStripProgressBarRefresh.Value += 1
+
+        If ToolStripProgressBarRefresh.Value = ToolStripProgressBarRefresh.Maximum Then
+
+            TimerProgressBar.Enabled = False
+            TimerProgressBar.Stop()
+
+            ToolStripProgressBarRefresh.Value = 0
+
+        End If
+
+    End Sub
+
+
 End Class
 
