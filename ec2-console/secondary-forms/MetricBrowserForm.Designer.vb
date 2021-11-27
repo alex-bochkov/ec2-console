@@ -43,8 +43,8 @@ Partial Class MetricBrowserForm
         Me.ToolStripMenuItem_5_minutes = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem_1_minute = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem_10_seconds = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TimerProgressBar = New System.Windows.Forms.Timer(Me.components)
         Me.ToolStripProgressBarRefresh = New System.Windows.Forms.ToolStripProgressBar()
+        Me.TimerProgressBar = New System.Windows.Forms.Timer(Me.components)
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -185,7 +185,6 @@ Partial Class MetricBrowserForm
         '
         'TimerRefresh
         '
-        Me.TimerRefresh.Enabled = True
         '
         'StatusStrip
         '
@@ -224,14 +223,14 @@ Partial Class MetricBrowserForm
         Me.ToolStripMenuItem_10_seconds.Size = New System.Drawing.Size(132, 22)
         Me.ToolStripMenuItem_10_seconds.Text = "10 seconds"
         '
-        'TimerProgressBar
-        '
-        Me.TimerProgressBar.Interval = 1000
-        '
         'ToolStripProgressBarRefresh
         '
         Me.ToolStripProgressBarRefresh.Name = "ToolStripProgressBarRefresh"
         Me.ToolStripProgressBarRefresh.Size = New System.Drawing.Size(100, 16)
+        '
+        'TimerProgressBar
+        '
+        Me.TimerProgressBar.Interval = 1000
         '
         'MetricBrowserForm
         '

@@ -1096,11 +1096,31 @@
 
         End Function
 
+        Function GetSharedCredentialProfile(ProfileName As String)
+
+            Dim CredProfile As Amazon.Runtime.CredentialManagement.CredentialProfile = Nothing
+
+            Dim CredFile = New Amazon.Runtime.CredentialManagement.SharedCredentialsFile
+            If CredFile.TryGetProfile(ProfileName, CredProfile) Then
+                Return CredProfile
+            End If
+
+            Return CredProfile
+
+        End Function
+
+        Function GetAllSavedSharedCredentialProfiles() As List(Of String)
+
+            Dim CredFile = New Amazon.Runtime.CredentialManagement.SharedCredentialsFile
+            Return CredFile.ListProfileNames()
+
+        End Function
+
         Function GetAWSCredentials(AwsAccount As AwsAccount)
 
             If AwsAccount.CredentialType = AwsAccount.CredentialTypeEnum.CredentialProfile Then
 
-                ' need to switch to proper SDK store https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-store.html
+                ' https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-store.html
 
                 Dim CredProfile As Amazon.Runtime.CredentialManagement.CredentialProfile = GetCredentialProfile(AwsAccount.CredentialProfile)
                 If CredProfile IsNot Nothing Then
@@ -1111,22 +1131,35 @@
 
             ElseIf AwsAccount.CredentialType = AwsAccount.CredentialTypeEnum.SSO Then
 
-                If AwsAccount.SSOAWSCredentials Is Nothing Then
+                Try
 
-                    Dim SSOAWSCredentialsOptions = New Amazon.Runtime.SSOAWSCredentialsOptions With {.ClientName = "AWS EC2 Console"}
+                    If AwsAccount.SSOAWSCredentials Is Nothing Then
 
-                    Dim SSOAWSCredentials = New Amazon.Runtime.SSOAWSCredentials(AwsAccount.SSO_AccountId,
-                                                                                 AwsAccount.SSO_Region,
-                                                                                 AwsAccount.SSO_RoleName,
-                                                                                 AwsAccount.SSO_StartUrl,
-                                                                                 SSOAWSCredentialsOptions)
-                    AwsAccount.SSOAWSCredentials = SSOAWSCredentials
+                        Dim CredProfile As Amazon.Runtime.CredentialManagement.CredentialProfile = GetSharedCredentialProfile(AwsAccount.SharedCredentialProfile)
+                        If CredProfile IsNot Nothing Then
 
-                End If
+                            Dim SSOAWSCredentialsOptions = New Amazon.Runtime.SSOAWSCredentialsOptions With {.ClientName = "AWS EC2 Console"}
 
-                Dim cred = AwsAccount.SSOAWSCredentials.GetCredentials()
+                            Dim SSOAWSCredentials = New Amazon.Runtime.SSOAWSCredentials(CredProfile.Options.SsoAccountId,
+                                                                                        CredProfile.Options.SsoRegion,
+                                                                                        CredProfile.Options.SsoRoleName,
+                                                                                        CredProfile.Options.SsoStartUrl,
+                                                                                        SSOAWSCredentialsOptions)
+                            AwsAccount.SSOAWSCredentials = SSOAWSCredentials
 
-                Return New Amazon.Runtime.SessionAWSCredentials(cred.AccessKey, cred.SecretKey, cred.Token)
+                        End If
+
+
+                    End If
+
+                    Dim cred = AwsAccount.SSOAWSCredentials.GetCredentials()
+
+                    Return New Amazon.Runtime.SessionAWSCredentials(cred.AccessKey, cred.SecretKey, cred.Token)
+
+                Catch ex As Exception
+
+                End Try
+
 
             End If
 

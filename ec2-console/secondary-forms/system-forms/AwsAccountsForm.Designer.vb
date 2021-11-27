@@ -52,14 +52,7 @@ Partial Class AwsAccountsForm
         Me.ComboBoxCredentialProfile = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.TextBoxSSO_StartUrl = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.TextBoxSSO_RoleName = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.TextBoxSSO_AccountId = New System.Windows.Forms.TextBox()
-        Me.TextBoxSSO_Region = New System.Windows.Forms.TextBox()
+        Me.ComboBoxSharedProfile = New System.Windows.Forms.ComboBox()
         Me.GroupBoxSavedAccounts = New System.Windows.Forms.GroupBox()
         Me.ButtonDeleteThisAccount = New System.Windows.Forms.Button()
         Me.ButtonAddNewAccount = New System.Windows.Forms.Button()
@@ -71,6 +64,7 @@ Partial Class AwsAccountsForm
         Me.TabPageSSO = New System.Windows.Forms.TabPage()
         Me.TabPageKeyPairs = New System.Windows.Forms.TabPage()
         Me.ListBoxKeyPairs = New System.Windows.Forms.ListBox()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
@@ -394,111 +388,27 @@ Partial Class AwsAccountsForm
         Me.TableLayoutPanel2.ColumnCount = 2
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel2.Controls.Add(Me.TextBoxSSO_StartUrl, 1, 3)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label2, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label10, 0, 3)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label3, 0, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.TextBoxSSO_RoleName, 1, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label9, 0, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.TextBoxSSO_AccountId, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.TextBoxSSO_Region, 1, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.ComboBoxSharedProfile, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label7, 0, 0)
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 3)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 4
+        Me.TableLayoutPanel2.RowCount = 5
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(599, 118)
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(599, 49)
         Me.TableLayoutPanel2.TabIndex = 0
         '
-        'TextBoxSSO_StartUrl
+        'ComboBoxSharedProfile
         '
-        Me.TextBoxSSO_StartUrl.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxSSO_StartUrl.Location = New System.Drawing.Point(90, 90)
-        Me.TextBoxSSO_StartUrl.Name = "TextBoxSSO_StartUrl"
-        Me.TextBoxSSO_StartUrl.Size = New System.Drawing.Size(506, 23)
-        Me.TextBoxSSO_StartUrl.TabIndex = 27
-        '
-        'Label2
-        '
-        Me.Label2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(3, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(81, 29)
-        Me.Label2.TabIndex = 22
-        Me.Label2.Text = "Account ID"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label10
-        '
-        Me.Label10.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(3, 87)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(81, 31)
-        Me.Label10.TabIndex = 28
-        Me.Label10.Text = "Start URL"
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label3
-        '
-        Me.Label3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(3, 29)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(81, 29)
-        Me.Label3.TabIndex = 24
-        Me.Label3.Text = "Region"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TextBoxSSO_RoleName
-        '
-        Me.TextBoxSSO_RoleName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxSSO_RoleName.Location = New System.Drawing.Point(90, 61)
-        Me.TextBoxSSO_RoleName.Name = "TextBoxSSO_RoleName"
-        Me.TextBoxSSO_RoleName.Size = New System.Drawing.Size(506, 23)
-        Me.TextBoxSSO_RoleName.TabIndex = 25
-        '
-        'Label9
-        '
-        Me.Label9.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(3, 58)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(81, 29)
-        Me.Label9.TabIndex = 26
-        Me.Label9.Text = "Role Name"
-        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TextBoxSSO_AccountId
-        '
-        Me.TextBoxSSO_AccountId.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxSSO_AccountId.Location = New System.Drawing.Point(90, 3)
-        Me.TextBoxSSO_AccountId.Name = "TextBoxSSO_AccountId"
-        Me.TextBoxSSO_AccountId.Size = New System.Drawing.Size(506, 23)
-        Me.TextBoxSSO_AccountId.TabIndex = 21
-        '
-        'TextBoxSSO_Region
-        '
-        Me.TextBoxSSO_Region.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxSSO_Region.Location = New System.Drawing.Point(90, 32)
-        Me.TextBoxSSO_Region.Name = "TextBoxSSO_Region"
-        Me.TextBoxSSO_Region.Size = New System.Drawing.Size(506, 23)
-        Me.TextBoxSSO_Region.TabIndex = 23
+        Me.ComboBoxSharedProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBoxSharedProfile.FormattingEnabled = True
+        Me.ComboBoxSharedProfile.Location = New System.Drawing.Point(97, 3)
+        Me.ComboBoxSharedProfile.Name = "ComboBoxSharedProfile"
+        Me.ComboBoxSharedProfile.Size = New System.Drawing.Size(499, 24)
+        Me.ComboBoxSharedProfile.TabIndex = 1
         '
         'GroupBoxSavedAccounts
         '
@@ -647,6 +557,19 @@ Partial Class AwsAccountsForm
         Me.ListBoxKeyPairs.Size = New System.Drawing.Size(607, 164)
         Me.ListBoxKeyPairs.TabIndex = 0
         '
+        'Label7
+        '
+        Me.Label7.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(3, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(88, 30)
+        Me.Label7.TabIndex = 29
+        Me.Label7.Text = "Profile Name"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'AwsAccountsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -708,14 +631,6 @@ Partial Class AwsAccountsForm
     Friend WithEvents ButtonRefreshCredentialProfiles As Button
     Friend WithEvents ComboBoxCredentialProfile As ComboBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents TextBoxSSO_StartUrl As TextBox
-    Friend WithEvents Label10 As Label
-    Friend WithEvents TextBoxSSO_RoleName As TextBox
-    Friend WithEvents Label9 As Label
-    Friend WithEvents TextBoxSSO_Region As TextBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents TextBoxSSO_AccountId As TextBox
-    Friend WithEvents Label2 As Label
     Friend WithEvents GroupBoxSavedAccounts As GroupBox
     Friend WithEvents ButtonAddNewAccount As Button
     Friend WithEvents ButtonDeleteThisAccount As Button
@@ -729,4 +644,6 @@ Partial Class AwsAccountsForm
     Friend WithEvents TabPageCredentialProfiles As TabPage
     Friend WithEvents TabPageSSO As TabPage
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
+    Friend WithEvents ComboBoxSharedProfile As ComboBox
+    Friend WithEvents Label7 As Label
 End Class

@@ -31,11 +31,11 @@ Public Class AwsAccount
         ID = Guid.NewGuid()
 
     End Sub
+    '------------------------------------
+    Public ID As Guid
 
     '------------------------------------
     Private Const m_DefaultEmptyString As String = ""
-    '------------------------------------
-    Public ID As Guid
     '------------------------------------
     Private m_Description As String = ""
 
@@ -49,58 +49,6 @@ Public Class AwsAccount
             m_Description = Value
             RaiseEvent PropertyChanged(Me,
                New System.ComponentModel.PropertyChangedEventArgs("AwsAccount"))
-        End Set
-    End Property
-    '------------------------------------
-    Private m_SSO_AccountId As String = ""
-
-    <Bindable(BindableSupport.Yes, BindingDirection.TwoWay)>
-    <DefaultValue(m_DefaultEmptyString)>
-    Public Property SSO_AccountId() As String
-        Get
-            Return m_SSO_AccountId
-        End Get
-        Set(ByVal Value As String)
-            m_SSO_AccountId = Value
-        End Set
-    End Property
-    '------------------------------------
-    Private m_SSO_Region As String = ""
-
-    <Bindable(BindableSupport.Yes, BindingDirection.TwoWay)>
-    <DefaultValue(m_DefaultEmptyString)>
-    Public Property SSO_Region() As String
-        Get
-            Return m_SSO_Region
-        End Get
-        Set(ByVal Value As String)
-            m_SSO_Region = Value
-        End Set
-    End Property
-    '------------------------------------
-    Private m_SSO_RoleName As String = ""
-
-    <Bindable(BindableSupport.Yes, BindingDirection.TwoWay)>
-    <DefaultValue(m_DefaultEmptyString)>
-    Public Property SSO_RoleName() As String
-        Get
-            Return m_SSO_RoleName
-        End Get
-        Set(ByVal Value As String)
-            m_SSO_RoleName = Value
-        End Set
-    End Property
-    '------------------------------------
-    Private m_SSO_StartUrl As String = ""
-
-    <Bindable(BindableSupport.Yes, BindingDirection.TwoWay)>
-    <DefaultValue(m_DefaultEmptyString)>
-    Public Property SSO_StartUrl() As String
-        Get
-            Return m_SSO_StartUrl
-        End Get
-        Set(ByVal Value As String)
-            m_SSO_StartUrl = Value
         End Set
     End Property
     '------------------------------------
@@ -153,6 +101,19 @@ Public Class AwsAccount
         End Get
         Set(ByVal Value As String)
             m_CredentialProfile = Value
+        End Set
+    End Property
+    '------------------------------------
+    Private m_SharedCredentialProfile As String = ""
+
+    <Bindable(BindableSupport.Yes, BindingDirection.TwoWay)>
+    <DefaultValue(m_DefaultEmptyString)>
+    Public Property SharedCredentialProfile() As String
+        Get
+            Return m_SharedCredentialProfile
+        End Get
+        Set(ByVal Value As String)
+            m_SharedCredentialProfile = Value
         End Set
     End Property
     '------------------------------------

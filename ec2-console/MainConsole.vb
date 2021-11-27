@@ -770,8 +770,8 @@ Public Class Form1
 
     Private Sub FillInstanceList()
 
-        DataListViewEC2.DataSource = Nothing
         InstanceDataSource.Rows.Clear()
+        DataListViewEC2.DataSource = Nothing
 
         InstanceTable.Clear()
         InstanceStatusTable.Clear()
@@ -784,7 +784,7 @@ Public Class Form1
             Dim ListRunningInstances As List(Of String) = New List(Of String)
 
             For Each instance In InstanceList
-                'not sure what it failing on duplicates here
+                'not sure why it failing on duplicates here
                 If InstanceVolumesTable.ContainsKey(instance.InstanceId) Then
                     InstanceVolumesTable.Remove(instance.InstanceId)
                 End If

@@ -31,18 +31,6 @@
         TextBoxAccountDescription.DataBindings.Clear()
         TextBoxAccountDescription.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "Description")
 
-        TextBoxSSO_AccountId.DataBindings.Clear()
-        TextBoxSSO_AccountId.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "SSO_AccountId")
-
-        TextBoxSSO_Region.DataBindings.Clear()
-        TextBoxSSO_Region.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "SSO_Region")
-
-        TextBoxSSO_RoleName.DataBindings.Clear()
-        TextBoxSSO_RoleName.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "SSO_RoleName")
-
-        TextBoxSSO_StartUrl.DataBindings.Clear()
-        TextBoxSSO_StartUrl.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "SSO_StartUrl")
-
         TextBoxDefaultInstanceFilter.DataBindings.Clear()
         TextBoxDefaultInstanceFilter.DataBindings.Add("Text", ComboBoxAllAccounts.SelectedItem, "DefaultInstanceFilter")
 
@@ -54,6 +42,9 @@
 
         ComboBoxCredentialProfile.DataBindings.Clear()
         ComboBoxCredentialProfile.DataBindings.Add("SelectedItem", ComboBoxAllAccounts.SelectedItem, "CredentialProfile")
+
+        ComboBoxSharedProfile.DataBindings.Clear()
+        ComboBoxSharedProfile.DataBindings.Add("SelectedItem", ComboBoxAllAccounts.SelectedItem, "SharedCredentialProfile")
 
         ShowAccountDetails()
 
@@ -101,6 +92,15 @@
 
         ComboBoxCredentialProfile.Items.AddRange(AllProfiles.ToArray)
 
+
+        ' shared profiles
+        Dim AllSharedProfiles = AmazonApi.GetAllSavedSharedCredentialProfiles()
+        ComboBoxSharedProfile.Items.Clear()
+
+        ComboBoxSharedProfile.Items.Add("")
+        ComboBoxSharedProfile.SelectedIndex = 0
+
+        ComboBoxSharedProfile.Items.AddRange(AllSharedProfiles.ToArray)
 
     End Sub
 
