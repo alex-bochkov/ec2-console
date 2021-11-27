@@ -201,6 +201,60 @@ Public Class Form1
 
     End Sub
 
+    Public Sub EmbeddedButtonOpenClick(sender As Object, e As EventArgs) Handles ButtonMetricBrowser.Click
+
+        Dim Button As Button = sender
+
+        If Button.Parent.Name = "TextBoxInstanceAMI" Then
+
+            Dim FormAmi = New ImageForm
+            FormAmi.CurrentAccount = CurrentAccount
+            FormAmi.ImageID = TextBoxInstanceAMI.Text
+            FormAmi.StartPosition = FormStartPosition.CenterScreen
+            FormAmi.ShowDialog()
+
+        ElseIf Button.Parent.Name = "TextBoxInstanceType" Then
+
+            For Each InstanceTypeInfo In InstanceTypesList
+                If InstanceTypeInfo.InstanceType.Value = TextBoxInstanceType.Text Then
+
+                    Dim FormInstanceType = New InstanceTypeForm
+                    FormInstanceType.CurrentAccount = CurrentAccount
+                    FormInstanceType.InstanceType = TextBoxInstanceType.Text
+                    FormInstanceType.InstanceTypeInfo = InstanceTypeInfo
+                    FormInstanceType.StartPosition = FormStartPosition.CenterScreen
+                    FormInstanceType.ShowDialog()
+
+                    Exit For
+                End If
+            Next
+
+        Else
+
+            MsgBox("Not Implemented")
+
+        End If
+
+
+    End Sub
+
+    Public Sub EmbeddedButtonCopyClick(sender As Object, e As EventArgs) Handles ButtonMetricBrowser.Click
+
+        Dim Button As Button = sender
+
+        If Button.Parent.Name = "TextBoxInstanceId" Then
+
+            My.Computer.Clipboard.SetText(TextBoxInstanceId.Text)
+
+        Else
+
+            MsgBox("Not Implemented")
+
+        End If
+
+
+    End Sub
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         CreateInstanceDataSource()
@@ -216,6 +270,10 @@ Public Class Form1
         ConfigureLogging()
 
         SetFirstCurrentAccount()
+
+        ServiceFunctions.AddEmbeddedButton_Open(TextBoxInstanceAMI)
+        ServiceFunctions.AddEmbeddedButton_Open(TextBoxInstanceType)
+        ServiceFunctions.AddEmbeddedButton_Copy(TextBoxInstanceId)
 
     End Sub
     Sub ShowAllRegions()
@@ -1653,22 +1711,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub ButtonOpenAmiForm_Click(sender As Object, e As EventArgs) Handles ButtonOpenAmiForm.Click
-
-        Dim FormAmi = New ImageForm
-        FormAmi.CurrentAccount = CurrentAccount
-        FormAmi.ImageID = TextBoxInstanceAMI.Text
-        FormAmi.StartPosition = FormStartPosition.CenterScreen
-        FormAmi.ShowDialog()
-
-    End Sub
-
-    Private Sub ButtonCopyInstanceID_Click(sender As Object, e As EventArgs) Handles ButtonCopyInstanceID.Click
-
-        My.Computer.Clipboard.SetText(TextBoxInstanceId.Text)
-
-    End Sub
-
     Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
 
         Dim FormUserSettings = New UserSettingsForm
@@ -1677,25 +1719,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub ButtonOpenInstanceTypeForm_Click(sender As Object, e As EventArgs) Handles ButtonOpenInstanceTypeForm.Click
-
-        For Each InstanceTypeInfo In InstanceTypesList
-            If InstanceTypeInfo.InstanceType.Value = TextBoxInstanceType.Text Then
-
-                Dim FormInstanceType = New InstanceTypeForm
-                FormInstanceType.CurrentAccount = CurrentAccount
-                FormInstanceType.InstanceType = TextBoxInstanceType.Text
-                FormInstanceType.InstanceTypeInfo = InstanceTypeInfo
-                FormInstanceType.StartPosition = FormStartPosition.CenterScreen
-                FormInstanceType.ShowDialog()
-
-                Exit For
-            End If
-        Next
-
-
-
-    End Sub
     Private Sub ButtonMetricBrowser_Click(sender As Object, e As EventArgs) Handles ButtonMetricBrowser.Click
 
         OpenMetricBrowserForm_WithInstanceIDs(New List(Of String) From {GetSelectedInstanceId()})

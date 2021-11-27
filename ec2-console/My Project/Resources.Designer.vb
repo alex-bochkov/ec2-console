@@ -22,7 +22,7 @@ Namespace My.Resources
     '''<summary>
     '''  A strongly-typed resource class, for looking up localized strings, etc.
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0"),  _
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0"),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
      Global.Microsoft.VisualBasic.HideModuleNameAttribute()>  _
@@ -81,6 +81,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ButtonCopy() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ButtonCopy", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
         Friend ReadOnly Property DeleteObject() As System.Drawing.Icon
@@ -94,14 +104,24 @@ Namespace My.Resources
         '''  Looks up a localized string similar to {
         '''  &quot;messages&quot;: [
         '''    {
-        '''      &quot;id&quot;: &quot;&quot;,
-        '''      &quot;en_US&quot;: &quot;d&quot;,
-        '''      &quot;ru_RU&quot;: &quot;d&quot;
-        '''    }
-        '''
-        '''  ]
-        '''}
-        '''.
+        '''      &quot;id&quot;: &quot;please-download-new-version&quot;,
+        '''      &quot;en_US&quot;: &quot;Please download and install the new version: {0} ({1})&quot;,
+        '''      &quot;ru_RU&quot;: &quot;Пожалуйста установите новую версию: {0} ({1})&quot;
+        '''    },
+        '''    {
+        '''      &quot;id&quot;: &quot;language&quot;,
+        '''      &quot;en_US&quot;: &quot;Language&quot;,
+        '''      &quot;ru_RU&quot;: &quot;Язык интерфейса&quot;
+        '''    },
+        '''    {
+        '''      &quot;id&quot;: &quot;language-name-english&quot;,
+        '''      &quot;en_US&quot;: &quot;English&quot;,
+        '''      &quot;ru_RU&quot;: &quot;Английский&quot;
+        '''    },
+        '''    {
+        '''      &quot;id&quot;: &quot;language-name-russian&quot;,
+        '''      &quot;en_US&quot;: &quot;Russian&quot;,
+        '''      &quot;ru_RU [rest of string was truncated]&quot;;.
         '''</summary>
         Friend ReadOnly Property LocalizedMessages() As String
             Get

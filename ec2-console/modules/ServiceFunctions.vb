@@ -80,6 +80,42 @@ Namespace ServiceFunctions
 
     End Module
 
+    Module EmbeddedButtons
+
+        Function AddEmbeddedButton_Open(TextBoxTarget As TextBox) As Button
+
+            Dim btn = New Button()
+            btn.Text = ".."
+            btn.Size = New Size(25, TextBoxTarget.ClientSize.Height + 2)
+            btn.Location = New Point(TextBoxTarget.ClientSize.Width - btn.Width, -1)
+            btn.Cursor = Cursors.Default
+            'btn.Image = Properties.Resources.star
+            AddHandler btn.Click, AddressOf Form1.EmbeddedButtonOpenClick
+            TextBoxTarget.Controls.Add(btn)
+
+            Return btn
+
+        End Function
+
+        Function AddEmbeddedButton_Copy(TextBoxTarget As TextBox) As Button
+
+            Dim btn = New Button()
+            'btn.Text = ".."
+            btn.BackgroundImage = My.Resources.ButtonCopy
+            btn.BackgroundImageLayout = ImageLayout.Zoom
+            btn.Size = New Size(25, TextBoxTarget.ClientSize.Height + 2)
+            btn.Location = New Point(TextBoxTarget.ClientSize.Width - btn.Width, -1)
+            btn.Cursor = Cursors.Default
+            'btn.Image = Properties.Resources.star
+            AddHandler btn.Click, AddressOf Form1.EmbeddedButtonCopyClick
+            TextBoxTarget.Controls.Add(btn)
+
+            Return btn
+
+        End Function
+
+    End Module
+
 End Namespace
 
 

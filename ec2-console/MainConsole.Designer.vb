@@ -64,7 +64,6 @@ Partial Class Form1
         Me.TextBoxInstanceKeyName = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.TextBox7 = New System.Windows.Forms.TextBox()
-        Me.ButtonOpenInstanceTypeForm = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TextBoxInstancevCPU = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -76,10 +75,8 @@ Partial Class Form1
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TextBoxInstancePlatform = New System.Windows.Forms.TextBox()
-        Me.ButtonOpenAmiForm = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TextBoxInstanceId = New System.Windows.Forms.TextBox()
-        Me.ButtonCopyInstanceID = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.TextBoxInstanceIamRole = New System.Windows.Forms.TextBox()
         Me.TabPageNetworking = New System.Windows.Forms.TabPage()
@@ -405,8 +402,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.Controls.Add(Me.TextBoxInstanceKeyName, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label14, 0, 6)
         Me.TableLayoutPanel2.Controls.Add(Me.TextBox7, 1, 6)
-        Me.TableLayoutPanel2.Controls.Add(Me.ButtonOpenInstanceTypeForm, 2, 3)
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(508, 3)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(461, 3)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 8
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
@@ -417,7 +413,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(526, 248)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(475, 252)
         Me.TableLayoutPanel2.TabIndex = 1
         '
         'TextBoxInstanceSystemStatus
@@ -590,15 +586,6 @@ Partial Class Form1
         Me.TextBox7.TabIndex = 15
         Me.TextBox7.Visible = False
         '
-        'ButtonOpenInstanceTypeForm
-        '
-        Me.ButtonOpenInstanceTypeForm.Location = New System.Drawing.Point(470, 90)
-        Me.ButtonOpenInstanceTypeForm.Name = "ButtonOpenInstanceTypeForm"
-        Me.ButtonOpenInstanceTypeForm.Size = New System.Drawing.Size(52, 23)
-        Me.ButtonOpenInstanceTypeForm.TabIndex = 16
-        Me.ButtonOpenInstanceTypeForm.Text = "Open"
-        Me.ButtonOpenInstanceTypeForm.UseVisualStyleBackColor = True
-        '
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -617,10 +604,8 @@ Partial Class Form1
         Me.TableLayoutPanel1.Controls.Add(Me.Label3, 0, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.Label4, 0, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstancePlatform, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.ButtonOpenAmiForm, 2, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.Label6, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstanceId, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.ButtonCopyInstanceID, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Label7, 0, 6)
         Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstanceIamRole, 1, 6)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 3)
@@ -634,7 +619,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 263)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(452, 267)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -757,15 +742,6 @@ Partial Class Form1
         Me.TextBoxInstancePlatform.Size = New System.Drawing.Size(322, 23)
         Me.TextBoxInstancePlatform.TabIndex = 4
         '
-        'ButtonOpenAmiForm
-        '
-        Me.ButtonOpenAmiForm.Location = New System.Drawing.Point(447, 90)
-        Me.ButtonOpenAmiForm.Name = "ButtonOpenAmiForm"
-        Me.ButtonOpenAmiForm.Size = New System.Drawing.Size(52, 23)
-        Me.ButtonOpenAmiForm.TabIndex = 10
-        Me.ButtonOpenAmiForm.Text = "Open"
-        Me.ButtonOpenAmiForm.UseVisualStyleBackColor = True
-        '
         'Label6
         '
         Me.Label6.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -789,15 +765,6 @@ Partial Class Form1
         Me.TextBoxInstanceId.ReadOnly = True
         Me.TextBoxInstanceId.Size = New System.Drawing.Size(322, 23)
         Me.TextBoxInstanceId.TabIndex = 12
-        '
-        'ButtonCopyInstanceID
-        '
-        Me.ButtonCopyInstanceID.Location = New System.Drawing.Point(447, 3)
-        Me.ButtonCopyInstanceID.Name = "ButtonCopyInstanceID"
-        Me.ButtonCopyInstanceID.Size = New System.Drawing.Size(52, 23)
-        Me.ButtonCopyInstanceID.TabIndex = 13
-        Me.ButtonCopyInstanceID.Text = "Copy"
-        Me.ButtonCopyInstanceID.UseVisualStyleBackColor = True
         '
         'Label7
         '
@@ -973,7 +940,7 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 25)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 235)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 239)
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
         Me.ListViewInstanceVolumes.View = System.Windows.Forms.View.Details
@@ -1093,7 +1060,7 @@ Partial Class Form1
         Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 28)
         Me.ListViewInstanceTags.Name = "ListViewInstanceTags"
         Me.ListViewInstanceTags.ShowGroups = False
-        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 229)
+        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 233)
         Me.ListViewInstanceTags.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceTags.TabIndex = 0
         Me.ListViewInstanceTags.UseCompatibleStateImageBehavior = False
@@ -1221,10 +1188,8 @@ Partial Class Form1
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents TextBoxInstancePlatform As TextBox
-    Friend WithEvents ButtonOpenAmiForm As Button
     Friend WithEvents Label6 As Label
     Friend WithEvents TextBoxInstanceId As TextBox
-    Friend WithEvents ButtonCopyInstanceID As Button
     Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label7 As Label
     Friend WithEvents TextBoxInstanceIamRole As TextBox
@@ -1245,7 +1210,6 @@ Partial Class Form1
     Friend WithEvents TextBoxInstanceKeyName As TextBox
     Friend WithEvents Label14 As Label
     Friend WithEvents TextBox7 As TextBox
-    Friend WithEvents ButtonOpenInstanceTypeForm As Button
     Friend WithEvents PlotViewInstanceCPU As OxyPlot.WindowsForms.PlotView
     Friend WithEvents ButtonMetricBrowser As Button
 End Class
