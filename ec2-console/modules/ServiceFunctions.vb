@@ -84,6 +84,8 @@ Namespace ServiceFunctions
 
         Function AddEmbeddedButton_Open(TextBoxTarget As TextBox) As Button
 
+
+
             Dim btn = New Button()
             btn.Text = ".."
             btn.Size = New Size(25, TextBoxTarget.ClientSize.Height + 2)
@@ -91,7 +93,12 @@ Namespace ServiceFunctions
             btn.Cursor = Cursors.Default
             'btn.Image = Properties.Resources.star
             AddHandler btn.Click, AddressOf Form1.EmbeddedButtonOpenClick
+
+            Dim ToolTip_ButtonOpen As System.Windows.Forms.ToolTip = New System.Windows.Forms.ToolTip()
+            ToolTip_ButtonOpen.SetToolTip(btn, "Details")
+
             TextBoxTarget.Controls.Add(btn)
+
 
             Return btn
 
@@ -108,6 +115,10 @@ Namespace ServiceFunctions
             btn.Cursor = Cursors.Default
             'btn.Image = Properties.Resources.star
             AddHandler btn.Click, AddressOf Form1.EmbeddedButtonCopyClick
+
+            Dim ToolTip_ButtonCopy As System.Windows.Forms.ToolTip = New System.Windows.Forms.ToolTip()
+            ToolTip_ButtonCopy.SetToolTip(btn, "Copy")
+
             TextBoxTarget.Controls.Add(btn)
 
             Return btn

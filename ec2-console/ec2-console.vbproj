@@ -66,6 +66,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Update="secondary-forms\IamRoleForm.vb" />
   </ItemGroup>
 
   <ItemGroup>

@@ -221,6 +221,11 @@
 
                         List.Add(instance)
 
+                        'for some reason MaxResults doesn't apply for the entrire result-set
+                        If List.Count >= request.MaxResults Then
+                            Exit While
+                        End If
+
                     Next
 
                 Next
@@ -727,26 +732,6 @@
 
         End Function
 
-        Public Function ListInstanceProfiles(AwsAccount As AwsAccount) As List(Of Amazon.IdentityManagement.Model.InstanceProfile)
-
-            Dim client = New Amazon.IdentityManagement.AmazonIdentityManagementServiceClient(GetAWSCredentials(AwsAccount), Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
-
-            Dim request = New Amazon.IdentityManagement.Model.ListInstanceProfilesRequest
-
-            Dim requestResult = client.ListInstanceProfilesAsync(request).GetAwaiter()
-
-            While Not requestResult.IsCompleted
-                Application.DoEvents()
-            End While
-
-            Dim result = requestResult.GetResult()
-
-            Return result.InstanceProfiles
-
-        End Function
-
-
-
         Public Function AddInstanceProfileAssociation(AwsAccount As AwsAccount, InstanceId As String,
                                            IamInstanceProfileSpecification As Amazon.EC2.Model.IamInstanceProfileSpecification) As Amazon.EC2.Model.IamInstanceProfileAssociation
 
@@ -1064,6 +1049,115 @@
             End While
 
             Return List
+
+        End Function
+
+
+
+    End Module
+
+    Module IdentityManagement
+
+        Private Function NewAmazonIdentityManagementServiceClient(AwsAccount As AwsAccount) As Amazon.IdentityManagement.AmazonIdentityManagementServiceClient
+
+            Dim client = New Amazon.IdentityManagement.AmazonIdentityManagementServiceClient(GetAWSCredentials(AwsAccount), Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+
+            Return client
+
+        End Function
+        Public Function ListInstanceProfiles(AwsAccount As AwsAccount) As List(Of Amazon.IdentityManagement.Model.InstanceProfile)
+
+            Dim client = NewAmazonIdentityManagementServiceClient(AwsAccount)
+
+            Dim request = New Amazon.IdentityManagement.Model.ListInstanceProfilesRequest
+
+            Dim requestResult = client.ListInstanceProfilesAsync(request).GetAwaiter()
+
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.InstanceProfiles
+
+        End Function
+
+        Public Function GetRole(AwsAccount As AwsAccount, RoleName As String) As Amazon.IdentityManagement.Model.Role
+
+            Dim client = NewAmazonIdentityManagementServiceClient(AwsAccount)
+
+            Dim request = New Amazon.IdentityManagement.Model.GetRoleRequest
+            request.RoleName = RoleName
+
+            Dim requestResult = client.GetRoleAsync(request).GetAwaiter()
+
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.Role
+
+        End Function
+
+
+        Public Function GetPolicy(AwsAccount As AwsAccount, PolicyArn As String) As Amazon.IdentityManagement.Model.ManagedPolicy
+
+            Dim client = NewAmazonIdentityManagementServiceClient(AwsAccount)
+
+            Dim request = New Amazon.IdentityManagement.Model.GetPolicyRequest
+            request.PolicyArn = PolicyArn
+
+            Dim requestResult = client.GetPolicyAsync(request).GetAwaiter()
+
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.Policy
+
+        End Function
+
+        Public Function GetPolicyVersion(AwsAccount As AwsAccount, PolicyArn As String, VersionId As String) As Amazon.IdentityManagement.Model.PolicyVersion
+
+            Dim client = NewAmazonIdentityManagementServiceClient(AwsAccount)
+
+            Dim request = New Amazon.IdentityManagement.Model.GetPolicyVersionRequest
+            request.PolicyArn = PolicyArn
+            request.VersionId = VersionId
+
+            Dim requestResult = client.GetPolicyVersionAsync(request).GetAwaiter()
+
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.PolicyVersion
+
+        End Function
+
+        Public Function ListAttachedRolePolicies(AwsAccount As AwsAccount, RoleName As String) As List(Of Amazon.IdentityManagement.Model.AttachedPolicyType)
+
+            Dim client = NewAmazonIdentityManagementServiceClient(AwsAccount)
+
+            Dim request = New Amazon.IdentityManagement.Model.ListAttachedRolePoliciesRequest
+            request.RoleName = RoleName
+
+            Dim requestResult = client.ListAttachedRolePoliciesAsync(request).GetAwaiter()
+
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.AttachedPolicies
 
         End Function
 

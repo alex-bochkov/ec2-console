@@ -201,7 +201,7 @@ Public Class Form1
 
     End Sub
 
-    Public Sub EmbeddedButtonOpenClick(sender As Object, e As EventArgs) Handles ButtonMetricBrowser.Click
+    Public Sub EmbeddedButtonOpenClick(sender As Object, e As EventArgs)
 
         Dim Button As Button = sender
 
@@ -212,6 +212,14 @@ Public Class Form1
             FormAmi.ImageID = TextBoxInstanceAMI.Text
             FormAmi.StartPosition = FormStartPosition.CenterScreen
             FormAmi.ShowDialog()
+
+        ElseIf Button.Parent.Name = "TextBoxInstanceIamRole" Then
+
+            Dim FormIam = New IamRoleForm
+            FormIam.CurrentAccount = CurrentAccount
+            FormIam.RoleName = TextBoxInstanceIamRole.Text
+            FormIam.StartPosition = FormStartPosition.CenterScreen
+            FormIam.ShowDialog()
 
         ElseIf Button.Parent.Name = "TextBoxInstanceType" Then
 
@@ -238,13 +246,21 @@ Public Class Form1
 
     End Sub
 
-    Public Sub EmbeddedButtonCopyClick(sender As Object, e As EventArgs) Handles ButtonMetricBrowser.Click
+    Public Sub EmbeddedButtonCopyClick(sender As Object, e As EventArgs)
 
         Dim Button As Button = sender
 
         If Button.Parent.Name = "TextBoxInstanceId" Then
 
             My.Computer.Clipboard.SetText(TextBoxInstanceId.Text)
+
+        ElseIf Button.Parent.Name = "TextBoxInstancePrivateDNS" Then
+
+            My.Computer.Clipboard.SetText(TextBoxInstancePrivateDNS.Text)
+
+        ElseIf Button.Parent.Name = "TextBoxInstancePrivateIp" Then
+
+            My.Computer.Clipboard.SetText(TextBoxInstancePrivateIp.Text)
 
         Else
 
@@ -273,7 +289,11 @@ Public Class Form1
 
         ServiceFunctions.AddEmbeddedButton_Open(TextBoxInstanceAMI)
         ServiceFunctions.AddEmbeddedButton_Open(TextBoxInstanceType)
+        ServiceFunctions.AddEmbeddedButton_Open(TextBoxInstanceIamRole)
+
         ServiceFunctions.AddEmbeddedButton_Copy(TextBoxInstanceId)
+        ServiceFunctions.AddEmbeddedButton_Copy(TextBoxInstancePrivateDNS)
+        ServiceFunctions.AddEmbeddedButton_Copy(TextBoxInstancePrivateIp)
 
     End Sub
     Sub ShowAllRegions()
@@ -284,7 +304,10 @@ Public Class Form1
 
             For Each AwsRegion In AmazonApi.GetAllAwsRegions()
 
-                If CurrentAccount.EnabledRegions.Contains(AwsRegion.SystemName) Or CurrentAccount.EnabledRegions.Count = 0 Then
+                If CurrentAccount.EnabledRegions.Contains(AwsRegion.SystemName) _
+                    Or CurrentAccount.Region = AwsRegion.SystemName _
+                    Or CurrentAccount.EnabledRegions.Count = 0 _
+                    Then
 
                     Dim ItemText = AwsRegion.SystemName + " / " + AwsRegion.DisplayName
 
@@ -454,7 +477,7 @@ Public Class Form1
     Private Sub OpenAccountManagementForm()
 
         Dim FormAccounts = New AwsAccountsForm
-        FormAccounts.StartPosition = FormStartPosition.CenterParent
+        FormAccounts.StartPosition = FormStartPosition.CenterScreen
         FormAccounts.ShowDialog()
 
         SetFirstCurrentAccount()
@@ -828,6 +851,8 @@ Public Class Form1
 
     Private Sub FillInstanceList()
 
+        TabPageEC2.Text = String.Format("Instances ({0})", "... refreshing ...")
+
         InstanceDataSource.Rows.Clear()
         DataListViewEC2.DataSource = Nothing
 
@@ -973,6 +998,8 @@ Public Class Form1
         End If
 
         ShowInstanceCpuUtilization(InstanceID, Instance.Monitoring.State.Value)
+        ShowInstanceNetworkIn(InstanceID, Instance.Monitoring.State.Value)
+        ShowInstanceNetworkOut(InstanceID, Instance.Monitoring.State.Value)
 
         '*****************************************************************
         ' Tab - Details
@@ -1030,12 +1057,11 @@ Public Class Form1
 
         Next
 
-        ListViewInstanceNetworkProperties.Items.Clear()
-        ListViewInstanceNetworkProperties.Items.Add(New ListViewItem({"PrivateDnsName", Instance.PrivateDnsName}))
-        ListViewInstanceNetworkProperties.Items.Add(New ListViewItem({"PrivateIpAddress", Instance.PrivateIpAddress}))
-        ListViewInstanceNetworkProperties.Items.Add(New ListViewItem({"VpcId", Instance.VpcId}))
-        ListViewInstanceNetworkProperties.Items.Add(New ListViewItem({"SubnetId", Instance.SubnetId}))
-        ListViewInstanceNetworkProperties.Items.Add(New ListViewItem({"AvailabilityZone", Instance.Placement.AvailabilityZone}))
+        TextBoxInstanceVpcId.Text = Instance.VpcId
+        TextBoxInstanceSubnetId.Text = Instance.SubnetId
+        TextBoxInstanceAZ.Text = Instance.Placement.AvailabilityZone
+        TextBoxInstancePrivateIp.Text = Instance.PrivateIpAddress
+        TextBoxInstancePrivateDNS.Text = Instance.PrivateDnsName
 
         '*****************************************************************
         ' Tab - Storage
@@ -1108,6 +1134,126 @@ Public Class Form1
         '*****************************************************************
 
 
+
+    End Sub
+
+    Sub ShowInstanceNetworkIn(InstanceID As String, DetailedMonitoring As String)
+
+        Dim plot = New PlotModel With {.Subtitle = "Network In (Mb)"}
+
+        Dim LinearAxis1 = New LinearAxis
+        LinearAxis1.Position = AxisPosition.Left
+        LinearAxis1.Minimum = 0
+        'LinearAxis1.Maximum = 100
+        'LinearAxis1.MajorStep = 50
+        'LinearAxis1.MinorStep = 10
+        LinearAxis1.TickStyle = TickStyle.Inside
+        plot.Axes.Add(LinearAxis1)
+
+        'Dim LinearAxis2 = New LinearAxis
+        Dim LinearAxis2 = New DateTimeAxis
+        LinearAxis2.Position = AxisPosition.Bottom
+        LinearAxis2.Minimum = DateTimeAxis.ToDouble(Now.AddHours(-1))
+        LinearAxis2.Maximum = DateTimeAxis.ToDouble(Now)
+        'LinearAxis2.MajorStep = 60
+        'LinearAxis2.MinorStep = 15
+        LinearAxis2.TickStyle = TickStyle.Inside
+        LinearAxis2.IntervalType = DateTimeIntervalType.Minutes
+        plot.Axes.Add(LinearAxis2)
+
+
+        Dim DetailedMonitoringEnabled As Boolean = DetailedMonitoring = "enabled"
+
+        Dim StartDate As DateTime = Now.AddHours(-1)
+        Dim EndDate As DateTime = Now
+
+        Dim Period As Integer = 300
+        If DetailedMonitoring = "enabled" Then
+            Period = 60
+        End If
+
+        Dim Past60Minutes = AmazonApi.GetMetricStatistics(CurrentAccount,
+                                                          "AWS/EC2", "InstanceId", InstanceID,
+                                                          Period, "NetworkIn", "Maximum", StartDate, EndDate)
+
+        Past60Minutes.Sort(Function(elementA As Amazon.CloudWatch.Model.Datapoint, elementB As Amazon.CloudWatch.Model.Datapoint)
+
+                               Return elementA.Timestamp.CompareTo(elementB.Timestamp)
+
+                           End Function)
+
+        Dim ls = New LineSeries With {.Title = String.Format("Network In (Mb) per minute")}
+        For Each DataPoint In Past60Minutes
+
+            Dim val = Math.Round(DataPoint.Maximum / 1024 / 1024, 1)
+
+            ls.Points.Add(New DataPoint(DateTimeAxis.ToDouble(DataPoint.Timestamp.ToLocalTime), val))
+
+        Next
+
+        plot.Series.Add(ls)
+
+        PlotViewInstanceNetworkIn.Model = plot
+
+    End Sub
+
+    Sub ShowInstanceNetworkOut(InstanceID As String, DetailedMonitoring As String)
+
+        Dim plot = New PlotModel With {.Subtitle = "Network Out (Mb)"}
+
+        Dim LinearAxis1 = New LinearAxis
+        LinearAxis1.Position = AxisPosition.Left
+        LinearAxis1.Minimum = 0
+        'LinearAxis1.Maximum = 100
+        'LinearAxis1.MajorStep = 50
+        'LinearAxis1.MinorStep = 10
+        LinearAxis1.TickStyle = TickStyle.Inside
+        plot.Axes.Add(LinearAxis1)
+
+        'Dim LinearAxis2 = New LinearAxis
+        Dim LinearAxis2 = New DateTimeAxis
+        LinearAxis2.Position = AxisPosition.Bottom
+        LinearAxis2.Minimum = DateTimeAxis.ToDouble(Now.AddHours(-1))
+        LinearAxis2.Maximum = DateTimeAxis.ToDouble(Now)
+        'LinearAxis2.MajorStep = 60
+        'LinearAxis2.MinorStep = 15
+        LinearAxis2.TickStyle = TickStyle.Inside
+        LinearAxis2.IntervalType = DateTimeIntervalType.Minutes
+        plot.Axes.Add(LinearAxis2)
+
+
+        Dim DetailedMonitoringEnabled As Boolean = DetailedMonitoring = "enabled"
+
+        Dim StartDate As DateTime = Now.AddHours(-1)
+        Dim EndDate As DateTime = Now
+
+        Dim Period As Integer = 300
+        If DetailedMonitoring = "enabled" Then
+            Period = 60
+        End If
+
+        Dim Past60Minutes = AmazonApi.GetMetricStatistics(CurrentAccount,
+                                                          "AWS/EC2", "InstanceId", InstanceID,
+                                                          Period, "NetworkOut", "Maximum", StartDate, EndDate)
+
+        Past60Minutes.Sort(Function(elementA As Amazon.CloudWatch.Model.Datapoint, elementB As Amazon.CloudWatch.Model.Datapoint)
+
+                               Return elementA.Timestamp.CompareTo(elementB.Timestamp)
+
+                           End Function)
+
+        Dim ls = New LineSeries With {.Title = String.Format("Network In (Mb) per minute")}
+        For Each DataPoint In Past60Minutes
+
+            Dim val = Math.Round(DataPoint.Maximum / 1024 / 1024, 1)
+
+            ls.Points.Add(New DataPoint(DateTimeAxis.ToDouble(DataPoint.Timestamp.ToLocalTime), val))
+
+        Next
+
+        plot.Series.Add(ls)
+
+        PlotViewInstanceNetworkOut.Model = plot
 
     End Sub
 
@@ -1357,7 +1503,7 @@ Public Class Form1
         Dim FormWP = New ObjectHistoryForm
         FormWP.CurrentAccount = CurrentAccount
         FormWP.ResourceId = ResourceId
-        FormWP.StartPosition = FormStartPosition.CenterParent
+        FormWP.StartPosition = FormStartPosition.CenterScreen
         FormWP.ShowDialog()
 
     End Sub
@@ -1461,7 +1607,7 @@ Public Class Form1
         FormWP.CurrentAccount = CurrentAccount
         FormWP.InstanceId = InstanceID
         FormWP.InstanceKey = Instance.KeyName
-        FormWP.StartPosition = FormStartPosition.CenterParent
+        FormWP.StartPosition = FormStartPosition.CenterScreen
         FormWP.ShowDialog()
 
     End Sub
@@ -1470,12 +1616,10 @@ Public Class Form1
 
         Dim InstanceID = GetSelectedInstanceId()
 
-        'Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
-
         Dim FormWP = New ChangeIamRole
         FormWP.CurrentAccount = CurrentAccount
         FormWP.InstanceId = InstanceID
-        FormWP.StartPosition = FormStartPosition.CenterParent
+        FormWP.StartPosition = FormStartPosition.CenterScreen
         FormWP.ShowDialog()
 
     End Sub
@@ -1488,7 +1632,7 @@ Public Class Form1
         FormWP.CurrentAccount = CurrentAccount
         FormWP.InstanceIDs = InstanceIDs
         FormWP.InstanceTypeList = InstanceTypesList
-        FormWP.StartPosition = FormStartPosition.CenterParent
+        FormWP.StartPosition = FormStartPosition.CenterScreen
         FormWP.Show()
 
     End Sub
@@ -1497,12 +1641,10 @@ Public Class Form1
 
         Dim InstanceID = GetSelectedInstanceId()
 
-        Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
-
         Dim FormWP = New ChangeTermintationProtection
         FormWP.CurrentAccount = CurrentAccount
         FormWP.InstanceId = InstanceID
-        FormWP.StartPosition = FormStartPosition.CenterParent
+        FormWP.StartPosition = FormStartPosition.CenterScreen
         FormWP.ShowDialog()
 
     End Sub
@@ -1511,12 +1653,10 @@ Public Class Form1
 
         Dim InstanceID = GetSelectedInstanceId()
 
-        Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
-
         Dim FormWP = New GetConsoleScreenshot
         FormWP.CurrentAccount = CurrentAccount
         FormWP.InstanceId = InstanceID
-        FormWP.StartPosition = FormStartPosition.CenterParent
+        FormWP.StartPosition = FormStartPosition.CenterScreen
         FormWP.ShowDialog()
 
     End Sub
@@ -1526,7 +1666,7 @@ Public Class Form1
         Dim FormSG = New ChangeSecurityGroupsForm
         FormSG.CurrentAccount = CurrentAccount
         FormSG.InstanceId = GetSelectedInstanceId()
-        FormSG.StartPosition = FormStartPosition.CenterParent
+        FormSG.StartPosition = FormStartPosition.CenterScreen
         FormSG.ShowDialog()
 
     End Sub
@@ -1538,7 +1678,7 @@ Public Class Form1
         Dim FormSG = New EditTagsForm
         FormSG.CurrentAccount = CurrentAccount
         FormSG.InstanceId = InstanceID
-        FormSG.StartPosition = FormStartPosition.CenterParent
+        FormSG.StartPosition = FormStartPosition.CenterScreen
         FormSG.ShowDialog()
 
     End Sub
@@ -1548,7 +1688,7 @@ Public Class Form1
         Dim FormEditVolume = New ModifyVolumeForm
         FormEditVolume.CurrentAccount = CurrentAccount
         FormEditVolume.VolumeId = sender.tag
-        FormEditVolume.StartPosition = FormStartPosition.CenterParent
+        FormEditVolume.StartPosition = FormStartPosition.CenterScreen
         FormEditVolume.ShowDialog()
 
     End Sub
@@ -1558,7 +1698,7 @@ Public Class Form1
         Dim FormEditVolume = New SecurityGroupForm
         FormEditVolume.CurrentAccount = CurrentAccount
         FormEditVolume.SecurityGroupID = sender.tag
-        FormEditVolume.StartPosition = FormStartPosition.CenterParent
+        FormEditVolume.StartPosition = FormStartPosition.CenterScreen
         FormEditVolume.ShowDialog()
 
     End Sub
@@ -1576,7 +1716,7 @@ Public Class Form1
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
 
         Dim FormAbout = New AboutBox
-        FormAbout.StartPosition = FormStartPosition.CenterParent
+        FormAbout.StartPosition = FormStartPosition.CenterScreen
         FormAbout.ShowDialog()
 
     End Sub
