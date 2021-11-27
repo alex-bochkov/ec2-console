@@ -528,6 +528,27 @@
 
         End Function
 
+        Public Function ModifyInstanceSecurityGroups(AwsAccount As AwsAccount,
+                                                InstanceId As String,
+                                                SecurityGroupsId As List(Of String)
+                                               )
+
+            Dim client = NewAmazonEC2Client(AwsAccount)
+            Dim request = New Amazon.EC2.Model.ModifyInstanceAttributeRequest
+            request.InstanceId = InstanceId
+            request.Groups = SecurityGroupsId
+
+            Dim requestResult = client.ModifyInstanceAttributeAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.HttpStatusCode
+
+        End Function
+
         Public Function StopInstance(AwsAccount As AwsAccount, InstanceId As String, Optional Force As Boolean = False) As Boolean
 
             Dim Instances As List(Of String) = New List(Of String)

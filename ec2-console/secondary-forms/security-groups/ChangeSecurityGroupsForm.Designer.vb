@@ -27,6 +27,7 @@ Partial Class ChangeSecurityGroupsForm
         Me.TextBoxQuickSearch = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ButtonFilter = New System.Windows.Forms.Button()
+        Me.ButtonSaveChanges = New System.Windows.Forms.Button()
         CType(Me.DataGridSecurityGroups, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -81,11 +82,22 @@ Partial Class ChangeSecurityGroupsForm
         Me.ButtonFilter.Text = "Filter"
         Me.ButtonFilter.UseVisualStyleBackColor = True
         '
+        'ButtonSaveChanges
+        '
+        Me.ButtonSaveChanges.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ButtonSaveChanges.Location = New System.Drawing.Point(6, 409)
+        Me.ButtonSaveChanges.Name = "ButtonSaveChanges"
+        Me.ButtonSaveChanges.Size = New System.Drawing.Size(159, 39)
+        Me.ButtonSaveChanges.TabIndex = 5
+        Me.ButtonSaveChanges.Text = "Save Changes"
+        Me.ButtonSaveChanges.UseVisualStyleBackColor = True
+        '
         'ChangeSecurityGroupsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1059, 450)
+        Me.Controls.Add(Me.ButtonSaveChanges)
         Me.Controls.Add(Me.ButtonFilter)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TextBoxQuickSearch)
@@ -105,4 +117,5 @@ Partial Class ChangeSecurityGroupsForm
     Friend WithEvents TextBoxQuickSearch As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents ButtonFilter As Button
+    Friend WithEvents ButtonSaveChanges As Button
 End Class

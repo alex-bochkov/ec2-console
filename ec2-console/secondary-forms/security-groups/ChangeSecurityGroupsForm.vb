@@ -1,12 +1,12 @@
-﻿Imports Amazon.EC2.Model
-
-Public Class ChangeSecurityGroupsForm
+﻿Public Class ChangeSecurityGroupsForm
 
     Public CurrentAccount As AwsAccount
-    Public Instance As Instance
+    Public InstanceId As String
     Private MainTable As New DataTable
 
     Sub ShowAllSecurityGroups()
+
+        Dim Instance As Amazon.EC2.Model.Instance = AmazonApi.GetEc2Instance(CurrentAccount, InstanceId)
 
         Dim UserFilters As Dictionary(Of String, List(Of String)) = New Dictionary(Of String, List(Of String))
         UserFilters.Add("vpc-id", New List(Of String) From {Instance.VpcId})
@@ -72,6 +72,56 @@ Public Class ChangeSecurityGroupsForm
         dv = New DataView(MainTable, Condition, "isUsed Desc, SecurityGroupName Asc", DataViewRowState.CurrentRows)
 
         DataGridSecurityGroups.DataSource = dv
+
+    End Sub
+
+    Private Sub ButtonSaveChanges_Click(sender As Object, e As EventArgs) Handles ButtonSaveChanges.Click
+
+        Dim Instance As Amazon.EC2.Model.Instance = AmazonApi.GetEc2Instance(CurrentAccount, InstanceId)
+
+        Dim NewSGs = New List(Of String)
+        For Each Record As DataRow In MainTable.Rows
+            If Record.Item("isUsed") Then
+                NewSGs.Add(Record.Item("SecurityGroupId"))
+            End If
+        Next
+
+        Dim DeleteSGs = New List(Of String)
+        Dim AddSGs = New List(Of String)
+
+        Dim ExistingSGs = New List(Of String)
+        For Each SG In Instance.SecurityGroups
+            ExistingSGs.Add(SG.GroupId)
+
+            If Not NewSGs.Contains(SG.GroupId) Then
+                DeleteSGs.Add(SG.GroupId)
+            End If
+        Next
+
+        For Each NewSG In NewSGs
+            If Not ExistingSGs.Contains(NewSG) Then
+                AddSGs.Add(NewSG)
+            End If
+        Next
+
+        Dim Msg As String = "Do you want to: " + Environment.NewLine
+        If AddSGs.Count > 0 Then
+            Msg += " add " + String.Join(", ", AddSGs) + Environment.NewLine
+        End If
+        If DeleteSGs.Count > 0 Then
+            Msg += " delete " + String.Join(", ", DeleteSGs) + Environment.NewLine
+        End If
+        Msg += "?"
+
+        Dim Rez = MsgBox(Msg, MsgBoxStyle.YesNo, "Save changes")
+
+        If Rez = MsgBoxResult.Yes Then
+
+            AmazonApi.ModifyInstanceSecurityGroups(CurrentAccount, InstanceId, NewSGs)
+
+            Close()
+
+        End If
 
     End Sub
 

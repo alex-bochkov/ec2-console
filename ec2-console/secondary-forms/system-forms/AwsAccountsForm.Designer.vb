@@ -53,6 +53,7 @@ Partial Class AwsAccountsForm
         Me.Label8 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.ComboBoxSharedProfile = New System.Windows.Forms.ComboBox()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBoxSavedAccounts = New System.Windows.Forms.GroupBox()
         Me.ButtonDeleteThisAccount = New System.Windows.Forms.Button()
         Me.ButtonAddNewAccount = New System.Windows.Forms.Button()
@@ -64,7 +65,6 @@ Partial Class AwsAccountsForm
         Me.TabPageSSO = New System.Windows.Forms.TabPage()
         Me.TabPageKeyPairs = New System.Windows.Forms.TabPage()
         Me.ListBoxKeyPairs = New System.Windows.Forms.ListBox()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
@@ -176,7 +176,7 @@ Partial Class AwsAccountsForm
         'ButtonSaveAccount
         '
         Me.ButtonSaveAccount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ButtonSaveAccount.Location = New System.Drawing.Point(8, 649)
+        Me.ButtonSaveAccount.Location = New System.Drawing.Point(8, 438)
         Me.ButtonSaveAccount.Name = "ButtonSaveAccount"
         Me.ButtonSaveAccount.Size = New System.Drawing.Size(158, 60)
         Me.ButtonSaveAccount.TabIndex = 3
@@ -199,7 +199,7 @@ Partial Class AwsAccountsForm
         Me.GroupBox2.Controls.Add(Me.CheckedListBoxEnabledRegions)
         Me.GroupBox2.Location = New System.Drawing.Point(637, 64)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(277, 645)
+        Me.GroupBox2.Size = New System.Drawing.Size(277, 434)
         Me.GroupBox2.TabIndex = 14
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Enabled Regions"
@@ -211,7 +211,7 @@ Partial Class AwsAccountsForm
         Me.CheckedListBoxEnabledRegions.FormattingEnabled = True
         Me.CheckedListBoxEnabledRegions.Location = New System.Drawing.Point(3, 19)
         Me.CheckedListBoxEnabledRegions.Name = "CheckedListBoxEnabledRegions"
-        Me.CheckedListBoxEnabledRegions.Size = New System.Drawing.Size(271, 623)
+        Me.CheckedListBoxEnabledRegions.Size = New System.Drawing.Size(271, 412)
         Me.CheckedListBoxEnabledRegions.Sorted = True
         Me.CheckedListBoxEnabledRegions.TabIndex = 12
         '
@@ -410,6 +410,19 @@ Partial Class AwsAccountsForm
         Me.ComboBoxSharedProfile.Size = New System.Drawing.Size(499, 24)
         Me.ComboBoxSharedProfile.TabIndex = 1
         '
+        'Label7
+        '
+        Me.Label7.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(3, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(88, 30)
+        Me.Label7.TabIndex = 29
+        Me.Label7.Text = "Profile Name"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'GroupBoxSavedAccounts
         '
         Me.GroupBoxSavedAccounts.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -557,24 +570,11 @@ Partial Class AwsAccountsForm
         Me.ListBoxKeyPairs.Size = New System.Drawing.Size(607, 164)
         Me.ListBoxKeyPairs.TabIndex = 0
         '
-        'Label7
-        '
-        Me.Label7.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(3, 0)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(88, 30)
-        Me.Label7.TabIndex = 29
-        Me.Label7.Text = "Profile Name"
-        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'AwsAccountsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(920, 715)
+        Me.ClientSize = New System.Drawing.Size(920, 504)
         Me.Controls.Add(Me.TabControlSecurity)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.GroupBoxSavedAccounts)

@@ -40,12 +40,24 @@ Public Class MetricBrowserForm
             ComboBoxMetricType.Items.Add("NetworkIn")
             MetricsInBytes.Add("NetworkIn")
             ComboBoxMetricType.Items.Add("NetworkPacketsIn")
+
             ComboBoxMetricType.Items.Add("EBSReadBytes")
             MetricsInBytes.Add("EBSReadBytes")
             ComboBoxMetricType.Items.Add("EBSReadOps")
             ComboBoxMetricType.Items.Add("EBSWriteBytes")
             MetricsInBytes.Add("EBSWriteBytes")
             ComboBoxMetricType.Items.Add("EBSWriteOps")
+
+            ComboBoxMetricType.Items.Add("DiskReadBytes")
+            MetricsInBytes.Add("DiskReadBytes")
+            ComboBoxMetricType.Items.Add("DiskReadOps")
+            ComboBoxMetricType.Items.Add("DiskWriteBytes")
+            MetricsInBytes.Add("DiskWriteBytes")
+            ComboBoxMetricType.Items.Add("DiskWriteOps")
+
+            ComboBoxMetricType.Items.Add("StatusCheckFailed")
+            ComboBoxMetricType.Items.Add("StatusCheckFailed_Instance")
+            ComboBoxMetricType.Items.Add("StatusCheckFailed_System")
 
         ElseIf ObjectType = "volume" Then
 

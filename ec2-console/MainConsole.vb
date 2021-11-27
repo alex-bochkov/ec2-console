@@ -1465,13 +1465,9 @@ Public Class Form1
 
     Sub EditSecurityGroups()
 
-        Dim InstanceID = GetSelectedInstanceId()
-
-        Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
-
         Dim FormSG = New ChangeSecurityGroupsForm
         FormSG.CurrentAccount = CurrentAccount
-        FormSG.Instance = Instance
+        FormSG.InstanceId = GetSelectedInstanceId()
         FormSG.StartPosition = FormStartPosition.CenterParent
         FormSG.ShowDialog()
 
