@@ -108,6 +108,8 @@ Partial Class Form1
         Me.ColumnHeaderEncrypted = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderKmsKeyId = New System.Windows.Forms.ColumnHeader()
         Me.TabPageMonitoring = New System.Windows.Forms.TabPage()
+        Me.PlotViewInstanceNetworkOut = New OxyPlot.WindowsForms.PlotView()
+        Me.PlotViewInstanceNetworkIn = New OxyPlot.WindowsForms.PlotView()
         Me.ButtonMetricBrowser = New System.Windows.Forms.Button()
         Me.PlotViewInstanceCPU = New OxyPlot.WindowsForms.PlotView()
         Me.TabPageTags = New System.Windows.Forms.TabPage()
@@ -118,8 +120,6 @@ Partial Class Form1
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.PlotViewInstanceNetworkIn = New OxyPlot.WindowsForms.PlotView()
-        Me.PlotViewInstanceNetworkOut = New OxyPlot.WindowsForms.PlotView()
         Me.StatusStrip.SuspendLayout()
         Me.MenuStripMain.SuspendLayout()
         Me.TabControl.SuspendLayout()
@@ -286,10 +286,10 @@ Partial Class Form1
         Me.DataListViewEC2.GridLines = True
         Me.DataListViewEC2.HideSelection = False
         Me.DataListViewEC2.IsSearchOnSortColumn = False
-        Me.DataListViewEC2.Location = New System.Drawing.Point(3, 27)
+        Me.DataListViewEC2.Location = New System.Drawing.Point(3, 55)
         Me.DataListViewEC2.Name = "DataListViewEC2"
         Me.DataListViewEC2.ShowGroups = False
-        Me.DataListViewEC2.Size = New System.Drawing.Size(1033, 313)
+        Me.DataListViewEC2.Size = New System.Drawing.Size(1033, 285)
         Me.DataListViewEC2.TabIndex = 9
         Me.DataListViewEC2.UseFiltering = True
         Me.DataListViewEC2.View = System.Windows.Forms.View.Details
@@ -299,7 +299,7 @@ Partial Class Form1
         Me.MenuStripFilterPresentation.BackColor = System.Drawing.SystemColors.ScrollBar
         Me.MenuStripFilterPresentation.Dock = System.Windows.Forms.DockStyle.None
         Me.MenuStripFilterPresentation.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.MenuStripFilterPresentation.Location = New System.Drawing.Point(596, 0)
+        Me.MenuStripFilterPresentation.Location = New System.Drawing.Point(2, 28)
         Me.MenuStripFilterPresentation.Name = "MenuStripFilterPresentation"
         Me.MenuStripFilterPresentation.Padding = New System.Windows.Forms.Padding(7, 2, 0, 2)
         Me.MenuStripFilterPresentation.Size = New System.Drawing.Size(202, 24)
@@ -311,7 +311,7 @@ Partial Class Form1
         Me.MenuStripInstanceFilter.Dock = System.Windows.Forms.DockStyle.None
         Me.MenuStripInstanceFilter.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.MenuStripInstanceFilter.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RefreshInstanceListToolStripMenuItem, Me.FilterByToolStripMenuItem, Me.ToolStripTextBoxFilterByTag, Me.ToolStripTextBoxFilterByTagValue})
-        Me.MenuStripInstanceFilter.Location = New System.Drawing.Point(2, 0)
+        Me.MenuStripInstanceFilter.Location = New System.Drawing.Point(0, 0)
         Me.MenuStripInstanceFilter.Name = "MenuStripInstanceFilter"
         Me.MenuStripInstanceFilter.Padding = New System.Windows.Forms.Padding(7, 2, 0, 2)
         Me.MenuStripInstanceFilter.Size = New System.Drawing.Size(581, 28)
@@ -417,7 +417,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(475, 256)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(475, 259)
         Me.TableLayoutPanel2.TabIndex = 1
         '
         'TextBoxInstanceSystemStatus
@@ -597,7 +597,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(452, 271)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(452, 274)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -781,8 +781,9 @@ Partial Class Form1
         '
         'TableLayoutPanel4
         '
-        Me.TableLayoutPanel4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TableLayoutPanel4.ColumnCount = 2
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
@@ -806,7 +807,7 @@ Partial Class Form1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(520, 243)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(520, 246)
         Me.TableLayoutPanel4.TabIndex = 5
         '
         'Label16
@@ -937,7 +938,7 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.ListViewInstanceSG)
         Me.GroupBox1.Location = New System.Drawing.Point(529, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(498, 241)
+        Me.GroupBox1.Size = New System.Drawing.Size(498, 244)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Security Groups"
@@ -964,7 +965,7 @@ Partial Class Form1
         Me.ListViewInstanceSG.Location = New System.Drawing.Point(1, 50)
         Me.ListViewInstanceSG.Name = "ListViewInstanceSG"
         Me.ListViewInstanceSG.ShowGroups = False
-        Me.ListViewInstanceSG.Size = New System.Drawing.Size(489, 186)
+        Me.ListViewInstanceSG.Size = New System.Drawing.Size(489, 189)
         Me.ListViewInstanceSG.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceSG.TabIndex = 3
         Me.ListViewInstanceSG.UseCompatibleStateImageBehavior = False
@@ -1012,7 +1013,7 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 25)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 243)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 246)
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
         Me.ListViewInstanceVolumes.View = System.Windows.Forms.View.Details
@@ -1080,6 +1081,32 @@ Partial Class Form1
         Me.TabPageMonitoring.Text = "Monitoring"
         Me.TabPageMonitoring.UseVisualStyleBackColor = True
         '
+        'PlotViewInstanceNetworkOut
+        '
+        Me.PlotViewInstanceNetworkOut.BackColor = System.Drawing.Color.White
+        Me.PlotViewInstanceNetworkOut.Location = New System.Drawing.Point(605, 33)
+        Me.PlotViewInstanceNetworkOut.Name = "PlotViewInstanceNetworkOut"
+        Me.PlotViewInstanceNetworkOut.PanCursor = System.Windows.Forms.Cursors.Hand
+        Me.PlotViewInstanceNetworkOut.Size = New System.Drawing.Size(295, 212)
+        Me.PlotViewInstanceNetworkOut.TabIndex = 3
+        Me.PlotViewInstanceNetworkOut.Text = "PlotViewInstanceNetworkOut"
+        Me.PlotViewInstanceNetworkOut.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
+        Me.PlotViewInstanceNetworkOut.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE
+        Me.PlotViewInstanceNetworkOut.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS
+        '
+        'PlotViewInstanceNetworkIn
+        '
+        Me.PlotViewInstanceNetworkIn.BackColor = System.Drawing.Color.White
+        Me.PlotViewInstanceNetworkIn.Location = New System.Drawing.Point(304, 33)
+        Me.PlotViewInstanceNetworkIn.Name = "PlotViewInstanceNetworkIn"
+        Me.PlotViewInstanceNetworkIn.PanCursor = System.Windows.Forms.Cursors.Hand
+        Me.PlotViewInstanceNetworkIn.Size = New System.Drawing.Size(295, 212)
+        Me.PlotViewInstanceNetworkIn.TabIndex = 2
+        Me.PlotViewInstanceNetworkIn.Text = "PlotViewInstanceNetworkIn"
+        Me.PlotViewInstanceNetworkIn.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
+        Me.PlotViewInstanceNetworkIn.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE
+        Me.PlotViewInstanceNetworkIn.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS
+        '
         'ButtonMetricBrowser
         '
         Me.ButtonMetricBrowser.Location = New System.Drawing.Point(3, 0)
@@ -1134,7 +1161,7 @@ Partial Class Form1
         Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 28)
         Me.ListViewInstanceTags.Name = "ListViewInstanceTags"
         Me.ListViewInstanceTags.ShowGroups = False
-        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 237)
+        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 240)
         Me.ListViewInstanceTags.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceTags.TabIndex = 0
         Me.ListViewInstanceTags.UseCompatibleStateImageBehavior = False
@@ -1188,32 +1215,6 @@ Partial Class Form1
         Me.TableLayoutPanel3.RowCount = 6
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(200, 100)
         Me.TableLayoutPanel3.TabIndex = 0
-        '
-        'PlotViewInstanceNetworkIn
-        '
-        Me.PlotViewInstanceNetworkIn.BackColor = System.Drawing.Color.White
-        Me.PlotViewInstanceNetworkIn.Location = New System.Drawing.Point(304, 33)
-        Me.PlotViewInstanceNetworkIn.Name = "PlotViewInstanceNetworkIn"
-        Me.PlotViewInstanceNetworkIn.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.PlotViewInstanceNetworkIn.Size = New System.Drawing.Size(295, 212)
-        Me.PlotViewInstanceNetworkIn.TabIndex = 2
-        Me.PlotViewInstanceNetworkIn.Text = "PlotViewInstanceNetworkIn"
-        Me.PlotViewInstanceNetworkIn.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
-        Me.PlotViewInstanceNetworkIn.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE
-        Me.PlotViewInstanceNetworkIn.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS
-        '
-        'PlotViewInstanceNetworkOut
-        '
-        Me.PlotViewInstanceNetworkOut.BackColor = System.Drawing.Color.White
-        Me.PlotViewInstanceNetworkOut.Location = New System.Drawing.Point(605, 33)
-        Me.PlotViewInstanceNetworkOut.Name = "PlotViewInstanceNetworkOut"
-        Me.PlotViewInstanceNetworkOut.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.PlotViewInstanceNetworkOut.Size = New System.Drawing.Size(295, 212)
-        Me.PlotViewInstanceNetworkOut.TabIndex = 3
-        Me.PlotViewInstanceNetworkOut.Text = "PlotViewInstanceNetworkOut"
-        Me.PlotViewInstanceNetworkOut.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
-        Me.PlotViewInstanceNetworkOut.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE
-        Me.PlotViewInstanceNetworkOut.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS
         '
         'Form1
         '

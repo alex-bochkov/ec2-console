@@ -184,6 +184,8 @@
 
     Private Sub ButtonSaveAccount_Click(sender As Object, e As EventArgs) Handles ButtonSaveAccount.Click
 
+        Dim Index = ComboBoxAllAccounts.SelectedIndex
+
         Dim SelectedAccount As AwsAccount = ComboBoxAllAccounts.SelectedItem
 
         SelectedAccount.KeyPairs.Clear()
@@ -205,6 +207,8 @@
         AccountManagement.AddNewAccount(SelectedAccount)
 
         RefreshAccountList()
+
+        ComboBoxAllAccounts.SelectedIndex = Index
 
     End Sub
 
