@@ -1393,7 +1393,7 @@ Public Class Form1
                 m.Items.Add(m3)
 
                 Dim m4 = New ToolStripMenuItem("Image and templates")
-
+                m4.DropDownItems.Add(New ToolStripMenuItem("Create image (quick)", Nothing, AddressOf OpenCreateImageForm))
                 m.Items.Add(m4)
 
                 Dim m5 = New ToolStripMenuItem("Monitor and troubleshoot")
@@ -1494,6 +1494,16 @@ Public Class Form1
         Dim SecurityGroupId = sender.tag
 
         OpenConfigHistoryForm(SecurityGroupId)
+
+    End Sub
+
+    Sub OpenCreateImageForm()
+
+        Dim FormWP = New CreateInstanceImageForm
+        FormWP.CurrentAccount = CurrentAccount
+        FormWP.InstanceIDs = GetAllSelectedInstanceIds()
+        FormWP.StartPosition = FormStartPosition.CenterScreen
+        FormWP.ShowDialog()
 
     End Sub
 

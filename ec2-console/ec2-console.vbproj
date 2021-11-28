@@ -67,6 +67,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Update="secondary-forms\IamRoleForm.vb" />
+    <Compile Update="secondary-forms\instance\CreateInstanceSnapshot.vb" />
   </ItemGroup>
 
   <ItemGroup>

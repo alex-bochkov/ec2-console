@@ -324,6 +324,24 @@
 
         End Function
 
+        Public Function GetEbsVolume(AwsAccount As AwsAccount, VolumeId As String) As Amazon.EC2.Model.Volume
+
+            Dim ListVolumeId As List(Of String) = New List(Of String)
+            ListVolumeId.Add(VolumeId)
+
+            Dim UserFilter = New Dictionary(Of String, List(Of String))
+            UserFilter.Add("volume-id", ListVolumeId)
+
+            Dim VolumeResult = AmazonApi.ListVolumes(AwsAccount, UserFilter)
+
+            If VolumeResult.Count = 1 Then
+                Return VolumeResult.Item(0)
+            End If
+
+            Return New Amazon.EC2.Model.Volume
+
+        End Function
+
         Public Function ModifyVolume(AwsAccount As AwsAccount, VolumeId As String,
                                  VolumeSize As Integer,
                                  Optional VolumeType As String = Nothing,
@@ -685,6 +703,68 @@
             request.InstanceType = InstanceType
 
             Dim requestResult = client.ModifyInstanceAttributeAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result
+
+        End Function
+
+        Public Function CreateInstanceImage_Quick(AwsAccount As AwsAccount, InstanceId As String)
+
+            Dim client = NewAmazonEC2Client(AwsAccount)
+
+            Dim Instance = GetEc2Instance(AwsAccount, InstanceId)
+
+            Dim request = New Amazon.EC2.Model.CreateImageRequest
+            request.InstanceId = Instance.InstanceId
+            request.NoReboot = True
+            request.TagSpecifications.Add(New Amazon.EC2.Model.TagSpecification With {.ResourceType = "image", .Tags = Instance.Tags})
+
+            For Each BDM In Instance.BlockDeviceMappings
+
+                Dim Volume = GetEbsVolume(AwsAccount, BDM.Ebs.VolumeId)
+
+                Dim NewBDM = New Amazon.EC2.Model.BlockDeviceMapping
+                NewBDM.DeviceName = BDM.DeviceName
+
+                NewBDM.Ebs = New Amazon.EC2.Model.EbsBlockDevice
+                NewBDM.Ebs.VolumeType = Volume.VolumeType
+                NewBDM.Ebs.VolumeSize = Volume.Size
+
+                If Volume.VolumeType.Value = "gp3" Or Volume.VolumeType.Value.StartsWith("io") Then
+                    NewBDM.Ebs.Iops = Volume.Iops
+                End If
+
+                If Volume.VolumeType.Value = "gp3" Then
+                    NewBDM.Ebs.Throughput = Volume.Throughput
+                End If
+
+                NewBDM.Ebs.DeleteOnTermination = BDM.Ebs.DeleteOnTermination
+                NewBDM.Ebs.Encrypted = Volume.Encrypted
+                ' TODO ??
+                'NewBDM.Ebs.KmsKeyId = Volume.KmsKeyId
+
+                request.BlockDeviceMappings.Add(NewBDM)
+
+            Next
+
+            request.Description = InstanceId
+            request.Name = InstanceId
+
+            For Each InstanceTag In Instance.Tags
+
+                If InstanceTag.Key = "Name" Then
+                    request.Description += " / " + InstanceTag.Value
+                    request.Name += " / " + InstanceTag.Value
+                End If
+
+            Next
+
+            Dim requestResult = client.CreateImageAsync(request).GetAwaiter()
             While Not requestResult.IsCompleted
                 Application.DoEvents()
             End While
