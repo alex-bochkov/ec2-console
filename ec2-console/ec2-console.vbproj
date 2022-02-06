@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>ec2console</RootNamespace>
     <StartupObject>Sub Main</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
@@ -34,18 +34,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.CloudWatch" Version="3.7.3.2" />
-    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.5.22" />
-    <PackageReference Include="AWSSDK.EC2" Version="3.7.46" />
-    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.83" />
-    <PackageReference Include="AWSSDK.Pricing" Version="3.7.1.99" />
-    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.104" />
-    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.94" />
-    <PackageReference Include="AWSSDK.SSO" Version="3.7.0.103" />
-    <PackageReference Include="AWSSDK.SSOOIDC" Version="3.7.0.103" />
+    <PackageReference Include="AWSSDK.CloudWatch" Version="3.7.3.20" />
+    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.6.5" />
+    <PackageReference Include="AWSSDK.EC2" Version="3.7.59.1" />
+    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.101" />
+    <PackageReference Include="AWSSDK.Pricing" Version="3.7.1.117" />
+    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.122" />
+    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.112" />
+    <PackageReference Include="AWSSDK.SSO" Version="3.7.0.121" />
+    <PackageReference Include="AWSSDK.SSOOIDC" Version="3.7.0.121" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NLog" Version="4.7.12" />
-    <PackageReference Include="NLog.Config" Version="4.7.12" />
+    <PackageReference Include="NLog" Version="4.7.13" />
+    <PackageReference Include="NLog.Config" Version="4.7.13" />
     <PackageReference Include="ObjectListView.Official" Version="2.9.1" />
     <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.0" />
   </ItemGroup>
