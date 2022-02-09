@@ -1136,6 +1136,67 @@
 
     End Module
 
+    Module SimpleSystemsManagement
+
+        Private Function NewAmazonSimpleSystemsManagementClient(AwsAccount As AwsAccount) As Amazon.SimpleSystemsManagement.AmazonSimpleSystemsManagementClient
+
+            Dim client = New Amazon.SimpleSystemsManagement.AmazonSimpleSystemsManagementClient(GetAWSCredentials(AwsAccount), Amazon.RegionEndpoint.GetBySystemName(AwsAccount.Region))
+
+            Return client
+
+        End Function
+
+        Public Function GetMostRecentWindowsImages(AwsAccount As AwsAccount) As List(Of Amazon.SimpleSystemsManagement.Model.Parameter)
+
+            Dim List As List(Of Amazon.SimpleSystemsManagement.Model.Parameter) = New List(Of Amazon.SimpleSystemsManagement.Model.Parameter)
+
+            Dim client = NewAmazonSimpleSystemsManagementClient(AwsAccount)
+
+            Dim Filter1 = New Amazon.SimpleSystemsManagement.Model.ParameterStringFilter
+            Filter1.Key = "Path"
+            Filter1.Values.Add("English")
+
+            'Dim Filter2 = New Amazon.SimpleSystemsManagement.Model.ParameterStringFilter
+            'Filter2.Key = "Name"
+            'Filter2.Option = "Contains"
+            'Filter2.Values.Add("Windows_Server")
+            'Filter2.Values.Add("English")
+
+            Dim request = New Amazon.SimpleSystemsManagement.Model.GetParametersByPathRequest
+            request.Path = "/aws/service/ami-windows-latest/"
+            'request.ParameterFilters.Add(Filter1)
+            'request.ParameterFilters.Add(Filter1)
+
+            Dim NextToken As String = "first-request"
+
+            While NextToken <> ""
+
+                If NextToken <> "first-request" Then
+                    request.NextToken = NextToken
+                End If
+
+                Dim requestResult = client.GetParametersByPathAsync(request).GetAwaiter()
+
+                While Not requestResult.IsCompleted
+                    Application.DoEvents()
+                End While
+
+                Dim result = requestResult.GetResult()
+
+                For Each resultRow In result.Parameters
+                    'List.Add(resultRow)
+                Next
+
+                NextToken = result.NextToken
+
+            End While
+
+            Return List
+
+        End Function
+
+    End Module
+
     Module IdentityManagement
 
         Private Function NewAmazonIdentityManagementServiceClient(AwsAccount As AwsAccount) As Amazon.IdentityManagement.AmazonIdentityManagementServiceClient

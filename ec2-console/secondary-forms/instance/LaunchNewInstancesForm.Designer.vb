@@ -22,7 +22,7 @@ Partial Class LaunchNewInstancesForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.ComboBoxImages = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -48,16 +48,16 @@ Partial Class LaunchNewInstancesForm
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'ComboBox1
+        'ComboBoxImages
         '
-        Me.ComboBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.ComboBoxImages.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(111, 3)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(562, 24)
-        Me.ComboBox1.TabIndex = 0
+        Me.ComboBoxImages.FormattingEnabled = True
+        Me.ComboBoxImages.Location = New System.Drawing.Point(111, 3)
+        Me.ComboBoxImages.Name = "ComboBoxImages"
+        Me.ComboBoxImages.Size = New System.Drawing.Size(562, 24)
+        Me.ComboBoxImages.TabIndex = 0
         '
         'Label1
         '
@@ -81,7 +81,7 @@ Partial Class LaunchNewInstancesForm
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.Controls.Add(Me.Label3, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.ComboBox1, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.ComboBoxImages, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.MenuStrip1, 1, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Label4, 0, 3)
@@ -159,19 +159,19 @@ Partial Class LaunchNewInstancesForm
         'AsdfToolStripMenuItem
         '
         Me.AsdfToolStripMenuItem.Name = "AsdfToolStripMenuItem"
-        Me.AsdfToolStripMenuItem.Size = New System.Drawing.Size(102, 22)
+        Me.AsdfToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.AsdfToolStripMenuItem.Text = "asdf"
         '
         'AsdfToolStripMenuItem1
         '
         Me.AsdfToolStripMenuItem1.Name = "AsdfToolStripMenuItem1"
-        Me.AsdfToolStripMenuItem1.Size = New System.Drawing.Size(102, 22)
+        Me.AsdfToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
         Me.AsdfToolStripMenuItem1.Text = "asdf"
         '
         'AdfToolStripMenuItem
         '
         Me.AdfToolStripMenuItem.Name = "AdfToolStripMenuItem"
-        Me.AdfToolStripMenuItem.Size = New System.Drawing.Size(102, 22)
+        Me.AdfToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.AdfToolStripMenuItem.Text = "adf"
         '
         'Label4
@@ -333,7 +333,7 @@ Partial Class LaunchNewInstancesForm
 
     End Sub
 
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents ComboBoxImages As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents Label3 As Label

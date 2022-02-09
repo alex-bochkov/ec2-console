@@ -9,7 +9,12 @@ Public Class LaunchNewInstancesForm
 
     Private Sub LaunchNewInstancesForm_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        'Dim AllImages = AmazonApi.DescribeImages(CurrentAccount)
+        Dim AllImages = AmazonApi.GetMostRecentWindowsImages(CurrentAccount)
+
+        For Each Image In AllImages
+            Dim val = Image.Value + " / " + Image.Name.Replace("/aws/service/ami-windows-latest/", "")
+            ComboBoxImages.Items.Add(val)
+        Next
 
     End Sub
 

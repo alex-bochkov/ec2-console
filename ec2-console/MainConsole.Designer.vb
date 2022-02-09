@@ -77,6 +77,8 @@ Partial Class Form1
         Me.TextBoxInstanceId = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.TextBoxInstanceIamRole = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.TextBoxInstanceName = New System.Windows.Forms.TextBox()
         Me.TabPageNetworking = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -89,6 +91,8 @@ Partial Class Form1
         Me.TextBoxInstanceAZ = New System.Windows.Forms.TextBox()
         Me.TextBoxInstancePrivateIp = New System.Windows.Forms.TextBox()
         Me.TextBoxInstancePrivateDNS = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.TextBoxInstanceSecondaryIPs = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.ButtonChangeSecurityGroups = New System.Windows.Forms.Button()
         Me.ListViewInstanceSG = New System.Windows.Forms.ListView()
@@ -284,7 +288,6 @@ Partial Class Form1
         Me.DataListViewEC2.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.DataListViewEC2.FullRowSelect = True
         Me.DataListViewEC2.GridLines = True
-        Me.DataListViewEC2.HideSelection = False
         Me.DataListViewEC2.IsSearchOnSortColumn = False
         Me.DataListViewEC2.Location = New System.Drawing.Point(3, 55)
         Me.DataListViewEC2.Name = "DataListViewEC2"
@@ -406,7 +409,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.Controls.Add(Me.TextBoxInstanceDetailedMonitoring, 1, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.Label13, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.TextBoxInstanceKeyName, 1, 0)
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(461, 3)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(533, 3)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 8
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
@@ -417,7 +420,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(475, 259)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(480, 267)
         Me.TableLayoutPanel2.TabIndex = 1
         '
         'TextBoxInstanceSystemStatus
@@ -572,23 +575,26 @@ Partial Class Form1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 77.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstancevCPU, 1, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label5, 0, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstanceTenancy, 1, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstanceAMI, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstancePlatformDetails, 1, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label3, 0, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label4, 0, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstancePlatform, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label6, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstanceId, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label7, 0, 6)
-        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstanceIamRole, 1, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstancevCPU, 1, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label5, 0, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstanceTenancy, 1, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstanceAMI, 1, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstancePlatformDetails, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label3, 0, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label4, 0, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstancePlatform, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label6, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstanceId, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label7, 0, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstanceIamRole, 1, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label20, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxInstanceName, 1, 0)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 3)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 8
+        Me.TableLayoutPanel1.RowCount = 9
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
@@ -597,7 +603,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(452, 274)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(527, 282)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -605,10 +611,10 @@ Partial Class Form1
         Me.TextBoxInstancevCPU.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxInstancevCPU.Location = New System.Drawing.Point(119, 148)
+        Me.TextBoxInstancevCPU.Location = New System.Drawing.Point(119, 177)
         Me.TextBoxInstancevCPU.Name = "TextBoxInstancevCPU"
         Me.TextBoxInstancevCPU.ReadOnly = True
-        Me.TextBoxInstancevCPU.Size = New System.Drawing.Size(322, 23)
+        Me.TextBoxInstancevCPU.Size = New System.Drawing.Size(400, 23)
         Me.TextBoxInstancevCPU.TabIndex = 9
         '
         'Label5
@@ -617,7 +623,7 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(3, 145)
+        Me.Label5.Location = New System.Drawing.Point(3, 174)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(110, 29)
         Me.Label5.TabIndex = 8
@@ -629,10 +635,10 @@ Partial Class Form1
         Me.TextBoxInstanceTenancy.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxInstanceTenancy.Location = New System.Drawing.Point(119, 119)
+        Me.TextBoxInstanceTenancy.Location = New System.Drawing.Point(119, 148)
         Me.TextBoxInstanceTenancy.Name = "TextBoxInstanceTenancy"
         Me.TextBoxInstanceTenancy.ReadOnly = True
-        Me.TextBoxInstanceTenancy.Size = New System.Drawing.Size(322, 23)
+        Me.TextBoxInstanceTenancy.Size = New System.Drawing.Size(400, 23)
         Me.TextBoxInstanceTenancy.TabIndex = 7
         '
         'TextBoxInstanceAMI
@@ -640,10 +646,10 @@ Partial Class Form1
         Me.TextBoxInstanceAMI.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxInstanceAMI.Location = New System.Drawing.Point(119, 90)
+        Me.TextBoxInstanceAMI.Location = New System.Drawing.Point(119, 119)
         Me.TextBoxInstanceAMI.Name = "TextBoxInstanceAMI"
         Me.TextBoxInstanceAMI.ReadOnly = True
-        Me.TextBoxInstanceAMI.Size = New System.Drawing.Size(322, 23)
+        Me.TextBoxInstanceAMI.Size = New System.Drawing.Size(400, 23)
         Me.TextBoxInstanceAMI.TabIndex = 6
         '
         'TextBoxInstancePlatformDetails
@@ -651,10 +657,10 @@ Partial Class Form1
         Me.TextBoxInstancePlatformDetails.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxInstancePlatformDetails.Location = New System.Drawing.Point(119, 61)
+        Me.TextBoxInstancePlatformDetails.Location = New System.Drawing.Point(119, 90)
         Me.TextBoxInstancePlatformDetails.Name = "TextBoxInstancePlatformDetails"
         Me.TextBoxInstancePlatformDetails.ReadOnly = True
-        Me.TextBoxInstancePlatformDetails.Size = New System.Drawing.Size(322, 23)
+        Me.TextBoxInstancePlatformDetails.Size = New System.Drawing.Size(400, 23)
         Me.TextBoxInstancePlatformDetails.TabIndex = 5
         '
         'Label1
@@ -663,7 +669,7 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 29)
+        Me.Label1.Location = New System.Drawing.Point(3, 58)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(110, 29)
         Me.Label1.TabIndex = 0
@@ -676,7 +682,7 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(3, 58)
+        Me.Label2.Location = New System.Drawing.Point(3, 87)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(110, 29)
         Me.Label2.TabIndex = 1
@@ -689,7 +695,7 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(3, 87)
+        Me.Label3.Location = New System.Drawing.Point(3, 116)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(110, 29)
         Me.Label3.TabIndex = 2
@@ -702,7 +708,7 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(3, 116)
+        Me.Label4.Location = New System.Drawing.Point(3, 145)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(110, 29)
         Me.Label4.TabIndex = 3
@@ -714,10 +720,10 @@ Partial Class Form1
         Me.TextBoxInstancePlatform.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxInstancePlatform.Location = New System.Drawing.Point(119, 32)
+        Me.TextBoxInstancePlatform.Location = New System.Drawing.Point(119, 61)
         Me.TextBoxInstancePlatform.Name = "TextBoxInstancePlatform"
         Me.TextBoxInstancePlatform.ReadOnly = True
-        Me.TextBoxInstancePlatform.Size = New System.Drawing.Size(322, 23)
+        Me.TextBoxInstancePlatform.Size = New System.Drawing.Size(400, 23)
         Me.TextBoxInstancePlatform.TabIndex = 4
         '
         'Label6
@@ -726,7 +732,7 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(3, 0)
+        Me.Label6.Location = New System.Drawing.Point(3, 29)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(110, 29)
         Me.Label6.TabIndex = 11
@@ -738,10 +744,10 @@ Partial Class Form1
         Me.TextBoxInstanceId.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxInstanceId.Location = New System.Drawing.Point(119, 3)
+        Me.TextBoxInstanceId.Location = New System.Drawing.Point(119, 32)
         Me.TextBoxInstanceId.Name = "TextBoxInstanceId"
         Me.TextBoxInstanceId.ReadOnly = True
-        Me.TextBoxInstanceId.Size = New System.Drawing.Size(322, 23)
+        Me.TextBoxInstanceId.Size = New System.Drawing.Size(400, 23)
         Me.TextBoxInstanceId.TabIndex = 12
         '
         'Label7
@@ -750,7 +756,7 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(3, 174)
+        Me.Label7.Location = New System.Drawing.Point(3, 203)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(110, 29)
         Me.Label7.TabIndex = 14
@@ -762,28 +768,51 @@ Partial Class Form1
         Me.TextBoxInstanceIamRole.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxInstanceIamRole.Location = New System.Drawing.Point(119, 177)
+        Me.TextBoxInstanceIamRole.Location = New System.Drawing.Point(119, 206)
         Me.TextBoxInstanceIamRole.Name = "TextBoxInstanceIamRole"
         Me.TextBoxInstanceIamRole.ReadOnly = True
-        Me.TextBoxInstanceIamRole.Size = New System.Drawing.Size(322, 23)
+        Me.TextBoxInstanceIamRole.Size = New System.Drawing.Size(400, 23)
         Me.TextBoxInstanceIamRole.TabIndex = 15
+        '
+        'Label20
+        '
+        Me.Label20.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(3, 0)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(110, 29)
+        Me.Label20.TabIndex = 16
+        Me.Label20.Text = "Instance Name"
+        Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TextBoxInstanceName
+        '
+        Me.TextBoxInstanceName.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBoxInstanceName.Location = New System.Drawing.Point(119, 3)
+        Me.TextBoxInstanceName.Name = "TextBoxInstanceName"
+        Me.TextBoxInstanceName.ReadOnly = True
+        Me.TextBoxInstanceName.Size = New System.Drawing.Size(400, 23)
+        Me.TextBoxInstanceName.TabIndex = 17
         '
         'TabPageNetworking
         '
         Me.TabPageNetworking.Controls.Add(Me.TableLayoutPanel4)
         Me.TabPageNetworking.Controls.Add(Me.GroupBox1)
-        Me.TabPageNetworking.Location = New System.Drawing.Point(4, 25)
+        Me.TabPageNetworking.Location = New System.Drawing.Point(4, 24)
         Me.TabPageNetworking.Name = "TabPageNetworking"
-        Me.TabPageNetworking.Size = New System.Drawing.Size(1030, 248)
+        Me.TabPageNetworking.Size = New System.Drawing.Size(1030, 249)
         Me.TabPageNetworking.TabIndex = 2
         Me.TabPageNetworking.Text = "Networking"
         Me.TabPageNetworking.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel4
         '
-        Me.TableLayoutPanel4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TableLayoutPanel4.ColumnCount = 2
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
@@ -797,9 +826,12 @@ Partial Class Form1
         Me.TableLayoutPanel4.Controls.Add(Me.TextBoxInstanceAZ, 1, 2)
         Me.TableLayoutPanel4.Controls.Add(Me.TextBoxInstancePrivateIp, 1, 3)
         Me.TableLayoutPanel4.Controls.Add(Me.TextBoxInstancePrivateDNS, 1, 4)
+        Me.TableLayoutPanel4.Controls.Add(Me.Label21, 0, 5)
+        Me.TableLayoutPanel4.Controls.Add(Me.TextBoxInstanceSecondaryIPs, 1, 5)
         Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 3)
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
-        Me.TableLayoutPanel4.RowCount = 7
+        Me.TableLayoutPanel4.RowCount = 8
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
@@ -807,7 +839,7 @@ Partial Class Form1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(520, 246)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(520, 247)
         Me.TableLayoutPanel4.TabIndex = 5
         '
         'Label16
@@ -930,15 +962,40 @@ Partial Class Form1
         Me.TextBoxInstancePrivateDNS.Size = New System.Drawing.Size(380, 23)
         Me.TextBoxInstancePrivateDNS.TabIndex = 18
         '
+        'Label21
+        '
+        Me.Label21.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(3, 145)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(128, 29)
+        Me.Label21.TabIndex = 19
+        Me.Label21.Text = "Secondary IPs"
+        Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TextBoxInstanceSecondaryIPs
+        '
+        Me.TextBoxInstanceSecondaryIPs.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBoxInstanceSecondaryIPs.Location = New System.Drawing.Point(137, 148)
+        Me.TextBoxInstanceSecondaryIPs.Name = "TextBoxInstanceSecondaryIPs"
+        Me.TextBoxInstanceSecondaryIPs.ReadOnly = True
+        Me.TextBoxInstanceSecondaryIPs.Size = New System.Drawing.Size(380, 23)
+        Me.TextBoxInstanceSecondaryIPs.TabIndex = 20
+        '
         'GroupBox1
         '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.GroupBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.ButtonChangeSecurityGroups)
         Me.GroupBox1.Controls.Add(Me.ListViewInstanceSG)
         Me.GroupBox1.Location = New System.Drawing.Point(529, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(498, 244)
+        Me.GroupBox1.Size = New System.Drawing.Size(498, 245)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Security Groups"
@@ -961,11 +1018,10 @@ Partial Class Form1
         Me.ListViewInstanceSG.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderInstanceSgId, Me.ColumnHeaderInstanceSgName})
         Me.ListViewInstanceSG.FullRowSelect = True
         Me.ListViewInstanceSG.GridLines = True
-        Me.ListViewInstanceSG.HideSelection = False
         Me.ListViewInstanceSG.Location = New System.Drawing.Point(1, 50)
         Me.ListViewInstanceSG.Name = "ListViewInstanceSG"
         Me.ListViewInstanceSG.ShowGroups = False
-        Me.ListViewInstanceSG.Size = New System.Drawing.Size(489, 189)
+        Me.ListViewInstanceSG.Size = New System.Drawing.Size(489, 190)
         Me.ListViewInstanceSG.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceSG.TabIndex = 3
         Me.ListViewInstanceSG.UseCompatibleStateImageBehavior = False
@@ -985,9 +1041,9 @@ Partial Class Form1
         '
         Me.TabPageStorage.Controls.Add(Me.ButtonAddNewVolumes)
         Me.TabPageStorage.Controls.Add(Me.ListViewInstanceVolumes)
-        Me.TabPageStorage.Location = New System.Drawing.Point(4, 25)
+        Me.TabPageStorage.Location = New System.Drawing.Point(4, 24)
         Me.TabPageStorage.Name = "TabPageStorage"
-        Me.TabPageStorage.Size = New System.Drawing.Size(1030, 248)
+        Me.TabPageStorage.Size = New System.Drawing.Size(1030, 249)
         Me.TabPageStorage.TabIndex = 3
         Me.TabPageStorage.Text = "Storage"
         Me.TabPageStorage.UseVisualStyleBackColor = True
@@ -1009,11 +1065,10 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderVolumeID, Me.ColumnHeaderDeviceName, Me.ColumnHeaderVolumeType, Me.ColumnHeaderSize, Me.ColumnHeaderVolumeIOPS, Me.ColumnHeaderVolumeThroughput, Me.ColumnHeaderAttachmentTime, Me.ColumnHeaderDeleteOnTermination, Me.ColumnHeaderEncrypted, Me.ColumnHeaderKmsKeyId})
         Me.ListViewInstanceVolumes.FullRowSelect = True
         Me.ListViewInstanceVolumes.GridLines = True
-        Me.ListViewInstanceVolumes.HideSelection = False
         Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 25)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 246)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 247)
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
         Me.ListViewInstanceVolumes.View = System.Windows.Forms.View.Details
@@ -1074,9 +1129,9 @@ Partial Class Form1
         Me.TabPageMonitoring.Controls.Add(Me.PlotViewInstanceNetworkIn)
         Me.TabPageMonitoring.Controls.Add(Me.ButtonMetricBrowser)
         Me.TabPageMonitoring.Controls.Add(Me.PlotViewInstanceCPU)
-        Me.TabPageMonitoring.Location = New System.Drawing.Point(4, 25)
+        Me.TabPageMonitoring.Location = New System.Drawing.Point(4, 24)
         Me.TabPageMonitoring.Name = "TabPageMonitoring"
-        Me.TabPageMonitoring.Size = New System.Drawing.Size(1030, 248)
+        Me.TabPageMonitoring.Size = New System.Drawing.Size(1030, 249)
         Me.TabPageMonitoring.TabIndex = 5
         Me.TabPageMonitoring.Text = "Monitoring"
         Me.TabPageMonitoring.UseVisualStyleBackColor = True
@@ -1133,9 +1188,9 @@ Partial Class Form1
         '
         Me.TabPageTags.Controls.Add(Me.ButtonEditTags)
         Me.TabPageTags.Controls.Add(Me.ListViewInstanceTags)
-        Me.TabPageTags.Location = New System.Drawing.Point(4, 25)
+        Me.TabPageTags.Location = New System.Drawing.Point(4, 24)
         Me.TabPageTags.Name = "TabPageTags"
-        Me.TabPageTags.Size = New System.Drawing.Size(1030, 248)
+        Me.TabPageTags.Size = New System.Drawing.Size(1030, 249)
         Me.TabPageTags.TabIndex = 6
         Me.TabPageTags.Text = "Tags"
         Me.TabPageTags.UseVisualStyleBackColor = True
@@ -1157,11 +1212,10 @@ Partial Class Form1
         Me.ListViewInstanceTags.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeaderKey, Me.ColumnHeaderValue})
         Me.ListViewInstanceTags.FullRowSelect = True
         Me.ListViewInstanceTags.GridLines = True
-        Me.ListViewInstanceTags.HideSelection = False
         Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 28)
         Me.ListViewInstanceTags.Name = "ListViewInstanceTags"
         Me.ListViewInstanceTags.ShowGroups = False
-        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 240)
+        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 241)
         Me.ListViewInstanceTags.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceTags.TabIndex = 0
         Me.ListViewInstanceTags.UseCompatibleStateImageBehavior = False
@@ -1360,4 +1414,8 @@ Partial Class Form1
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
     Friend WithEvents PlotViewInstanceNetworkOut As OxyPlot.WindowsForms.PlotView
     Friend WithEvents PlotViewInstanceNetworkIn As OxyPlot.WindowsForms.PlotView
+    Friend WithEvents Label20 As Label
+    Friend WithEvents TextBoxInstanceName As TextBox
+    Friend WithEvents Label21 As Label
+    Friend WithEvents TextBoxInstanceSecondaryIPs As TextBox
 End Class

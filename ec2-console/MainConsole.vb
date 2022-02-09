@@ -262,6 +262,10 @@ Public Class Form1
 
             My.Computer.Clipboard.SetText(TextBoxInstancePrivateIp.Text)
 
+        ElseIf Button.Parent.Name = "TextBoxInstanceName" Then
+
+            My.Computer.Clipboard.SetText(TextBoxInstanceName.Text)
+
         Else
 
             MsgBox("Not Implemented")
@@ -272,6 +276,8 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Me.KeyPreview = True
 
         CreateInstanceDataSource()
 
@@ -292,6 +298,7 @@ Public Class Form1
         ServiceFunctions.AddEmbeddedButton_Open(TextBoxInstanceIamRole)
 
         ServiceFunctions.AddEmbeddedButton_Copy(TextBoxInstanceId)
+        ServiceFunctions.AddEmbeddedButton_Copy(TextBoxInstanceName)
         ServiceFunctions.AddEmbeddedButton_Copy(TextBoxInstancePrivateDNS)
         ServiceFunctions.AddEmbeddedButton_Copy(TextBoxInstancePrivateIp)
 
@@ -1063,6 +1070,16 @@ Public Class Form1
         TextBoxInstancePrivateIp.Text = Instance.PrivateIpAddress
         TextBoxInstancePrivateDNS.Text = Instance.PrivateDnsName
 
+        TextBoxInstanceSecondaryIPs.Text = ""
+        If Instance.NetworkInterfaces.Count > 0 Then
+            For Each SecondaryIP In Instance.NetworkInterfaces(0).PrivateIpAddresses
+                If SecondaryIP.PrivateIpAddress <> Instance.PrivateIpAddress Then
+                    TextBoxInstanceSecondaryIPs.Text += IIf(TextBoxInstanceSecondaryIPs.Text = "", "", ", ") + SecondaryIP.PrivateIpAddress
+                End If
+            Next
+        End If
+        'TextBoxInstanceSecondaryIPs.Text = Instance.n
+
         '*****************************************************************
         ' Tab - Storage
 
@@ -1094,9 +1111,9 @@ Public Class Form1
                 ListViewItemVolume.SubItems.Add(InstanceVolume.Iops)
                 ListViewItemVolume.SubItems.Add(InstanceVolume.Throughput)
                 ListViewItemVolume.SubItems.Add(InstanceVolumeMapping.Ebs.AttachTime.ToString)
+                ListViewItemVolume.SubItems.Add(InstanceVolumeMapping.Ebs.DeleteOnTermination)
                 ListViewItemVolume.SubItems.Add(InstanceVolume.Encrypted.ToString)
                 ListViewItemVolume.SubItems.Add(InstanceVolume.KmsKeyId)
-                ListViewItemVolume.SubItems.Add(InstanceVolumeMapping.Ebs.DeleteOnTermination)
                 ListViewItemVolume.Tag = InstanceVolumeMapping.Ebs.VolumeId
 
                 ListViewInstanceVolumes.Items.Add(ListViewItemVolume)
@@ -1122,6 +1139,10 @@ Public Class Form1
             ListViewItemTag.SubItems.Add(InstanceTag.Value)
 
             ListViewInstanceTags.Items.Add(ListViewItemTag)
+
+            If InstanceTag.Key = "Name" Then
+                TextBoxInstanceName.Text = InstanceTag.Value
+            End If
 
         Next
 
@@ -1770,7 +1791,11 @@ Public Class Form1
 
     Private Sub ToolStripMenuItem5_Click(sender As Object, e As EventArgs) Handles RefreshInstanceListToolStripMenuItem.Click
 
-        'DataListViewEC2.DataSource = Nothing
+        ReloadInstanceList()
+
+    End Sub
+
+    Sub ReloadInstanceList()
 
         InstanceDataSource.Rows.Clear()
 
@@ -1890,6 +1915,12 @@ Public Class Form1
         FormInstanceType.StartPosition = FormStartPosition.CenterScreen
         FormInstanceType.Show()
 
+    End Sub
+
+    Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If e.KeyData = Keys.F5 Then
+            ReloadInstanceList()
+        End If
     End Sub
 
 End Class

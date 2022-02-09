@@ -41,6 +41,7 @@
     <PackageReference Include="AWSSDK.Pricing" Version="3.7.1.117" />
     <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.122" />
     <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.112" />
+    <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="3.7.12.6" />
     <PackageReference Include="AWSSDK.SSO" Version="3.7.0.121" />
     <PackageReference Include="AWSSDK.SSOOIDC" Version="3.7.0.121" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
