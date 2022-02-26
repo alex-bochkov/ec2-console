@@ -22,6 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabelCurrentRegion = New System.Windows.Forms.ToolStripDropDownButton()
@@ -124,6 +125,11 @@ Partial Class Form1
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.TaskDialogException = New Ookii.Dialogs.WinForms.TaskDialog(Me.components)
+        Me.TaskDialogButtonOpenAccountSettings = New Ookii.Dialogs.WinForms.TaskDialogButton(Me.components)
+        Me.TaskDialogButtonOpenSsoLoginForm = New Ookii.Dialogs.WinForms.TaskDialogButton(Me.components)
+        Me.TaskDialogButtonCancel = New Ookii.Dialogs.WinForms.TaskDialogButton(Me.components)
+        Me.TaskDialogRadioButton1 = New Ookii.Dialogs.WinForms.TaskDialogRadioButton(Me.components)
         Me.StatusStrip.SuspendLayout()
         Me.MenuStripMain.SuspendLayout()
         Me.TabControl.SuspendLayout()
@@ -283,7 +289,6 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DataListViewEC2.CellEditUseWholeCell = False
-        Me.DataListViewEC2.Cursor = System.Windows.Forms.Cursors.Default
         Me.DataListViewEC2.DataSource = Nothing
         Me.DataListViewEC2.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.DataListViewEC2.FullRowSelect = True
@@ -420,7 +425,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(480, 267)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(480, 271)
         Me.TableLayoutPanel2.TabIndex = 1
         '
         'TextBoxInstanceSystemStatus
@@ -603,7 +608,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(527, 282)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(527, 286)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -1270,6 +1275,34 @@ Partial Class Form1
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(200, 100)
         Me.TableLayoutPanel3.TabIndex = 0
         '
+        'TaskDialogException
+        '
+        Me.TaskDialogException.AllowDialogCancellation = True
+        Me.TaskDialogException.Buttons.Add(Me.TaskDialogButtonOpenAccountSettings)
+        Me.TaskDialogException.Buttons.Add(Me.TaskDialogButtonOpenSsoLoginForm)
+        Me.TaskDialogException.Buttons.Add(Me.TaskDialogButtonCancel)
+        Me.TaskDialogException.CenterParent = True
+        Me.TaskDialogException.FooterIcon = Ookii.Dialogs.WinForms.TaskDialogIcon.Information
+        Me.TaskDialogException.MainIcon = Ookii.Dialogs.WinForms.TaskDialogIcon.[Error]
+        Me.TaskDialogException.MainInstruction = "TaskDialogException"
+        Me.TaskDialogException.RadioButtons.Add(Me.TaskDialogRadioButton1)
+        '
+        'TaskDialogButtonOpenAccountSettings
+        '
+        Me.TaskDialogButtonOpenAccountSettings.Text = "Open Account Settings"
+        '
+        'TaskDialogButtonOpenSsoLoginForm
+        '
+        Me.TaskDialogButtonOpenSsoLoginForm.Text = "Open SSO Login Form"
+        '
+        'TaskDialogButtonCancel
+        '
+        Me.TaskDialogButtonCancel.Text = "Cancel"
+        '
+        'TaskDialogRadioButton1
+        '
+        Me.TaskDialogRadioButton1.Text = "TaskDialogRadioButton1"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1418,4 +1451,9 @@ Partial Class Form1
     Friend WithEvents TextBoxInstanceName As TextBox
     Friend WithEvents Label21 As Label
     Friend WithEvents TextBoxInstanceSecondaryIPs As TextBox
+    Friend WithEvents TaskDialogException As Ookii.Dialogs.WinForms.TaskDialog
+    Friend WithEvents TaskDialogRadioButton1 As Ookii.Dialogs.WinForms.TaskDialogRadioButton
+    Friend WithEvents TaskDialogButtonOpenAccountSettings As Ookii.Dialogs.WinForms.TaskDialogButton
+    Friend WithEvents TaskDialogButtonOpenSsoLoginForm As Ookii.Dialogs.WinForms.TaskDialogButton
+    Friend WithEvents TaskDialogButtonCancel As Ookii.Dialogs.WinForms.TaskDialogButton
 End Class

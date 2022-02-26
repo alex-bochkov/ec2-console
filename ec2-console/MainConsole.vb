@@ -405,7 +405,7 @@ Public Class Form1
 
             StatusStrip.BackColor = CurrentAccount.BackgroundColor
 
-            FillInstanceList()
+            ReloadInstanceList()
 
             PopulateFilterMenu()
 
@@ -415,11 +415,11 @@ Public Class Form1
 
         Catch ex As Exception
 
-            Dim errorMessage As String = ex.Message
-            errorMessage += System.Environment.NewLine + "1. Credential Profile may have incorrect access or secret key"
-            errorMessage += System.Environment.NewLine + "2. AWS SSO session has expired "
+            'Dim errorMessage As String = ex.Message
+            'errorMessage += System.Environment.NewLine + "1. Credential Profile may have incorrect access or secret key"
+            'errorMessage += System.Environment.NewLine + "2. AWS SSO session has expired "
 
-            MessageBox.Show(errorMessage, "AWS API error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show(errorMessage, "AWS API error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
 
@@ -1790,11 +1790,41 @@ Public Class Form1
 
     Sub ReloadInstanceList()
 
-        InstanceDataSource.Rows.Clear()
+        Try
 
-        FillInstanceList()
+            InstanceDataSource.Rows.Clear()
+
+            FillInstanceList()
+
+        Catch ex As Exception
+
+            If ex.Message = "The request must contain the parameter AWSAccessKeyId" Then
+
+                TaskDialogException.RadioButtons.Clear()
+
+                TaskDialogException.WindowTitle = "Authentication Error"
+                TaskDialogException.MainInstruction = "The AWS API request has failed because of invalid or expired AWS credentials"
+                TaskDialogException.Content = "Try updating access keys or login using AWS SSO."
+                TaskDialogException.EnableHyperlinks = True
+                TaskDialogException.Footer = "<a href=""https://aws.amazon.com/single-sign-on/"">AWS Single Sign-On</a>"
+
+                '._sampleTaskDialog.HyperlinkClicked += New System.EventHandler < Ookii.Dialogs.WinForms.HyperlinkClickedEventArgs > (this._sampleTaskDialog_HyperlinkClicked);
+
+                TaskDialogException.ShowDialog()
+
+            Else
+                'generic error
+            End If
+
+
+        End Try
 
     End Sub
+
+    Private Sub TaskDialogButtonOpenSsoLoginForm_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
 
     Private Sub ButtonAddNewVolumes_Click(sender As Object, e As EventArgs) Handles ButtonAddNewVolumes.Click
 
@@ -1914,6 +1944,42 @@ Public Class Form1
         If e.KeyData = Keys.F5 Then
             ReloadInstanceList()
         End If
+    End Sub
+
+    Private Sub TaskDialogException_ButtonClicked(sender As Object, e As Ookii.Dialogs.WinForms.TaskDialogItemClickedEventArgs) Handles TaskDialogException.ButtonClicked
+
+        If e.Item.Text = "Open SSO Login Form" Then
+
+            Dim SsoCommand = "sso login --profile=" + CurrentAccount.SharedCredentialProfile
+
+            Dim startInfo As ProcessStartInfo = New ProcessStartInfo()
+            startInfo.CreateNoWindow = True
+            startInfo.UseShellExecute = True
+            startInfo.FileName = "aws"
+            startInfo.WindowStyle = ProcessWindowStyle.Normal
+
+            startInfo.Arguments = SsoCommand
+
+            Try
+
+                Dim exeProcess As Process = Process.Start(startInfo)
+
+                exeProcess.WaitForExit()
+
+                ReloadInstanceList()
+
+            Catch ex As Exception
+
+            End Try
+
+        ElseIf e.Item.Text = "Open Account Settings" Then
+
+            OpenAccountManagementForm()
+
+        Else
+
+        End If
+
     End Sub
 
 End Class
