@@ -70,27 +70,20 @@ Public Class Form1
         'send tracking API request
         Try
 
-            'just to test that it works
             Dim TrackingURL = "https://x4w5djqv79.execute-api.us-west-2.amazonaws.com/prod/ping"
-            Dim request As Net.HttpWebRequest = Net.WebRequest.Create(TrackingURL)
-            request.Method = "PUT"
-            request.ContentType = "application/json"
 
-            Dim webStream As IO.Stream = request.GetRequestStream()
-            Dim requestWriter As IO.StreamWriter = New IO.StreamWriter(webStream, System.Text.Encoding.ASCII)
-            requestWriter.Write("Hello!")
+            Dim requestMessage = New System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Put, TrackingURL)
+            requestMessage.Content = New System.Net.Http.StringContent("Hello!", System.Text.Encoding.UTF8, "text/plain")
 
-            Try
+            Dim httpClient As New System.Net.Http.HttpClient
 
-                Dim webResponse As Net.WebResponse = request.GetResponse()
-                Dim webStreamResponse As IO.Stream = webResponse.GetResponseStream()
-                Dim responseReader As IO.StreamReader = New IO.StreamReader(webStreamResponse)
-                Dim response As String = responseReader.ReadToEnd()
-                Dim a = 0
+            Dim httpTask = httpClient.SendAsync(requestMessage).GetAwaiter()
 
-            Catch ex As Exception
+            While Not httpTask.IsCompleted
+                Application.DoEvents()
+            End While
 
-            End Try
+            Dim result = httpTask.GetResult()
 
         Catch ex As Exception
 

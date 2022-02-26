@@ -16,20 +16,32 @@ Namespace ServiceFunctions
 
             Try
 
-                Dim webClient As New System.Net.WebClient
+                Dim requestMessage = New System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, "https://api.github.com/repos/alex-bochkov/ec2-console/releases/latest")
+                requestMessage.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36")
 
-                Dim request = WebRequest.Create("https://api.github.com/repos/alex-bochkov/ec2-console/releases/latest")
-                request.Headers.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36")
+                Dim httpClient As New System.Net.Http.HttpClient
 
-                Dim response As WebResponse = request.GetResponse()
+                Dim httpTask = httpClient.SendAsync(requestMessage).GetAwaiter()
 
-                Dim reader = New System.IO.StreamReader(response.GetResponseStream(), System.Text.ASCIIEncoding.ASCII)
+                While Not httpTask.IsCompleted
+                    Application.DoEvents()
+                End While
 
-                Dim responseText = reader.ReadToEnd()
+                Dim result = httpTask.GetResult()
 
-                Dim resultObject = JsonConvert.DeserializeObject(Of GitHubReleaseResponse)(responseText)
+                If result.StatusCode = HttpStatusCode.OK Then
 
-                Return resultObject
+                    Dim GetContentTask = result.Content.ReadAsStringAsync().GetAwaiter()
+
+                    While Not GetContentTask.IsCompleted
+                        Application.DoEvents()
+                    End While
+
+                    Dim responseText = GetContentTask.GetResult()
+
+                    Return JsonConvert.DeserializeObject(Of GitHubReleaseResponse)(responseText)
+
+                End If
 
             Catch ex As Exception
 
