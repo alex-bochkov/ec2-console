@@ -34,16 +34,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.CloudWatch" Version="3.7.3.28" />
-    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.6.13" />
-    <PackageReference Include="AWSSDK.EC2" Version="3.7.59.10" />
-    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.109" />
-    <PackageReference Include="AWSSDK.Pricing" Version="3.7.1.125" />
-    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.130" />
-    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.120" />
-    <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="3.7.12.16" />
-    <PackageReference Include="AWSSDK.SSO" Version="3.7.0.129" />
-    <PackageReference Include="AWSSDK.SSOOIDC" Version="3.7.0.129" />
+    <PackageReference Include="AWSSDK.CloudWatch" Version="3.7.3.29" />
+    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.6.14" />
+    <PackageReference Include="AWSSDK.EC2" Version="3.7.60" />
+    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.110" />
+    <PackageReference Include="AWSSDK.Pricing" Version="3.7.1.126" />
+    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.131" />
+    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.121" />
+    <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="3.7.12.17" />
+    <PackageReference Include="AWSSDK.SSO" Version="3.7.0.130" />
+    <PackageReference Include="AWSSDK.SSOOIDC" Version="3.7.0.130" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="4.7.14" />
     <PackageReference Include="NLog.Config" Version="4.7.14" />
@@ -70,6 +70,9 @@
     </Compile>
     <Compile Update="secondary-forms\IamRoleForm.vb" />
     <Compile Update="secondary-forms\instance\CreateInstanceSnapshot.vb" />
+    <Compile Update="secondary-forms\volumes\DetachAndDeleteVolumeForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

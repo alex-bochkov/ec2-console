@@ -62,7 +62,9 @@ Partial Class Form1
         Me.Label12 = New System.Windows.Forms.Label()
         Me.TextBoxInstanceDetailedMonitoring = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.TextBoxInstanceKeyName = New System.Windows.Forms.TextBox()
+        Me.TextBoxInstanceEnaSupport = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TextBoxInstancevCPU = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -412,11 +414,14 @@ Partial Class Form1
         Me.TableLayoutPanel2.Controls.Add(Me.Label11, 0, 3)
         Me.TableLayoutPanel2.Controls.Add(Me.Label12, 0, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.TextBoxInstanceDetailedMonitoring, 1, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label13, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.TextBoxInstanceKeyName, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label13, 0, 7)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label22, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.TextBoxInstanceKeyName, 1, 7)
+        Me.TableLayoutPanel2.Controls.Add(Me.TextBoxInstanceEnaSupport, 1, 0)
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(533, 3)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 8
+        Me.TableLayoutPanel2.RowCount = 9
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
@@ -425,7 +430,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(480, 271)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(480, 276)
         Me.TableLayoutPanel2.TabIndex = 1
         '
         'TextBoxInstanceSystemStatus
@@ -554,23 +559,47 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(3, 0)
+        Me.Label13.Location = New System.Drawing.Point(3, 174)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(133, 29)
         Me.Label13.TabIndex = 11
         Me.Label13.Text = "Key Name"
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'Label22
+        '
+        Me.Label22.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(3, 0)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(133, 29)
+        Me.Label22.TabIndex = 13
+        Me.Label22.Text = "ENA Support"
+        Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'TextBoxInstanceKeyName
         '
         Me.TextBoxInstanceKeyName.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxInstanceKeyName.Location = New System.Drawing.Point(142, 3)
+        Me.TextBoxInstanceKeyName.Location = New System.Drawing.Point(142, 177)
         Me.TextBoxInstanceKeyName.Name = "TextBoxInstanceKeyName"
         Me.TextBoxInstanceKeyName.ReadOnly = True
         Me.TextBoxInstanceKeyName.Size = New System.Drawing.Size(322, 23)
         Me.TextBoxInstanceKeyName.TabIndex = 12
+        '
+        'TextBoxInstanceEnaSupport
+        '
+        Me.TextBoxInstanceEnaSupport.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBoxInstanceEnaSupport.Location = New System.Drawing.Point(142, 3)
+        Me.TextBoxInstanceEnaSupport.Name = "TextBoxInstanceEnaSupport"
+        Me.TextBoxInstanceEnaSupport.ReadOnly = True
+        Me.TextBoxInstanceEnaSupport.Size = New System.Drawing.Size(322, 23)
+        Me.TextBoxInstanceEnaSupport.TabIndex = 14
         '
         'TableLayoutPanel1
         '
@@ -608,7 +637,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(527, 286)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(527, 291)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -1456,4 +1485,6 @@ Partial Class Form1
     Friend WithEvents TaskDialogButtonOpenAccountSettings As Ookii.Dialogs.WinForms.TaskDialogButton
     Friend WithEvents TaskDialogButtonOpenSsoLoginForm As Ookii.Dialogs.WinForms.TaskDialogButton
     Friend WithEvents TaskDialogButtonCancel As Ookii.Dialogs.WinForms.TaskDialogButton
+    Friend WithEvents Label22 As Label
+    Friend WithEvents TextBoxInstanceEnaSupport As TextBox
 End Class

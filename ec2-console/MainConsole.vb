@@ -1012,6 +1012,7 @@ Public Class Form1
         TextBoxInstanceKeyName.Text = Instance.KeyName
         TextBoxInstanceDetailedMonitoring.Text = Instance.Monitoring.State.Value
         TextBoxInstanceEbsOptimization.Text = Instance.EbsOptimized.ToString
+        TextBoxInstanceEnaSupport.Text = Instance.EnaSupport
         TextBoxInstanceType.Text = Instance.InstanceType.Value
 
         '*****************************************************************
@@ -1337,7 +1338,7 @@ Public Class Form1
 
                 Dim m As ContextMenuStrip = New ContextMenuStrip()
 
-                Dim mVolume1 As ToolStripItem = New ToolStripMenuItem("Modify Volume", Nothing, AddressOf EditVolume)
+                Dim mVolume1 As ToolStripItem = New ToolStripMenuItem("Modify Volume", Nothing, AddressOf OpenModifyVolumeForm)
                 mVolume1.Tag = hti.Item.Tag
                 m.Items.Add(mVolume1)
 
@@ -1348,6 +1349,10 @@ Public Class Form1
                 Dim mVolume3 As ToolStripItem = New ToolStripMenuItem("CloudWatch Metrics", Nothing, AddressOf OpenMetricBrowserFormVolume)
                 mVolume3.Tag = hti.Item.Tag
                 m.Items.Add(mVolume3)
+
+                Dim mVolume4 As ToolStripItem = New ToolStripMenuItem("Detach and Delete Volume", My.Resources.DeleteObject.ToBitmap, AddressOf OpenDetachAndDeleteVolumeForm)
+                mVolume4.Tag = hti.Item.Tag
+                m.Items.Add(mVolume4)
 
                 m.Show(Cursor.Position)
 
@@ -1456,6 +1461,18 @@ Public Class Form1
         Dim InstanceId As String = DataListViewEC2.FocusedItem.SubItems.Item(ColumnNumber).Text
 
         Return InstanceId
+
+    End Function
+
+    Function GetAllSelectedVolumeIds() As List(Of String)
+
+        Dim ResultList As List(Of String) = New List(Of String)
+
+        For Each SelectedVolume In ListViewInstanceVolumes.SelectedItems
+            ResultList.Add(SelectedVolume.Text)
+        Next
+
+        Return ResultList
 
     End Function
 
@@ -1707,11 +1724,21 @@ Public Class Form1
 
     End Sub
 
-    Sub EditVolume(sender As Object, e As EventArgs)
+    Sub OpenModifyVolumeForm(sender As Object, e As EventArgs)
 
         Dim FormEditVolume = New ModifyVolumeForm
         FormEditVolume.CurrentAccount = CurrentAccount
         FormEditVolume.VolumeId = sender.tag
+        FormEditVolume.StartPosition = FormStartPosition.CenterScreen
+        FormEditVolume.ShowDialog()
+
+    End Sub
+
+    Sub OpenDetachAndDeleteVolumeForm(sender As Object, e As EventArgs)
+
+        Dim FormEditVolume = New DetachAndDeleteVolumeForm
+        FormEditVolume.CurrentAccount = CurrentAccount
+        FormEditVolume.VolumeIds = GetAllSelectedVolumeIds()
         FormEditVolume.StartPosition = FormStartPosition.CenterScreen
         FormEditVolume.ShowDialog()
 

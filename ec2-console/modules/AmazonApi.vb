@@ -438,6 +438,46 @@
 
         End Function
 
+        Public Function DetachVolume(AwsAccount As AwsAccount,
+                                     VolumeId As String,
+                                     ForceDetach As Boolean) As Amazon.EC2.Model.VolumeAttachment
+
+            Dim client = NewAmazonEC2Client(AwsAccount)
+
+            Dim request = New Amazon.EC2.Model.DetachVolumeRequest
+            request.VolumeId = VolumeId
+            request.Force = ForceDetach
+
+            Dim requestResult = client.DetachVolumeAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return result.Attachment
+
+        End Function
+
+        Public Function DeleteVolume(AwsAccount As AwsAccount,
+                                     VolumeId As String) As Boolean
+
+            Dim client = NewAmazonEC2Client(AwsAccount)
+
+            Dim request = New Amazon.EC2.Model.DeleteVolumeRequest
+            request.VolumeId = VolumeId
+
+            Dim requestResult = client.DeleteVolumeAsync(request).GetAwaiter()
+            While Not requestResult.IsCompleted
+                Application.DoEvents()
+            End While
+
+            Dim result = requestResult.GetResult()
+
+            Return True
+
+        End Function
+
         Public Sub ModifyInstanceAttribute_DeleteVolumeOnInstanceTermination(AwsAccount As AwsAccount,
                                      InstanceId As String,
                                      VolumeId As String,
