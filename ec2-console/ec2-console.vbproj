@@ -34,19 +34,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.CloudWatch" Version="3.7.3.29" />
-    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.6.14" />
-    <PackageReference Include="AWSSDK.EC2" Version="3.7.60" />
-    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.110" />
-    <PackageReference Include="AWSSDK.Pricing" Version="3.7.1.126" />
-    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.131" />
-    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.121" />
-    <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="3.7.12.17" />
-    <PackageReference Include="AWSSDK.SSO" Version="3.7.0.130" />
-    <PackageReference Include="AWSSDK.SSOOIDC" Version="3.7.0.130" />
+    <PackageReference Include="AWSSDK.CloudWatch" Version="3.7.3.39" />
+    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.8" />
+    <PackageReference Include="AWSSDK.EC2" Version="3.7.62" />
+    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.120" />
+    <PackageReference Include="AWSSDK.Pricing" Version="3.7.1.136" />
+    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.141" />
+    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.132" />
+    <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="3.7.14" />
+    <PackageReference Include="AWSSDK.SSO" Version="3.7.0.140" />
+    <PackageReference Include="AWSSDK.SSOOIDC" Version="3.7.0.140" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NLog" Version="4.7.14" />
-    <PackageReference Include="NLog.Config" Version="4.7.14" />
+    <PackageReference Include="NLog" Version="4.7.15" />
+    <PackageReference Include="NLog.Config" Version="4.7.15" />
     <PackageReference Include="ObjectListView.Official" Version="2.9.1" />
     <PackageReference Include="Ookii.Dialogs.WinForms" Version="4.0.0" />
     <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.0" />

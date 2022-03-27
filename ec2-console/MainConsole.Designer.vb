@@ -115,6 +115,7 @@ Partial Class Form1
         Me.ColumnHeaderEncrypted = New System.Windows.Forms.ColumnHeader()
         Me.ColumnHeaderKmsKeyId = New System.Windows.Forms.ColumnHeader()
         Me.TabPageMonitoring = New System.Windows.Forms.TabPage()
+        Me.ButtonRefreshInstanceMetrics = New System.Windows.Forms.Button()
         Me.PlotViewInstanceNetworkOut = New OxyPlot.WindowsForms.PlotView()
         Me.PlotViewInstanceNetworkIn = New OxyPlot.WindowsForms.PlotView()
         Me.ButtonMetricBrowser = New System.Windows.Forms.Button()
@@ -430,7 +431,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(480, 276)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(480, 278)
         Me.TableLayoutPanel2.TabIndex = 1
         '
         'TextBoxInstanceSystemStatus
@@ -637,7 +638,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(527, 291)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(527, 293)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TextBoxInstancevCPU
@@ -836,9 +837,9 @@ Partial Class Form1
         '
         Me.TabPageNetworking.Controls.Add(Me.TableLayoutPanel4)
         Me.TabPageNetworking.Controls.Add(Me.GroupBox1)
-        Me.TabPageNetworking.Location = New System.Drawing.Point(4, 24)
+        Me.TabPageNetworking.Location = New System.Drawing.Point(4, 25)
         Me.TabPageNetworking.Name = "TabPageNetworking"
-        Me.TabPageNetworking.Size = New System.Drawing.Size(1030, 249)
+        Me.TabPageNetworking.Size = New System.Drawing.Size(1030, 248)
         Me.TabPageNetworking.TabIndex = 2
         Me.TabPageNetworking.Text = "Networking"
         Me.TabPageNetworking.UseVisualStyleBackColor = True
@@ -873,7 +874,7 @@ Partial Class Form1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(520, 247)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(520, 246)
         Me.TableLayoutPanel4.TabIndex = 5
         '
         'Label16
@@ -1029,7 +1030,7 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.ListViewInstanceSG)
         Me.GroupBox1.Location = New System.Drawing.Point(529, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(498, 245)
+        Me.GroupBox1.Size = New System.Drawing.Size(498, 244)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Security Groups"
@@ -1055,7 +1056,7 @@ Partial Class Form1
         Me.ListViewInstanceSG.Location = New System.Drawing.Point(1, 50)
         Me.ListViewInstanceSG.Name = "ListViewInstanceSG"
         Me.ListViewInstanceSG.ShowGroups = False
-        Me.ListViewInstanceSG.Size = New System.Drawing.Size(489, 190)
+        Me.ListViewInstanceSG.Size = New System.Drawing.Size(489, 189)
         Me.ListViewInstanceSG.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceSG.TabIndex = 3
         Me.ListViewInstanceSG.UseCompatibleStateImageBehavior = False
@@ -1075,9 +1076,9 @@ Partial Class Form1
         '
         Me.TabPageStorage.Controls.Add(Me.ButtonAddNewVolumes)
         Me.TabPageStorage.Controls.Add(Me.ListViewInstanceVolumes)
-        Me.TabPageStorage.Location = New System.Drawing.Point(4, 24)
+        Me.TabPageStorage.Location = New System.Drawing.Point(4, 25)
         Me.TabPageStorage.Name = "TabPageStorage"
-        Me.TabPageStorage.Size = New System.Drawing.Size(1030, 249)
+        Me.TabPageStorage.Size = New System.Drawing.Size(1030, 248)
         Me.TabPageStorage.TabIndex = 3
         Me.TabPageStorage.Text = "Storage"
         Me.TabPageStorage.UseVisualStyleBackColor = True
@@ -1102,7 +1103,7 @@ Partial Class Form1
         Me.ListViewInstanceVolumes.Location = New System.Drawing.Point(0, 25)
         Me.ListViewInstanceVolumes.Name = "ListViewInstanceVolumes"
         Me.ListViewInstanceVolumes.ShowGroups = False
-        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 247)
+        Me.ListViewInstanceVolumes.Size = New System.Drawing.Size(1030, 246)
         Me.ListViewInstanceVolumes.TabIndex = 1
         Me.ListViewInstanceVolumes.UseCompatibleStateImageBehavior = False
         Me.ListViewInstanceVolumes.View = System.Windows.Forms.View.Details
@@ -1159,16 +1160,26 @@ Partial Class Form1
         '
         'TabPageMonitoring
         '
+        Me.TabPageMonitoring.Controls.Add(Me.ButtonRefreshInstanceMetrics)
         Me.TabPageMonitoring.Controls.Add(Me.PlotViewInstanceNetworkOut)
         Me.TabPageMonitoring.Controls.Add(Me.PlotViewInstanceNetworkIn)
         Me.TabPageMonitoring.Controls.Add(Me.ButtonMetricBrowser)
         Me.TabPageMonitoring.Controls.Add(Me.PlotViewInstanceCPU)
-        Me.TabPageMonitoring.Location = New System.Drawing.Point(4, 24)
+        Me.TabPageMonitoring.Location = New System.Drawing.Point(4, 25)
         Me.TabPageMonitoring.Name = "TabPageMonitoring"
-        Me.TabPageMonitoring.Size = New System.Drawing.Size(1030, 249)
+        Me.TabPageMonitoring.Size = New System.Drawing.Size(1030, 248)
         Me.TabPageMonitoring.TabIndex = 5
         Me.TabPageMonitoring.Text = "Monitoring"
         Me.TabPageMonitoring.UseVisualStyleBackColor = True
+        '
+        'ButtonRefreshInstanceMetrics
+        '
+        Me.ButtonRefreshInstanceMetrics.Location = New System.Drawing.Point(3, 0)
+        Me.ButtonRefreshInstanceMetrics.Name = "ButtonRefreshInstanceMetrics"
+        Me.ButtonRefreshInstanceMetrics.Size = New System.Drawing.Size(75, 23)
+        Me.ButtonRefreshInstanceMetrics.TabIndex = 4
+        Me.ButtonRefreshInstanceMetrics.Text = "Refresh"
+        Me.ButtonRefreshInstanceMetrics.UseVisualStyleBackColor = True
         '
         'PlotViewInstanceNetworkOut
         '
@@ -1198,7 +1209,7 @@ Partial Class Form1
         '
         'ButtonMetricBrowser
         '
-        Me.ButtonMetricBrowser.Location = New System.Drawing.Point(3, 0)
+        Me.ButtonMetricBrowser.Location = New System.Drawing.Point(84, 0)
         Me.ButtonMetricBrowser.Name = "ButtonMetricBrowser"
         Me.ButtonMetricBrowser.Size = New System.Drawing.Size(134, 23)
         Me.ButtonMetricBrowser.TabIndex = 1
@@ -1222,9 +1233,9 @@ Partial Class Form1
         '
         Me.TabPageTags.Controls.Add(Me.ButtonEditTags)
         Me.TabPageTags.Controls.Add(Me.ListViewInstanceTags)
-        Me.TabPageTags.Location = New System.Drawing.Point(4, 24)
+        Me.TabPageTags.Location = New System.Drawing.Point(4, 25)
         Me.TabPageTags.Name = "TabPageTags"
-        Me.TabPageTags.Size = New System.Drawing.Size(1030, 249)
+        Me.TabPageTags.Size = New System.Drawing.Size(1030, 248)
         Me.TabPageTags.TabIndex = 6
         Me.TabPageTags.Text = "Tags"
         Me.TabPageTags.UseVisualStyleBackColor = True
@@ -1249,7 +1260,7 @@ Partial Class Form1
         Me.ListViewInstanceTags.Location = New System.Drawing.Point(0, 28)
         Me.ListViewInstanceTags.Name = "ListViewInstanceTags"
         Me.ListViewInstanceTags.ShowGroups = False
-        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 241)
+        Me.ListViewInstanceTags.Size = New System.Drawing.Size(1030, 240)
         Me.ListViewInstanceTags.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewInstanceTags.TabIndex = 0
         Me.ListViewInstanceTags.UseCompatibleStateImageBehavior = False
@@ -1487,4 +1498,5 @@ Partial Class Form1
     Friend WithEvents TaskDialogButtonCancel As Ookii.Dialogs.WinForms.TaskDialogButton
     Friend WithEvents Label22 As Label
     Friend WithEvents TextBoxInstanceEnaSupport As TextBox
+    Friend WithEvents ButtonRefreshInstanceMetrics As Button
 End Class

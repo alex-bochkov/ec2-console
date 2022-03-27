@@ -987,6 +987,14 @@ Public Class Form1
 
     End Sub
 
+    Sub ShowInstanceMetrics(InstanceID As String, Instance As Amazon.EC2.Model.Instance)
+
+        ShowInstanceCpuUtilization(InstanceID, Instance.Monitoring.State.Value)
+        ShowInstanceNetworkIn(InstanceID, Instance.Monitoring.State.Value)
+        ShowInstanceNetworkOut(InstanceID, Instance.Monitoring.State.Value)
+
+    End Sub
+
     Sub PopulateInstanceProperties()
 
         Dim InstanceID = GetSelectedInstanceId()
@@ -997,9 +1005,7 @@ Public Class Form1
             Exit Sub
         End If
 
-        ShowInstanceCpuUtilization(InstanceID, Instance.Monitoring.State.Value)
-        ShowInstanceNetworkIn(InstanceID, Instance.Monitoring.State.Value)
-        ShowInstanceNetworkOut(InstanceID, Instance.Monitoring.State.Value)
+        ShowInstanceMetrics(InstanceID, Instance)
 
         '*****************************************************************
         ' Tab - Details
@@ -1159,6 +1165,8 @@ Public Class Form1
         Dim LinearAxis1 = New LinearAxis
         LinearAxis1.Position = AxisPosition.Left
         LinearAxis1.Minimum = 0
+        LinearAxis1.AbsoluteMinimum = 0
+        LinearAxis1.IsZoomEnabled = False
         'LinearAxis1.Maximum = 100
         'LinearAxis1.MajorStep = 50
         'LinearAxis1.MinorStep = 10
@@ -1219,6 +1227,8 @@ Public Class Form1
         Dim LinearAxis1 = New LinearAxis
         LinearAxis1.Position = AxisPosition.Left
         LinearAxis1.Minimum = 0
+        LinearAxis1.AbsoluteMinimum = 0
+        LinearAxis1.IsZoomEnabled = False
         'LinearAxis1.Maximum = 100
         'LinearAxis1.MajorStep = 50
         'LinearAxis1.MinorStep = 10
@@ -1235,7 +1245,6 @@ Public Class Form1
         LinearAxis2.TickStyle = TickStyle.Inside
         LinearAxis2.IntervalType = DateTimeIntervalType.Minutes
         plot.Axes.Add(LinearAxis2)
-
 
         Dim DetailedMonitoringEnabled As Boolean = DetailedMonitoring = "enabled"
 
@@ -1279,6 +1288,8 @@ Public Class Form1
         Dim LinearAxis1 = New LinearAxis
         LinearAxis1.Position = AxisPosition.Left
         LinearAxis1.Minimum = 0
+        LinearAxis1.AbsoluteMinimum = 0
+        LinearAxis1.IsZoomEnabled = False
         LinearAxis1.Maximum = 100
         LinearAxis1.MajorStep = 50
         LinearAxis1.MinorStep = 10
@@ -2006,6 +2017,20 @@ Public Class Form1
         Else
 
         End If
+
+    End Sub
+
+    Private Sub ButtonRefreshInstanceMetrics_Click(sender As Object, e As EventArgs) Handles ButtonRefreshInstanceMetrics.Click
+
+        Dim InstanceID = GetSelectedInstanceId()
+
+        Dim Instance As Amazon.EC2.Model.Instance = InstanceTable.Item(InstanceID)
+
+        If Instance Is Nothing Then
+            Exit Sub
+        End If
+
+        ShowInstanceMetrics(InstanceID, Instance)
 
     End Sub
 

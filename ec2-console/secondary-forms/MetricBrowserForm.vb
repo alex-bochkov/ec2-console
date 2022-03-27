@@ -24,8 +24,6 @@ Public Class MetricBrowserForm
 
     Private Sub InstanceMetricBrowser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-
-
         ComboBoxMetricType.Items.Clear()
 
         If ObjectType = "instance" Then
@@ -80,7 +78,7 @@ Public Class MetricBrowserForm
         End If
 
         ComboBoxMetricType.SelectedIndex = 0
-        ComboBoxGranularity.SelectedIndex = 0
+        ComboBoxGranularity.SelectedIndex = 1 ' 1 minute
         ComboBoxPeriod.SelectedIndex = 0
         ComboBoxStat.SelectedIndex = 0
 
@@ -107,6 +105,10 @@ Public Class MetricBrowserForm
             HoursBack = 12
         ElseIf ComboBoxPeriod.SelectedItem = "1 day" Then
             HoursBack = 24
+        ElseIf ComboBoxPeriod.SelectedItem = "3 days" Then
+            HoursBack = 24 * 3
+        ElseIf ComboBoxPeriod.SelectedItem = "7 days" Then
+            HoursBack = 24 * 7
         End If
 
         Dim StartDate As DateTime = Now.AddHours(-HoursBack)
@@ -116,10 +118,20 @@ Public Class MetricBrowserForm
         Dim Stat As String = ComboBoxStat.SelectedItem
 
         Dim Granularity As Integer = 60
-        If ComboBoxGranularity.SelectedItem = "1 minute" Then
+        If ComboBoxGranularity.SelectedItem = "10 seconds" Then
+            Granularity = 10
+        ElseIf ComboBoxGranularity.SelectedItem = "1 minute" Then
             Granularity = 60
         ElseIf ComboBoxGranularity.SelectedItem = "5 minutes" Then
             Granularity = 300
+        End If
+        '********************************************************
+        ' API won't return more than 1440 record 
+        If HoursBack * (3600 / Granularity) > 1440 Then
+
+            'force reduced granularity 
+            Granularity = 3600 * HoursBack / 1440
+
         End If
 
         '********************************************************

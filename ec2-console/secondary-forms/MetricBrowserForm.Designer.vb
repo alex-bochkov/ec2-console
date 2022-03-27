@@ -88,7 +88,7 @@ Partial Class MetricBrowserForm
         '
         Me.ComboBoxGranularity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBoxGranularity.FormattingEnabled = True
-        Me.ComboBoxGranularity.Items.AddRange(New Object() {"1 minute", "5 minutes"})
+        Me.ComboBoxGranularity.Items.AddRange(New Object() {"10 seconds", "1 minute", "5 minutes"})
         Me.ComboBoxGranularity.Location = New System.Drawing.Point(514, 3)
         Me.ComboBoxGranularity.Name = "ComboBoxGranularity"
         Me.ComboBoxGranularity.Size = New System.Drawing.Size(135, 24)
@@ -108,7 +108,7 @@ Partial Class MetricBrowserForm
         '
         Me.ComboBoxPeriod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBoxPeriod.FormattingEnabled = True
-        Me.ComboBoxPeriod.Items.AddRange(New Object() {"1 hour", "3 hours", "12 hours", "1 day"})
+        Me.ComboBoxPeriod.Items.AddRange(New Object() {"1 hour", "3 hours", "12 hours", "1 day", "3 days", "7 days"})
         Me.ComboBoxPeriod.Location = New System.Drawing.Point(750, 3)
         Me.ComboBoxPeriod.Name = "ComboBoxPeriod"
         Me.ComboBoxPeriod.Size = New System.Drawing.Size(135, 24)
