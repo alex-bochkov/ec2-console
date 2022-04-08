@@ -34,16 +34,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.CloudWatch" Version="3.7.3.39" />
-    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.8" />
-    <PackageReference Include="AWSSDK.EC2" Version="3.7.62" />
-    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.120" />
-    <PackageReference Include="AWSSDK.Pricing" Version="3.7.1.136" />
-    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.141" />
-    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.132" />
-    <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="3.7.14" />
-    <PackageReference Include="AWSSDK.SSO" Version="3.7.0.140" />
-    <PackageReference Include="AWSSDK.SSOOIDC" Version="3.7.0.140" />
+    <PackageReference Include="AWSSDK.CloudWatch" Version="3.7.3.44" />
+    <PackageReference Include="AWSSDK.ConfigService" Version="3.7.9.1" />
+    <PackageReference Include="AWSSDK.EC2" Version="3.7.63.4" />
+    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.2.125" />
+    <PackageReference Include="AWSSDK.Pricing" Version="3.7.1.141" />
+    <PackageReference Include="AWSSDK.ResourceGroupsTaggingAPI" Version="3.7.0.146" />
+    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.137" />
+    <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="3.7.14.5" />
+    <PackageReference Include="AWSSDK.SSO" Version="3.7.0.145" />
+    <PackageReference Include="AWSSDK.SSOOIDC" Version="3.7.0.145" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="4.7.15" />
     <PackageReference Include="NLog.Config" Version="4.7.15" />
